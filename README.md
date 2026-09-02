@@ -42,3 +42,15 @@ It uses OAuth, not an API key. Authorize it once per machine/session, inside an 
 ```
 
 Select `figma`, choose **Authenticate**, and approve access in the browser tab that opens. This cannot be completed in a non-interactive/CI environment — it needs a human clicking "Allow" in Figma's own login screen.
+
+## Playwright MCP server
+
+The `playwright` MCP server (`.mcp.json`) runs [`@playwright/mcp`](https://github.com/microsoft/playwright-mcp) locally via `npx` — it lets Claude drive a real browser (navigate, click, fill forms, take screenshots, read the accessibility tree) to test the site. No login or API key needed.
+
+First-time use needs a Chromium build Playwright recognizes:
+
+```bash
+npx playwright install chromium
+```
+
+> In this project's Claude Code remote/web environment, Chromium is already pre-installed and `PLAYWRIGHT_BROWSERS_PATH` is preconfigured — do **not** run `playwright install` there. If `@playwright/mcp@latest` ever pulls in a `playwright-core` build expecting a newer browser revision than what's pre-installed (version mismatch), add an explicit path as a workaround: append `"--executable-path", "/opt/pw-browsers/chromium"` to the `args` array in `.mcp.json` for that environment only — don't commit that override, since the path doesn't exist on a normal local machine.
