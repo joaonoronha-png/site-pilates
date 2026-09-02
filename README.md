@@ -30,3 +30,15 @@ export API_KEY_21ST=your-key-here
 ```
 
 The same `API_KEY_21ST` variable is read by `.mcp.json` for the `21st-dev` MCP server.
+
+## Figma MCP server
+
+The `figma` MCP server (`.mcp.json`) points at Figma's official remote endpoint (`https://mcp.figma.com/mcp`), which lets Claude read Figma files, frames, and Dev Mode data directly.
+
+It uses OAuth, not an API key. Authorize it once per machine/session, inside an **interactive** Claude Code session (not headless/remote):
+
+```
+/mcp
+```
+
+Select `figma`, choose **Authenticate**, and approve access in the browser tab that opens. This cannot be completed in a non-interactive/CI environment — it needs a human clicking "Allow" in Figma's own login screen.
