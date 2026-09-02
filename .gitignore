@@ -6,3 +6,7 @@ __pycache__/
 .env
 .env.*
 !.env.example
+
+# Nano Banana prompt library — fetched on demand by scripts/setup.js,
+# not committed (large, refreshed twice daily upstream)
+.claude/skills/nano-banana-pro-prompts-recommend-skill/references/*
