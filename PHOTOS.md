@@ -1,6 +1,6 @@
 # Como trocar as fotos do site
 
-Todas as fotografias do site estão em `assets/img/photos/` e são **placeholders temporários** (arte minimalista com o nome da foto escrita nela) até você enviar as fotos reais.
+Todas as fotografias do site estão em `assets/img/photos/`. Seis delas já são fotos reais (retiradas do Instagram @pilatestatiananobre); o restante ainda são **placeholders temporários** (arte minimalista com o nome da foto escrita nela) até você enviar as fotos reais.
 
 ## Passo a passo
 
@@ -13,18 +13,23 @@ Se preferir, me envie as fotos numeradas (ex.: "essa é a FOTO 01") e eu faço a
 
 ## Tabela de fotos
 
-| Arquivo | Onde aparece | Orientação sugerida |
-|---|---|---|
-| `01-hero.jpg` | Topo do site (Hero) | Vertical (retrato), foco no ambiente ou em movimento |
-| `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana |
-| `03-tatiana-aula.jpg` | Seção "Experiência do studio" | Vertical, Tatiana conduzindo uma aula |
-| `04-studio.jpg` | Seção "Experiência do studio" | Horizontal, vista geral do studio |
-| `05-equipamentos.jpg` | Seção "Experiência do studio" | Quadrada, equipamentos (reformer etc.) |
-| `06-detalhe-ambiente.jpg` | Seção "Experiência do studio" | Vertical, detalhe do ambiente |
-| `07-movimento.jpg` | Início da Galeria | Horizontal, aula em movimento |
-| `08-galeria.jpg` a `13-galeria.jpg` | Galeria + Instagram | Mistura de vertical e horizontal |
-| `14-cta-final.jpg` | Última seção (chamada final) | Horizontal larga, ambiente ou movimento |
-| `og-cover.jpg` | Pré-visualização ao compartilhar o link (WhatsApp, redes sociais) | Horizontal, 1200×630px |
+| Arquivo | Onde aparece | Orientação sugerida | Status |
+|---|---|---|---|
+| `01-hero.jpg` | Topo do site (Hero) | Vertical (retrato), foco no ambiente ou em movimento | Placeholder |
+| `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana | Placeholder |
+| `03-tatiana-aula.jpg` | Seção "Experiência do studio" | Vertical, Tatiana conduzindo uma aula | ✅ Real (Instagram) |
+| `04-studio.jpg` | Seção "Experiência do studio" | Horizontal, vista geral do studio | Placeholder |
+| `05-equipamentos.jpg` | Seção "Experiência do studio" | Quadrada, equipamentos (reformer etc.) | ✅ Real (Instagram) |
+| `06-detalhe-ambiente.jpg` | Seção "Experiência do studio" | Vertical, detalhe do ambiente | ✅ Real (Instagram) |
+| `07-movimento.jpg` | Início da Galeria | Vertical, aula em movimento | ✅ Real (Instagram) |
+| `08-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
+| `09-galeria.jpg` | Galeria | Horizontal | Placeholder |
+| `10-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
+| `11-galeria.jpg`, `12-galeria.jpg`, `13-galeria.jpg` | Galeria | Mistura de vertical e horizontal | Placeholder |
+| `14-cta-final.jpg` | Última seção (chamada final) | Horizontal larga, ambiente ou movimento | Placeholder |
+| `og-cover.jpg` | Pré-visualização ao compartilhar o link (WhatsApp, redes sociais) | Horizontal, 1200×630px | Placeholder |
+
+As 6 fotos reais vieram de posts públicos do Instagram @pilatestatiananobre (o mesmo perfil do studio) — duas outras fotos de posts antigos foram descartadas por trazerem máscara de proteção (época de pandemia), o que dataria o site incorretamente. Se quiser trocar qualquer uma dessas 6 por uma foto mais recente ou diferente, é só seguir o passo a passo acima normalmente.
 
 ## Dicas rápidas
 
