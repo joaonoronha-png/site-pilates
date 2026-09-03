@@ -25,7 +25,8 @@ Se preferir, me envie as fotos numeradas (ex.: "essa é a FOTO 01") e eu faço a
 | `08-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
 | `09-galeria.jpg` | Galeria | Horizontal | Placeholder |
 | `10-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
-| `11-galeria.jpg`, `12-galeria.jpg`, `13-galeria.jpg` | Galeria | Mistura de vertical e horizontal | Placeholder |
+| `11-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
+| `12-galeria.jpg`, `13-galeria.jpg` | Galeria | Mistura de vertical e horizontal | Placeholder |
 | `14-cta-final.jpg` | Última seção (chamada final) | Horizontal larga, ambiente ou movimento | Placeholder |
 | `og-cover.jpg` | Pré-visualização ao compartilhar o link (WhatsApp, redes sociais) | Horizontal, 1200×630px | Placeholder |
 
