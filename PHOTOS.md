@@ -16,7 +16,7 @@ Se preferir, me envie as fotos numeradas (ex.: "essa é a FOTO 01") e eu faço a
 | Arquivo | Onde aparece | Orientação sugerida | Status |
 |---|---|---|---|
 | `01-hero.jpg` | Topo do site (Hero) | Vertical (retrato), foco no ambiente ou em movimento | Placeholder |
-| `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana | Placeholder |
+| `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana | ✅ Real (frame de Reel do Instagram) |
 | `03-tatiana-aula.jpg` | Seção "Experiência do studio" | Vertical, Tatiana conduzindo uma aula | ✅ Real (Instagram) |
 | `04-studio.jpg` | Seção "Experiência do studio" | Horizontal, vista geral do studio | Placeholder |
 | `05-equipamentos.jpg` | Seção "Experiência do studio" | Quadrada, equipamentos (reformer etc.) | ✅ Real (Instagram) |
