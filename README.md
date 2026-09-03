@@ -1,4 +1,46 @@
-# site-pilates
+# Pilates Tatiana Nobre — site
+
+Site institucional do Pilates Tatiana Nobre, studio de Pilates na Barra da Tijuca, Rio de Janeiro. Página única (one-page), estática (HTML + CSS + JS puro, sem framework/build), pensada para carregar rápido e converter visitantes em contato via WhatsApp.
+
+## Rodar localmente
+
+Não precisa de instalação nem build — é um site estático:
+
+```bash
+python3 -m http.server 8080
+# ou: npx serve .
+```
+
+Depois abra `http://localhost:8080/`.
+
+## Estrutura
+
+```
+index.html              página única, todas as seções
+assets/css/styles.css   design tokens + estilos (um arquivo só, sem build)
+assets/js/main.js       links de WhatsApp/Maps, animações de scroll, header
+assets/img/photos/      fotografias do site — ver PHOTOS.md para trocar
+assets/img/icons/       favicon e ícone da PWA
+robots.txt, sitemap.xml, site.webmanifest  arquivos técnicos de SEO/PWA
+```
+
+## Trocar as fotos
+
+Veja **[PHOTOS.md](./PHOTOS.md)** — é só substituir o arquivo pelo mesmo nome, sem mexer em código.
+
+## Antes de publicar
+
+- **Domínio:** o site usa `https://pilatestatiananobre.com.br` como placeholder em `index.html` (canonical, Open Graph), `robots.txt` e `sitemap.xml`. Assim que o domínio real for definido, substitua essas 6 ocorrências pelo domínio de verdade.
+- **Avaliações do Google:** os cards da seção "Avaliações" estão com texto placeholder (veja abaixo) — troque pelo nome e texto reais antes de publicar.
+
+## Editar textos, WhatsApp, endereço
+
+- **Textos e links visíveis:** direto no `index.html` (cada seção está comentada, ex. `<!-- ============ 01 HERO ============ -->`).
+- **Número de WhatsApp e mensagens pré-preenchidas:** no topo de `assets/js/main.js` (`WHATSAPP_NUMBER`, `WA_MESSAGES`).
+- **Endereço usado nos links do Google Maps:** também no topo de `assets/js/main.js` (`ADDRESS_TEXT`, `BUSINESS_QUERY`).
+- **Avaliações do Google:** os 4 cards em `index.html` (seção "Avaliações") estão marcados com `Inserir avaliação real do Google` — substitua pelo texto e nome reais assim que a Tatiana aprovar quais usar (nunca invente avaliações).
+
+## Ferramentas do projeto
 
 ## 21st.dev CLI
 

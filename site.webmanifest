@@ -1,0 +1,12 @@
+{
+  "name": "Pilates Tatiana Nobre",
+  "short_name": "Tatiana Nobre",
+  "description": "Studio de Pilates na Barra da Tijuca, Rio de Janeiro.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FBF7F1",
+  "theme_color": "#F3ECE1",
+  "icons": [
+    { "src": "/assets/img/icons/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}
