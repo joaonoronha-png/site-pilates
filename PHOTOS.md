@@ -18,14 +18,15 @@ Se preferir, me envie as fotos numeradas (ex.: "essa é a FOTO 01") e eu faço a
 | `01-hero.jpg` | Topo do site (Hero) | Vertical (retrato), foco no ambiente ou em movimento | ✅ Real (Instagram) |
 | `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana | ✅ Real (frame de Reel do Instagram) |
 | `03-tatiana-aula.jpg` | Seção "Experiência do studio" + Instagram | Vertical, Tatiana conduzindo uma aula | ✅ Real (Instagram) |
-| `04-studio.jpg` | Seção "Experiência do studio" + Instagram | Horizontal, vista geral do studio | ✅ Real (Instagram) |
 | `05-equipamentos.jpg` | Seção "Experiência do studio" + Instagram | Vertical, aula em movimento | ✅ Real (Instagram) |
-| `07-movimento.jpg` | Galeria + Instagram | Vertical, aula em movimento | ✅ Real (Instagram) |
 | `08-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
 | `11-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
+| `15-video-poster.jpg` | Capa/poster do vídeo na Galeria (aparece antes de dar play) | Vertical 9:16 | ✅ Real (frame de abertura do próprio vídeo) |
 | `og-cover.jpg` | Pré-visualização ao compartilhar o link (WhatsApp, redes sociais) | Horizontal, 1200×630px | ✅ Real (recorte da mesma foto de `02-tatiana.jpg`) |
 
-Todas as fotos vieram de posts públicos do Instagram @pilatestatiananobre (o mesmo perfil do studio) — algumas fotos enviadas foram descartadas: duas por trazerem máscara de proteção (época de pandemia, o que dataria o site incorretamente) e uma por mostrar uma segunda pessoa não identificada. No total restaram 8 fotos distintas, e cada uma é usada **uma única vez** no site (a vitrine "Instagram" no fim da página reaproveita essas mesmas 8 fotos de propósito, para simular um feed de posts recentes — assim como um perfil real do Instagram mostraria as mesmas fotos que já aparecem no site). Antes desta revisão, o site tinha 14 espaços de foto mas só 8 fotos reais disponíveis — o que forçava recortes repetidos da mesma imagem em vários lugares (por exemplo, a mesma pose aparecia no Hero e de novo, bem apertada, na Galeria). Removemos esses espaços redundantes para que nenhuma foto se repita com um recorte diferente — se quiser mais variedade na Galeria ou no Instagram, é só me enviar fotos novas.
+Além das fotos, a Galeria tem um vídeo real: `assets/video/tatiana-aula.mp4`, baixado do Reel do Instagram @pilatestatiananobre que você enviou. É o vídeo completo (com áudio), com play/pause — o visitante clica para assistir. Para trocar por outro vídeo, basta substituir esse arquivo mantendo o mesmo nome (formato `.mp4`, H.264/AAC, o formato mais compatível com navegadores).
+
+Todas as fotos vieram de posts públicos do Instagram @pilatestatiananobre (o mesmo perfil do studio) — algumas fotos enviadas foram descartadas: duas por trazerem máscara de proteção (época de pandemia, o que dataria o site incorretamente) e uma por mostrar uma segunda pessoa não identificada. Restaram 7 fotos + 1 vídeo, cada um usado **uma única vez** no site (a vitrine "Instagram" no fim da página reaproveita as mesmas fotos de propósito, para simular um feed de posts recentes — assim como um perfil real do Instagram mostraria as mesmas fotos que já aparecem no site). As fotos `04-studio.jpg` e `07-movimento.jpg` (as duas do corredor com tapete roxo, que pareciam repetidas) foram removidas e substituídas pelo vídeo completo.
 
 ## Dicas rápidas
 

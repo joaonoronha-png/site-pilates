@@ -9,6 +9,16 @@ let html = readFileSync(join(root, 'index.html'), 'utf8');
 const css = readFileSync(join(root, 'assets', 'css', 'styles.css'), 'utf8');
 const js = readFileSync(join(root, 'assets', 'js', 'main.js'), 'utf8');
 
+// Replace the <video> (too large to inline as base64 without blowing the Artifact size cap) with a static fallback using its poster image.
+// Must run before the image-inlining step below so the fallback's <img> also gets base64-inlined.
+html = html.replace(
+  /<video[\s\S]*?<\/video>/,
+  `<div class="video-fallback">
+        <img src="/assets/img/photos/15-video-poster.jpg" alt="Prévia do vídeo" />
+        <p>O vídeo completo toca no site publicado.<br>Aqui na pré-visualização, o arquivo é grande demais para caber neste bundle.</p>
+      </div>`
+);
+
 // Inline images as base64 data URIs
 html = html.replace(/src="\/assets\/img\/photos\/([^"]+)"/g, (m, file) => {
   const buf = readFileSync(join(root, 'assets', 'img', 'photos', file));
@@ -66,6 +76,9 @@ html = html.replace(
   `
 .map-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; padding: 2rem; background: var(--c-bg-alt); }
 .map-fallback p { max-width: 40ch; text-align:center; color: var(--c-ink-soft); font-size:.95rem; }
+.video-fallback { position: relative; width: 100%; height: 100%; }
+.video-fallback img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: .5; }
+.video-fallback p { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 2rem; margin: 0; color: #fff; font-size: .9rem; background: rgba(20,15,10,.35); }
 </style>`
 );
 
