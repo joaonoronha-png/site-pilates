@@ -55,7 +55,11 @@
   }
 
   /* ---------- Scroll reveal ---------- */
-  const revealEls = document.querySelectorAll('.reveal, .reveal-scale');
+  // Hero content is above the fold on load: reveal it immediately rather than
+  // waiting on the observer, so the first paint is never blank.
+  document.querySelectorAll('.hero .reveal, .hero .reveal-scale').forEach((el) => el.classList.add('is-visible'));
+
+  const revealEls = document.querySelectorAll('.reveal:not(.is-visible), .reveal-scale:not(.is-visible)');
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const groups = new Map();
     revealEls.forEach((el) => {
