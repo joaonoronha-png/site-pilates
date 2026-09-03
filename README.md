@@ -32,6 +32,8 @@ Veja **[PHOTOS.md](./PHOTOS.md)** — é só substituir o arquivo pelo mesmo nom
 
 - **Domínio:** o site usa `https://pilatestatiananobre.com.br` como placeholder em `index.html` (canonical, Open Graph), `robots.txt` e `sitemap.xml`. Assim que o domínio real for definido, substitua essas 6 ocorrências pelo domínio de verdade.
 - **Avaliações do Google:** os cards da seção "Avaliações" estão com texto placeholder (veja abaixo) — troque pelo nome e texto reais antes de publicar.
+- **Cabeçalhos de segurança:** `_headers` traz uma configuração inicial (CSP, X-Frame-Options, HSTS etc.) lida automaticamente por Netlify e Cloudflare Pages. Em outro host, configure o equivalente na plataforma escolhida.
+- **IndexNow (opcional):** protocolo para avisar Bing/Yandex de conteúdo novo mais rápido. Só faz sentido depois de ter domínio e hospedagem definitivos — não implementado ainda.
 
 ## Editar textos, WhatsApp, endereço
 
