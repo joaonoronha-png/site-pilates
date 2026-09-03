@@ -19,7 +19,7 @@ Se preferir, me envie as fotos numeradas (ex.: "essa é a FOTO 01") e eu faço a
 | `02-tatiana.jpg` | Seção "Sobre" | Vertical (retrato), Tatiana | ✅ Real (frame de Reel do Instagram) |
 | `03-tatiana-aula.jpg` | Seção "Experiência do studio" + Instagram | Vertical, Tatiana conduzindo uma aula | ✅ Real (Instagram) |
 | `04-studio.jpg` | Seção "Experiência do studio" + Instagram | Horizontal, vista geral do studio | ✅ Real (Instagram) |
-| `05-equipamentos.jpg` | Seção "Experiência do studio" + Instagram | Quadrada, equipamentos (reformer etc.) | ✅ Real (Instagram) |
+| `05-equipamentos.jpg` | Seção "Experiência do studio" + Instagram | Vertical, aula em movimento | ✅ Real (Instagram) |
 | `07-movimento.jpg` | Galeria + Instagram | Vertical, aula em movimento | ✅ Real (Instagram) |
 | `08-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
 | `11-galeria.jpg` | Galeria + Instagram | Vertical | ✅ Real (Instagram) |
