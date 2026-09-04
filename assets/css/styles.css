@@ -307,42 +307,6 @@ svg[width="0"] { position: absolute; }
 }
 
 /* =========================================================
-   Quicklinks
-   ========================================================= */
-.quicklinks { padding: var(--sp-5) 0; }
-.quicklinks__grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: .9rem;
-}
-@media (min-width: 700px) { .quicklinks__grid { grid-template-columns: repeat(4, 1fr); gap: 1.25rem; } }
-
-.quicklink {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: .7rem;
-  text-align: center;
-  background: var(--c-surface);
-  border: 1px solid var(--c-line);
-  border-radius: var(--r-md);
-  padding: 1.6rem 1rem;
-  transition: transform var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
-}
-.quicklink:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -24px rgba(42,36,29,.35); border-color: var(--c-line-strong); }
-.quicklink:active { transform: scale(.97); transition: transform var(--dur-press) ease-out; }
-.quicklink__icon {
-  width: 46px; height: 46px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  background: var(--c-bg-alt);
-  color: var(--c-accent);
-}
-.quicklink__icon svg { width: 20px; height: 20px; }
-.quicklink__label { font-size: .85rem; font-weight: 600; }
-
-/* =========================================================
    About
    ========================================================= */
 .about { padding: var(--sp-7) 0; }
