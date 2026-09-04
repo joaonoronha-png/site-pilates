@@ -9,7 +9,6 @@
   const WA_MESSAGES = {
     agendar: 'Olá, Tatiana! Vi o site do Pilates Tatiana Nobre e gostaria de saber mais sobre as aulas.',
     comecar: 'Olá, Tatiana! Vi o site do Pilates Tatiana Nobre e gostaria de saber mais sobre as aulas.',
-    wellhub: 'Olá, Tatiana! Vi o site do Pilates Tatiana Nobre e gostaria de saber mais sobre as aulas.',
     horario: 'Olá, Tatiana! Vi o site do Pilates Tatiana Nobre e gostaria de saber mais sobre as aulas.',
   };
 
