@@ -268,13 +268,47 @@ h1, h2 { font-family: var(--font-display); margin: 0; letter-spacing: -0.01em; }
 }
 
 /* ---------- espaço -----------------------------------------------------*/
+.espaco__grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  align-items: center;
+}
+.espaco__stills {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  width: 100%;
+  max-width: 420px;
+}
+.espaco__still { aspect-ratio: 4/3; }
+
 .reel-frame {
   aspect-ratio: 9/16;
   max-width: 420px;
-  margin: 0 auto;
+  width: 100%;
   border-radius: 6px;
   align-items: center;
   justify-content: center;
+}
+
+@media (min-width: 860px) {
+  .espaco__grid {
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    gap: 1.25rem;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .reel-frame { max-width: 320px; flex: 0 0 auto; }
+  .espaco__stills {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    max-width: 420px;
+    align-self: stretch;
+  }
+  .espaco__still { aspect-ratio: auto; height: 100%; }
 }
 .reel-frame__play {
   width: 56px; height: 56px; border-radius: 50%;

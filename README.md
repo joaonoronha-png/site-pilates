@@ -41,9 +41,11 @@ do briefing — **na dúvida, omitir/placeholder em vez de inventar**.
 
 - **Fotos e vídeo reais** — não foi possível baixar/acessar mídia do
   Instagram (feed, Reels, carrosséis) através das ferramentas de
-  pesquisa disponíveis nesta sessão. Todos os blocos de imagem/vídeo no
-  site estão marcados com `data-fill="[FOTO REAL — ...]"` ou
-  `[INSERIR REEL REAL DA HOPE STUDIO]` — basta substituir o `<div
+  pesquisa disponíveis nesta sessão. Os 10 espaços de mídia do site
+  (`data-photo="hero"`, `trabalho-1`…`trabalho-5`, `identidade`,
+  `espaco-video`, `espaco-ambiente-1`, `espaco-ambiente-2`) estão
+  marcados com placeholders — **ver `FOTOS.md` para a especificação
+  exata de formato e conteúdo de cada um**. Basta substituir o `<div
   class="real-media">` correspondente por um `<img>`/`<video>` real.
 - **Telefone / canal de agendamento** — há duas fontes públicas
   divergentes (Google Maps: +55 21 96550-2413; diretório do Downtown:
@@ -67,9 +69,8 @@ do briefing — **na dúvida, omitir/placeholder em vez de inventar**.
 
 - [ ] Confirmar o canal de agendamento atual (telefone/link na bio do
       Instagram) e atualizar `BOOKING_URL` em `js/main.js`.
-- [ ] Substituir os placeholders `.real-media` por fotos/vídeo reais
-      (hero, trabalhos, identidade, espaço).
-- [ ] Inserir o Reel real do espaço físico na seção "Por dentro da Hope".
+- [ ] Substituir os 10 placeholders `.real-media` por fotos/vídeo reais
+      — ver `FOTOS.md` para o que cada um precisa mostrar.
 - [ ] Confirmar horários e, se desejar, adicioná-los à seção de
       localização.
 - [ ] Se preços/serviços forem confirmados, atualizar `.price-list` em
