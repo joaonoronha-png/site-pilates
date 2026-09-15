@@ -197,28 +197,28 @@
     </div>
 
     <div class="space-gallery">
-      <figure class="g-item g-wide g-item--wide reveal" data-reveal>
+      <figure class="g-item reveal" data-reveal>
         <picture>
           <source srcset="assets/images/gallery-lounge.webp" type="image/webp">
           <img src="assets/images/gallery-lounge.jpg" width="1000" height="666" alt="Área de musculação e lounge da Vooga Fitness Barra" loading="lazy">
         </picture>
         <figcaption class="g-caption">Área de treino &amp; lounge</figcaption>
       </figure>
-      <figure class="g-item g-tall g-item--tall reveal" data-reveal>
+      <figure class="g-item reveal" data-reveal>
         <picture>
           <source srcset="assets/images/gallery-towels.webp" type="image/webp">
           <img src="assets/images/gallery-towels.jpg" width="760" height="1014" alt="Nicho de madeira com toalhas Vooga Fitness dobradas, área de conveniência" loading="lazy">
         </picture>
         <figcaption class="g-caption">Área de conveniência</figcaption>
       </figure>
-      <figure class="g-item g-brick g-item--detail reveal" data-reveal>
+      <figure class="g-item reveal" data-reveal>
         <picture>
           <source srcset="assets/images/gallery-brick-detail.webp" type="image/webp">
           <img src="assets/images/gallery-brick-detail.jpg" width="700" height="501" alt="Detalhe da parede de tijolinho da recepção" loading="lazy">
         </picture>
         <figcaption class="g-caption">Textura da recepção</figcaption>
       </figure>
-      <figure class="g-item g-wood g-item--detail reveal" data-reveal>
+      <figure class="g-item reveal" data-reveal>
         <picture>
           <source srcset="assets/images/gallery-wood-detail.webp" type="image/webp">
           <img src="assets/images/gallery-wood-detail.jpg" width="700" height="571" alt="Detalhe do acabamento em madeira do ambiente" loading="lazy">
@@ -299,15 +299,19 @@
            target="_blank" rel="noopener">Como chegar</a>
       </div>
 
-      <div class="location-map reveal" data-reveal>
-        <iframe
-          title="Localização Vooga Fitness Barra"
-          src="https://www.google.com/maps/embed?origin=mfe&pb=!1m2!2m1!1sAv.+General+Guedes+da+Fontoura%2C+800%2C+Barra+da+Tijuca%2C+Rio+de+Janeiro"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
-          allowfullscreen>
-        </iframe>
-      </div>
+      <a class="map-card reveal" data-reveal
+         href="https://www.google.com/maps/dir/?api=1&destination=Av.+General+Guedes+da+Fontoura%2C+800%2C+Loja+G%2C+Barra+da+Tijuca%2C+Rio+de+Janeiro"
+         target="_blank" rel="noopener" aria-label="Abrir rota até a Vooga Fitness Barra no Google Maps">
+        <picture>
+          <source srcset="assets/images/map-base.webp" type="image/webp">
+          <img src="assets/images/map-base.jpg" width="640" height="460" alt="Mapa mostrando a localização da Vooga Fitness Barra na Av. General Guedes da Fontoura" loading="lazy">
+        </picture>
+        <span class="map-pin" aria-hidden="true">
+          <span class="map-pin-pulse"></span>
+          <svg viewBox="0 0 24 32" width="30" height="40"><path d="M12 0C5.4 0 0 5.4 0 12c0 9 12 20 12 20s12-11 12-20c0-6.6-5.4-12-12-12z" fill="#C08A54"/><circle cx="12" cy="12" r="4.5" fill="#131313"/></svg>
+        </span>
+        <span class="map-hint">Abrir no Google Maps</span>
+      </a>
     </div>
   </section>
 
