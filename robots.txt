@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://voogafitnessbarra.com.br/sitemap.xml
