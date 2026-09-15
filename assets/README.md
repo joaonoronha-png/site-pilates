@@ -1,37 +1,43 @@
-# Imagens do site
+# Imagens e vídeos do site
 
-## Já usadas (fotos reais enviadas pela cliente)
+## Fotos reais já usadas (uma vez cada, sem repetição)
 
-| Arquivo | Onde aparece |
+| Arquivo | Onde aparece (único lugar) |
 |---|---|
-| `images/hero-facial-vapor.jpg` | Fundo da seção principal (topo do site) + card "Limpeza de pele premium" + galeria |
+| `images/hero-facial-vapor.jpg` | Fundo da seção principal (topo do site) |
 | `images/about-aline.jpg` | Retrato da Aline na seção "Sobre" |
-| `images/espaco-sala-atendimento.jpg` | Seção "Um ambiente feito para o cuidado" + card "Estética corporal" + galeria |
-| `images/resultado-antes-depois.jpg` | Seção "Resultados reais" + card "Estética facial" |
+| `images/resultado-antes-depois.jpg` | Seção "Resultados reais" |
+| `images/espaco-sala-atendimento.jpg` | Seção "Um ambiente feito para o cuidado" |
 | `images/recepcao-espaco.jpg` | Galeria (item vertical em destaque) |
 | `images/detalhe-roller-jade.jpg` | Card "Massagem relaxante" |
 
-## Ainda faltam (placeholders com textura terracota no lugar)
+Cada foto aparece em um único ponto do site agora — antes algumas se repetiam
+em 2–3 lugares (hero também no card de serviço e na galeria, por exemplo) e
+isso foi corrigido.
 
-| Onde | Sugestão |
+## Vídeos reais já usados
+
+Os dois Reels do Instagram enviados (`C7PYqyyAZlr` e `C2pQE7POaQ-`) estão
+incorporados numa seção própria, **"Em vídeo"**, logo depois de "O espaço" —
+usando o embed oficial do Instagram (o player real, com curtidas e
+comentários), não uma cópia baixada.
+
+## O que ainda falta
+
+| Onde | O que precisa |
 |---|---|
+| Fundo da seção principal (hero) e da seção "O espaço" | Hoje são fotos estáticas. Para virar vídeo de verdade em loop (o efeito de "seção grande com texto sobreposto" que você pediu desde o início), preciso de **arquivos de vídeo .mp4** — pode mandar os mesmos que quiser usar, do jeito que mandou as fotos (arquivo direto, não link). Ideal: 15–30s, horizontal, sem cortes bruscos, algo como o ambiente ou um atendimento em andamento. |
 | Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
-| 3 posições na galeria "No Instagram" | Fotos/prints adicionais do feed @alinelimaestetica (ideal: uma vertical, duas quadradas) |
+| 4 posições na galeria "No Instagram" | Fotos adicionais do feed (ideal: uma vertical, três quadradas) |
 
-Assim que novas fotos chegarem, é só salvar em `assets/images/` e trocar o
-`<div class="img-placeholder" ...>` correspondente por
-`<img src="assets/images/NOME.jpg" alt="...">` no `index.html` — a
-estrutura de CSS já está pronta para os dois casos.
+## Como plugar novo material
 
-## Vídeo (opcional, upgrade futuro)
+Salvar o(s) arquivo(s) em `assets/images/` (fotos) ou `assets/video/`
+(vídeos) e avisar — eu faço a troca no `index.html` mantendo tudo sem
+repetição.
 
-O hero e a seção "O espaço" hoje usam fotos estáticas (funcionam bem e
-carregam rápido). Se a Aline quiser ceder um Reel/vídeo vertical do espaço
-ou de um atendimento, dá para trocar por vídeo em loop nesses dois pontos
-para ainda mais movimento — é só avisar que eu faço a troca.
-
-## Boas práticas ao adicionar novas fotos
+## Boas práticas
 
 - Priorize sempre material real da Aline/do espaço em vez de banco de imagens.
-- Prefira arquivos já otimizados (algumas centenas de KB, não múltiplos MB) para o site continuar rápido.
-- Fotos do Instagram devem ser as próprias publicações da Aline, cedidas por ela em qualidade original — evite baixar diretamente da plataforma sem autorização.
+- Evite usar a mesma foto em mais de um ponto do site.
+- Vídeos do Instagram: prefira incorporar via embed oficial (como fizemos com os Reels) em vez de baixar o arquivo, a menos que a Aline exporte e envie o .mp4 original diretamente.
