@@ -452,6 +452,8 @@ section{ position:relative; }
 .service-line p{ margin:.35rem 0 0; font-size:.87rem; opacity:.75; }
 .service-line a{ display:inline-block; margin-top:.6rem; font-size:.8rem; font-weight:700; color:var(--forest); border-bottom:1px solid currentColor; }
 
+.services-cta{ margin-top: clamp(32px, 5vw, 48px); text-align:center; }
+
 /* =========================================================================
    BEFORE / AFTER SLIDER
    ========================================================================= */
