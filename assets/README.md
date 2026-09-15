@@ -9,13 +9,13 @@
 | `images/espaco-sala-atendimento.jpg` | Seção "Um ambiente feito para o cuidado" + card "Estética corporal" + galeria |
 | `images/resultado-antes-depois.jpg` | Seção "Resultados reais" + card "Estética facial" |
 | `images/recepcao-espaco.jpg` | Galeria (item vertical em destaque) |
+| `images/detalhe-roller-jade.jpg` | Card "Massagem relaxante" |
 
 ## Ainda faltam (placeholders com textura terracota no lugar)
 
 | Onde | Sugestão |
 |---|---|
 | Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
-| Card "Massagem relaxante" | Foto do ambiente ou de uma massagem em andamento |
 | 3 posições na galeria "No Instagram" | Fotos/prints adicionais do feed @alinelimaestetica (ideal: uma vertical, duas quadradas) |
 
 Assim que novas fotos chegarem, é só salvar em `assets/images/` e trocar o
