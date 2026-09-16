@@ -16,6 +16,7 @@
 | `images/limpeza-pele-espatula.jpg` | Card "Limpeza de pele premium" (recortado de print de post do Instagram) |
 | `images/estetica-corporal-resultado.jpg` | Card "Estética corporal" (recortado de print de post do Instagram) |
 | `images/massagem-pedras.jpg` | Galeria (recortado de print de post do Instagram) |
+| `images/led-azul.jpg` | Galeria (recortado de print de post do Instagram) |
 
 Cada foto aparece em um único ponto do site agora — antes algumas se repetiam
 em 2–3 lugares (hero também no card de serviço e na galeria, por exemplo) e
@@ -24,17 +25,22 @@ isso foi corrigido.
 ## Vídeos reais já usados
 
 Os dois Reels do Instagram enviados (`C7PYqyyAZlr` e `C2pQE7POaQ-`) estão
-incorporados numa seção própria, **"Em vídeo"**, logo depois de "O espaço" —
-usando o embed oficial do Instagram (o player real, com curtidas e
-comentários), não uma cópia baixada.
+incorporados dentro da seção "No Instagram" (galeria), usando o embed oficial
+do Instagram (o player real, com curtidas e comentários), não uma cópia
+baixada.
+
+Existe também uma seção própria chamada **"Vídeo"** (entre "Avaliações" e
+"No Instagram"), hoje com um placeholder escuro e ícone de play — reservada
+para o vídeo .mp4 que a Aline vai enviar (ver tabela abaixo).
 
 ## O que ainda falta
 
 | Onde | O que precisa |
 |---|---|
-| Fundo da seção principal (hero) e da seção "O espaço" | Hoje são fotos estáticas. Para virar vídeo de verdade em loop (o efeito de "seção grande com texto sobreposto" que você pediu desde o início), preciso de **arquivos de vídeo .mp4** — pode mandar os mesmos que quiser usar, do jeito que mandou as fotos (arquivo direto, não link). Ideal: 15–30s, horizontal, sem cortes bruscos, algo como o ambiente ou um atendimento em andamento. |
+| Seção "Vídeo" (nova, entre Avaliações e Instagram) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link), como fez com as fotos. Ideal: 15–30s, horizontal, sem cortes bruscos. Vira um vídeo real em loop nessa seção. |
+| Seção "Avaliações" (7 cards) | **7 avaliações reais do Google**, com texto e nome de quem avaliou. Não consegui puxar automaticamente (Google Maps bloqueia raspagem). Mande prints da aba de avaliações do perfil do Google da Aline — leio o texto direto de lá, igual fiz com os posts do Instagram. |
 | Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
-| 2 posições na galeria "No Instagram" | Fotos adicionais do feed — prints de posts como os que você já mandou funcionam bem, eu recorto |
+| 1 posição na galeria "No Instagram" | Foto adicional do feed |
 
 ## Como plugar novo material
 
