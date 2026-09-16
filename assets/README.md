@@ -14,6 +14,8 @@
 | `images/led-terapia-luz.jpg` | Galeria (recortado de print de post do Instagram) |
 | `images/mascara-algas.jpg` | Galeria, item vertical (recortado de print de post do Instagram) |
 | `images/limpeza-pele-espatula.jpg` | Card "Limpeza de pele premium" (recortado de print de post do Instagram) |
+| `images/estetica-corporal-resultado.jpg` | Card "Estética corporal" (recortado de print de post do Instagram) |
+| `images/massagem-pedras.jpg` | Galeria (recortado de print de post do Instagram) |
 
 Cada foto aparece em um único ponto do site agora — antes algumas se repetiam
 em 2–3 lugares (hero também no card de serviço e na galeria, por exemplo) e
@@ -31,8 +33,8 @@ comentários), não uma cópia baixada.
 | Onde | O que precisa |
 |---|---|
 | Fundo da seção principal (hero) e da seção "O espaço" | Hoje são fotos estáticas. Para virar vídeo de verdade em loop (o efeito de "seção grande com texto sobreposto" que você pediu desde o início), preciso de **arquivos de vídeo .mp4** — pode mandar os mesmos que quiser usar, do jeito que mandou as fotos (arquivo direto, não link). Ideal: 15–30s, horizontal, sem cortes bruscos, algo como o ambiente ou um atendimento em andamento. |
-| Card "Drenagem linfática" e "Estética corporal" | Foto de uma sessão de drenagem/corporal, se houver — as fotos que vieram até agora eram todas de procedimentos faciais |
-| 3 posições na galeria "No Instagram" | Fotos adicionais do feed — prints de posts como os que você já mandou funcionam bem, eu recorto |
+| Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
+| 2 posições na galeria "No Instagram" | Fotos adicionais do feed — prints de posts como os que você já mandou funcionam bem, eu recorto |
 
 ## Como plugar novo material
 
