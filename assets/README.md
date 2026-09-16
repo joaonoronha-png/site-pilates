@@ -22,16 +22,12 @@ Cada foto aparece em um único ponto do site agora — antes algumas se repetiam
 em 2–3 lugares (hero também no card de serviço e na galeria, por exemplo) e
 isso foi corrigido.
 
-## Vídeos reais já usados
+## Vídeo
 
-Os dois Reels do Instagram enviados (`C7PYqyyAZlr` e `C2pQE7POaQ-`) estão
-incorporados dentro da seção "No Instagram" (galeria), usando o embed oficial
-do Instagram (o player real, com curtidas e comentários), não uma cópia
-baixada.
-
-Existe também uma seção própria chamada **"Vídeo"** (entre "Avaliações" e
-"No Instagram"), hoje com um placeholder escuro e ícone de play — reservada
-para o vídeo .mp4 que a Aline vai enviar (ver tabela abaixo).
+Os embeds dos Reels do Instagram foram removidos (a Aline vai mandar o
+vídeo direto). Existe uma seção própria chamada **"Vídeo"** (entre
+"Avaliações" e "No Instagram"), hoje com um placeholder escuro e ícone de
+play — reservada para o arquivo .mp4 (ver tabela abaixo).
 
 ## O que ainda falta
 
@@ -52,4 +48,4 @@ repetição.
 
 - Priorize sempre material real da Aline/do espaço em vez de banco de imagens.
 - Evite usar a mesma foto em mais de um ponto do site.
-- Vídeos do Instagram: prefira incorporar via embed oficial (como fizemos com os Reels) em vez de baixar o arquivo, a menos que a Aline exporte e envie o .mp4 original diretamente.
+- Vídeo: sempre o arquivo .mp4 original enviado direto pela Aline.
