@@ -365,17 +365,9 @@ section{ position:relative; }
   background: rgba(244,237,227,.05); border: 1px solid rgba(244,237,227,.12);
   border-radius: 16px; padding: 28px 26px;
 }
-.review-card--pending{ border-style: dashed; }
 .review-card .review-stars{ color: var(--terracota); letter-spacing:.12em; font-size:.9rem; margin-bottom: 14px; }
 .review-text{ font-family: var(--serif); font-style: italic; font-size: 1.1rem; line-height:1.45; color: rgba(244,237,227,.9); }
 .review-author{ margin-top: 16px; font-size: .8rem; color: rgba(244,237,227,.45); text-transform: uppercase; letter-spacing: .06em; }
-
-.review-skeleton{ display:flex; flex-direction:column; gap:9px; margin: 2px 0 20px; }
-.review-skeleton span{ display:block; height:10px; border-radius:4px; background: rgba(244,237,227,.1); }
-.review-skeleton span:nth-child(1){ width:100%; }
-.review-skeleton span:nth-child(2){ width:88%; }
-.review-skeleton span:nth-child(3){ width:56%; }
-.review-author-skeleton{ height:9px; width:42%; border-radius:4px; background: rgba(244,237,227,.08); }
 
 .reviews-cta{ max-width: var(--container); margin: 40px auto 0; padding: 0 var(--gutter); text-align:center; }
 

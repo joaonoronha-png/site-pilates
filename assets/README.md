@@ -37,8 +37,11 @@ play — reservada para o arquivo .mp4 (ver tabela abaixo).
 |---|---|
 | Seção "Vídeo" (entre Resultados e Localização) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link). Se o upload der erro, tente comprimir o vídeo no celular antes de enviar. |
 | Cards "Limpeza de pele premium", "Estética facial", "Estética corporal", "Massagem relaxante" e "Drenagem linfática" (seção Cuidados) | Fotos novas para os 5 cards — todos em placeholder vazio agora |
-| Seção "Avaliações" (7 cards) | **7 avaliações reais do Google**, com texto e nome de quem avaliou. Não consegui puxar automaticamente (Google Maps bloqueia raspagem). Mande prints da aba de avaliações do perfil do Google da Aline — leio o texto direto de lá, igual fiz com os posts do Instagram. |
 | 1 posição na galeria "No Instagram" | Foto adicional do feed |
+
+A seção "Avaliações" já está com as 6 avaliações reais que a Aline
+passou (nome + texto), em rotação contínua. Se quiser trocar, adicionar
+ou remover alguma, é só avisar.
 
 ## Como plugar novo material
 
