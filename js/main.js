@@ -124,13 +124,34 @@
     let dragging = false;
     let startX = 0;
     let startOffset = 0;
-    let half = track.scrollWidth / 2;
-    if (!half) return;
+    let shift = 0; // exact px distance to the duplicated set (always positive)
+
+    // The exact loop distance is where the duplicated (aria-hidden) items begin —
+    // measuring it directly avoids rounding mismatches that a 50% guess can have
+    // with flex gaps, which caused a visible snap once per cycle.
+    const measure = () => {
+      const firstDup = track.querySelector('[aria-hidden="true"]');
+      shift = firstDup ? firstDup.offsetLeft : track.scrollWidth / 2;
+      track.style.setProperty('--shift', `-${shift}px`);
+    };
+    measure();
+    if (!shift) return;
+    // force the animation to (re)start after --shift is set, so the keyframe's
+    // end value is resolved correctly from the first cycle
+    track.style.animation = 'none';
+    void track.offsetHeight;
+    track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 200);
+    });
 
     const currentX = () => new DOMMatrixReadOnly(getComputedStyle(track).transform).m41;
     const wrap = (x) => {
-      let v = x % half;
-      if (v > 0) v -= half;
+      let v = x % shift;
+      if (v > 0) v -= shift;
       return v;
     };
 
@@ -151,13 +172,18 @@
       if (!dragging) return;
       dragging = false;
       container.style.cursor = '';
-      const elapsed = (-currentX() / half) * durationSec;
+      const elapsed = (-currentX() / shift) * durationSec;
       track.style.transform = '';
       track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
       track.style.animationDelay = `-${elapsed}s`;
     };
     container.addEventListener('pointerup', endDrag);
     container.addEventListener('pointercancel', endDrag);
+
+    // pause on real mouse hover only — on touch devices a tap can leave a
+    // synthetic :hover stuck "on", which is what made it look frozen after tapping
+    container.addEventListener('mouseenter', () => { if (!dragging) track.style.animationPlayState = 'paused'; });
+    container.addEventListener('mouseleave', () => { if (!dragging) track.style.animationPlayState = 'running'; });
   };
 
   document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 5));
