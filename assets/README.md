@@ -13,6 +13,7 @@
 | `images/mascara-algas.jpg` | Galeria, item vertical (recortado de print de post do Instagram) |
 | `images/massagem-pedras.jpg` | Galeria (recortado de print de post do Instagram) |
 | `images/led-azul.jpg` | Galeria (recortado de print de post do Instagram) |
+| `images/estetica-facial-atendimento.jpg` | Galeria (última posição, preenchida) |
 
 `images/estetica-facial-mascara.jpg`, `images/limpeza-pele-espatula.jpg`,
 `images/estetica-corporal-resultado.jpg` e `images/detalhe-roller-jade.jpg`
@@ -37,7 +38,6 @@ play — reservada para o arquivo .mp4 (ver tabela abaixo).
 |---|---|
 | Seção "Vídeo" (entre Resultados e Localização) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link). Se o upload der erro, tente comprimir o vídeo no celular antes de enviar. |
 | Cards "Limpeza de pele premium", "Estética facial", "Estética corporal", "Massagem relaxante" e "Drenagem linfática" (seção Cuidados) | Fotos novas para os 5 cards — todos em placeholder vazio agora |
-| 1 posição na galeria "No Instagram" | Foto adicional do feed |
 
 A seção "Avaliações" já está com as 6 avaliações reais que a Aline
 passou (nome + texto), em rotação contínua. Se quiser trocar, adicionar
