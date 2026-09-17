@@ -9,14 +9,16 @@
 | `images/resultado-antes-depois.jpg` | Seção "Resultados reais" |
 | `images/espaco-sala-atendimento.jpg` | Seção "Um ambiente feito para o cuidado" |
 | `images/recepcao-espaco.jpg` | Galeria (item vertical em destaque) |
-| `images/detalhe-roller-jade.jpg` | Card "Massagem relaxante" |
-| `images/estetica-facial-mascara.jpg` | Card "Estética facial" (recortado de print de post do Instagram) |
 | `images/led-terapia-luz.jpg` | Galeria (recortado de print de post do Instagram) |
 | `images/mascara-algas.jpg` | Galeria, item vertical (recortado de print de post do Instagram) |
-| `images/limpeza-pele-espatula.jpg` | Card "Limpeza de pele premium" (recortado de print de post do Instagram) |
-| `images/estetica-corporal-resultado.jpg` | Card "Estética corporal" (recortado de print de post do Instagram) |
 | `images/massagem-pedras.jpg` | Galeria (recortado de print de post do Instagram) |
 | `images/led-azul.jpg` | Galeria (recortado de print de post do Instagram) |
+
+`images/estetica-facial-mascara.jpg`, `images/limpeza-pele-espatula.jpg`,
+`images/estetica-corporal-resultado.jpg` e `images/detalhe-roller-jade.jpg`
+não estão mais em uso — a pedido, os 4 cards de procedimento na seção
+"Cuidados" voltaram a ser placeholder vazio, aguardando fotos novas para
+substituir.
 
 Cada foto aparece em um único ponto do site agora — antes algumas se repetiam
 em 2–3 lugares (hero também no card de serviço e na galeria, por exemplo) e
@@ -33,9 +35,9 @@ play — reservada para o arquivo .mp4 (ver tabela abaixo).
 
 | Onde | O que precisa |
 |---|---|
-| Seção "Vídeo" (nova, entre Avaliações e Instagram) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link), como fez com as fotos. Ideal: 15–30s, horizontal, sem cortes bruscos. Vira um vídeo real em loop nessa seção. |
+| Seção "Vídeo" (entre Resultados e Localização) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link). Se o upload der erro, tente comprimir o vídeo no celular antes de enviar. |
+| Cards "Limpeza de pele premium", "Estética facial", "Estética corporal", "Massagem relaxante" e "Drenagem linfática" (seção Cuidados) | Fotos novas para os 5 cards — todos em placeholder vazio agora |
 | Seção "Avaliações" (7 cards) | **7 avaliações reais do Google**, com texto e nome de quem avaliou. Não consegui puxar automaticamente (Google Maps bloqueia raspagem). Mande prints da aba de avaliações do perfil do Google da Aline — leio o texto direto de lá, igual fiz com os posts do Instagram. |
-| Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
 | 1 posição na galeria "No Instagram" | Foto adicional do feed |
 
 ## Como plugar novo material

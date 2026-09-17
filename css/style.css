@@ -247,9 +247,7 @@ section{ position:relative; }
   transition: transform .5s var(--ease), box-shadow .5s var(--ease);
 }
 .service-card:hover{ transform: translateY(-8px); box-shadow: 0 24px 50px -20px rgba(33,29,26,.25); }
-.service-media{ position:relative; aspect-ratio: 4/3; overflow:hidden; }
-.service-media--wide{ aspect-ratio: 8/5; }
-.service-card:has(.service-media--wide){ align-self: start; }
+.service-media{ position:relative; aspect-ratio: 4/2.6; overflow:hidden; }
 .service-media .img-placeholder, .service-media img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition: transform .7s var(--ease); }
 .service-card:hover .service-media .img-placeholder, .service-card:hover .service-media img{ transform: scale(1.08); }
 .service-body{ padding: 26px 28px 30px; }
