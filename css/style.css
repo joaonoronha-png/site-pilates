@@ -338,24 +338,32 @@ section{ position:relative; }
 @media (max-width: 620px){ .reviews-grid{ grid-template-columns: 1fr; } }
 
 /* ---------- video slot ---------- */
-.video-slot{
-  position:relative; min-height: 70vh; display:flex; align-items:center; justify-content:center;
-  overflow:hidden; margin-bottom: 140px;
+.video-slot{ background: var(--carvao); color: var(--areia-alta); padding: 110px 0 130px; }
+.video-slot-inner{
+  max-width: var(--container); margin: 0 auto; padding: 0 var(--gutter);
+  display:grid; grid-template-columns: .62fr 1.38fr; gap: 60px; align-items:center;
 }
-.video-slot-media{ position:absolute; inset:0; }
-.video-slot-media .img-placeholder{ position:absolute; }
+.video-slot-frame{
+  position:relative; width:100%; aspect-ratio: 9/16; max-width: 320px; margin: 0 auto;
+  border-radius: 20px; overflow:hidden; background: var(--carvao-suave);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.5);
+}
+.video-slot-el{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 .video-slot-play{
-  width: 84px; height:84px; border-radius:50%; background: rgba(244,237,227,.15);
-  border: 1.5px solid rgba(244,237,227,.4); backdrop-filter: blur(4px);
-  display:flex; align-items:center; justify-content:center; color: var(--areia-alta);
-  margin: 0 auto 28px;
+  position:absolute; bottom:16px; right:16px; width: 52px; height:52px; border-radius:50%;
+  background: rgba(33,29,26,.55); border: 1.5px solid rgba(244,237,227,.4); backdrop-filter: blur(4px);
+  display:flex; align-items:center; justify-content:center; color: var(--areia-alta); cursor:pointer;
+  transition: background .3s var(--ease), transform .3s var(--ease);
 }
-.video-slot-text{
-  position:relative; z-index:1; color: var(--areia-alta); text-align:center;
-  max-width: 46ch; padding: 0 var(--gutter);
-}
+.video-slot-play:hover{ transform: scale(1.06); }
+.video-slot-play.is-on{ background: var(--terracota); border-color: var(--terracota); }
 .video-slot-text h2{ font-size: clamp(1.6rem,3.5vw,2.4rem); margin-bottom: 14px; }
-.video-slot-text p{ color: rgba(244,237,227,.75); }
+.video-slot-text p{ color: rgba(244,237,227,.75); max-width: 46ch; }
+
+@media (max-width: 860px){
+  .video-slot-inner{ grid-template-columns: 1fr; gap: 40px; text-align:center; }
+  .video-slot-text p{ margin: 0 auto; }
+}
 
 /* ---------- location ---------- */
 .location{ padding: 140px 0; }

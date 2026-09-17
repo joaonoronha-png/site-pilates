@@ -271,18 +271,20 @@
   </div>
 </section>
 
-<!-- ============ VIDEO (área reservada) ============ -->
+<!-- ============ VIDEO ============ -->
 <section class="video-slot">
-  <div class="video-slot-media">
-    <div class="img-placeholder img-placeholder--dark"></div>
-  </div>
-  <div class="video-slot-text reveal" data-reveal>
-    <div class="video-slot-play" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <div class="video-slot-inner">
+    <div class="video-slot-frame reveal" data-reveal>
+      <video class="video-slot-el" src="assets/video/espaco-atendimento.mp4" autoplay muted loop playsinline></video>
+      <button class="video-slot-play" type="button" aria-label="Ativar som do vídeo" data-video-sound>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M16.5 8.5a5 5 0 0 1 0 7"/></svg>
+      </button>
     </div>
-    <p class="eyebrow eyebrow--light">Em vídeo</p>
-    <h2>O vídeo do atendimento chega aqui</h2>
-    <p>Espaço reservado para o vídeo que a Aline vai enviar — assim que chegar, entra em loop nesta seção.</p>
+    <div class="video-slot-text reveal" data-reveal>
+      <p class="eyebrow eyebrow--light">Em vídeo</p>
+      <h2>Conheça o espaço em movimento</h2>
+      <p>Um pouco do atendimento e da estrutura da Aline Lima Estética Personalizada, direto da sala 214.</p>
+    </div>
   </div>
 </section>
 
