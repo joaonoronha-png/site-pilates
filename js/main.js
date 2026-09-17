@@ -155,6 +155,6 @@
     requestAnimationFrame(step);
   };
 
-  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 1.3));
+  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 2.1));
   document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 0.8));
 })();
