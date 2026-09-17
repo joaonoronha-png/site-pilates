@@ -117,18 +117,26 @@
   });
 
   // auto-scrolling marquees (gallery, reviews) — pause and let the user drag/swipe on touch
-  const initMarquee = (container, pxPerFrame) => {
+  const initMarquee = (container, pxPerSecond) => {
     const track = container.querySelector(':scope > *');
     if (!track) return;
     let paused = false;
     let resumeTimer = null;
+    let lastTime = null;
+    let half = track.scrollWidth / 2;
 
-    const halfWidth = () => track.scrollWidth / 2;
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => { half = track.scrollWidth / 2; }, 200);
+    });
 
-    const step = () => {
-      if (!paused) {
-        container.scrollLeft += pxPerFrame;
-        const half = halfWidth();
+    const step = (now) => {
+      if (lastTime === null) lastTime = now;
+      const dt = Math.min(now - lastTime, 100);
+      lastTime = now;
+      if (!paused && half > 0) {
+        container.scrollLeft += (pxPerSecond * dt) / 1000;
         if (container.scrollLeft >= half) container.scrollLeft -= half;
       }
       requestAnimationFrame(step);
@@ -140,7 +148,7 @@
     };
     const scheduleResume = () => {
       if (resumeTimer) clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => { paused = false; }, 1200);
+      resumeTimer = setTimeout(() => { paused = false; lastTime = null; }, 1200);
     };
 
     container.addEventListener('pointerdown', pause);
@@ -155,6 +163,6 @@
     requestAnimationFrame(step);
   };
 
-  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 2.1));
-  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 0.8));
+  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 110));
+  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 42));
 })();
