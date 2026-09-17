@@ -115,4 +115,46 @@
       if (e.key === 'ArrowRight') { slider.style.setProperty('--pos', Math.min(100, current + 5) + '%'); e.preventDefault(); }
     });
   });
+
+  // auto-scrolling marquees (gallery, reviews) — pause and let the user drag/swipe on touch
+  const initMarquee = (container, pxPerFrame) => {
+    const track = container.querySelector(':scope > *');
+    if (!track) return;
+    let paused = false;
+    let resumeTimer = null;
+
+    const halfWidth = () => track.scrollWidth / 2;
+
+    const step = () => {
+      if (!paused) {
+        container.scrollLeft += pxPerFrame;
+        const half = halfWidth();
+        if (container.scrollLeft >= half) container.scrollLeft -= half;
+      }
+      requestAnimationFrame(step);
+    };
+
+    const pause = () => {
+      paused = true;
+      if (resumeTimer) clearTimeout(resumeTimer);
+    };
+    const scheduleResume = () => {
+      if (resumeTimer) clearTimeout(resumeTimer);
+      resumeTimer = setTimeout(() => { paused = false; }, 1200);
+    };
+
+    container.addEventListener('pointerdown', pause);
+    container.addEventListener('pointerup', scheduleResume);
+    container.addEventListener('pointercancel', scheduleResume);
+    container.addEventListener('mouseenter', pause);
+    container.addEventListener('mouseleave', scheduleResume);
+    container.addEventListener('scroll', () => {
+      if (paused) scheduleResume();
+    }, { passive: true });
+
+    requestAnimationFrame(step);
+  };
+
+  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 1.3));
+  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 0.8));
 })();

@@ -311,21 +311,19 @@ section{ position:relative; }
 
 /* ---------- gallery ---------- */
 .gallery{ padding-bottom: 140px; }
-.gallery-marquee{ position:relative; overflow:hidden; margin-bottom: 48px; }
+.gallery-marquee{
+  position:relative; overflow-x:auto; overflow-y:hidden; margin-bottom: 48px;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.gallery-marquee::-webkit-scrollbar{ display:none; }
 .gallery-marquee::before, .gallery-marquee::after{
   content:''; position:absolute; top:0; bottom:0; width: min(120px, 8vw); z-index:1; pointer-events:none;
 }
 .gallery-marquee::before{ left:0; background: linear-gradient(90deg, var(--areia), transparent); }
 .gallery-marquee::after{ right:0; background: linear-gradient(270deg, var(--areia), transparent); }
-.gallery-track{
-  display:flex; gap: 18px; width: max-content;
-  animation: gallery-scroll 20s linear infinite;
-}
-.gallery-marquee:hover .gallery-track{ animation-play-state: paused; }
+.gallery-track{ display:flex; gap: 18px; width: max-content; }
 .gallery-item{ flex: 0 0 260px; aspect-ratio: 4/5; border-radius: 14px; overflow:hidden; position:relative; }
 .gallery-item .img-placeholder, .gallery-item img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-
-@keyframes gallery-scroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
 
 .gallery-cta{ text-align:center; }
 
@@ -345,20 +343,18 @@ section{ position:relative; }
 .reviews-stars{ color: var(--terracota); letter-spacing: .15em; font-size:1.1rem; }
 .reviews-score-row p{ color: rgba(244,237,227,.7); }
 
-.reviews-marquee{ position:relative; overflow:hidden; }
+.reviews-marquee{
+  position:relative; overflow-x:auto; overflow-y:hidden;
+  scrollbar-width:none; -webkit-overflow-scrolling:touch;
+}
+.reviews-marquee::-webkit-scrollbar{ display:none; }
 .reviews-marquee::before, .reviews-marquee::after{
   content:''; position:absolute; top:0; bottom:0; width: min(120px, 8vw); z-index:1; pointer-events:none;
 }
 .reviews-marquee::before{ left:0; background: linear-gradient(90deg, var(--carvao), transparent); }
 .reviews-marquee::after{ right:0; background: linear-gradient(270deg, var(--carvao), transparent); }
 
-.reviews-track{
-  display:flex; gap: 20px; width: max-content; padding: 0 var(--gutter);
-  animation: reviews-scroll 46s linear infinite;
-}
-.reviews-marquee:hover .reviews-track{ animation-play-state: paused; }
-
-@keyframes reviews-scroll{ from{ transform: translateX(0); } to{ transform: translateX(-50%); } }
+.reviews-track{ display:flex; gap: 20px; width: max-content; padding: 0 var(--gutter); }
 
 .review-card{
   flex: 0 0 340px;
