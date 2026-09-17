@@ -116,53 +116,50 @@
     });
   });
 
-  // auto-scrolling marquees (gallery, reviews) — pause and let the user drag/swipe on touch
-  const initMarquee = (container, pxPerSecond) => {
+  // auto-scrolling marquees (gallery, reviews) — smooth CSS animation by default,
+  // hands control over to the finger/mouse while actively dragging, no per-frame JS work
+  const initMarquee = (container, durationSec) => {
     const track = container.querySelector(':scope > *');
     if (!track) return;
-    let paused = false;
-    let resumeTimer = null;
-    let lastTime = null;
+    let dragging = false;
+    let startX = 0;
+    let startOffset = 0;
     let half = track.scrollWidth / 2;
+    if (!half) return;
 
-    let resizeTimer = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => { half = track.scrollWidth / 2; }, 200);
+    const currentX = () => new DOMMatrixReadOnly(getComputedStyle(track).transform).m41;
+    const wrap = (x) => {
+      let v = x % half;
+      if (v > 0) v -= half;
+      return v;
+    };
+
+    container.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      startOffset = currentX();
+      track.style.animation = 'none';
+      track.style.transform = `translateX(${startOffset}px)`;
+      container.setPointerCapture?.(e.pointerId);
+      container.style.cursor = 'grabbing';
     });
-
-    const step = (now) => {
-      if (lastTime === null) lastTime = now;
-      const dt = Math.min(now - lastTime, 100);
-      lastTime = now;
-      if (!paused && half > 0) {
-        container.scrollLeft += (pxPerSecond * dt) / 1000;
-        if (container.scrollLeft >= half) container.scrollLeft -= half;
-      }
-      requestAnimationFrame(step);
+    container.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      track.style.transform = `translateX(${wrap(startOffset + (e.clientX - startX))}px)`;
+    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      container.style.cursor = '';
+      const elapsed = (-currentX() / half) * durationSec;
+      track.style.transform = '';
+      track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
+      track.style.animationDelay = `-${elapsed}s`;
     };
-
-    const pause = () => {
-      paused = true;
-      if (resumeTimer) clearTimeout(resumeTimer);
-    };
-    const scheduleResume = () => {
-      if (resumeTimer) clearTimeout(resumeTimer);
-      resumeTimer = setTimeout(() => { paused = false; lastTime = null; }, 1200);
-    };
-
-    container.addEventListener('pointerdown', pause);
-    container.addEventListener('pointerup', scheduleResume);
-    container.addEventListener('pointercancel', scheduleResume);
-    container.addEventListener('mouseenter', pause);
-    container.addEventListener('mouseleave', scheduleResume);
-    container.addEventListener('scroll', () => {
-      if (paused) scheduleResume();
-    }, { passive: true });
-
-    requestAnimationFrame(step);
+    container.addEventListener('pointerup', endDrag);
+    container.addEventListener('pointercancel', endDrag);
   };
 
-  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 110));
-  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 42));
+  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 13));
+  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 46));
 })();
