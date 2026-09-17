@@ -6,7 +6,8 @@
 |---|---|
 | `images/hero-facial-vapor.jpg` | Fundo da seção principal (topo do site) |
 | `images/about-aline.jpg` | Retrato da Aline na seção "Sobre" |
-| `images/resultado-antes.jpg`, `images/resultado-depois.jpg` | Seção "Resultados reais" (slider de arraste antes/depois) — recortados de `resultado-antes-depois.jpg`, que não está mais em uso |
+| `images/resultado-antes.jpg`, `images/resultado-depois.jpg` | Seção "Resultados reais", 1º slider — recortados de `resultado-antes-depois.jpg`, que não está mais em uso |
+| `images/resultado-cravos-antes.jpg`, `images/resultado-cravos-depois.jpg` | Seção "Resultados reais", 2º slider (extração de cravos) |
 | `images/espaco-sala-atendimento.jpg` | Seção "Um ambiente feito para o cuidado" |
 | `images/recepcao-espaco.jpg` | Galeria (item vertical em destaque) |
 | `images/led-terapia-luz.jpg` | Galeria (recortado de print de post do Instagram) |
