@@ -312,10 +312,18 @@
   <div class="results-content reveal" data-reveal>
     <p class="eyebrow">Resultados reais</p>
     <h2 class="section-title">Pele visivelmente renovada</h2>
-    <p class="section-lead">Cada protocolo é ajustado para o que a sua pele pede — o cuidado com o detalhe aparece já no resultado.</p>
+    <p class="section-lead">Cada protocolo é ajustado para o que a sua pele pede — o cuidado com o detalhe aparece já no resultado. Arraste para comparar.</p>
   </div>
-  <div class="results-media reveal" data-reveal>
-    <img src="assets/images/resultado-antes-depois.jpg" alt="Resultado antes e depois de procedimento facial">
+  <div class="ba-slider reveal" data-reveal data-ba-slider>
+    <img class="ba-img ba-img-after" src="assets/images/resultado-depois.jpg" alt="Depois do procedimento facial">
+    <img class="ba-img ba-img-before" src="assets/images/resultado-antes.jpg" alt="Antes do procedimento facial">
+    <span class="ba-tag ba-tag-before">Antes</span>
+    <span class="ba-tag ba-tag-after">Depois</span>
+    <button class="ba-handle" type="button" aria-label="Arraste para comparar antes e depois" data-ba-handle>
+      <span class="ba-handle-circle" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg>
+      </span>
+    </button>
   </div>
 </section>
 
@@ -357,13 +365,21 @@
     </p>
   </div>
 
-  <div class="gallery-grid">
-    <div class="gallery-item gallery-item--tall reveal" data-reveal><img src="assets/images/recepcao-espaco.jpg" alt="Recepção do espaço Aline Lima Estética Personalizada"></div>
-    <div class="gallery-item reveal" data-reveal><img src="assets/images/led-terapia-luz.jpg" alt="Terapia de luz de LED verde em atendimento facial"></div>
-    <div class="gallery-item reveal" data-reveal><img src="assets/images/massagem-pedras.jpg" alt="Massagem relaxante com pedras quentes"></div>
-    <div class="gallery-item reveal" data-reveal><img src="assets/images/led-azul.jpg" alt="Terapia de luz de LED azul em atendimento facial"></div>
-    <div class="gallery-item gallery-item--tall reveal" data-reveal><img src="assets/images/mascara-algas.jpg" alt="Aplicação de máscara facial de algas"></div>
-    <div class="gallery-item reveal" data-reveal><div class="img-placeholder" data-placeholder-note="Post Instagram"></div></div>
+  <div class="gallery-marquee reveal" data-reveal>
+    <div class="gallery-track">
+      <div class="gallery-item"><img src="assets/images/recepcao-espaco.jpg" alt="Recepção do espaço Aline Lima Estética Personalizada"></div>
+      <div class="gallery-item"><img src="assets/images/led-terapia-luz.jpg" alt="Terapia de luz de LED verde em atendimento facial"></div>
+      <div class="gallery-item"><img src="assets/images/massagem-pedras.jpg" alt="Massagem relaxante com pedras quentes"></div>
+      <div class="gallery-item"><img src="assets/images/led-azul.jpg" alt="Terapia de luz de LED azul em atendimento facial"></div>
+      <div class="gallery-item"><img src="assets/images/mascara-algas.jpg" alt="Aplicação de máscara facial de algas"></div>
+      <div class="gallery-item"><div class="img-placeholder" data-placeholder-note="Post Instagram"></div></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/recepcao-espaco.jpg" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/led-terapia-luz.jpg" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/massagem-pedras.jpg" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/led-azul.jpg" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/mascara-algas.jpg" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><div class="img-placeholder"></div></div>
+    </div>
   </div>
 
   <div class="gallery-cta reveal" data-reveal>

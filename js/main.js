@@ -88,4 +88,31 @@
   } else {
     statEls.forEach(animateCount);
   }
+
+  // before/after drag-to-compare slider
+  document.querySelectorAll('[data-ba-slider]').forEach((slider) => {
+    const handle = slider.querySelector('[data-ba-handle]');
+    let dragging = false;
+
+    const setPos = (clientX) => {
+      const rect = slider.getBoundingClientRect();
+      const pct = Math.max(0, Math.min(100, ((clientX - rect.left) / rect.width) * 100));
+      slider.style.setProperty('--pos', pct + '%');
+    };
+
+    slider.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      slider.setPointerCapture?.(e.pointerId);
+      setPos(e.clientX);
+    });
+    slider.addEventListener('pointermove', (e) => { if (dragging) setPos(e.clientX); });
+    slider.addEventListener('pointerup', () => { dragging = false; });
+    slider.addEventListener('pointercancel', () => { dragging = false; });
+
+    handle?.addEventListener('keydown', (e) => {
+      const current = parseFloat(slider.style.getPropertyValue('--pos')) || 50;
+      if (e.key === 'ArrowLeft') { slider.style.setProperty('--pos', Math.max(0, current - 5) + '%'); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { slider.style.setProperty('--pos', Math.min(100, current + 5) + '%'); e.preventDefault(); }
+    });
+  });
 })();
