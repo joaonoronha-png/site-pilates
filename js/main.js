@@ -160,6 +160,6 @@
     container.addEventListener('pointercancel', endDrag);
   };
 
-  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 13));
+  document.querySelectorAll('.gallery-marquee').forEach(el => initMarquee(el, 8));
   document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 46));
 })();

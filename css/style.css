@@ -320,7 +320,7 @@ section{ position:relative; }
 .gallery-marquee::after{ right:0; background: linear-gradient(270deg, var(--areia), transparent); }
 .gallery-track{
   display:flex; gap: 18px; width: max-content; touch-action: pan-y;
-  animation: marquee-scroll 13s linear infinite;
+  animation: marquee-scroll 8s linear infinite;
 }
 .gallery-marquee:hover .gallery-track{ animation-play-state: paused; }
 .gallery-item{ flex: 0 0 260px; aspect-ratio: 4/5; border-radius: 14px; overflow:hidden; position:relative; }
