@@ -29,16 +29,6 @@
     });
   });
 
-  // video slot sound toggle
-  const videoSlotEl = document.querySelector('.video-slot-el');
-  const videoSoundBtn = document.querySelector('[data-video-sound]');
-  videoSoundBtn?.addEventListener('click', () => {
-    if (!videoSlotEl) return;
-    videoSlotEl.muted = !videoSlotEl.muted;
-    videoSoundBtn.classList.toggle('is-on', !videoSlotEl.muted);
-    videoSoundBtn.setAttribute('aria-label', videoSlotEl.muted ? 'Ativar som do vídeo' : 'Silenciar vídeo');
-  });
-
   // scroll reveal
   const revealEls = document.querySelectorAll('[data-reveal]');
   if ('IntersectionObserver' in window) {

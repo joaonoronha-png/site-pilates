@@ -24,15 +24,16 @@ isso foi corrigido.
 
 ## Vídeo
 
-A seção **"Vídeo"** (entre "O Espaço" e "Localização") agora usa o
-arquivo real `video/espaco-atendimento.mp4` enviado pela Aline: toca em
-loop, sem som por padrão (autoplay do navegador exige isso), com um
-botão para ativar o áudio.
+Os embeds dos Reels do Instagram foram removidos (a Aline vai mandar o
+vídeo direto). Existe uma seção própria chamada **"Vídeo"** (entre
+"Avaliações" e "No Instagram"), hoje com um placeholder escuro e ícone de
+play — reservada para o arquivo .mp4 (ver tabela abaixo).
 
 ## O que ainda falta
 
 | Onde | O que precisa |
 |---|---|
+| Seção "Vídeo" (nova, entre Avaliações e Instagram) | **Arquivo de vídeo .mp4** — mande o arquivo direto (não link), como fez com as fotos. Ideal: 15–30s, horizontal, sem cortes bruscos. Vira um vídeo real em loop nessa seção. |
 | Seção "Avaliações" (7 cards) | **7 avaliações reais do Google**, com texto e nome de quem avaliou. Não consegui puxar automaticamente (Google Maps bloqueia raspagem). Mande prints da aba de avaliações do perfil do Google da Aline — leio o texto direto de lá, igual fiz com os posts do Instagram. |
 | Card "Drenagem linfática" | Foto de uma sessão de drenagem, se houver |
 | 1 posição na galeria "No Instagram" | Foto adicional do feed |
