@@ -18,6 +18,14 @@ Para visualizar localmente: `npx http-server .` e abra http://localhost:8080
 
 ---
 
+## Fotos atuais
+
+As fotos em `assets/img/fotos/` vieram do site antigo da Rebecca (Alboom), com casamentos que ela acompanhou.
+São versões em baixa resolução, com no máximo 1280px, e algumas têm marca-d'água do fotógrafo (ex.: *MM*, *Caio Gomes Fotografia*).
+**Antes de publicar:** peça os arquivos originais em alta resolução, confirme a autorização dos fotógrafos e dos casais e, se for o caso, credite os fotógrafos.
+
+Ainda sem foto (placeholder): Destination weddings, Mini & micro weddings, 15 anos, Bodas e Eventos corporativos. Não havia imagens dessas categorias.
+
 ## Como trocar as fotos
 
 Todos os espaços de imagem são placeholders identificados, por exemplo `[FOTO HERO]`, `[FOTO REBECCA]` ou `[FOTO PORTFÓLIO 03]`.
