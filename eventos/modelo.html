@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <!--
+    MODELO DE PÁGINA DE EVENTO
+    1. Duplique este arquivo (ex.: eventos/ana-e-pedro.html)
+    2. Troque título, textos e imagens
+    3. Remova a linha <meta name="robots" content="noindex">
+    4. No index.html, preencha data-href="eventos/ana-e-pedro.html" no item do portfólio
+    5. Adicione a URL ao sitemap.xml
+  -->
+  <meta name="robots" content="noindex">
+  <title>Nome do casal | Rebecca Gemaque Assessoria e Cerimonial</title>
+  <meta name="description" content="A história do casamento de Nome & Nome, com assessoria e cerimonial de Rebecca Gemaque.">
+  <meta property="og:title" content="Nome & Nome | Rebecca Gemaque">
+  <meta property="og:image" content="https://www.rebeccagemaque.com.br/assets/img/og-image.jpg">
+  <meta name="theme-color" content="#F7F3ED">
+  <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Manrope:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <script>document.documentElement.classList.add('js');</script>
+  <script src="../assets/js/config.js" defer></script>
+  <script src="../assets/js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="header" data-header>
+    <div class="header__inner">
+      <a class="logo" href="../index.html" aria-label="Rebecca Gemaque Assessoria & Cerimonial — voltar ao início">
+        <span class="logo__name">Rebecca Gemaque</span>
+        <span class="logo__tag">Assessoria &amp; Cerimonial</span>
+      </a>
+      <a class="link link--arrow" href="../index.html#portfolio"><span aria-hidden="true">←</span> Portfólio</a>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <section class="event-hero hero">
+      <div class="ph tone-hero" data-ph="FOTO CAPA DO EVENTO" data-ph-note="Horizontal">
+        <!-- <img src="../assets/img/eventos/nome/capa.webp" alt="" fetchpriority="high"> -->
+      </div>
+      <div class="event-hero__veil" aria-hidden="true"></div>
+      <div class="wrap event-hero__content">
+        <p class="eyebrow eyebrow--light">Casamento</p>
+        <h1 class="h-xl">Nome <em>&amp;</em> Nome</h1>
+        <p class="event-meta"><span>Local do evento</span><span>Mês · Ano</span><span>Nº de convidados</span></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap event-story">
+        <p class="event-story__lead" data-reveal>Uma frase que resuma a essência desta celebração.</p>
+        <div class="about__body" data-reveal>
+          <p>Conte aqui a história do casal e do evento: o que tornava esta celebração única, os desafios de planejamento e como a assessoria conduziu os bastidores.</p>
+          <p>Inclua apenas informações autorizadas pelos clientes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="wrap" style="padding-bottom: var(--section)">
+      <div class="event-gallery">
+        <figure class="ph tone-1 wide" data-ph="FOTO 01" data-reveal></figure>
+        <figure class="ph tone-5" data-ph="FOTO 02" data-reveal></figure>
+        <figure class="ph tone-2" data-ph="FOTO 03" data-reveal></figure>
+        <figure class="ph tone-6" data-ph="FOTO 04" data-reveal></figure>
+        <figure class="ph tone-3" data-ph="FOTO 05" data-reveal></figure>
+        <figure class="ph tone-4 wide" data-ph="FOTO 06" data-reveal></figure>
+      </div>
+      <p class="center"><a class="btn btn--outline" href="../index.html#proposta">Quero planejar meu evento <span class="btn__arrow" aria-hidden="true">→</span></a></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> Rebecca Gemaque Assessoria e Cerimonial · Rio de Janeiro — RJ</p>
+        <a class="link" href="../politica-de-privacidade.html">Política de Privacidade</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

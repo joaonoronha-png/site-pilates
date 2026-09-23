@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /eventos/modelo.html
+
+Sitemap: https://www.rebeccagemaque.com.br/sitemap.xml
