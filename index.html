@@ -6,12 +6,12 @@
 
   <!-- ═══ SEO ═══ -->
   <title>Rebecca Gemaque | Assessoria e Cerimonial no Rio de Janeiro</title>
-  <meta name="description" content="Assessoria e cerimonial para casamentos, destination weddings, 15 anos e celebrações no Rio de Janeiro. Enquanto cuidamos de cada detalhe, você vive cada momento.">
+  <meta name="description" content="Assessoria e cerimonial para casamentos, mini weddings, 15 anos e celebrações no Rio de Janeiro. Enquanto cuidamos de cada detalhe, você vive cada momento.">
   <link rel="canonical" href="https://www.rebeccagemaque.com.br/">
-  <meta name="theme-color" content="#F7F3ED">
+  <meta name="theme-color" content="#292623">
   <meta name="robots" content="index, follow">
 
-  <!-- ═══ Open Graph / redes sociais ═══ -->
+  <!-- ═══ Open Graph ═══ -->
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <meta property="og:site_name" content="Rebecca Gemaque Assessoria & Cerimonial">
@@ -23,7 +23,6 @@
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- ═══ Favicon (substitua os arquivos em assets/img/) ═══ -->
   <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
   <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 
@@ -32,13 +31,27 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap">
 
+  <link rel="preload" as="image" href="assets/img/fotos/hero-1.webp">
   <link rel="stylesheet" href="assets/css/style.css">
 
-  <script>document.documentElement.classList.add('js');</script>
+  <script>
+    (function (r) {
+      r.classList.add('js');
+      /* a abertura aparece só na primeira visita da sessão */
+      try { if (sessionStorage.getItem('rg-intro') === '1') r.classList.add('no-intro'); } catch (e) {}
+      /* segurança: se algo falhar, a tela de abertura nunca fica presa */
+      setTimeout(function () { r.classList.add('no-intro'); }, 6000);
+    })(document.documentElement);
+  </script>
+
+  <!-- ═══ Bibliotecas de animação (GSAP 3.13 + Lenis 1.3, hospedadas no próprio site) ═══ -->
+  <script src="assets/js/vendor/gsap.min.js" defer></script>
+  <script src="assets/js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="assets/js/vendor/SplitText.min.js" defer></script>
+  <script src="assets/js/vendor/lenis.min.js" defer></script>
   <script src="assets/js/config.js" defer></script>
   <script src="assets/js/main.js" defer></script>
 
-  <!-- ═══ Dados estruturados (Google) ═══ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -49,6 +62,7 @@
     "image": "https://www.rebeccagemaque.com.br/assets/img/og-image.jpg",
     "telephone": "+55 21 99981-1992",
     "email": "gemaque.cerimonial@outlook.com",
+    "priceRange": "R$ 4.000 – R$ 6.500",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Rua José Roberto, 17",
@@ -58,13 +72,29 @@
       "addressCountry": "BR"
     },
     "areaServed": "Rio de Janeiro",
-    "sameAs": ["https://www.instagram.com/cerimonialistarebeccagemaque/"]
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "15", "bestRating": "5" },
+    "sameAs": ["https://www.instagram.com/cerimonialistarebeccagemaque/", "https://www.casamentos.com.br/cerimonialista/rebecca-gemaque-assessoria-e-cerimonial--e228552"]
   }
   </script>
 </head>
 
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- Tela de abertura -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__inner">
+      <p class="loader__name" data-loader-name>Rebecca Gemaque</p>
+      <p class="loader__tag" data-loader-tag>Assessoria &amp; Cerimonial</p>
+      <span class="loader__bar"><span data-loader-bar></span></span>
+    </div>
+  </div>
+
+  <!-- Barra de progresso da leitura -->
+  <div class="progress" aria-hidden="true"><span data-progress></span></div>
+
+  <!-- Cursor (apenas mouse) -->
+  <div class="cursor" data-cursor aria-hidden="true"><span class="cursor__label" data-cursor-label></span></div>
 
   <!-- ════════════════════════════════════════════
        HEADER
@@ -76,113 +106,160 @@
         <span class="logo__tag">Assessoria &amp; Cerimonial</span>
       </a>
 
-      <nav class="nav" aria-label="Principal">
-        <ul class="nav__list">
-          <li><a class="link" href="#inicio">Início</a></li>
-          <li><a class="link" href="#rebecca">Rebecca</a></li>
-          <li><a class="link" href="#assessoria">Assessoria</a></li>
-          <li><a class="link" href="#experiencias">Experiências</a></li>
-          <li><a class="link" href="#portfolio">Portfólio</a></li>
-          <li><a class="link" href="#depoimentos">Depoimentos</a></li>
-          <li><a class="link" href="#contato">Contato</a></li>
-        </ul>
-      </nav>
-
-      <a class="btn btn--header" href="#proposta">Solicitar proposta</a>
-
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" data-menu-toggle>
-        <span class="menu-toggle__label">Menu</span>
-        <span class="menu-toggle__icon" aria-hidden="true"><span></span><span></span></span>
-      </button>
+      <div class="header__actions">
+        <a class="btn btn--header" href="#proposta" data-magnetic>Solicitar proposta</a>
+        <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+          <span class="menu-btn__label"><span data-label-open>Menu</span><span data-label-close>Fechar</span></span>
+          <span class="menu-btn__icon" aria-hidden="true"><span></span><span></span></span>
+        </button>
+      </div>
     </div>
   </header>
 
-  <!-- Menu mobile -->
-  <div class="mobile-menu" id="mobile-menu" data-mobile-menu hidden>
-    <nav aria-label="Menu mobile">
-      <ol class="mobile-menu__list">
-        <li><a href="#inicio"><span>01</span>Início</a></li>
-        <li><a href="#rebecca"><span>02</span>Rebecca</a></li>
-        <li><a href="#assessoria"><span>03</span>Assessoria</a></li>
-        <li><a href="#experiencias"><span>04</span>Experiências</a></li>
-        <li><a href="#portfolio"><span>05</span>Portfólio</a></li>
-        <li><a href="#depoimentos"><span>06</span>Depoimentos</a></li>
-        <li><a href="#contato"><span>07</span>Contato</a></li>
-      </ol>
-    </nav>
-    <div class="mobile-menu__foot">
-      <a class="btn btn--solid" href="#proposta">Solicitar proposta</a>
-      <p><a class="link" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer">@cerimonialistarebeccagemaque</a></p>
+  <!-- ════════════════════════════════════════════
+       MENU EM TELA CHEIA
+  ════════════════════════════════════════════ -->
+  <div class="menu" id="menu" data-menu hidden>
+    <div class="menu__panel">
+      <div class="menu__grid">
+        <nav class="menu__nav" aria-label="Menu principal">
+          <ol>
+            <li><a href="#inicio" data-menu-img="0"><span class="menu__n">01</span><span class="menu__label">Início</span></a></li>
+            <li><a href="#rebecca" data-menu-img="1"><span class="menu__n">02</span><span class="menu__label">Rebecca</span></a></li>
+            <li><a href="#assessoria" data-menu-img="2"><span class="menu__n">03</span><span class="menu__label">Assessoria</span></a></li>
+            <li><a href="#experiencias" data-menu-img="3"><span class="menu__n">04</span><span class="menu__label">Experiências</span></a></li>
+            <li><a href="#portfolio" data-menu-img="4"><span class="menu__n">05</span><span class="menu__label">Portfólio</span></a></li>
+            <li><a href="#depoimentos" data-menu-img="5"><span class="menu__n">06</span><span class="menu__label">Depoimentos</span></a></li>
+            <li><a href="#contato" data-menu-img="6"><span class="menu__n">07</span><span class="menu__label">Contato</span></a></li>
+          </ol>
+        </nav>
+
+        <div class="menu__preview" aria-hidden="true">
+          <img src="assets/img/fotos/hero-1.webp" alt="" class="is-active" loading="lazy">
+          <img src="assets/img/fotos/rebecca.webp" alt="" loading="lazy">
+          <img src="assets/img/fotos/assessoria-completa.webp" alt="" loading="lazy">
+          <img src="assets/img/fotos/casamentos.webp" alt="" loading="lazy">
+          <img src="assets/img/fotos/portfolio-01.webp" alt="" loading="lazy">
+          <img src="assets/img/fotos/hero-4.webp" alt="" loading="lazy">
+          <img src="assets/img/fotos/cta.webp" alt="" loading="lazy">
+        </div>
+
+        <div class="menu__foot">
+          <div>
+            <p class="menu__k">WhatsApp</p>
+            <a class="link" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer">(21) 99981-1992</a>
+          </div>
+          <div>
+            <p class="menu__k">Instagram</p>
+            <a class="link" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer">@cerimonialistarebeccagemaque</a>
+          </div>
+          <div>
+            <p class="menu__k">E-mail</p>
+            <a class="link" href="mailto:gemaque.cerimonial@outlook.com">gemaque.cerimonial@outlook.com</a>
+          </div>
+          <a class="btn btn--light" href="#proposta">Solicitar proposta <span class="btn__arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
     </div>
   </div>
 
   <main id="conteudo">
 
     <!-- ════════════════════════════════════════════
-         5. HERO
+         HERO — slideshow automático
+         Para trocar as fotos, substitua hero-1…hero-5.webp
+         ou edite os <img> abaixo (data-caption = legenda).
     ════════════════════════════════════════════ -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <!--
-        FOTO HERO: coloque um <img> dentro da <div class="ph">. Ex.:
-        <img src="assets/img/hero.webp" alt="Noivos em momento emocional na cerimônia" fetchpriority="high">
-
-        VÍDEO (opcional, no lugar da foto):
-        <video autoplay muted loop playsinline preload="metadata" poster="assets/img/hero.webp">
-          <source src="assets/video/hero.mp4" type="video/mp4">
-        </video>
-      -->
-      <div class="hero__media ph tone-hero" data-ph="FOTO HERO" data-ph-note="Casamento real · momento emocional · horizontal"><img src="assets/img/fotos/hero.webp" alt="Noivos testa com testa, sorrindo, diante de um arranjo de flores" fetchpriority="high" decoding="async" style="object-position:78% 0%"></div>
+      <div class="hero__media" data-hero-slides>
+        <figure class="hero__slide is-active" data-caption="Teka &amp; Filipe">
+          <img src="assets/img/fotos/hero-1.webp" alt="Noivos testa com testa, sorrindo, diante de um arranjo de flores" fetchpriority="high" style="--pos: 72% 30%">
+        </figure>
+        <figure class="hero__slide" data-caption="Samara &amp; Igor · Espaço Realizar">
+          <img src="assets/img/fotos/hero-2.webp" alt="Noivos sob um guarda-chuva transparente em ensaio noturno" loading="lazy" style="--pos: 55% 40%">
+        </figure>
+        <figure class="hero__slide" data-caption="Monique &amp; Michel · Jardim do Casarão">
+          <img src="assets/img/fotos/hero-3.webp" alt="Noiva e noivo militar abraçados diante de uma parede de luzes" loading="lazy" style="--pos: 40% 40%">
+        </figure>
+        <figure class="hero__slide" data-caption="Linda &amp; Fábio · Palladium">
+          <img src="assets/img/fotos/hero-4.webp" alt="Noivos de braços dados na entrada da cerimônia" loading="lazy" style="--pos: 32% 35%">
+        </figure>
+        <figure class="hero__slide" data-caption="Luiza &amp; Tiago · Sítio Vale do Ipê">
+          <img src="assets/img/fotos/hero-5.webp" alt="Cerimônia ao ar livre com convidados e corredor entre portas brancas" loading="lazy" style="--pos: 50% 50%">
+        </figure>
+        <!--
+          VÍDEO (opcional): substitua os slides por
+          <video autoplay muted loop playsinline preload="metadata" poster="assets/img/fotos/hero-1.webp"><source src="assets/video/hero.mp4" type="video/mp4"></video>
+        -->
+      </div>
       <div class="hero__veil" aria-hidden="true"></div>
 
-      <div class="hero__content wrap">
-        <p class="hero__brand anim anim--1">Rebecca Gemaque <span aria-hidden="true">—</span> Assessoria &amp; Cerimonial</p>
-        <h1 class="hero__title" id="hero-title">
-          <span class="line"><span class="anim anim--2">Enquanto cuidamos</span></span>
-          <span class="line"><span class="anim anim--3">de cada detalhe,</span></span>
-          <span class="line"><span class="anim anim--4"><em>você vive cada momento.</em></span></span>
-        </h1>
-        <p class="hero__text anim anim--5">Assessoria e cerimonial para celebrações que merecem ser vividas com presença, tranquilidade e emoção.</p>
-        <div class="hero__actions anim anim--6">
-          <a class="btn btn--light" href="#proposta">Planeje seu evento <span class="btn__arrow" aria-hidden="true">→</span></a>
+      <div class="hero__content">
+        <p class="hero__brand" data-hero-in>Rebecca Gemaque <span aria-hidden="true">—</span> Assessoria &amp; Cerimonial</p>
+        <h1 class="hero__title" id="hero-title" data-hero-title>Enquanto cuidamos de cada detalhe, <em>você vive cada momento.</em></h1>
+        <p class="hero__text" data-hero-in>Assessoria e cerimonial para celebrações que merecem ser vividas com presença, tranquilidade e emoção.</p>
+        <div class="hero__actions" data-hero-in>
+          <a class="btn btn--light" href="#proposta" data-magnetic>Planeje seu evento <span class="btn__arrow" aria-hidden="true">→</span></a>
           <a class="btn btn--ghost-light" href="#portfolio">Conheça nosso trabalho</a>
         </div>
       </div>
 
-      <a class="hero__scroll anim anim--7" href="#manifesto">
+      <div class="hero__meta" data-hero-in>
+        <p class="hero__caption"><span data-hero-count>01</span> / 05 <span class="hero__caption-name" data-hero-caption>Teka &amp; Filipe</span></p>
+        <div class="hero__bars" data-hero-bars>
+          <button type="button" class="is-active" aria-label="Foto 1"><span></span></button>
+          <button type="button" aria-label="Foto 2"><span></span></button>
+          <button type="button" aria-label="Foto 3"><span></span></button>
+          <button type="button" aria-label="Foto 4"><span></span></button>
+          <button type="button" aria-label="Foto 5"><span></span></button>
+        </div>
+      </div>
+
+      <a class="hero__scroll" href="#manifesto" data-hero-in>
         <span class="hero__scroll-line" aria-hidden="true"></span>
         <span>Descubra</span>
       </a>
     </section>
 
+    <!-- Faixa de categorias em movimento -->
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track" data-ticker>
+        <span>Casamentos</span><i></i><span>Mini weddings</span><i></i><span>Destination weddings</span><i></i><span>15 anos</span><i></i><span>Cerimônias simbólicas</span><i></i><span>Casamentos homoafetivos</span><i></i><span>Casamentos militares</span><i></i><span>Renovação de votos</span><i></i><span>Eventos corporativos</span><i></i>
+      </div>
+    </div>
+
     <!-- ════════════════════════════════════════════
-         6. PRIMEIRA QUEBRA EMOCIONAL
+         MANIFESTO
     ════════════════════════════════════════════ -->
     <section class="manifesto" id="manifesto" aria-label="Manifesto">
       <div class="wrap wrap--narrow">
-        <p class="manifesto__line display" data-reveal>Há momentos que acontecem <em>uma única vez.</em></p>
-        <span class="manifesto__pause" aria-hidden="true" data-reveal></span>
-        <p class="manifesto__line display" data-reveal>Por isso, cada detalhe importa.</p>
+        <p class="manifesto__line" data-scrub-words>Há momentos que acontecem <em>uma única vez.</em> Por isso, cada detalhe importa.</p>
+        <span class="manifesto__pause" aria-hidden="true" data-line></span>
         <p class="manifesto__body" data-reveal>Planejar um evento vai muito além de organizar fornecedores e horários. É criar as condições para que você esteja presente justamente no momento que imaginou durante tanto tempo.</p>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         7. SOBRE REBECCA
+         SOBRE REBECCA
     ════════════════════════════════════════════ -->
     <section class="about section" id="rebecca" aria-labelledby="about-title">
       <div class="wrap about__grid">
         <div class="about__media">
-          <figure class="about__main ph tone-2 reveal-img" data-ph="FOTO REBECCA" data-ph-note="Retrato vertical" data-parallax="0.05" data-reveal><img src="assets/img/fotos/rebecca.webp" alt="Rebecca Gemaque com os noivos no dia do casamento" loading="lazy" decoding="async" style="object-position:50% 40%"></figure>
-          <figure class="about__second ph tone-5 reveal-img" data-ph="FOTO BASTIDORES" data-ph-note="Rebecca trabalhando em evento" data-parallax="-0.04" data-reveal style="--d:.2s"><img src="assets/img/fotos/rebecca-bastidores.webp" alt="Rebecca ajustando o vestido da noiva nos bastidores" loading="lazy" decoding="async" style="object-position:35% 85%"></figure>
-          <p class="about__caption" aria-hidden="true">Rebecca Gemaque · Rio de Janeiro</p>
+          <figure class="about__main frame" data-reveal-img>
+            <img src="assets/img/fotos/rebecca.webp" alt="Rebecca Gemaque com os noivos no dia do casamento" loading="lazy" data-parallax="8" style="--pos: 50% 40%">
+          </figure>
+          <figure class="about__second frame" data-reveal-img>
+            <img src="assets/img/fotos/rebecca-bastidores.webp" alt="Rebecca ajustando o vestido da noiva nos bastidores" loading="lazy" data-parallax="-10" style="--pos: 35% 85%">
+          </figure>
+          <p class="about__caption" aria-hidden="true">Bastidores · Karen &amp; Patrick</p>
         </div>
 
         <div class="about__text">
           <p class="eyebrow" data-reveal>Por trás de cada detalhe</p>
-          <h2 class="h-xl" id="about-title" data-reveal>Prazer,<br><em>Rebecca.</em></h2>
+          <h2 class="h-xl" id="about-title" data-split>Prazer,<br><em>Rebecca.</em></h2>
           <div class="about__body" data-reveal>
             <p>Rebecca Gemaque atua como assessora, cerimonialista e mestre de cerimônias, conduzindo eventos com planejamento, proximidade e atenção aos detalhes.</p>
-            <p>Sua atuação busca permitir que clientes e famílias vivam a celebração com tranquilidade enquanto toda a operação acontece nos bastidores.</p>
+            <p>Sua atuação busca permitir que clientes e famílias vivam a celebração com tranquilidade enquanto toda a operação acontece nos bastidores: de cerimônias religiosas e simbólicas a mini weddings, casamentos homoafetivos e militares, 15 anos e renovações de votos.</p>
           </div>
 
           <ul class="roles" data-reveal aria-label="Atuação">
@@ -197,36 +274,36 @@
     </section>
 
     <!-- ════════════════════════════════════════════
-         8. FRASE DE IMPACTO
+         FRASE DE IMPACTO
     ════════════════════════════════════════════ -->
     <section class="statement" aria-label="Nossa missão">
       <div class="wrap">
-        <p class="statement__text" data-reveal>Você não deveria passar o seu grande dia preocupada com o que está acontecendo nos bastidores.</p>
-        <p class="statement__em" data-reveal style="--d:.25s"><em>Você deveria estar vivendo.</em></p>
+        <p class="statement__text" data-scrub-words>Você não deveria passar o seu grande dia preocupada com o que está acontecendo nos bastidores.</p>
+        <p class="statement__em" data-split><em>Você deveria estar vivendo.</em></p>
       </div>
-      <span class="statement__thread" aria-hidden="true" data-reveal></span>
+      <span class="statement__thread" aria-hidden="true" data-line></span>
     </section>
 
     <!-- ════════════════════════════════════════════
-         9. MODALIDADES DE ASSESSORIA
+         MODALIDADES
     ════════════════════════════════════════════ -->
     <section class="services section" id="assessoria" aria-labelledby="services-title">
       <div class="wrap">
         <header class="section-head">
           <p class="eyebrow" data-reveal>Assessoria</p>
-          <h2 class="h-lg" id="services-title" data-reveal>Do primeiro planejamento<br><em>ao último abraço da noite.</em></h2>
+          <h2 class="h-lg" id="services-title" data-split>Do primeiro planejamento <em>ao último abraço da noite.</em></h2>
           <p class="lead" data-reveal>Escolha o acompanhamento que faz sentido para o momento em que seu evento está.</p>
         </header>
 
         <div class="services__layout">
           <div class="services__visual" aria-hidden="true">
-            <figure class="ph tone-1 is-active" data-ph="FOTO ASSESSORIA COMPLETA" data-ph-note="Preparativos" data-service-img="0"><img src="assets/img/fotos/assessoria-completa.webp" alt="Noiva em frente ao vestido durante os preparativos" loading="lazy" decoding="async"></figure>
-            <figure class="ph tone-6" data-ph="FOTO ASSESSORIA PARCIAL" data-ph-note="Decisões & fornecedores" data-service-img="1"><img src="assets/img/fotos/assessoria-parcial.webp" alt="Alianças sobre o convite de casamento" loading="lazy" decoding="async"></figure>
-            <figure class="ph tone-4" data-ph="FOTO ASSESSORIA FINAL" data-ph-note="O grande dia" data-service-img="2"><img src="assets/img/fotos/assessoria-final.webp" alt="Corredor da igreja decorado para a cerimônia" loading="lazy" decoding="async"></figure>
+            <figure class="frame is-active" data-service-img="0"><img src="assets/img/fotos/assessoria-completa.webp" alt="" loading="lazy"></figure>
+            <figure class="frame" data-service-img="1"><img src="assets/img/fotos/assessoria-parcial.webp" alt="" loading="lazy"></figure>
+            <figure class="frame" data-service-img="2"><img src="assets/img/fotos/assessoria-final.webp" alt="" loading="lazy"></figure>
           </div>
 
           <ol class="services__list">
-            <li class="service" data-service="0" data-reveal>
+            <li class="service is-active" data-service="0" data-reveal>
               <span class="service__n" aria-hidden="true">01</span>
               <div class="service__body">
                 <h3 class="service__title">Assessoria completa</h3>
@@ -260,296 +337,341 @@
     </section>
 
     <!-- ════════════════════════════════════════════
-         10. EXPERIÊNCIAS
+         EXPERIÊNCIAS
     ════════════════════════════════════════════ -->
     <section class="experiences section" id="experiencias" aria-labelledby="exp-title">
       <div class="wrap">
-        <header class="section-head section-head--split">
-          <div>
-            <p class="eyebrow" data-reveal>Experiências</p>
-            <h2 class="h-lg" id="exp-title" data-reveal>Cada celebração tem<br><em>a sua própria história.</em></h2>
-          </div>
+        <header class="section-head">
+          <p class="eyebrow" data-reveal>Experiências</p>
+          <h2 class="h-lg" id="exp-title" data-split>Cada celebração tem <em>a sua própria história.</em></h2>
         </header>
 
         <ul class="mosaic">
-          <li class="mosaic__item" data-reveal>
-            <figure class="ph tone-1" data-ph="FOTO CASAMENTO"><img src="assets/img/fotos/casamentos.webp" alt="Noivos no jardim com o véu ao vento" loading="lazy" decoding="async"></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/casamentos.webp" alt="Noivos no jardim com o véu ao vento" loading="lazy"></figure>
             <p class="mosaic__label"><span>01</span>Casamentos</p>
           </li>
-          <li class="mosaic__item" data-reveal style="--d:.1s">
-            <figure class="ph tone-5" data-ph="FOTO DESTINATION"><!-- <img src="" alt="" loading="lazy"> --></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/destination.webp" alt="Silhueta da noiva diante da vista para o mar" loading="lazy" style="--pos: 50% 35%"></figure>
             <p class="mosaic__label"><span>02</span>Destination weddings</p>
           </li>
-          <li class="mosaic__item" data-reveal>
-            <figure class="ph tone-6" data-ph="FOTO MINI WEDDING"><!-- <img src="" alt="" loading="lazy"> --></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/mini-wedding.webp" alt="Noivos em mini wedding cercados de flores" loading="lazy" style="--pos: 55% 40%"></figure>
             <p class="mosaic__label"><span>03</span>Mini &amp; micro weddings</p>
           </li>
-          <li class="mosaic__item" data-reveal>
-            <figure class="ph tone-2" data-ph="FOTO 15 ANOS"><!-- <img src="" alt="" loading="lazy"> --></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/15-anos.webp" alt="Debutante com vestido bordado na festa de 15 anos" loading="lazy" style="--pos: 50% 30%"></figure>
             <p class="mosaic__label"><span>04</span>15 anos</p>
           </li>
-          <li class="mosaic__item" data-reveal style="--d:.1s">
-            <figure class="ph tone-3" data-ph="FOTO BODAS"><!-- <img src="" alt="" loading="lazy"> --></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/celebracoes.webp" alt="Duas noivas diante de um painel com o Cristo Redentor" loading="lazy" style="--pos: 50% 40%"></figure>
             <p class="mosaic__label"><span>05</span>Bodas &amp; celebrações</p>
           </li>
-          <li class="mosaic__item" data-reveal style="--d:.2s">
-            <figure class="ph tone-4" data-ph="FOTO CORPORATIVO"><!-- <img src="" alt="" loading="lazy"> --></figure>
+          <li class="mosaic__item" data-reveal-img>
+            <figure class="frame"><img src="assets/img/fotos/eventos.webp" alt="Salão preparado para a feira de noivas e debutantes Planejamento Ideal" loading="lazy"></figure>
             <p class="mosaic__label"><span>06</span>Eventos corporativos</p>
           </li>
         </ul>
 
         <div class="also" data-reveal>
           <p class="eyebrow eyebrow--plain">Também acompanhamos</p>
-          <p class="also__list"><span>Casamentos na praia</span> <span>Casamentos no campo</span> <span>Cerimônias civis</span> <span>Cerimônias religiosas</span> <span>Cerimônias simbólicas</span> <span>Elopement weddings</span> <span>Noivados</span> <span>Aniversários</span> <span>Eventos personalizados</span></p>
+          <p class="also__list"><span>Casamentos na praia</span> <span>Casamentos no campo</span> <span>Cerimônias civis</span> <span>Cerimônias religiosas</span> <span>Cerimônias simbólicas</span> <span>Casamentos homoafetivos</span> <span>Casamentos militares</span> <span>Elopement weddings</span> <span>Renovação de votos</span> <span>Noivados</span> <span>Aniversários</span> <span>Feiras e eventos personalizados</span></p>
         </div>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         11. COMO FUNCIONA
+         COMO FUNCIONA
     ════════════════════════════════════════════ -->
     <section class="journey section" id="como-funciona" aria-labelledby="journey-title">
       <div class="wrap journey__grid">
         <header class="journey__head">
           <p class="eyebrow" data-reveal>Como funciona</p>
-          <h2 class="h-xl" id="journey-title" data-reveal>Até o <em>grande dia.</em></h2>
-          <p class="lead" data-reveal>Uma travessia feita em conjunto — com clareza em cada etapa.</p>
+          <h2 class="h-xl" id="journey-title" data-split>Até o <em>grande dia.</em></h2>
+          <p class="lead" data-reveal>Uma travessia feita em conjunto, com clareza em cada etapa.</p>
         </header>
 
         <div class="journey__steps" data-journey>
           <span class="journey__track" aria-hidden="true"><span class="journey__fill" data-journey-fill></span></span>
           <ol class="journey__list">
-          <li class="step" data-step>
-            <span class="step__n">01</span>
-            <h3 class="step__title">Nos conhecemos</h3>
-            <p>Tudo começa entendendo sua história, seu evento e aquilo que realmente importa para você.</p>
-          </li>
-          <li class="step" data-step>
-            <span class="step__n">02</span>
-            <h3 class="step__title">Planejamos</h3>
-            <p>Organizamos etapas, prioridades, fornecedores e decisões.</p>
-          </li>
-          <li class="step" data-step>
-            <span class="step__n">03</span>
-            <h3 class="step__title">Construímos</h3>
-            <p>Cada escolha começa a formar a experiência imaginada.</p>
-          </li>
-          <li class="step" data-step>
-            <span class="step__n">04</span>
-            <h3 class="step__title">Coordenamos</h3>
-            <p>Cronograma, fornecedores e detalhes passam a trabalhar em conjunto.</p>
-          </li>
-          <li class="step step--final" data-step>
-            <span class="step__n">05</span>
-            <h3 class="step__title">Você vive</h3>
-            <p>No grande dia, nossa equipe cuida dos bastidores.</p>
-            <p class="step__em"><em>Você vive o momento.</em></p>
-          </li>
+            <li class="step" data-step>
+              <span class="step__n">01</span>
+              <h3 class="step__title">Nos conhecemos</h3>
+              <p>Tudo começa entendendo sua história, seu evento e aquilo que realmente importa para você.</p>
+            </li>
+            <li class="step" data-step>
+              <span class="step__n">02</span>
+              <h3 class="step__title">Planejamos</h3>
+              <p>Organizamos etapas, prioridades, fornecedores e decisões.</p>
+            </li>
+            <li class="step" data-step>
+              <span class="step__n">03</span>
+              <h3 class="step__title">Construímos</h3>
+              <p>Cada escolha começa a formar a experiência imaginada.</p>
+            </li>
+            <li class="step" data-step>
+              <span class="step__n">04</span>
+              <h3 class="step__title">Coordenamos</h3>
+              <p>Cronograma, fornecedores e detalhes passam a trabalhar em conjunto.</p>
+            </li>
+            <li class="step step--final" data-step>
+              <span class="step__n">05</span>
+              <h3 class="step__title">Você vive</h3>
+              <p>No grande dia, nossa equipe cuida dos bastidores.</p>
+              <p class="step__em"><em>Você vive o momento.</em></p>
+            </li>
           </ol>
         </div>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         12. PORTFÓLIO
-         Cada item abre no lightbox. Para criar uma página individual
-         do evento, preencha data-href="eventos/nome-do-evento.html"
-         (modelo pronto em eventos/modelo.html).
+         PORTFÓLIO — rolagem horizontal
+         data-href="eventos/nome.html" ativa o link "Ver história completa".
     ════════════════════════════════════════════ -->
-    <section class="portfolio section" id="portfolio" aria-labelledby="portfolio-title">
-      <div class="wrap">
-        <header class="section-head section-head--split">
+    <section class="portfolio" id="portfolio" aria-labelledby="portfolio-title" data-hscroll>
+      <div class="portfolio__pin">
+        <header class="wrap portfolio__head">
           <div>
             <p class="eyebrow" data-reveal>Portfólio</p>
-            <h2 class="h-lg" id="portfolio-title" data-reveal>Histórias que já tivemos<br><em>o privilégio de acompanhar.</em></h2>
+            <h2 class="h-lg" id="portfolio-title" data-split>Histórias que já tivemos <em>o privilégio de acompanhar.</em></h2>
           </div>
-          <p class="swipe-hint" aria-hidden="true">Deslize <span>→</span></p>
+          <p class="portfolio__hint" aria-hidden="true"><span class="portfolio__count"><span data-hscroll-count>01</span> / 10</span> <i></i> <span data-hint-text>Deslize para ver</span></p>
         </header>
 
-        <ul class="gallery" data-gallery>
-          <li class="gallery__item" data-reveal>
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-1" data-ph="FOTO PORTFÓLIO 01" data-ph-note="Horizontal"><img src="assets/img/fotos/portfolio-01.webp" alt="Noivos abraçados sob uma cortina de luzes" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+        <ul class="gallery" data-gallery data-hscroll-track>
+          <li class="gallery__item gallery__item--h">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Luiza &amp; Tiago" data-meta="Sítio Vale do Ipê" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-01.webp" alt="Noivos se beijando diante do bolo" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Luiza &amp; Tiago</span><span>Sítio Vale do Ipê</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal style="--d:.15s">
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-5" data-ph="FOTO PORTFÓLIO 02" data-ph-note="Vertical"><img src="assets/img/fotos/portfolio-02.webp" alt="Noiva com buquê de copos-de-leite" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--v">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Monique &amp; Michel" data-meta="Jardim do Casarão" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-02.webp" alt="Noiva com buquê de copos-de-leite" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Monique &amp; Michel</span><span>Jardim do Casarão</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal>
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-6" data-ph="FOTO PORTFÓLIO 03" data-ph-note="Vertical"><img src="assets/img/fotos/portfolio-03.webp" alt="Noiva sorrindo com buquê de copos-de-leite" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--v gallery__item--low">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Eduarda" data-meta="15 anos" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-03.webp" alt="Debutante sorrindo na festa de 15 anos" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Eduarda</span><span>15 anos</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal style="--d:.15s">
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-2" data-ph="FOTO PORTFÓLIO 04" data-ph-note="Horizontal"><img src="assets/img/fotos/portfolio-04.webp" alt="Noivos sorrindo entre luzes" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--h">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Linda &amp; Fábio" data-meta="Palladium" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-04.webp" alt="Noivos sorrindo entre luzes" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Linda &amp; Fábio</span><span>Palladium</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal>
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-4" data-ph="FOTO PORTFÓLIO 05" data-ph-note="Vertical"><img src="assets/img/fotos/portfolio-05.webp" alt="Noiva no altar decorado com árvore de Natal" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--v gallery__item--low">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Amanda &amp; Rodrigo" data-meta="Spazzio 420" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-05.webp" alt="Noiva no altar decorado com árvore de Natal" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Amanda &amp; Rodrigo</span><span>Spazzio 420</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal style="--d:.1s">
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-3" data-ph="FOTO PORTFÓLIO 06" data-ph-note="Vertical"><img src="assets/img/fotos/portfolio-06.webp" alt="Noiva com buquê de rosas no making of" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--v">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Karen &amp; Patrick" data-meta="Paróquia São Benedito" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-06.webp" alt="Noiva com buquê de rosas no making of" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Karen &amp; Patrick</span><span>Paróquia São Benedito</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal style="--d:.2s">
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-1" data-ph="FOTO PORTFÓLIO 07" data-ph-note="Vertical"><img src="assets/img/fotos/portfolio-07.webp" alt="Noivos no altar sob lustre de cristal" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--v gallery__item--low">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Teka &amp; Filipe" data-meta="Casamento" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-07.webp" alt="Noivos abraçados ao lado do bolo" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Teka &amp; Filipe</span><span>Casamento</span></span>
             </button>
           </li>
-          <li class="gallery__item" data-reveal>
-            <button class="gallery__btn" type="button" data-lightbox data-title="Casamento" data-meta="Assessoria &amp; cerimonial" data-href="">
-              <figure class="ph tone-6" data-ph="FOTO PORTFÓLIO 08" data-ph-note="Panorâmica"><img src="assets/img/fotos/portfolio-08.webp" alt="Salão de festa com convidados e luzes" loading="lazy" decoding="async"></figure>
-              <span class="gallery__cap"><span>Casamento</span><span>Assessoria &amp; cerimonial</span></span>
+          <li class="gallery__item gallery__item--h">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Tainá &amp; Marcele" data-meta="Mini wedding" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-08.webp" alt="Duas noivas ao lado de um carro antigo à noite" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Tainá &amp; Marcele</span><span>Mini wedding</span></span>
             </button>
+          </li>
+          <li class="gallery__item gallery__item--v">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Tayrine &amp; Hugo" data-meta="Casa Bougainville" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-09.webp" alt="Noivos sorrindo lado a lado" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Tayrine &amp; Hugo</span><span>Casa Bougainville</span></span>
+            </button>
+          </li>
+          <li class="gallery__item gallery__item--h gallery__item--low">
+            <button class="gallery__btn" type="button" data-lightbox data-title="Juliana &amp; Pedro" data-meta="Iris Supreme" data-href="">
+              <figure class="frame"><img src="assets/img/fotos/portfolio-10.webp" alt="Salão de festa com convidados sob luzes" loading="lazy"></figure>
+              <span class="gallery__cap"><span>Juliana &amp; Pedro</span><span>Iris Supreme</span></span>
+            </button>
+          </li>
+          <li class="gallery__end">
+            <p>Mais histórias <em>no Instagram.</em></p>
+            <a class="btn btn--outline" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer">Ver mais celebrações <span class="btn__arrow" aria-hidden="true">↗</span></a>
           </li>
         </ul>
-
-        <div class="center" data-reveal>
-          <a class="btn btn--outline" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer">Ver mais celebrações <span class="btn__arrow" aria-hidden="true">→</span></a>
-        </div>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         13. MOMENTO CINEMATOGRÁFICO
+         MOMENTO CINEMATOGRÁFICO
     ════════════════════════════════════════════ -->
     <section class="cinema" aria-label="Momento">
-      <div class="cinema__media ph tone-hero" data-ph="FOTO EMOCIONAL" data-ph-note="Casal · cerimônia · festa — horizontal" data-parallax="0.08"><img src="assets/img/fotos/momento.webp" alt="Noivos de braços dados na entrada da cerimônia" loading="lazy" decoding="async" style="object-position:40% 40%"></div>
+      <figure class="cinema__media frame">
+        <img src="assets/img/fotos/momento.webp" alt="" loading="lazy" data-parallax="12" style="--pos: 50% 35%">
+      </figure>
       <div class="cinema__veil" aria-hidden="true"></div>
       <blockquote class="cinema__quote wrap">
-        <p data-reveal>Os detalhes passam.</p>
-        <p data-reveal style="--d:.3s"><em>A sensação de ter vivido aquele momento fica.</em></p>
+        <p data-split>Os detalhes passam.</p>
+        <p data-split><em>A sensação de ter vivido aquele momento fica.</em></p>
       </blockquote>
     </section>
 
     <!-- ════════════════════════════════════════════
-         14. PROVA SOCIAL
-         Use SOMENTE depoimentos reais e verificados.
-         Para adicionar mais, duplique um <li class="quote">.
+         DEPOIMENTOS — avaliações publicadas no Casamentos.com.br
     ════════════════════════════════════════════ -->
     <section class="testimonials section" id="depoimentos" aria-labelledby="testi-title">
       <div class="wrap">
         <header class="section-head section-head--split">
           <div>
             <p class="eyebrow" data-reveal>Depoimentos</p>
-            <h2 class="h-lg" id="testi-title" data-reveal>Depois da festa,<br><em>ficam as histórias.</em></h2>
+            <h2 class="h-lg" id="testi-title" data-split>Depois da festa, <em>ficam as histórias.</em></h2>
           </div>
-          <div class="slider-nav" aria-label="Navegar depoimentos">
+          <div class="slider-nav">
             <button type="button" class="slider-nav__btn" data-slider-prev aria-label="Depoimento anterior">←</button>
             <button type="button" class="slider-nav__btn" data-slider-next aria-label="Próximo depoimento">→</button>
           </div>
         </header>
 
-        <ul class="quotes" data-slider tabindex="0" aria-label="Depoimentos de clientes">
-          <li class="quote" data-reveal>
+        <ul class="quotes" data-slider tabindex="0" aria-label="Depoimentos de clientes (passam automaticamente)">
+          <li class="quote">
             <span class="quote__mark" aria-hidden="true">“</span>
-            <p class="quote__text quote__text--ph">[DEPOIMENTO REAL 01] — Substitua por um depoimento verificado, com autorização do casal. Textos curtos, de duas a quatro linhas, funcionam melhor.</p>
+            <p class="quote__text">Indiquei para 3 casais de amigos fecharem também com a Becca, pois de todos que contratei para o meu casamento, foi o melhor serviço contratado.</p>
             <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">J</span>
+              <span class="quote__who"><cite>Juliana</cite><span class="quote__meta">Casamentos.com.br · jan 2024</span></span>
               <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
-              <cite>Nome do casal</cite>
-              <span class="quote__meta">Tipo de evento · Ano</span>
             </footer>
           </li>
-          <li class="quote" data-reveal style="--d:.1s">
+          <li class="quote">
             <span class="quote__mark" aria-hidden="true">“</span>
-            <p class="quote__text quote__text--ph">[DEPOIMENTO REAL 02] — Substitua por um depoimento verificado, com autorização do casal.</p>
+            <p class="quote__text">A Rebecca foi o anjo na minha vida durante a organização do meu casamento. O tempo todo muito atenciosa.</p>
             <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">K</span>
+              <span class="quote__who"><cite>Karen &amp; Patrick</cite><span class="quote__meta">Casamentos.com.br · out 2020</span></span>
               <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
-              <cite>Nome do casal</cite>
-              <span class="quote__meta">Tipo de evento · Ano</span>
             </footer>
           </li>
-          <li class="quote" data-reveal style="--d:.2s">
+          <li class="quote">
             <span class="quote__mark" aria-hidden="true">“</span>
-            <p class="quote__text quote__text--ph">[DEPOIMENTO REAL 03] — Substitua por um depoimento verificado, com autorização do casal.</p>
+            <p class="quote__text">Apaixonada pelo serviço da Rebecca e sua equipe, com certeza o melhor investimento do meu casamento. Eles fizeram verdadeiramente a diferença na realização do meu sonho.</p>
             <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">R</span>
+              <span class="quote__who"><cite>Raquel &amp; Bernardo</cite><span class="quote__meta">Casamentos.com.br · jan 2019</span></span>
               <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
-              <cite>Nome do casal</cite>
-              <span class="quote__meta">Tipo de evento · Ano</span>
             </footer>
           </li>
-          <li class="quote" data-reveal style="--d:.3s">
+          <li class="quote">
             <span class="quote__mark" aria-hidden="true">“</span>
-            <p class="quote__text quote__text--ph">[DEPOIMENTO REAL 04] — Substitua por um depoimento verificado, com autorização do casal.</p>
+            <p class="quote__text">Seu papel foi fundamental no meu casamento. Obrigada pelo apoio como profissional e principalmente como amiga: com sua amizade me senti muito mais calma e tranquila para o grande dia.</p>
             <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">S</span>
+              <span class="quote__who"><cite>Samara &amp; Igor</cite><span class="quote__meta">Casamentos.com.br · out 2019</span></span>
               <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
-              <cite>Nome do casal</cite>
-              <span class="quote__meta">Tipo de evento · Ano</span>
+            </footer>
+          </li>
+          <li class="quote">
+            <span class="quote__mark" aria-hidden="true">“</span>
+            <p class="quote__text">Esteve do meu lado todo o tempo. Não deixou a desejar, me alimentou e, o mais importante, me tratou como uma rainha.</p>
+            <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">M</span>
+              <span class="quote__who"><cite>Monique &amp; Michel</cite><span class="quote__meta">Casamentos.com.br · out 2019</span></span>
+              <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
+            </footer>
+          </li>
+          <li class="quote">
+            <span class="quote__mark" aria-hidden="true">“</span>
+            <p class="quote__text">Não temos como agradecer o carinho, o zelo e a preocupação com que você realiza seu trabalho.</p>
+            <footer class="quote__foot">
+              <span class="quote__avatar" aria-hidden="true">S</span>
+              <span class="quote__who"><cite>Shaila</cite><span class="quote__meta">Casamentos.com.br · jun 2021</span></span>
+              <span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span>
             </footer>
           </li>
         </ul>
+        <div class="quotes__progress" aria-hidden="true"><span data-slider-progress></span></div>
       </div>
     </section>
 
-    <!-- Faixa de autoridade — *confirmar dados antes da publicação -->
+    <!-- Faixa de autoridade -->
     <section class="proof" aria-label="Reconhecimento">
       <div class="wrap">
         <ul class="proof__list">
           <li class="proof__item" data-reveal>
-            <p class="proof__num"><span data-count="5" data-decimals="1">5,0</span> <span class="proof__star" aria-hidden="true">★</span></p>
-            <p class="proof__label">no Google</p>
-            <p class="proof__sub"><span data-count="79">79</span> avaliações*</p>
+            <p class="proof__num"><span data-count="5" data-decimals="1">5,0</span><span class="proof__star" aria-hidden="true">★</span></p>
+            <p class="proof__label">Casamentos.com.br</p>
+            <p class="proof__sub"><span data-count="15">15</span> avaliações</p>
           </li>
-          <li class="proof__item" data-reveal style="--d:.15s">
+          <li class="proof__item" data-reveal>
             <p class="proof__num"><span data-count="100">100</span>%</p>
-            <p class="proof__label">de recomendação*</p>
+            <p class="proof__label">de recomendação</p>
             <p class="proof__sub">Casamentos.com.br</p>
           </li>
-          <li class="proof__item" data-reveal style="--d:.3s">
+          <li class="proof__item" data-reveal>
+            <p class="proof__num"><span data-count="5" data-decimals="1">5,0</span><span class="proof__star" aria-hidden="true">★</span></p>
+            <p class="proof__label">no Google*</p>
+            <p class="proof__sub"><span data-count="79">79</span> avaliações</p>
+          </li>
+          <li class="proof__item" data-reveal>
             <p class="proof__num">2022</p>
             <p class="proof__label">Casamentos Awards*</p>
             <p class="proof__sub">Casamentos.com.br</p>
           </li>
         </ul>
-        <p class="proof__note">*Dados a confirmar antes da publicação definitiva.</p>
+        <p class="proof__note">*Informações fornecidas pela empresa, a confirmar antes da publicação.</p>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         15. GALERIA / INSTAGRAM
+         INSTAGRAM — carrossel automático (arraste para navegar)
     ════════════════════════════════════════════ -->
     <section class="insta section" id="instagram" aria-labelledby="insta-title">
       <div class="wrap">
         <header class="section-head section-head--split">
           <div>
             <p class="eyebrow" data-reveal>@cerimonialistarebeccagemaque</p>
-            <h2 class="h-lg" id="insta-title" data-reveal>Momentos, bastidores<br><em>e histórias reais.</em></h2>
+            <h2 class="h-lg" id="insta-title" data-split>Momentos, bastidores <em>e histórias reais.</em></h2>
           </div>
-          <a class="link link--arrow" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" data-reveal>Acompanhe no Instagram <span aria-hidden="true">↗</span></a>
+          <a class="btn btn--outline" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" data-reveal>Acompanhe no Instagram <span class="btn__arrow" aria-hidden="true">↗</span></a>
         </header>
       </div>
 
-      <ul class="insta__row">
-        <li><a href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" aria-label="Ver no Instagram (publicação 1)"><figure class="ph tone-5" data-ph="INSTAGRAM 01"><img src="assets/img/fotos/instagram-01.webp" alt="Buquê de copos-de-leite" loading="lazy" decoding="async"></figure></a></li>
-        <li><a href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" aria-label="Ver no Instagram (publicação 2)"><figure class="ph tone-2" data-ph="INSTAGRAM 02"><img src="assets/img/fotos/instagram-02.webp" alt="Sapatos da noiva" loading="lazy" decoding="async"></figure></a></li>
-        <li><a href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" aria-label="Ver no Instagram (publicação 3)"><figure class="ph tone-4" data-ph="INSTAGRAM 03"><img src="assets/img/fotos/instagram-03.webp" alt="Brinde dos noivos" loading="lazy" decoding="async"></figure></a></li>
-        <li><a href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" aria-label="Ver no Instagram (publicação 4)"><figure class="ph tone-3" data-ph="INSTAGRAM 04"><img src="assets/img/fotos/instagram-04.webp" alt="Daminhas com coroas de flores" loading="lazy" decoding="async"></figure></a></li>
-        <li><a href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer" aria-label="Ver no Instagram (publicação 5)"><figure class="ph tone-6" data-ph="INSTAGRAM 05"><img src="assets/img/fotos/instagram-05.webp" alt="Buquê com pingente de foto de família" loading="lazy" decoding="async"></figure></a></li>
-      </ul>
+      <div class="drift" data-drift data-speed="0.5" role="region" aria-label="Galeria de detalhes: passa sozinha, arraste para navegar">
+        <ul class="drift__track" data-drift-track>
+          <li class="drift__item drift__item--v"><img src="assets/img/fotos/detalhe-01.webp" alt="Buquê de copos-de-leite" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-02.webp" alt="Sapatos da noiva" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-05.webp" alt="Letras de madeira com as iniciais dos noivos" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-06.webp" alt="Aliança sobre um livro" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-09.webp" alt="Noivos com balões de coração" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-10.webp" alt="Daminhas com coroas de flores" loading="lazy" draggable="false"></li>
+        </ul>
+      </div>
+      <div class="drift" data-drift data-speed="-0.4" aria-hidden="true">
+        <ul class="drift__track" data-drift-track>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-12.webp" alt="" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-04.webp" alt="" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-08.webp" alt="" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-11.webp" alt="" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-03.webp" alt="" loading="lazy" draggable="false"></li>
+          <li class="drift__item"><img src="assets/img/fotos/detalhe-07.webp" alt="" loading="lazy" draggable="false"></li>
+        </ul>
+      </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         16. FAQ
+         FAQ
     ════════════════════════════════════════════ -->
     <section class="faq section" id="faq" aria-labelledby="faq-title">
       <div class="wrap faq__grid">
         <header class="faq__head">
           <p class="eyebrow" data-reveal>Perguntas frequentes</p>
-          <h2 class="h-lg" id="faq-title" data-reveal>Antes de <em>começarmos…</em></h2>
-          <p class="lead" data-reveal>Não encontrou sua dúvida? <a class="link" href="https://wa.me/5521999811992?text=Ol%C3%A1%2C%20Rebecca!%20Tenho%20uma%20d%C3%BAvida%20sobre%20a%20assessoria." target="_blank" rel="noopener noreferrer" data-wa>Fale com a equipe</a>.</p>
+          <h2 class="h-lg" id="faq-title" data-split>Antes de <em>começarmos…</em></h2>
+          <p class="lead" data-reveal>Não encontrou sua dúvida? <a class="link" href="https://wa.me/5521999811992?text=Ol%C3%A1%2C%20Rebecca!%20Tenho%20uma%20d%C3%BAvida%20sobre%20a%20assessoria." target="_blank" rel="noopener noreferrer">Fale com a equipe</a>.</p>
         </header>
 
         <div class="accordion" data-reveal>
@@ -567,11 +689,11 @@
           </details>
           <details class="acc">
             <summary>Vocês atendem eventos fora do Rio de Janeiro?</summary>
-            <div class="acc__body"><p>Nossa base é o Rio de Janeiro. Para eventos em outras cidades ou destinos, fale com a equipe informando o local e a data — assim avaliamos a disponibilidade e as condições para o seu caso.</p></div>
+            <div class="acc__body"><p>Nossa base é o Rio de Janeiro e a Grande Rio. Para eventos em outras cidades ou destinos, fale com a equipe informando o local e a data, e avaliamos a disponibilidade para o seu caso.</p></div>
           </details>
           <details class="acc">
             <summary>Vocês ajudam na escolha de fornecedores?</summary>
-            <div class="acc__body"><p>A organização de fornecedores faz parte do planejamento. O nível de envolvimento em cada escolha varia de acordo com a modalidade contratada — na primeira conversa explicamos como funciona para o seu evento.</p></div>
+            <div class="acc__body"><p>A organização de fornecedores faz parte do planejamento. O nível de envolvimento em cada escolha varia de acordo com a modalidade contratada. Na primeira conversa explicamos como funciona para o seu evento.</p></div>
           </details>
           <details class="acc">
             <summary>Vocês trabalham com destination wedding?</summary>
@@ -579,7 +701,7 @@
           </details>
           <details class="acc">
             <summary>Existe limite de convidados?</summary>
-            <div class="acc__body"><p>Acompanhamos desde elopements e micro weddings até grandes celebrações. Informe o número aproximado de convidados no formulário para que a equipe possa orientar você sobre a estrutura ideal.</p></div>
+            <div class="acc__body"><p>Acompanhamos desde elopements e mini weddings até grandes celebrações. Informe o número aproximado de convidados no formulário para que a equipe possa orientar você sobre a estrutura ideal.</p></div>
           </details>
           <details class="acc">
             <summary>Como funciona a primeira conversa?</summary>
@@ -590,33 +712,35 @@
     </section>
 
     <!-- ════════════════════════════════════════════
-         17. CTA FINAL
+         CTA FINAL
     ════════════════════════════════════════════ -->
     <section class="finale" aria-labelledby="finale-title">
-      <div class="finale__media ph tone-hero" data-ph="FOTO CTA" data-ph-note="Imagem emocional — opcional" data-parallax="0.06"><img src="assets/img/fotos/cta.webp" alt="Cerimônia à luz de velas sob um lustre de cristal" loading="lazy" decoding="async"></div>
+      <figure class="finale__media frame">
+        <img src="assets/img/fotos/cta.webp" alt="" loading="lazy" data-parallax="10">
+      </figure>
       <div class="finale__veil" aria-hidden="true"></div>
       <div class="wrap finale__content">
         <p class="eyebrow eyebrow--light" data-reveal>O primeiro passo</p>
-        <h2 class="finale__title" id="finale-title" data-reveal>O seu evento começa<br><em>muito antes do grande dia.</em></h2>
+        <h2 class="finale__title" id="finale-title" data-split>O seu evento começa <em>muito antes do grande dia.</em></h2>
         <p class="finale__sub" data-reveal>E talvez ele possa começar aqui.</p>
-        <a class="btn btn--light" href="#proposta" data-reveal>Quero contar minha história <span class="btn__arrow" aria-hidden="true">→</span></a>
+        <a class="btn btn--light" href="#proposta" data-reveal data-magnetic>Quero contar minha história <span class="btn__arrow" aria-hidden="true">→</span></a>
       </div>
     </section>
 
     <!-- ════════════════════════════════════════════
-         18. FORMULÁRIO  +  19. CONTATO
+         FORMULÁRIO + CONTATO
     ════════════════════════════════════════════ -->
     <section class="contact section" id="contato" aria-labelledby="form-title">
       <div class="wrap contact__grid">
         <aside class="contact__info">
           <p class="eyebrow" data-reveal>Contato</p>
-          <h2 class="h-lg" id="form-title" data-reveal>Vamos conversar sobre o evento que você está <em>imaginando?</em></h2>
+          <h2 class="h-lg" id="form-title" data-split>Vamos conversar sobre o evento que você está <em>imaginando?</em></h2>
           <p class="lead" data-reveal>Conte um pouco sobre a sua celebração. A equipe responde pessoalmente.</p>
 
           <dl class="contact__list" data-reveal>
             <div>
               <dt>WhatsApp</dt>
-              <dd><a class="link" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer" data-wa>(21) 99981-1992</a></dd>
+              <dd><a class="link" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer">(21) 99981-1992</a></dd>
             </div>
             <div>
               <dt>E-mail</dt>
@@ -630,7 +754,7 @@
 
           <address class="contact__address" data-reveal>
             Rebecca Gemaque Assessoria e Cerimonial<br>
-            Rio de Janeiro — RJ<br>
+            Rio de Janeiro e Grande Rio — RJ<br>
             <span>Rua José Roberto, 17 · Higienópolis · CEP 21050-490</span>
           </address>
         </aside>
@@ -639,15 +763,13 @@
           <form class="form" data-form novalidate aria-describedby="form-intro">
             <p class="form__intro" id="form-intro">Campos marcados com <span aria-hidden="true">*</span><span class="sr-only">asterisco</span> são obrigatórios.</p>
 
-            <div class="form__row">
-              <div class="field">
-                <label for="f-nome">Nome *</label>
-                <input id="f-nome" name="nome" type="text" autocomplete="name" required>
-                <p class="field__error" aria-live="polite"></p>
-              </div>
+            <div class="field">
+              <label for="f-nome">Nome *</label>
+              <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+              <p class="field__error" aria-live="polite"></p>
             </div>
 
-            <div class="form__row form__row--2">
+            <div class="form__row">
               <div class="field">
                 <label for="f-whatsapp">WhatsApp *</label>
                 <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000" required data-mask="phone">
@@ -660,17 +782,17 @@
               </div>
             </div>
 
-            <div class="form__row form__row--2">
+            <div class="form__row">
               <div class="field">
                 <label for="f-tipo">Tipo de evento *</label>
                 <select id="f-tipo" name="tipo" required>
                   <option value="" selected disabled>Selecione</option>
                   <option>Casamento</option>
-                  <option>Destination wedding</option>
                   <option>Mini / micro wedding</option>
+                  <option>Destination wedding</option>
                   <option>Elopement wedding</option>
                   <option>15 anos</option>
-                  <option>Bodas</option>
+                  <option>Bodas / renovação de votos</option>
                   <option>Noivado</option>
                   <option>Aniversário</option>
                   <option>Evento corporativo</option>
@@ -681,11 +803,10 @@
               <div class="field">
                 <label for="f-data">Data prevista</label>
                 <input id="f-data" name="data" type="text" placeholder="Ex.: 12/10/2027 ou out/2027">
-                <p class="field__error" aria-live="polite"></p>
               </div>
             </div>
 
-            <div class="form__row form__row--2">
+            <div class="form__row">
               <div class="field">
                 <label for="f-local">Local do evento</label>
                 <input id="f-local" name="local" type="text" placeholder="Cidade, espaço ou ainda em definição">
@@ -711,7 +832,6 @@
               <textarea id="f-mensagem" name="mensagem" rows="4"></textarea>
             </div>
 
-            <!-- anti-spam (não remover) -->
             <div class="hp" aria-hidden="true"><label>Não preencha <input type="text" name="empresa" tabindex="-1" autocomplete="off"></label></div>
 
             <p class="form__consent">Ao enviar, você concorda com o uso dos seus dados apenas para retorno do contato, conforme a <a class="link" href="politica-de-privacidade.html">Política de Privacidade</a>.</p>
@@ -723,7 +843,7 @@
           <div class="form-done" data-form-done hidden tabindex="-1">
             <p class="eyebrow">Obrigada</p>
             <p class="form-done__title">Sua história <em>começou a ser contada.</em></p>
-            <p class="form-done__text" data-form-done-text>Para concluir, envie sua mensagem diretamente para a Rebecca pelo WhatsApp — ela já está pronta.</p>
+            <p class="form-done__text" data-form-done-text>Para concluir, envie sua mensagem diretamente para a Rebecca pelo WhatsApp. Ela já está pronta.</p>
             <a class="btn btn--solid" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer" data-form-wa>Continuar no WhatsApp <span class="btn__arrow" aria-hidden="true">→</span></a>
           </div>
         </div>
@@ -732,16 +852,13 @@
   </main>
 
   <!-- ════════════════════════════════════════════
-       20. FOOTER
+       FOOTER
   ════════════════════════════════════════════ -->
   <footer class="footer">
     <div class="wrap">
       <div class="footer__top">
-        <a class="logo logo--footer" href="#inicio">
-          <span class="logo__name">Rebecca Gemaque</span>
-          <span class="logo__tag">Assessoria &amp; Cerimonial</span>
-        </a>
-        <p class="footer__claim">Enquanto cuidamos de cada detalhe,<br><em>você vive cada momento.</em></p>
+        <p class="footer__claim">Enquanto cuidamos de cada detalhe, <em>você vive cada momento.</em></p>
+        <a class="btn btn--light" href="#proposta" data-magnetic>Solicitar proposta <span class="btn__arrow" aria-hidden="true">→</span></a>
       </div>
 
       <nav class="footer__nav" aria-label="Rodapé">
@@ -754,10 +871,13 @@
         </ul>
         <ul>
           <li><a class="link" href="https://www.instagram.com/cerimonialistarebeccagemaque/" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a class="link" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer" data-wa>WhatsApp</a></li>
+          <li><a class="link" href="https://wa.me/5521999811992" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+          <li><a class="link" href="https://www.casamentos.com.br/cerimonialista/rebecca-gemaque-assessoria-e-cerimonial--e228552" target="_blank" rel="noopener noreferrer">Casamentos.com.br</a></li>
           <li><a class="link" href="mailto:gemaque.cerimonial@outlook.com">E-mail</a></li>
         </ul>
       </nav>
+
+      <p class="footer__word" aria-hidden="true" data-footer-word>Rebecca Gemaque</p>
 
       <div class="footer__bottom">
         <p>© <span data-year>2026</span> Rebecca Gemaque Assessoria e Cerimonial · Rio de Janeiro — RJ</p>
@@ -771,7 +891,7 @@
     <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 14.98L2 22l5.17-1.5A9.93 9.93 0 1 0 12.04 2Zm0 18.13a8.2 8.2 0 0 1-4.2-1.15l-.3-.18-3.07.9.92-3-.2-.31a8.22 8.22 0 1 1 6.85 3.74Zm4.5-6.15c-.25-.12-1.46-.72-1.69-.8-.23-.09-.39-.13-.55.12-.17.24-.64.8-.78.96-.14.17-.29.19-.53.06a6.74 6.74 0 0 1-3.37-2.94c-.25-.44.25-.4.72-1.34.08-.16.04-.3-.02-.42-.06-.13-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04 4.77 4.77 0 0 0 1 2.53 10.9 10.9 0 0 0 4.18 3.69c1.55.67 2.16.73 2.94.61.47-.07 1.46-.6 1.66-1.17.2-.58.2-1.07.15-1.17-.06-.11-.22-.17-.47-.29Z"/></svg>
   </a>
 
-  <!-- Lightbox do portfólio -->
+  <!-- Lightbox -->
   <dialog class="lightbox" data-lightbox-dialog aria-label="Galeria do portfólio">
     <div class="lightbox__stage" data-lightbox-stage></div>
     <div class="lightbox__bar">

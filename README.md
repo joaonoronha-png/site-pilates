@@ -1,16 +1,17 @@
 # Rebecca Gemaque — Assessoria & Cerimonial
 
-Site institucional estático (HTML + CSS + JS puro, sem build e sem dependências).
+Site estático em HTML, CSS e JavaScript, sem etapa de build.
 Pode ser hospedado em qualquer lugar: Netlify, Vercel, GitHub Pages, Hostinger, etc.
 
 ```
-index.html                  página principal (todas as seções)
+index.html                    página principal
 politica-de-privacidade.html
-eventos/modelo.html         modelo para páginas individuais de eventos
-assets/css/style.css        design system (cores, tipografia, componentes)
-assets/js/config.js         ⚙️ configurações editáveis (WhatsApp, formulário, métricas)
-assets/js/main.js           interações
-assets/img/                 favicon, ícone iOS, imagem de compartilhamento (OG)
+eventos/modelo.html           modelo para páginas individuais de eventos
+assets/css/style.css          design system (cores, tipografia, componentes)
+assets/js/config.js           ⚙️ configurações editáveis (WhatsApp, formulário, métricas)
+assets/js/main.js             interações e animações
+assets/js/vendor/             GSAP 3.13 (+ScrollTrigger, SplitText) e Lenis 1.3, hospedados no próprio site
+assets/img/fotos/             fotos do site (WebP)
 robots.txt · sitemap.xml
 ```
 
@@ -18,71 +19,69 @@ Para visualizar localmente: `npx http-server .` e abra http://localhost:8080
 
 ---
 
-## Fotos atuais
+## O que o site faz
 
-As fotos em `assets/img/fotos/` vieram do site antigo da Rebecca (Alboom), com casamentos que ela acompanhou.
-São versões em baixa resolução, com no máximo 1280px, e algumas têm marca-d'água do fotógrafo (ex.: *MM*, *Caio Gomes Fotografia*).
-**Antes de publicar:** peça os arquivos originais em alta resolução, confirme a autorização dos fotógrafos e dos casais e, se for o caso, credite os fotógrafos.
+| Recurso | Onde |
+|---|---|
+| Tela de abertura com o nome surgindo letra por letra (só na 1ª visita da sessão) | topo |
+| Slideshow automático no topo, com 5 fotos, barras de progresso e legenda do casal. No celular, deslizar troca a foto | Hero |
+| Faixa de categorias em movimento contínuo | abaixo do Hero |
+| Títulos que entram linha por linha e frases que se acendem palavra por palavra conforme a rolagem | todas as seções |
+| Menu em tela cheia, com prévia de foto ao passar o mouse | botão "Menu" |
+| Rolagem suave (Lenis), barra de progresso da leitura e cabeçalho que se esconde ao descer e volta ao subir | global |
+| Foto da modalidade que acompanha a rolagem | Assessoria |
+| Portfólio em rolagem horizontal fixa no computador e em deslize no celular, com ampliação ao clicar | Portfólio |
+| Depoimentos que passam sozinhos. Pausam ao tocar ou passar o mouse e podem ser arrastados | Depoimentos |
+| Carrossel do Instagram girando sem parar em duas faixas. Dá para segurar e arrastar, com inércia | Instagram |
+| Botões magnéticos e cursor personalizado ("Ver" e "Arraste") | computador |
+| Rodapé com letreiro gigante animado | Rodapé |
 
-Ainda sem foto (placeholder): Destination weddings, Mini & micro weddings, 15 anos, Bodas e Eventos corporativos. Não havia imagens dessas categorias.
+Tudo isso se desliga automaticamente para quem ativa "reduzir movimento" no sistema.
+Se as bibliotecas não carregarem, o site continua completo e legível, apenas sem as animações.
 
-## Como trocar as fotos
+## Fotos
 
-Todos os espaços de imagem são placeholders identificados, por exemplo `[FOTO HERO]`, `[FOTO REBECCA]` ou `[FOTO PORTFÓLIO 03]`.
-Para substituir, basta colocar um `<img>` **dentro** do elemento `.ph`. O placeholder some sozinho.
+As fotos vieram do site antigo da Rebecca (Alboom): são 22 álbuns de eventos que ela acompanhou.
+Os nomes dos casais e dos locais nas legendas foram tirados desses mesmos álbuns.
 
-```html
-<figure class="ph tone-2" data-ph="FOTO REBECCA">
-  <img src="assets/img/rebecca.webp" alt="Rebecca Gemaque sorrindo durante uma cerimônia" loading="lazy">
-</figure>
-```
+- `hero-1…5`: slideshow do topo (Teka & Filipe, Samara & Igor, Monique & Michel, Linda & Fábio, Luiza & Tiago)
+- `portfolio-01…10`: portfólio
+- `casamentos`, `destination`, `mini-wedding`, `15-anos`, `celebracoes`, `eventos`: mosaico de experiências
+- `detalhe-01…12`: carrossel do Instagram
 
-Recomendações:
-- Use **WebP ou AVIF**, com cerca de 2400px de largura para imagens full-width e 1400px para as demais.
-- Sempre escreva um `alt` descritivo. Em imagens decorativas, use `alt=""`.
-- Mantenha `loading="lazy"` em todas as fotos, **exceto** na do Hero, que deve usar `fetchpriority="high"`.
-- Para imagens responsivas, use `<picture>` ou `srcset` normalmente. Os dois funcionam dentro de `.ph`.
-- No portfólio, `data-full="caminho-grande.webp"` no `<img>` faz o lightbox carregar uma versão maior.
+**Antes de publicar:**
+- Peça os originais em alta resolução. As versões atuais têm no máximo 1200px, e o ideal para o topo é 2400px.
+- Confirme a autorização dos casais e dos fotógrafos. Algumas fotos têm marca-d'água (ex.: *Cristiane Mattos*, *Talita Raiff*, *Caio Gomes*).
+- A foto de "Destination weddings" é uma vista para o mar num making of. Troque por um destination real quando houver.
+- A de "Eventos corporativos" é da feira *Planejamento Ideal*.
 
-**Vídeo no Hero:** há um bloco comentado em `index.html` (seção HERO) pronto para um vídeo curto em loop, sem som.
+Para trocar uma foto, substitua o arquivo `.webp` mantendo o nome, ou edite o `src` e o `alt` no `index.html`.
+O enquadramento de cada foto é ajustado pelo `style="--pos: 50% 40%"` (horizontal e vertical).
 
-**Parallax:** as imagens com `data-parallax="0.05"` se movem levemente no scroll. Para desativar em uma imagem, remova o atributo.
+## Textos e dados
 
-## Textos
+Todos os textos estão no `index.html`, organizados por seção.
 
-Todos os textos estão diretamente no `index.html`, organizados por seção e marcados com comentários
-(`<!-- 7. SOBRE REBECCA -->`, `<!-- 9. MODALIDADES -->`, etc.).
-
-### ⚠️ Antes de publicar
-- [ ] **Depoimentos:** substituir `[DEPOIMENTO REAL 01…04]` somente por avaliações reais e autorizadas. Para ter mais depoimentos, duplique um `<li class="quote">`.
-- [ ] **Faixa de autoridade:** confirmar 5,0 no Google / 79 avaliações / 100% de recomendação / Casamentos Awards 2022. Depois, remova os asteriscos e a nota.
-- [ ] **Preços:** confirmar os valores de referência das modalidades.
-- [ ] **Portfólio:** trocar "Nome do casal" e "Local · Ano" (atributos `data-title` e `data-meta` e a legenda visível).
-- [ ] **Domínio:** trocar `https://www.rebeccagemaque.com.br/` pelo domínio real em `index.html` (canonical, Open Graph, JSON-LD), `robots.txt` e `sitemap.xml`.
-- [ ] **Política de Privacidade:** revisar o texto com apoio jurídico.
-- [ ] Revisar as respostas do FAQ com a equipe.
+- **Depoimentos:** avaliações reais publicadas no perfil do Casamentos.com.br (trechos, com pequenas correções de digitação).
+- **Faixa de autoridade:** "5,0 · 15 avaliações · 100% de recomendação" no Casamentos.com.br foi conferido em set/2026.
+  "5,0 no Google · 79 avaliações" e "Casamentos Awards 2022" vieram do briefing e continuam marcados com * até serem confirmados.
+- **Preços:** valores de referência do briefing. O próprio Casamentos.com.br indica "a partir de R$ 4.000".
+- **Domínio:** troque `https://www.rebeccagemaque.com.br/` pelo domínio real em `index.html`, `robots.txt` e `sitemap.xml`.
+- **Política de Privacidade:** revise o texto com apoio jurídico.
 
 ## Formulário
 
-Sem configuração, o formulário valida os campos e monta uma mensagem completa para o **WhatsApp** (21) 99981-1992.
-A pessoa conclui o envio com um toque em "Continuar no WhatsApp".
+Sem configuração, o formulário valida os campos e monta a mensagem completa para o **WhatsApp** (21) 99981-1992.
+Para também receber por e-mail ou planilha, cole a URL de um serviço (Formspree, Make, Zapier, Google Apps Script…) em `formEndpoint`, no arquivo `assets/js/config.js`.
 
-Para também receber os dados por e-mail ou em planilha, cole a URL de um serviço (Formspree, Getform, Make, Zapier, Google Apps Script…)
-em `formEndpoint`, no arquivo `assets/js/config.js`. O site envia um POST em JSON.
+## Métricas
 
-## Métricas (Google Analytics 4 / Meta Pixel)
+Preencha `analytics.ga4` e/ou `analytics.metaPixel` em `assets/js/config.js`. O site dispara os eventos `generate_lead` (envio do formulário) e `contact_whatsapp` (clique no WhatsApp), que também chegam ao `window.dataLayer` para uso com o Google Tag Manager.
 
-Preencha `analytics.ga4` e/ou `analytics.metaPixel` em `assets/js/config.js`. Os scripts só carregam quando há ID configurado.
-Eventos já disparados:
-- `generate_lead`: envio do formulário (Lead no Pixel);
-- `contact_whatsapp`: clique em qualquer link de WhatsApp (Contact no Pixel).
+## Páginas de eventos
 
-Os eventos também vão para `window.dataLayer`, o que deixa tudo pronto para o Google Tag Manager.
-
-## Páginas de eventos (futuro)
-
-1. Duplique `eventos/modelo.html` (ex.: `eventos/ana-e-pedro.html`) e preencha.
-2. No portfólio do `index.html`, informe `data-href="eventos/ana-e-pedro.html"` no item. O lightbox passa a mostrar "Ver história completa".
+1. Duplique `eventos/modelo.html` (ex.: `eventos/luiza-e-tiago.html`) e preencha.
+2. No portfólio do `index.html`, informe `data-href="eventos/luiza-e-tiago.html"`. O lightbox passa a mostrar "Ver história completa".
 3. Remova o `noindex` da nova página e adicione a URL ao `sitemap.xml`.
 
 ## Paleta
@@ -94,12 +93,7 @@ Os eventos também vão para `window.dataLayer`, o que deixa tudo pronto para o 
 | `--sand` | #DED3C5 | destaques sobre escuro |
 | `--taupe` | #B9AA9B | linhas, números |
 | `--brown` | #403731 | itálicos, labels |
-| `--graphite` | #292623 | texto, faixas escuras |
-| `--champ` | #B99B72 | acento: só em linhas, ícones e hover |
+| `--graphite` / `--ink-deep` | #292623 / #1E1B19 | texto, seções escuras |
+| `--champ` | #B99B72 | acento: linhas, progresso, detalhes |
 
 Tipografia: **Cormorant Garamond** (títulos) + **Manrope** (textos e interface).
-
-## Acessibilidade e performance
-- HTML semântico, link "pular para o conteúdo", foco visível, `aria-*` no menu, lightbox, slider e formulário.
-- `prefers-reduced-motion` desliga animações, parallax e contadores.
-- Nenhuma biblioteca externa: todo o JS e o CSS são próprios, e as animações usam apenas `transform` e `opacity`.
