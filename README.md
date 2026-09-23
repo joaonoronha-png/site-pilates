@@ -62,9 +62,9 @@ O enquadramento de cada foto é ajustado pelo `style="--pos: 50% 40%"` (horizont
 
 Todos os textos estão no `index.html`, organizados por seção.
 
-- **Depoimentos:** avaliações reais publicadas no perfil do Casamentos.com.br (trechos, com pequenas correções de digitação).
-- **Faixa de autoridade:** "5,0 · 15 avaliações · 100% de recomendação" no Casamentos.com.br foi conferido em set/2026.
-  "5,0 no Google · 79 avaliações" e "Casamentos Awards 2022" vieram do briefing e continuam marcados com * até serem confirmados.
+- **Depoimentos:** 7 avaliações 5 estrelas do Google, escolhidas pela empresa. Só aparece entre aspas o texto literal da cliente; o restante é resumo (marcado como "Destaques" ou "Resumo da avaliação"). Para usar o texto completo de Vanessa Santanna e A.N., cole as palavras delas no `index.html`.
+- **Faixa de autoridade:** Google 5,0 · 79 avaliações (confirmado pela empresa) e Casamentos.com.br 5,0 · 15 avaliações · 100% de recomendação (conferido em set/2026).
+  "Casamentos Awards 2022" continua com * até ser confirmado.
 - **Preços:** valores de referência do briefing. O próprio Casamentos.com.br indica "a partir de R$ 4.000".
 - **Domínio:** troque `https://www.rebeccagemaque.com.br/` pelo domínio real em `index.html`, `robots.txt` e `sitemap.xml`.
 - **Política de Privacidade:** revise o texto com apoio jurídico.

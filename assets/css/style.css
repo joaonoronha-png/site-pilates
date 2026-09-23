@@ -456,6 +456,9 @@ html:not(.js) .step { opacity: 1; }
 }
 .quote__mark { font-family: var(--serif); font-size: 5rem; line-height: .6; color: var(--champ); height: 2.2rem; }
 .quote__text { font-family: var(--serif); font-size: clamp(1.35rem, 2.1vw, 1.7rem); line-height: 1.42; }
+.quote__sum { font-size: .88rem; color: var(--ink-soft); line-height: 1.6; margin-top: -.6rem; }
+.quote__sum span, .quote__label { display: block; font-size: .58rem; font-weight: 600; letter-spacing: .24em; text-transform: uppercase; color: var(--champ); margin-bottom: .35rem; }
+.quote__text--sum { font-style: italic; color: var(--brown); }
 .quote__foot { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem; padding-top: 1.4rem; border-top: 1px solid var(--line); }
 .quote__avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--graphite); color: var(--sand); font-family: var(--serif); font-size: 1.3rem; font-style: italic; }
 .quote__who { display: grid; gap: .1rem; min-width: 0; }
