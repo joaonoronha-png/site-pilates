@@ -6,14 +6,19 @@ Mesmo modelo do site da Rebecca Gemaque (HTML + CSS + JS puro, GSAP + Lenis), co
 
 Para abrir: dê dois cliques em `index.html` ou publique a pasta arrastando-a para app.netlify.com/drop.
 
-## Fotos
-- `assets/img/fotos/paula.webp` (retrato) e `arco-vista-mar.webp` (decoração): arquivos locais.
-- As demais fotos são carregadas direto do portfólio público dela no Casamentos.com.br (`cdn0.casamentos.com.br`).
-  Se alguma não carregar, aparece um fundo elegante no lugar, nunca um ícone quebrado.
-- **Antes de publicar de verdade:** peça as fotos originais em alta resolução, salve em `assets/img/fotos/` e troque os `src`.
-- As legendas com nomes (Ana & Pedro, Tassia & Rodrigo, Lica & Marcel, Dri & Miguel, Carol, Ingrid) vieram dos nomes dos arquivos no portfólio. Confirme com ela.
+## Fotos e vídeo
+Todas as fotos são locais (`assets/img/fotos/`), tiradas dos posts públicos do Instagram @paulafigueiredoeventosrj:
+- Thaissa & Matheus, Casa do Alto (fotos: @clavello)
+- Júlia & Roberto, Petrópolis
+- Pamela, Galeria Jardim (fotos: @bernardozirkheuer)
+- Isabela & Caio
+- Retrato da Paula no Solar Real (@jourbenifotografia)
+
+O vídeo `assets/video/decoracao-camila-luiz.mp4` (12s, sem som) é da decoração de Camila & Luiz (@werneckfotografia).
+**Antes de publicar de verdade:** confirme com a Paula a autorização dos casais e fotógrafos e peça os arquivos originais.
 
 ## Dados usados (Casamentos.com.br, set/2026)
+Instagram: "Desde 2010 dedicada a casamentos inesquecíveis", 7.620 seguidores.
 5,0 · 75 avaliações · 100% recomendam · +110 casais · Casamentos Awards 2018–2026 · resposta em até 24h ·
 a partir de R$ 6.500 · pagamento flexível, quitado até 15 dias antes · portes <100 a +500 · Búzios e Angra dos Reis.
 
