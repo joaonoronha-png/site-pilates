@@ -113,3 +113,41 @@ body { font-weight: 400; letter-spacing: .005em; }
 .dest__media { aspect-ratio: 9 / 14; max-width: 480px; justify-self: center; width: 100%; }
 .dest__media video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .dest__cap { position: absolute; left: 1rem; bottom: 1rem; padding: .45rem .9rem; border-radius: 999px; background: rgba(32, 28, 24, .6); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); color: var(--off); font-size: .6rem; letter-spacing: .2em; text-transform: uppercase; }
+
+/* ==========================================================================
+   ONDE ESTAMOS — mapa
+   ========================================================================== */
+.map { position: relative; background: var(--ivory); }
+.map__stage { position: relative; height: clamp(360px, 62vh, 640px); overflow: hidden; background: #ece6da; }
+.map__img, .map__stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+.map__img { filter: sepia(.35) saturate(.8) contrast(.95); }
+.map__stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, var(--ivory) 0%, rgba(245, 240, 230, 0) 18%, rgba(245, 240, 230, 0) 70%, rgba(245, 240, 230, .6) 100%); }
+.map__stage.is-live::after { display: none; }
+.map__pin { position: absolute; left: 50%; top: 50%; width: 0; height: 0; z-index: 2; }
+.map__dot { position: absolute; left: -26px; top: -62px; width: 52px; height: 52px; border-radius: 50% 50% 50% 0; transform: rotate(-45deg); background: var(--graphite); box-shadow: 0 10px 24px -8px rgba(32, 28, 24, .6); display: grid; place-items: center; color: var(--sand); font-family: var(--serif); font-style: italic; font-size: .95rem; }
+.map__dot { font-size: 0; }
+.map__dot::before { content: "PF"; font-size: .95rem; transform: rotate(45deg); color: var(--sand); }
+.map__pulse { position: absolute; left: -14px; top: -7px; width: 28px; height: 14px; border-radius: 50%; background: rgba(168, 139, 85, .45); animation: mapPulse 2.4s var(--ease) infinite; }
+@keyframes mapPulse { 0% { transform: scale(.6); opacity: .9; } 100% { transform: scale(2.6); opacity: 0; } }
+.map__load { position: absolute; right: var(--gutter); top: 1.2rem; z-index: 3; min-height: 40px; padding: .5rem 1.1rem; border-radius: 999px; background: rgba(251, 248, 241, .92); border: 1px solid var(--line); font-size: .6rem; font-weight: 600; letter-spacing: .2em; text-transform: uppercase; color: var(--graphite); transition: background-color .4s; }
+.map__load:hover { background: var(--off); }
+.map__stage.is-live .map__pin, .map__stage.is-live .map__load, .map__stage.is-live .map__credit { display: none; }
+.map__credit { position: absolute; right: .6rem; bottom: .4rem; z-index: 2; font-size: .6rem; color: var(--ink-soft); }
+.map__wrap { position: relative; z-index: 3; margin-top: -7rem; padding-bottom: var(--section); pointer-events: none; }
+.map__card { pointer-events: auto; max-width: 30rem; background: var(--off); border: 1px solid var(--line); border-radius: 4px; padding: clamp(1.6rem, 4vw, 2.8rem); box-shadow: 0 40px 90px -50px rgba(42, 37, 32, .5); display: grid; gap: 1.1rem; position: relative; overflow: hidden; }
+.map__card::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: repeating-linear-gradient(90deg, var(--sand) 0 18px, var(--off) 18px 30px); }
+.map__card .eyebrow { margin-bottom: 0; }
+.map__title { font-family: var(--serif); font-weight: 400; font-size: clamp(2rem, 4.4vw, 3.2rem); line-height: 1.05; letter-spacing: -.02em; }
+.map__title em { color: var(--brown); }
+.map__addr { font-family: var(--serif); font-size: 1.2rem; line-height: 1.5; color: var(--graphite); }
+.map__hours { font-size: .85rem; color: var(--ink-soft); }
+.map__actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: .4rem; }
+.map__actions .btn { min-height: 46px; padding: .8rem 1.3rem; font-size: .6rem; }
+.nowrap { white-space: nowrap; }
+@media (min-width: 900px) {
+  .map { padding-bottom: 0; }
+  .map__stage { height: min(78vh, 720px); }
+  .map__stage::after { background: linear-gradient(90deg, rgba(245, 240, 230, .85) 0%, rgba(245, 240, 230, .35) 34%, rgba(245, 240, 230, 0) 55%), linear-gradient(180deg, var(--ivory) 0%, rgba(245, 240, 230, 0) 14%); }
+  .map__wrap { position: absolute; inset: 0; margin: 0 auto; padding-bottom: 0; display: flex; align-items: center; }
+  .map__pin { left: 62%; }
+}

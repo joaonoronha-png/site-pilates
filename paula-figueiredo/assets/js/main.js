@@ -798,3 +798,20 @@
   const idle = window.requestIdleCallback || ((fn) => setTimeout(fn, 1500));
   window.addEventListener('load', () => idle(loadAnalytics));
 })();
+
+/* Mapa: carrega o Google Maps interativo só quando pedido (mais leve e privado) */
+(() => {
+  const btn = document.querySelector('[data-map-load]');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const stage = btn.closest('[data-map]');
+    const f = document.createElement('iframe');
+    f.src = btn.dataset.src;
+    f.title = 'Mapa interativo: Rua Guilherme Baptista, 782 — Recreio dos Bandeirantes';
+    f.loading = 'lazy';
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    f.allowFullscreen = true;
+    stage.appendChild(f);
+    stage.classList.add('is-live');
+  });
+})();

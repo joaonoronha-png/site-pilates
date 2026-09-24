@@ -53,7 +53,8 @@
     "telephone": "+55 21 98997-8296",
     "email": "paulafigueiredodecor@gmail.com",
     "priceRange": "A partir de R$ 6.500",
-    "address": { "@type": "PostalAddress", "addressLocality": "Rio de Janeiro", "addressRegion": "RJ", "addressCountry": "BR", "streetAddress": "Recreio dos Bandeirantes" },
+    "address": { "@type": "PostalAddress", "streetAddress": "Rua Guilherme Baptista, 782 - Recreio dos Bandeirantes", "addressLocality": "Rio de Janeiro", "addressRegion": "RJ", "postalCode": "22790-160", "addressCountry": "BR" },
+    "geo": { "@type": "GeoCoordinates", "latitude": -23.0140487, "longitude": -43.4582149 },
     "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "75", "bestRating": "5" },
     "sameAs": ["https://www.instagram.com/paulafigueiredoeventosrj/", "https://www.casamentos.com.br/cerimonialista/paula-figueiredo--e125875", "https://www.facebook.com/paulafigueiredoeventos/"]
   }
@@ -119,7 +120,7 @@
         <div class="menu__foot">
           <div><p class="menu__k">WhatsApp</p><a class="link" href="https://wa.me/5521989978296" target="_blank" rel="noopener noreferrer">(21) 98997-8296</a></div>
           <div><p class="menu__k">E-mail</p><a class="link" href="mailto:paulafigueiredodecor@gmail.com">paulafigueiredodecor@gmail.com</a></div>
-          <div><p class="menu__k">Onde estamos</p><span>Recreio dos Bandeirantes — Rio de Janeiro/RJ</span></div>
+          <div><p class="menu__k">Onde estamos</p><a class="link" href="#localizacao">Rua Guilherme Baptista, 782 · Recreio</a></div>
           <a class="btn btn--light" href="#proposta">Solicitar proposta <span class="btn__arrow" aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -575,7 +576,7 @@
             <div><dt>E-mail</dt><dd><a class="link" href="mailto:paulafigueiredodecor@gmail.com">paulafigueiredodecor@gmail.com</a></dd></div>
             <div><dt>Instagram</dt><dd><a class="link" href="https://www.instagram.com/paulafigueiredoeventosrj/" target="_blank" rel="noopener noreferrer">@paulafigueiredoeventosrj</a></dd></div>
           </dl>
-          <address class="contact__address" data-reveal>Paula Figueiredo Cerimonial e Decoração de Eventos<br>Recreio dos Bandeirantes — Rio de Janeiro/RJ</address>
+          <address class="contact__address" data-reveal>Paula Figueiredo Cerimonial e Decoração de Eventos<br>Rua Guilherme Baptista, 782 — Recreio dos Bandeirantes<br>Rio de Janeiro – RJ · CEP 22790-160 · <a class="link" href="#localizacao">ver no mapa</a></address>
         </aside>
 
         <div class="contact__form-wrap" id="proposta">
@@ -623,6 +624,27 @@
         </div>
       </div>
     </section>
+    <!-- ════════════ ONDE ESTAMOS (mapa) ════════════ -->
+    <section class="map" id="localizacao" aria-labelledby="map-title">
+      <div class="map__stage" data-map>
+        <picture><source media="(min-width: 900px)" srcset="assets/img/mapa-recreio-desktop.webp"><img class="map__img" src="assets/img/mapa-recreio.webp" alt="Mapa do Recreio dos Bandeirantes com a localização da Rua Guilherme Baptista, 782" loading="lazy"></picture>
+        <span class="map__pin" aria-hidden="true"><span class="map__pulse"></span><span class="map__dot">PF</span></span>
+        <button type="button" class="map__load" data-map-load data-src="https://www.google.com/maps?q=Rua%20Guilherme%20Baptista%2C%20782%20-%20Recreio%20dos%20Bandeirantes%2C%20Rio%20de%20Janeiro%20-%20RJ%2C%2022790-160&amp;z=16&amp;output=embed">Ver mapa interativo</button>
+        <p class="map__credit">© colaboradores do OpenStreetMap</p>
+      </div>
+      <div class="wrap map__wrap">
+        <div class="map__card">
+          <p class="eyebrow">Onde estamos</p>
+          <h2 class="map__title" id="map-title">Recreio dos <em>Bandeirantes.</em></h2>
+          <address class="map__addr">Rua Guilherme Baptista, 782<br>Recreio dos Bandeirantes<br>Rio de Janeiro – RJ · <span class="nowrap">CEP 22790-160</span></address>
+          <p class="map__hours">Atendimento de segunda a sábado, das 9h às 20h, com horário marcado.</p>
+          <div class="map__actions">
+            <a class="btn btn--solid" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Guilherme+Baptista%2C+782+-+Recreio+dos+Bandeirantes%2C+Rio+de+Janeiro+-+RJ%2C+22790-160" target="_blank" rel="noopener noreferrer">Abrir no Google Maps <span class="btn__arrow" aria-hidden="true">↗</span></a>
+            <a class="btn btn--outline" href="https://waze.com/ul?ll=-23.0140487%2C-43.4582149&amp;navigate=yes" target="_blank" rel="noopener noreferrer">Ir com Waze <span class="btn__arrow" aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
   <!-- ════════════ FOOTER ════════════ -->
@@ -639,6 +661,7 @@
           <li><a class="link" href="#casamentos-reais">Casamentos reais</a></li>
           <li><a class="link" href="#investimento">Investimento</a></li>
           <li><a class="link" href="#contato">Contato</a></li>
+          <li><a class="link" href="#localizacao">Localização</a></li>
         </ul>
         <ul>
           <li><a class="link" href="https://wa.me/5521989978296" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>

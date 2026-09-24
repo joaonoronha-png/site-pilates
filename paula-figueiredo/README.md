@@ -22,7 +22,8 @@ Instagram: "Desde 2010 dedicada a casamentos inesquecíveis", 7.620 seguidores.
 5,0 · 75 avaliações · 100% recomendam · +110 casais · Casamentos Awards 2018–2026 · resposta em até 24h ·
 a partir de R$ 6.500 · pagamento flexível, quitado até 15 dias antes · portes <100 a +500 · Búzios e Angra dos Reis.
 
-Endereço: só "Recreio dos Bandeirantes — Rio de Janeiro/RJ" (as fontes divergem entre Rua Guilherme Baptista, 782 e Rua Jorge Emílio Fontenelle, 175).
+Endereço confirmado: Rua Guilherme Baptista, 782 — Recreio dos Bandeirantes, Rio de Janeiro – RJ, CEP 22790-160.
+Seção "Onde estamos" com mapa estático (OpenStreetMap, `assets/img/mapa-recreio*.webp`), botão que carrega o Google Maps interativo e links para Google Maps e Waze.
 
 Os depoimentos são títulos e trechos literais das avaliações. Onde o texto completo não foi transcrito, o card aparece como "Resumo da avaliação".
 
