@@ -1,0 +1,106 @@
+/* ==========================================================================
+   Paula Figueiredo — identidade própria sobre o design system base
+   Cores tiradas do logotipo (creme, listras areia, texto marrom-dourado)
+   ========================================================================== */
+:root {
+  --ivory: #F5F0E6;
+  --off: #FBF8F1;
+  --sand: #E4D7BD;
+  --taupe: #BFAE8E;
+  --brown: #5A4632;
+  --graphite: #2A2520;
+  --ink-deep: #201C18;
+  --champ: #A88B55;
+  --ink-soft: #6E5E4C;
+  --line: rgba(90, 70, 50, .16);
+
+  --serif: "Playfair Display", Georgia, "Times New Roman", serif;
+  --sans: "Jost", "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+/* Playfair não tem peso 300: títulos em 400, um pouco mais compactos */
+.h-xl, .h-lg, .statement__text, .finale__title, .hero__title, .manifesto__line, .cinema__quote,
+.step__title, .gallery__end p, .footer__claim, .footer__word, .form-done__title, .proof__num,
+.service__n, .loader__name, .menu__nav a { font-weight: 400; }
+.h-xl { font-size: clamp(3rem, 8vw, 6.6rem); letter-spacing: -.02em; }
+.h-lg { font-size: clamp(2.2rem, 5.2vw, 4.3rem); letter-spacing: -.02em; }
+.hero__title { font-size: clamp(2.6rem, 6.2vw, 6rem); letter-spacing: -.02em; line-height: 1.04; max-width: 16ch; }
+.manifesto__line { font-size: clamp(2rem, 5vw, 4.2rem); }
+.statement__em { font-weight: 400; font-size: clamp(2.6rem, 6.6vw, 5.8rem); }
+.footer__word { letter-spacing: 0; font-size: clamp(1.8rem, 7.4vw, 8.8rem); }
+.loader__name { letter-spacing: .04em; }
+.logo__name { font-size: clamp(1rem, 4vw, 1.25rem); letter-spacing: .12em; }
+body { font-weight: 400; letter-spacing: .005em; }
+
+/* Listras do logotipo como detalhe da faixa em movimento */
+.ticker { background:
+  repeating-linear-gradient(90deg, rgba(168, 139, 85, .07) 0 22px, transparent 22px 44px),
+  var(--ink-deep); }
+
+/* ---------- Fallback elegante para fotos que não carregarem ---------- */
+.is-missing {
+  background:
+    radial-gradient(120% 90% at 30% 20%, rgba(251, 248, 241, .25), transparent 55%),
+    linear-gradient(160deg, #9c8c78, #3a3129) !important;
+}
+.is-missing::after {
+  content: "Paula Figueiredo"; position: absolute; inset: 0; display: grid; place-items: center;
+  font-family: var(--serif); font-style: italic; font-size: 1.2rem; color: rgba(251, 248, 241, .55);
+}
+.hero__slide.is-missing::after { content: ""; }
+
+/* ---------- Depoimentos: título da avaliação ---------- */
+.quote__label { display: block; font-size: .6rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--champ); margin-bottom: -.8rem; }
+.quote__text--sum { font-style: italic; color: var(--brown); }
+
+/* ---------- Portes de casamento ---------- */
+.sizes { background: var(--off); }
+.sizes__list { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line); }
+.sizes__list li { display: grid; gap: .3rem; padding: 2rem 1rem 2.2rem 0; border-bottom: 1px solid var(--line); }
+.sizes__n { font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 4.6rem); line-height: 1; color: var(--graphite); font-variant-numeric: lining-nums; }
+.sizes__l { font-size: .66rem; font-weight: 500; letter-spacing: .26em; text-transform: uppercase; color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .sizes__list { grid-template-columns: repeat(4, 1fr); }
+  .sizes__list li { padding-left: 1.6rem; }
+  .sizes__list li + li { border-left: 1px solid var(--line); }
+  .sizes__list li:first-child { padding-left: 0; }
+}
+
+/* ---------- Casamentos reais: bloco final ---------- */
+.real-list { display: grid; gap: .8rem; width: 100%; }
+.real-list li { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; padding-bottom: .8rem; border-bottom: 1px solid var(--line-light); }
+.real-list strong { font-family: var(--serif); font-weight: 400; font-style: italic; font-size: 1.25rem; }
+.real-list span { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--taupe); white-space: nowrap; }
+
+/* ---------- Destination / à distância ---------- */
+.dest__grid { display: grid; gap: clamp(3rem, 6vw, 6rem); align-items: center; }
+.dest__media { aspect-ratio: 4 / 5; border-radius: 2px; }
+.dest__places { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem; }
+.dest__places li { padding: .55rem 1.1rem; border: 1px solid var(--line); border-radius: 999px; font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--brown); }
+.dest__note { margin-top: 1.4rem; font-size: .8rem; color: var(--ink-soft); }
+@media (min-width: 900px) {
+  .dest__grid { grid-template-columns: 5fr 6fr; }
+}
+
+/* ---------- Investimento ---------- */
+.invest { background: linear-gradient(180deg, var(--ivory), #EFE7D8); }
+.invest__grid { display: grid; gap: clamp(3rem, 6vw, 5rem); align-items: center; }
+.invest__card { background: var(--off); border: 1px solid var(--line); border-radius: 4px; padding: clamp(1.8rem, 4vw, 3.2rem); display: grid; gap: 1.4rem; box-shadow: 0 40px 90px -60px rgba(42, 37, 32, .45); position: relative; overflow: hidden; }
+.invest__card::before { content: ""; position: absolute; inset: 0 0 auto; height: 6px; background: repeating-linear-gradient(90deg, var(--sand) 0 18px, var(--off) 18px 30px); }
+.invest__k { font-size: .66rem; font-weight: 600; letter-spacing: .26em; text-transform: uppercase; color: var(--brown); }
+.invest__price { font-family: var(--serif); font-size: clamp(2.8rem, 6vw, 4.4rem); line-height: 1; color: var(--graphite); }
+.invest__price span { display: block; font-family: var(--sans); font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: .6rem; }
+.invest__list { display: grid; gap: .7rem; padding: 1.2rem 0; border-block: 1px solid var(--line); }
+.invest__list li { position: relative; padding-left: 1.4rem; color: var(--ink-soft); font-size: .95rem; }
+.invest__list li::before { content: ""; position: absolute; left: 0; top: .72em; width: .7rem; height: 1px; background: var(--champ); }
+@media (min-width: 900px) {
+  .invest__grid { grid-template-columns: 6fr 5fr; }
+}
+
+/* ---------- Números ---------- */
+.proof__num--awards { font-size: clamp(2.2rem, 4.6vw, 3.8rem); }
+.proof__num--awards i { font-style: normal; color: var(--champ); padding-inline: .1em; }
+
+.footer__bottom { align-items: baseline; }
+.footer__demo { font-size: .66rem; letter-spacing: .12em; text-transform: uppercase; opacity: .7; }
+.cinema__media.is-missing::after, .finale__media.is-missing::after, .menu__preview.is-missing::after { content: ""; }
