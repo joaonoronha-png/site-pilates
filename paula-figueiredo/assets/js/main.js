@@ -425,7 +425,8 @@
         const dt = Math.min(64, now - last) / 16.67; last = now;
         if (this.visible && !this.dragging) {
           const target = this.hover ? 0 : this.base;
-          this.v += (target - this.v) * 0.04;
+          this.v += (target - this.v) * (this.coast ? 0.02 : 0.04);
+          if (this.coast && Math.abs(this.v - target) < 0.05) this.coast = false;
           this.x -= this.v * dt;
         }
         this.render();
@@ -455,32 +456,47 @@
       this.track.style.transform = `translate3d(${this.x.toFixed(2)}px,0,0)`;
     }
     bind() {
-      let lastX = 0; let lastT = 0; let startX = 0; let startY = 0; let decided = false; let horizontal = false;
-      this.el.addEventListener('pointerdown', (e) => {
-        this.dragging = true; decided = e.pointerType === 'mouse'; horizontal = decided;
-        startX = lastX = e.clientX; startY = e.clientY; lastT = performance.now();
-        if (decided) { this.el.setPointerCapture(e.pointerId); this.el.classList.add('is-dragging'); }
-      });
-      this.el.addEventListener('pointermove', (e) => {
-        if (!this.dragging) return;
-        if (!decided) {
-          const dx = Math.abs(e.clientX - startX); const dy = Math.abs(e.clientY - startY);
-          if (dx + dy < 6) return;
-          decided = true; horizontal = dx > dy;
-          if (!horizontal) { this.dragging = false; return; }
-          this.el.setPointerCapture(e.pointerId); this.el.classList.add('is-dragging');
-        }
-        if (!horizontal) return;
+      let lastX = 0; let lastT = 0;
+      const move = (clientX) => {
         const now = performance.now();
-        const dx = e.clientX - lastX;
+        const dx = clientX - lastX;
         this.x += dx;
-        this.v = -dx / Math.max(1, (now - lastT) / 16.67);
-        lastX = e.clientX; lastT = now;
+        const inst = -dx / Math.max(1, (now - lastT) / 16.67);
+        this.v = this.v * 0.35 + inst * 0.65;
+        lastX = clientX; lastT = now;
+      };
+      const release = () => { if (!this.dragging) return; this.dragging = false; this.coast = true; this.el.classList.remove('is-dragging'); };
+
+      /* Mouse: arrastar com clique */
+      this.el.addEventListener('pointerdown', (e) => {
+        if (e.pointerType !== 'mouse') return;
+        this.dragging = true; lastX = e.clientX; lastT = performance.now(); this.v = 0;
+        this.el.setPointerCapture(e.pointerId); this.el.classList.add('is-dragging');
       });
-      const end = () => { this.dragging = false; this.el.classList.remove('is-dragging'); };
-      this.el.addEventListener('pointerup', end);
-      this.el.addEventListener('pointercancel', end);
-      this.el.addEventListener('lostpointercapture', end);
+      this.el.addEventListener('pointermove', (e) => { if (e.pointerType === 'mouse' && this.dragging) move(e.clientX); });
+      ['pointerup', 'pointercancel', 'lostpointercapture'].forEach((t) => this.el.addEventListener(t, (e) => { if (e.pointerType === 'mouse') release(); }));
+
+      /* Dedo: basta um gesto levemente horizontal; a página não rola junto */
+      let sx = 0; let sy = 0; let mode = '';
+      this.el.addEventListener('touchstart', (e) => {
+        const t = e.touches[0]; sx = lastX = t.clientX; sy = t.clientY; lastT = performance.now(); mode = '';
+        this.dragging = true; this.v = 0;
+      }, { passive: true });
+      this.el.addEventListener('touchmove', (e) => {
+        const t = e.touches[0];
+        if (!mode) {
+          const dx = Math.abs(t.clientX - sx); const dy = Math.abs(t.clientY - sy);
+          if (dx < 4 && dy < 4) return;
+          mode = dx >= dy * 0.8 ? 'x' : 'y';
+          if (mode === 'y') { release(); return; }
+          this.el.classList.add('is-dragging');
+        }
+        if (mode !== 'x') return;
+        e.preventDefault();
+        move(t.clientX);
+      }, { passive: false });
+      this.el.addEventListener('touchend', release, { passive: true });
+      this.el.addEventListener('touchcancel', release, { passive: true });
       if (finePointer) {
         this.el.addEventListener('mouseenter', () => { this.hover = true; });
         this.el.addEventListener('mouseleave', () => { this.hover = false; });
@@ -814,4 +830,17 @@
     stage.appendChild(f);
     stage.classList.add('is-live');
   });
+})();
+
+/* Botão de mapa: menu com Apple Maps, Waze e Google Maps */
+(() => {
+  const box = document.querySelector('[data-fab-map]');
+  if (!box) return;
+  const btn = box.querySelector('[data-fab-map-toggle]');
+  const set = (open) => { box.classList.toggle('is-open', open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', (e) => { e.stopPropagation(); set(!box.classList.contains('is-open')); });
+  box.querySelectorAll('.fab-map__menu a').forEach((a) => a.addEventListener('click', () => set(false)));
+  document.addEventListener('click', (e) => { if (!box.contains(e.target)) set(false); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && box.classList.contains('is-open')) { set(false); btn.focus(); } });
+  window.addEventListener('scroll', () => set(false), { passive: true });
 })();

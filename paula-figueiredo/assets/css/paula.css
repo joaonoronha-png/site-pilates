@@ -174,3 +174,26 @@ body.is-locked .fabs { opacity: 0; pointer-events: none; }
 .drift--quotes .quotes-track { gap: clamp(1rem, 2vw, 1.6rem); align-items: stretch; padding-left: var(--gutter); }
 .drift--quotes .quote { flex: 0 0 auto; width: min(82vw, 400px); scroll-snap-align: none; user-select: none; -webkit-user-select: none; }
 .drift--quotes .quote__text { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
+.drift { touch-action: pan-y; }
+.drift.is-dragging { touch-action: none; }
+.drift img, .drift--quotes .quote { -webkit-user-drag: none; -webkit-touch-callout: none; }
+
+/* ---------- Menu do botão de mapa (Apple Maps · Waze · Google Maps) ---------- */
+.fab-map { position: relative; }
+.fab-map__menu {
+  position: absolute; right: 0; bottom: calc(100% + .7rem); width: 210px;
+  display: grid; gap: .15rem; padding: .6rem; border-radius: 18px;
+  background: var(--off); border: 1px solid var(--line); box-shadow: 0 24px 50px -18px rgba(20, 15, 10, .45);
+  opacity: 0; transform: translateY(8px) scale(.96); transform-origin: bottom right; pointer-events: none;
+  transition: opacity .25s var(--ease), transform .35s var(--ease-out);
+}
+.fab-map.is-open .fab-map__menu { opacity: 1; transform: none; pointer-events: auto; }
+.fab-map__title { padding: .35rem .6rem .45rem; font-size: .58rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-soft); }
+.fab-map__menu a { display: flex; align-items: center; gap: .75rem; min-height: 46px; padding: .4rem .6rem; border-radius: 12px; font-size: .92rem; color: var(--graphite); transition: background-color .25s; }
+.fab-map__menu a:hover, .fab-map__menu a:focus-visible { background: var(--ivory); }
+.fab-map__ico { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; }
+.fab-map__ico--apple { background: #1d1d1f; color: #fff; }
+.fab-map__ico--waze { background: #33ccff; color: #fff; }
+.fab-map__ico--google { background: #fff; color: #ea4335; border: 1px solid var(--line); }
+.fab-map.is-open .fab__tip { opacity: 0 !important; }
+.fab--map[aria-expanded="true"] { background: var(--brown); }
