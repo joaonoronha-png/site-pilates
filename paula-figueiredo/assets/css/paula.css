@@ -166,3 +166,11 @@ body { font-weight: 400; letter-spacing: .005em; }
 .fab:hover .fab__tip, .fab:focus-visible .fab__tip { opacity: 1; transform: translate(0, -50%); }
 body.is-locked .fabs { opacity: 0; pointer-events: none; }
 @media (hover: none) { .fab__tip { display: none; } }
+
+/* ==========================================================================
+   Depoimentos em rotação contínua e lenta
+   ========================================================================== */
+.drift--quotes { padding-block: .5rem 1rem; }
+.drift--quotes .quotes-track { gap: clamp(1rem, 2vw, 1.6rem); align-items: stretch; padding-left: var(--gutter); }
+.drift--quotes .quote { flex: 0 0 auto; width: min(82vw, 400px); scroll-snap-align: none; user-select: none; -webkit-user-select: none; }
+.drift--quotes .quote__text { font-size: clamp(1.2rem, 1.8vw, 1.45rem); }
