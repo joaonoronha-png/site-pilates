@@ -746,14 +746,14 @@
     });
 
     const buildMessage = (d) => [
-      `Olá, ${CFG.greetingName || 'Paula'}! Meu nome é ${d.nome}.`,
+      `Olá, ${CFG.greetingName || 'Paula'}! Somos ${d.nome}.`,
       '',
-      `Tipo de evento: ${d.tipo}`,
+      `Cerimônia: ${d.tipo}`,
       d.data ? `Data prevista: ${d.data}` : null,
       d.local ? `Local: ${d.local}` : null,
       d.convidados ? `Convidados: ${d.convidados}` : null,
-      `Modalidade de interesse: ${d.modalidade || 'Ainda não sei'}`,
-      d.mensagem ? `\nSobre o evento: ${d.mensagem}` : null,
+      `Serviços de interesse: ${d.modalidade || 'Ainda não sei'}`,
+      d.mensagem ? `\nSobre o casamento: ${d.mensagem}` : null,
       '',
       `Contato: ${d.whatsapp} · ${d.email}`
     ].filter((l) => l !== null).join('\n');
