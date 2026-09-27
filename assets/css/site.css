@@ -745,3 +745,17 @@ body.is-locked .fabs { opacity: 0; pointer-events: none; }
   .reel__grid { grid-template-columns: 5fr 6fr; }
   .reel__media { width: clamp(320px, 30vw, 440px); }
 }
+
+/* Fundos em gradiente (sem repetir fotos) */
+.hero__ambient { background: radial-gradient(60% 55% at 72% 42%, rgba(191, 155, 106, .38), transparent 70%), radial-gradient(45% 45% at 18% 85%, rgba(228, 201, 184, .16), transparent 70%); }
+.finale__ambient { background: radial-gradient(55% 60% at 25% 45%, rgba(191, 155, 106, .32), transparent 70%), radial-gradient(40% 40% at 85% 20%, rgba(228, 201, 184, .14), transparent 70%); }
+
+/* Instagram — cartão tipográfico */
+.insta { padding-bottom: var(--section); }
+.insta__card { position: relative; display: grid; justify-items: center; text-align: center; gap: 1rem; max-width: 46rem; margin-inline: auto; padding: clamp(3rem, 7vw, 5rem) clamp(1.5rem, 5vw, 4rem); border: 1px solid var(--line); border-radius: 999px 999px 6px 6px; background: var(--off); }
+.insta__icon { display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; border: 1px solid var(--champ); color: var(--champ); margin-bottom: .4rem; }
+.insta__card .eyebrow { margin-bottom: 0; }
+.insta__handle { font-family: var(--serif); font-weight: 400; font-size: clamp(2.4rem, 7vw, 5rem); line-height: 1; letter-spacing: -.02em; }
+.insta__handle a { background: linear-gradient(var(--champ), var(--champ)) 0 100% / 0 1px no-repeat; transition: background-size .7s var(--ease-out); }
+.insta__handle a:hover { background-size: 100% 1px; }
+.insta__text { max-width: 30rem; color: var(--ink-soft); margin-bottom: 1rem; }

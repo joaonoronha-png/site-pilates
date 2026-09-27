@@ -35,6 +35,11 @@ npm run serve        # http://localhost:4173
   permitido), do diretório de fotos do WordPress. Créditos em `assets/originals/CREDITOS-BANCO.json`. Os arquivos começam
   com `banco-`. Elas não aparecem como projetos da empresa e devem ser trocadas por fotos da By Dani antes de publicar.
 
+- **Vídeo (seção Em movimento):** montagem vertical com clipes do [Mixkit](https://mixkit.co/license/) (uso comercial livre,
+  sem crédito obrigatório), gerada por `npm run video`. Provisório: substitua `assets/video/em-movimento.mp4` por um vídeo
+  gravado nas festas da By Dani.
+- **Regra do site:** cada imagem aparece uma única vez (as duas versões de cada serviço são para desktop e celular).
+
 ## Trocar as fotos
 
 As fotos reais disponíveis hoje são pequenas (480–1440 px).
