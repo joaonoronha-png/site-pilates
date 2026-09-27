@@ -254,6 +254,21 @@
     });
   }
 
+  /* ---------- Avaliações: mostrar mais ---------- */
+  const moreBtn = $('[data-reviews-more]');
+  if (moreBtn) {
+    const list = moreBtn.closest('.reviews__list');
+    list.classList.add('is-collapsed');
+    moreBtn.hidden = false;
+    moreBtn.addEventListener('click', () => {
+      list.classList.remove('is-collapsed');
+      $$('[data-review-extra]', list).forEach((el) => el.classList.add('is-in'));
+      const first = $('[data-review-extra] blockquote', list);
+      moreBtn.closest('.reviews__more').remove();
+      if (first) { first.setAttribute('tabindex', '-1'); first.focus({ preventScroll: true }); }
+    });
+  }
+
   /* ---------- Formulário → WhatsApp ---------- */
   const form = $('[data-quote-form]');
   if (form) {

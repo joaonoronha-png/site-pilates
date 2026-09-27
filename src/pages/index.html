@@ -29,13 +29,13 @@
         "@type": "LocalBusiness",
         "@id": "{{site}}/#empresa",
         "name": "By Dani Decora",
-        "description": "Decoração personalizada de festas, casamentos, maternidade e eventos no Rio de Janeiro, com projetos de decoração com balões.",
+        "description": "Decoração personalizada de casamentos, festas infantis, festas e eventos e maternidade no Rio de Janeiro, com projetos de decoração com balões.",
         "url": "{{site}}/",
         "image": "{{site}}/og-image.jpg",
         "telephone": "+55-21-99518-8453",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Av. João Cabral de Mello Neto, 850, Bloco 3, Sala 402 – Barra da Tijuca",
+          "streetAddress": "Av. João Cabral de Mello Neto, 850, CEO Corporate Executive Offices, Bloco 3, Sala 402 – Barra da Tijuca",
           "addressLocality": "Rio de Janeiro",
           "addressRegion": "RJ",
           "postalCode": "22775-057",
@@ -50,7 +50,7 @@
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de festas e eventos" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração com balões" } },
           { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de maternidade e chá revelação" } },
-          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de Natal" } }
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de festas infantis" } }
         ]
       },
       {
@@ -132,9 +132,10 @@
         <div class="services__stage" aria-hidden="true">
           <div class="services__frame">
             <x-img name="detalhe-baloes-champagne" class="is-active" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="0"></x-img>
-            <x-img name="divertida-mente" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="1"></x-img>
-            <x-img name="detalhe-flor" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="2"></x-img>
-            <x-img name="cha-revelacao" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="3"></x-img>
+            <x-img name="festa-sininho" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="1"></x-img>
+            <x-img name="divertida-mente" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="2"></x-img>
+            <x-img name="detalhe-flor" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="3"></x-img>
+            <x-img name="cha-revelacao" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="4"></x-img>
           </div>
         </div>
 
@@ -148,27 +149,35 @@
             </div>
           </li>
           <li class="service" data-service="1">
-            <figure class="service__media"><x-img name="divertida-mente" alt="Festa de 14 anos com tema Divertida Mente, painel ilustrado e guirlanda de balões coloridos" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <figure class="service__media"><x-img name="festa-sininho" alt="Festa infantil com tema Sininho, balões verde-sálvia e marfim e borboleta iluminada" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
             <div class="service__body">
               <span class="service__num">02</span>
-              <h3 class="service__title">Festas &amp; Eventos</h3>
-              <p>Projetos desenvolvidos de acordo com o estilo, tema e personalidade de cada comemoração.</p>
-              <p class="service__meta">Aniversários · Festas infantis · Temas personalizados</p>
+              <h3 class="service__title">Festas infantis</h3>
+              <p>Festas temáticas criadas a partir do universo de cada criança, com criatividade e riqueza de detalhes.</p>
+              <p class="service__meta">Festas temáticas · Aniversários</p>
             </div>
           </li>
           <li class="service" data-service="2">
-            <figure class="service__media"><x-img name="detalhe-flor" alt="Flor feita de balões azul-turquesa com miolo cromado cobre" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <figure class="service__media"><x-img name="divertida-mente" alt="Festa de 14 anos com tema Divertida Mente, painel ilustrado e guirlanda de balões coloridos" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
             <div class="service__body">
               <span class="service__num">03</span>
+              <h3 class="service__title">Festas &amp; Eventos</h3>
+              <p>Projetos desenvolvidos de acordo com o estilo, tema e personalidade de cada comemoração.</p>
+            </div>
+          </li>
+          <li class="service" data-service="3">
+            <figure class="service__media"><x-img name="detalhe-flor" alt="Flor feita de balões azul-turquesa com miolo cromado cobre" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <div class="service__body">
+              <span class="service__num">04</span>
               <h3 class="service__title">Decoração com balões</h3>
               <p>Composições criativas que transformam espaços e criam pontos de destaque no evento.</p>
               <p class="service__meta">Guirlandas · Buquês · Esculturas de balões</p>
             </div>
           </li>
-          <li class="service" data-service="3">
+          <li class="service" data-service="4">
             <figure class="service__media"><x-img name="cha-revelacao" alt="Chá revelação com painel “Oh Baby!”, ursinho e balão “Boy or Girl?”" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
             <div class="service__body">
-              <span class="service__num">04</span>
+              <span class="service__num">05</span>
               <h3 class="service__title">Maternidade</h3>
               <p>Decorações delicadas para celebrar a chegada de novos momentos e novas histórias.</p>
               <p class="service__meta">Maternidade · Chá revelação</p>
@@ -177,7 +186,7 @@
         </ol>
       </div>
 
-      <p class="services__note" data-reveal>Também desenvolvemos <em>decoração de Natal</em> e projetos de <em>decoração afetiva</em>, criados a partir das memórias e dos detalhes de cada cliente.</p>
+      <p class="services__note" data-reveal>E também <em>projetos especiais e sazonais</em>, pensados sob medida a partir das memórias, das referências e dos detalhes de cada cliente.</p>
     </div>
   </section>
 
@@ -292,6 +301,7 @@
       <div class="about__text">
         <p class="eyebrow" data-reveal>Sobre</p>
         <h2 class="display" id="about-title" data-reveal>Por trás de cada <em>detalhe</em></h2>
+        <p class="about__tag" data-reveal>Uma empresa de empreendedoras · Barra da Tijuca, Rio de Janeiro</p>
         <!-- BIOGRAFIA — substituir/complementar com o texto oficial da Dani quando aprovado. -->
         <p class="lead" data-reveal>A By Dani Decora desenvolve projetos personalizados de decoração para transformar celebrações em experiências únicas. Cada composição é pensada de acordo com o evento, o espaço e os detalhes que tornam aquele momento especial.</p>
         <blockquote class="about__quote" data-reveal>
@@ -352,6 +362,17 @@
             <p class="rating__count">Nota média de 13 avaliações no Google</p>
           </div>
         </div>
+        <div class="highlights" data-reveal>
+          <p class="highlights__label">O que os clientes mais destacam</p>
+          <ul class="highlights__list">
+            <li>Pontualidade</li>
+            <li>Organização</li>
+            <li>Qualidade dos materiais</li>
+            <li>Criatividade</li>
+            <li>Atenção aos detalhes</li>
+            <li>Atendimento</li>
+          </ul>
+        </div>
         <a class="link-arrow" href="https://www.google.com/maps?cid=6783689280117383185" target="_blank" rel="noopener" data-reveal>Ver avaliações no Google {{> icon-arrow}}</a>
       </div>
 
@@ -359,26 +380,60 @@
         <figure class="review review--featured" data-reveal>
           {{> stars}}
           <blockquote>
+            <p>O melhor! Ótimo! Atendimento maravilhoso e trabalho melhor ainda. Criatividade, dedicação e excelência. Trabalho rico em detalhes, impecável!!! Vale cada centavo!! Profissional nota mil!!!</p>
+          </blockquote>
+          <figcaption><strong>Lara Fábian</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+        <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
             <p>Experiência com excelência. Organização, pontualidade, agilidade e qualidade de todo o material que é de primeira linha. Dani a organizadora é excelente e competente.</p>
           </blockquote>
           <figcaption><strong>Carlos Henrique Rodrigues</strong><span>Avaliação do Google</span></figcaption>
         </figure>
-
         <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Super recomendo muito pontual gentil trabalho excelente a festa da minha filha ficou linda de mais só elogios […] não quero outra profissional virei cliente fiel</p>
+          </blockquote>
+          <figcaption><strong>Dayane Silva</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+        <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>A Dani fez a festa de One Piece que meu filho queria e ficou linda a decoração, inclusive com balões. Super recomendo.</p>
+          </blockquote>
+          <figcaption><strong>Vanessa Miranda</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+        <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Trabalho lindo de viver!!! Não poderia fazer a festa do meu filho com outra empresa. Muita dedicação, criatividade total!!! Nota dez</p>
+          </blockquote>
+          <figcaption><strong>Maria Ferreira Alves</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+        <figure class="review" data-review-extra data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Tive a oportunidade de usufruir da decoração a By Dani Decora. surpreende, muita organização serviço de primeira super indico fiquei muito satisfeito com o resultado.</p>
+          </blockquote>
+          <figcaption><strong>Marcio sousa</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+        <figure class="review" data-review-extra data-reveal>
           {{> stars}}
           <blockquote>
             <p>Fez um trabalho fantástico, com profissionalismo e talento! Resultado foi uma decoração de Natal encantadora! Recomendo.</p>
           </blockquote>
           <figcaption><strong>Helisson Faria Paiva</strong><span>Avaliação do Google</span></figcaption>
         </figure>
-
-        <figure class="review" data-reveal>
+        <figure class="review" data-review-extra data-reveal>
           {{> stars}}
           <blockquote>
-            <p>Essa foi a melhor decoração de aniversário que já vi com muitos detalhes tudo feito com balões. […] Ela se interessou muito com a minha festa, foi me dando um monte de dicas de como pode ficar, muito atenciosa.</p>
+            <p>Essa foi a melhor decoração de aniversário que já vi com muitos detalhes tudo feito com balões. […] Foi me dando um monte de dicas de como pode ficar, muito atenciosa.</p>
           </blockquote>
           <figcaption><strong>Arthur Carvalho</strong><span>Avaliação do Google</span></figcaption>
         </figure>
+        <p class="reviews__more"><button class="link-arrow" type="button" data-reviews-more aria-expanded="false" hidden>Ler mais avaliações {{> icon-arrow}}</button></p>
       </div>
     </div>
   </section>
@@ -425,7 +480,7 @@
               <option>Aniversário</option>
               <option>Festa infantil</option>
               <option>Chá revelação / maternidade</option>
-              <option>Decoração de Natal</option>
+              <option>Projeto especial / sazonal</option>
               <option>Outro</option>
             </select>
           </div>
@@ -459,7 +514,8 @@
           <div>
             <dt>Endereço</dt>
             <dd>
-              <address>Av. João Cabral de Mello Neto, 850<br>Bloco 3 – Sala 402<br>Barra da Tijuca · Rio de Janeiro – RJ<br>CEP 22775-057</address>
+              <address>Av. João Cabral de Mello Neto, 850<br>CEO Corporate Executive Offices<br>Bloco 3 – Sala 402<br>Barra da Tijuca · Rio de Janeiro – RJ<br>CEP 22775-057</address>
+              <p class="contact-info__note">Entrada acessível para cadeira de rodas.</p>
             </dd>
           </div>
           <div>

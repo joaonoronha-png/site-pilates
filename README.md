@@ -45,17 +45,20 @@ No build, essa tag vira um `<picture>` responsivo completo. Para acrescentar um 
 
 | Informação | Fonte |
 |---|---|
-| Endereço, telefone/WhatsApp e categoria | Perfil da empresa no Google Maps |
-| Instagram **@bydanidecora** | Link publicado no próprio perfil do Google |
-| Nota 5,0 com 13 avaliações e os 3 depoimentos exibidos | Avaliações públicas no Google Maps (texto mantido como no original, com trechos marcados com […]) |
-| Decoração de Natal e "decoração afetiva" | Avaliação de cliente e resposta da proprietária no Google |
-| Chá revelação, aniversários, festas infantis, balões | Fotos e avaliações públicas |
+| Endereço (CEO Corporate Executive Offices, Bloco 3 – sala 402), WhatsApp e categoria | Google Maps, diretório do CEO e Portal do Casamento |
+| Instagram **@bydanidecora** | Link no perfil do Google **e** botão de Instagram do Portal do Casamento (ambos apontam para `instagram.com/bydanidecora`) |
+| Nota 5,0 com 13 avaliações e os 8 depoimentos exibidos | Avaliações públicas do Google (texto mantido como no original; trechos omitidos marcados com […]) |
+| Casamentos, festas infantis, festas e eventos, balões, maternidade | Diretório do CEO, Portal do Casamento, fotos e avaliações |
+| Entrada acessível e "empresa de empreendedoras" | Atributos do perfil do Google |
+| "Projetos especiais e sazonais" | Há registro de decoração de Natal numa avaliação; por isso Natal **não** aparece como serviço fixo |
 
-**Não foram incluídos** (por falta de confirmação): horário de funcionamento, e-mail, preços, números de eventos, anos de
-mercado e biografia. As áreas que dependem disso estão marcadas no HTML com comentários:
+**Não foram incluídos** (por falta de confirmação): horário de funcionamento, e-mail, preços, formas de pagamento,
+número de eventos, ano de fundação, equipe e biografia. Um diretório externo associa o telefone a um endereço no Catete;
+o site usa a Barra da Tijuca, confirmada por três fontes. As áreas pendentes estão marcadas no HTML com comentários:
 
 - **Foto e biografia da Dani** → seção "Sobre" (`src/pages/index.html`).
 - **Razão social/CNPJ** e revisão jurídica → `politica-de-privacidade` e `termos-de-uso`.
+- **Autorização de uso das fotos** e arquivos originais → pedir à empresa antes de publicar.
 
 ## Como funciona
 
