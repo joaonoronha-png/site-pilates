@@ -27,6 +27,20 @@ const PHOTOS = [
   ['happy-birthday-lilas', 'happy-birthday-lilas.jpg'],
   ['divertida-mente', 'divertida-mente.jpg'],
   ['divertida-mente-bolo', 'divertida-mente-bolo.jpg'],
+
+  // Fotos de banco provisórias (CC0 — domínio público). Créditos em assets/originals/CREDITOS-BANCO.json.
+  // Substituir pelas fotos da By Dani Decora antes de publicar.
+  ['banco-bolo-casamento', 'banco-bolo-casamento.jpg'],
+  ['banco-recepcao', 'banco-recepcao.jpg'],
+  ['banco-guirlanda-baloes', 'banco-guirlanda-baloes.jpg'],
+  ['banco-mesa-posta', 'banco-mesa-posta.jpg'],
+  ['banco-bolo-macarons', 'banco-bolo-macarons.jpg'],
+  ['banco-painel-floral', 'banco-painel-floral.jpg'],
+  ['banco-baloes-dourados', 'banco-baloes-dourados.jpg'],
+  ['banco-hortensias', 'banco-hortensias.jpg'],
+  ['banco-rosas-brancas', 'banco-rosas-brancas.jpg'],
+  ['banco-velas', 'banco-velas.jpg'],
+  ['banco-baloes-pb', 'banco-baloes-pb.jpg'],
 ];
 
 // Recortes de detalhe: frações da imagem original { left, top, width, height }
@@ -111,7 +125,8 @@ async function main() {
   for (const [name, file] of PHOTOS) {
     const src = sharp(path.join(SRC, file)).rotate();
     const { width } = await src.metadata();
-    manifest[name] = await save(enhance(src, width, MIN_WIDTH), name);
+    const pipe = width > 1600 ? src.resize({ width: 1600 }).sharpen({ sigma: 0.5 }) : enhance(src, width, MIN_WIDTH);
+    manifest[name] = await save(pipe, name);
     console.log('›', name, manifest[name]);
   }
   for (const [name, file, c] of CROPS) {

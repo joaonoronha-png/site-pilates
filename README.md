@@ -28,9 +28,16 @@ npm install
 npm run serve        # http://localhost:4173
 ```
 
+## Fotos
+
+- **Portfólio e faixa de detalhes:** fotos reais da By Dani Decora, do perfil público no Google. Cada festa aparece uma única vez.
+- **Início, serviços, sobre e convite final:** fotos de banco **provisórias**, com licença CC0 (domínio público, uso comercial
+  permitido), do diretório de fotos do WordPress. Créditos em `assets/originals/CREDITOS-BANCO.json`. Os arquivos começam
+  com `banco-`. Elas não aparecem como projetos da empresa e devem ser trocadas por fotos da By Dani antes de publicar.
+
 ## Trocar as fotos
 
-As fotos atuais são **provisórias**: vêm do perfil público da empresa no Google e são pequenas (480–1440 px).
+As fotos reais disponíveis hoje são pequenas (480–1440 px).
 O script amplia cada uma até 2× com Lanczos, aplica nitidez leve e ajusta a cor, mas o ideal é usar os originais.
 
 1. Coloque os arquivos originais em `assets/originals/` com os mesmos nomes (`cha-revelacao.png`, `festa-sininho.jpg`…).
