@@ -1,0 +1,15 @@
+{
+  "name": "by-dani-decora-site",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site institucional da By Dani Decora — decoração de festas e eventos no Rio de Janeiro.",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "build:html": "node scripts/build.mjs --skip-images",
+    "serve": "npx --yes serve dist -l 4173"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.0"
+  }
+}

@@ -1,0 +1,528 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+{{> head-common}}
+  <title>By Dani Decora | Decoração de Festas e Eventos no Rio de Janeiro</title>
+  <meta name="description" content="Decoração personalizada de festas, casamentos e eventos no Rio de Janeiro. Cenários com balões e detalhes pensados para cada celebração, na Barra da Tijuca.">
+  <link rel="canonical" href="{{site}}/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="By Dani Decora">
+  <meta property="og:title" content="By Dani Decora | Decoração de festas e eventos no Rio de Janeiro">
+  <meta property="og:description" content="Cada celebração merece um cenário pensado nos detalhes. Decoração personalizada para festas, casamentos e momentos especiais.">
+  <meta property="og:url" content="{{site}}/">
+  <meta property="og:image" content="{{site}}/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Decorações de festas criadas pela By Dani Decora">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Imagem principal (LCP) no celular -->
+  <link rel="preload" as="image" type="image/avif" imagesrcset="{{srcset:cha-revelacao:avif}}" imagesizes="100vw" fetchpriority="high">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "{{site}}/#empresa",
+        "name": "By Dani Decora",
+        "description": "Decoração personalizada de festas, casamentos, maternidade e eventos no Rio de Janeiro, com projetos de decoração com balões.",
+        "url": "{{site}}/",
+        "image": "{{site}}/og-image.jpg",
+        "telephone": "+55-21-99518-8453",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Av. João Cabral de Mello Neto, 850, Bloco 3, Sala 402 – Barra da Tijuca",
+          "addressLocality": "Rio de Janeiro",
+          "addressRegion": "RJ",
+          "postalCode": "22775-057",
+          "addressCountry": "BR"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": -22.9846921, "longitude": -43.3592578 },
+        "hasMap": "https://www.google.com/maps?cid=6783689280117383185",
+        "areaServed": { "@type": "City", "name": "Rio de Janeiro" },
+        "sameAs": ["https://www.instagram.com/bydanidecora/"],
+        "makesOffer": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de casamentos" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de festas e eventos" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração com balões" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de maternidade e chá revelação" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Decoração de Natal" } }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "{{site}}/#site",
+        "url": "{{site}}/",
+        "name": "By Dani Decora",
+        "inLanguage": "pt-BR",
+        "publisher": { "@id": "{{site}}/#empresa" }
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="home">
+{{> sprite}}
+{{> header}}
+
+<main id="conteudo">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="inicio" aria-labelledby="hero-title">
+    <div class="hero__media" data-hero-media>
+      <figure class="hero__panel hero__panel--a">
+        <x-img name="festa-sininho" alt="Decoração de aniversário de 3 anos com balões em verde-sálvia e marfim, borboleta iluminada e mesa em acrílico" sizes="(min-width: 768px) 50vw, 1px" hide-below="768" eager></x-img>
+        <figcaption>Festa infantil · tema Sininho</figcaption>
+      </figure>
+      <figure class="hero__panel hero__panel--b">
+        <x-img name="cha-revelacao" alt="Decoração de chá revelação com balões nude, champagne e rosé, ursinho de pelúcia e painel “Oh Baby!”" sizes="(min-width: 768px) 50vw, 100vw" eager></x-img>
+        <figcaption>Chá revelação · Oh Baby!</figcaption>
+      </figure>
+    </div>
+    <div class="hero__veil" aria-hidden="true"></div>
+
+    <div class="hero__content container">
+      <p class="eyebrow eyebrow--light hero__kicker" data-hero-in>By Dani Decora</p>
+      <h1 class="hero__title" id="hero-title" data-hero-in>Cada celebração merece um cenário pensado nos <em>detalhes</em>.</h1>
+      <p class="hero__lead" data-hero-in>Decoração personalizada para festas, casamentos e momentos especiais no Rio de Janeiro.</p>
+      <div class="hero__actions" data-hero-in>
+        <a class="btn btn--light" href="{{wa}}" target="_blank" rel="noopener" data-track="whatsapp-hero">Solicitar orçamento</a>
+        <a class="btn btn--ghost-light" href="#projetos">Conhecer os projetos</a>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#introducao" aria-label="Rolar para a próxima seção">
+      <span class="scroll-cue__label" aria-hidden="true">Role</span>
+      <span class="scroll-cue__line" aria-hidden="true"></span>
+    </a>
+  </section>
+
+  <!-- ============ INTRODUÇÃO ============ -->
+  <section class="intro section" id="introducao" aria-labelledby="intro-title">
+    <div class="container intro__grid">
+      <figure class="intro__image reveal-image" data-reveal="image" data-parallax-wrap>
+        <x-img name="flor-de-baloes" alt="Escultura de balões em forma de flor, em tons de verde, azul-turquesa e cobre, com tucano, em festa de tema tropical" sizes="(min-width: 1024px) 44vw, (min-width: 768px) 55vw, 88vw"></x-img>
+      </figure>
+
+      <div class="intro__text">
+        <h2 class="eyebrow" id="intro-title" data-reveal>Celebrar também é criar memórias.</h2>
+        <p class="intro__statement" data-reveal>Cada evento carrega uma história única. A By Dani Decora transforma ideias, referências e desejos em ambientes pensados cuidadosamente para tornar cada celebração <em>ainda mais especial</em>.</p>
+        <a class="link-arrow" href="#servicos" data-reveal>O que criamos {{> icon-arrow}}</a>
+      </div>
+
+      <figure class="intro__detail reveal-image" data-reveal="image">
+        <x-img name="detalhe-baloes-champagne" alt="Detalhe de buquê de balões em tons nude, champagne e cobre" sizes="(min-width: 1024px) 18vw, 40vw"></x-img>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============ SERVIÇOS ============ -->
+  <section class="services section" id="servicos" aria-labelledby="services-title">
+    <div class="container">
+      <header class="section-head">
+        <p class="eyebrow" data-reveal>Serviços</p>
+        <h2 class="display" id="services-title" data-reveal>Criamos cenários para momentos <em>especiais</em></h2>
+      </header>
+
+      <div class="services__layout">
+        <div class="services__stage" aria-hidden="true">
+          <div class="services__frame">
+            <x-img name="detalhe-baloes-champagne" class="is-active" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="0"></x-img>
+            <x-img name="divertida-mente" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="1"></x-img>
+            <x-img name="detalhe-flor" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="2"></x-img>
+            <x-img name="cha-revelacao" alt="" sizes="(min-width: 1024px) 40vw, 1px" data-stage="3"></x-img>
+          </div>
+        </div>
+
+        <ol class="services__list">
+          <li class="service" data-service="0">
+            <figure class="service__media"><x-img name="detalhe-baloes-champagne" alt="Balões em tons neutros de champagne, nude e cobre" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <div class="service__body">
+              <span class="service__num">01</span>
+              <h3 class="service__title">Casamentos</h3>
+              <p>Decorações personalizadas para celebrações que merecem uma atmosfera única.</p>
+            </div>
+          </li>
+          <li class="service" data-service="1">
+            <figure class="service__media"><x-img name="divertida-mente" alt="Festa de 14 anos com tema Divertida Mente, painel ilustrado e guirlanda de balões coloridos" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <div class="service__body">
+              <span class="service__num">02</span>
+              <h3 class="service__title">Festas &amp; Eventos</h3>
+              <p>Projetos desenvolvidos de acordo com o estilo, tema e personalidade de cada comemoração.</p>
+              <p class="service__meta">Aniversários · Festas infantis · Temas personalizados</p>
+            </div>
+          </li>
+          <li class="service" data-service="2">
+            <figure class="service__media"><x-img name="detalhe-flor" alt="Flor feita de balões azul-turquesa com miolo cromado cobre" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <div class="service__body">
+              <span class="service__num">03</span>
+              <h3 class="service__title">Decoração com balões</h3>
+              <p>Composições criativas que transformam espaços e criam pontos de destaque no evento.</p>
+              <p class="service__meta">Guirlandas · Buquês · Esculturas de balões</p>
+            </div>
+          </li>
+          <li class="service" data-service="3">
+            <figure class="service__media"><x-img name="cha-revelacao" alt="Chá revelação com painel “Oh Baby!”, ursinho e balão “Boy or Girl?”" sizes="(min-width: 768px) 60vw, 100vw"></x-img></figure>
+            <div class="service__body">
+              <span class="service__num">04</span>
+              <h3 class="service__title">Maternidade</h3>
+              <p>Decorações delicadas para celebrar a chegada de novos momentos e novas histórias.</p>
+              <p class="service__meta">Maternidade · Chá revelação</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+
+      <p class="services__note" data-reveal>Também desenvolvemos <em>decoração de Natal</em> e projetos de <em>decoração afetiva</em>, criados a partir das memórias e dos detalhes de cada cliente.</p>
+    </div>
+  </section>
+
+  <!-- ============ PORTFÓLIO ============ -->
+  <section class="portfolio section" id="projetos" aria-labelledby="portfolio-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Portfólio</p>
+          <h2 class="display" id="portfolio-title" data-reveal>Projetos que contam <em>histórias</em></h2>
+        </div>
+        <p class="section-head__aside" data-reveal>Uma seleção de celebrações decoradas pela By Dani Decora. Toque nas imagens para ampliar.</p>
+      </header>
+
+      <!--
+        GALERIA — cada item é um <a data-lightbox> apontando para a imagem ampliada.
+        Para incluir um novo projeto: adicione a foto em src/assets/originals, registre-a em
+        scripts/build.mjs (lista IMAGES) e copie um dos blocos abaixo.
+      -->
+      <div class="gallery">
+        <div class="gallery__col gallery__col--left">
+          <figure class="gallery__item gallery__item--a" data-reveal="image">
+            <a href="{{full:festa-sininho}}" data-lightbox data-caption="Festa infantil · tema Sininho — balões em verde-sálvia e marfim, borboleta iluminada e número em neon" data-w="{{w:festa-sininho}}" data-h="{{h:festa-sininho}}">
+              <x-img name="festa-sininho" alt="Decoração de aniversário de 3 anos com tema Sininho, balões verde-sálvia e marfim" sizes="(min-width: 1024px) 40vw, (min-width: 768px) 55vw, 92vw"></x-img>
+            </a>
+            <figcaption><span>01</span> Sininho <em>· Festa infantil</em></figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--d" data-reveal="image">
+            <a href="{{full:flor-de-baloes}}" data-lightbox data-caption="Tema tropical — escultura de flor em balões com tucano" data-w="{{w:flor-de-baloes}}" data-h="{{h:flor-de-baloes}}">
+              <x-img name="flor-de-baloes" alt="Escultura de flor em balões verdes e azul-turquesa com tucano" sizes="(min-width: 1024px) 36vw, (min-width: 768px) 45vw, 92vw"></x-img>
+            </a>
+            <figcaption><span>02</span> Flor tropical <em>· Escultura de balões</em></figcaption>
+          </figure>
+        </div>
+        <div class="gallery__col gallery__col--right">
+          <figure class="gallery__item gallery__item--b" data-reveal="image">
+            <a href="{{full:cha-revelacao}}" data-lightbox data-caption="Chá revelação · Oh Baby! — paleta nude, champagne e rosé com detalhes em cobre" data-w="{{w:cha-revelacao}}" data-h="{{h:cha-revelacao}}">
+              <x-img name="cha-revelacao" alt="Chá revelação com balões nude e champagne, ursinho de pelúcia e painel Oh Baby" sizes="(min-width: 1024px) 34vw, (min-width: 768px) 40vw, 92vw"></x-img>
+            </a>
+            <figcaption><span>03</span> Oh Baby! <em>· Chá revelação</em></figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--c" data-reveal="image">
+            <a href="{{full:divertida-mente}}" data-lightbox data-caption="Divertida Mente · 14 anos — painel temático, guirlanda de balões e mesa de doces" data-w="{{w:divertida-mente}}" data-h="{{h:divertida-mente}}">
+              <x-img name="divertida-mente" alt="Festa de 14 anos com tema Divertida Mente, guirlanda de balões coloridos e bolo" sizes="(min-width: 1024px) 30vw, (min-width: 768px) 45vw, 92vw"></x-img>
+            </a>
+            <figcaption><span>04</span> Divertida Mente <em>· 14 anos</em></figcaption>
+          </figure>
+          <figure class="gallery__item gallery__item--e" data-reveal="image">
+            <a href="{{full:happy-birthday-lilas}}" data-lightbox data-caption="Happy Birthday em tons de lilás — arcos, neon e mesas em tons pastel" data-w="{{w:happy-birthday-lilas}}" data-h="{{h:happy-birthday-lilas}}">
+              <x-img name="happy-birthday-lilas" alt="Festa de aniversário em tons de lilás e rosa com arcos, letreiro neon Happy Birthday e balões pastel" sizes="(min-width: 1024px) 26vw, (min-width: 768px) 40vw, 92vw"></x-img>
+            </a>
+            <figcaption><span>05</span> Tons de lilás <em>· Aniversário</em></figcaption>
+          </figure>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faixa horizontal de detalhes -->
+    <div class="details" aria-labelledby="details-title">
+      <div class="container details__head">
+        <h3 class="details__title" id="details-title" data-reveal>Nos <em>detalhes</em></h3>
+        <div class="details__controls">
+          <button class="round-btn" type="button" data-details-prev aria-label="Detalhes anteriores"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M20 12H4.5M10.5 6l-6 6 6 6"/></svg></button>
+          <button class="round-btn" type="button" data-details-next aria-label="Próximos detalhes">{{> icon-arrow}}</button>
+        </div>
+      </div>
+      <ul class="details__track" data-details-track tabindex="0" aria-label="Detalhes das decorações — role horizontalmente">
+        <li class="details__item details__item--tall">
+          <a href="{{full:detalhe-ursinho}}" data-lightbox data-caption="Chá revelação — ursinho de pelúcia segurando o buquê de balões" data-w="{{w:detalhe-ursinho}}" data-h="{{h:detalhe-ursinho}}"><x-img name="detalhe-ursinho" alt="Ursinho de pelúcia com laço marfim segurando balões" sizes="(min-width: 768px) 26vw, 64vw"></x-img></a>
+        </li>
+        <li class="details__item details__item--wide">
+          <a href="{{full:detalhe-guirlanda}}" data-lightbox data-caption="Divertida Mente — guirlanda de balões nas cores das emoções" data-w="{{w:detalhe-guirlanda}}" data-h="{{h:detalhe-guirlanda}}"><x-img name="detalhe-guirlanda" alt="Guirlanda de balões em amarelo, vermelho, rosa, verde e azul" sizes="(min-width: 768px) 46vw, 84vw"></x-img></a>
+        </li>
+        <li class="details__item">
+          <a href="{{full:detalhe-boy-or-girl}}" data-lightbox data-caption="Chá revelação — balão caligrafado “Boy or Girl?”" data-w="{{w:detalhe-boy-or-girl}}" data-h="{{h:detalhe-boy-or-girl}}"><x-img name="detalhe-boy-or-girl" alt="Balão nude com caligrafia Boy or Girl" sizes="(min-width: 768px) 24vw, 60vw"></x-img></a>
+        </li>
+        <li class="details__item details__item--tall">
+          <a href="{{full:detalhe-tucano}}" data-lightbox data-caption="Tema tropical — tucano ilustrado entre os balões" data-w="{{w:detalhe-tucano}}" data-h="{{h:detalhe-tucano}}"><x-img name="detalhe-tucano" alt="Tucano ilustrado aplicado sobre balões verdes" sizes="(min-width: 768px) 24vw, 60vw"></x-img></a>
+        </li>
+        <li class="details__item">
+          <a href="{{full:divertida-mente-bolo}}" data-lightbox data-caption="Divertida Mente · 14 anos — a mesa principal" data-w="{{w:divertida-mente-bolo}}" data-h="{{h:divertida-mente-bolo}}"><x-img name="divertida-mente-bolo" alt="Mesa principal da festa Divertida Mente com bolo e personagens" sizes="(min-width: 768px) 24vw, 60vw"></x-img></a>
+        </li>
+        <li class="details__item details__item--wide">
+          <a href="{{full:detalhe-flor}}" data-lightbox data-caption="Flor de balões com miolo cromado" data-w="{{w:detalhe-flor}}" data-h="{{h:detalhe-flor}}"><x-img name="detalhe-flor" alt="Flor de balões azul-turquesa com miolo cromado cobre" sizes="(min-width: 768px) 36vw, 80vw"></x-img></a>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ FRASE DE IMPACTO ============ -->
+  <section class="statement" aria-label="Frase">
+    <div class="container">
+      <p class="statement__text" data-reveal="lines">
+        <span class="line"><span>Os detalhes passam.</span></span>
+        <span class="line"><span>A memória daquele dia <em>fica</em>.</span></span>
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ SOBRE ============ -->
+  <section class="about section" id="sobre" aria-labelledby="about-title">
+    <div class="container about__grid">
+      <!--
+        FOTO DA DANI — quando a foto oficial estiver disponível, salve-a como
+        src/assets/originals/dani.jpg, registre { name: 'dani', src: 'dani.jpg' } em scripts/build.mjs
+        e troque o name da imagem abaixo para "dani" (com um alt descritivo).
+      -->
+      <figure class="about__image reveal-image" data-reveal="image">
+        <x-img name="happy-birthday-lilas" alt="Decoração de aniversário em tons de lilás com arcos, neon e mesas pastel" sizes="(min-width: 1024px) 36vw, (min-width: 768px) 45vw, 88vw"></x-img>
+      </figure>
+
+      <div class="about__text">
+        <p class="eyebrow" data-reveal>Sobre</p>
+        <h2 class="display" id="about-title" data-reveal>Por trás de cada <em>detalhe</em></h2>
+        <!-- BIOGRAFIA — substituir/complementar com o texto oficial da Dani quando aprovado. -->
+        <p class="lead" data-reveal>A By Dani Decora desenvolve projetos personalizados de decoração para transformar celebrações em experiências únicas. Cada composição é pensada de acordo com o evento, o espaço e os detalhes que tornam aquele momento especial.</p>
+        <blockquote class="about__quote" data-reveal>
+          <p>“Realizamos mais que uma festa. Realizamos <em>sonhos</em>.”</p>
+          <footer>By Dani Decora</footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROCESSO ============ -->
+  <section class="process section" aria-labelledby="process-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>Como funciona</p>
+          <h2 class="display" id="process-title" data-reveal>Do primeiro contato ao grande <em>dia</em></h2>
+        </div>
+        <p class="section-head__aside" data-reveal>Uma visão geral de como cada projeto ganha forma.</p>
+      </header>
+
+      <ol class="steps">
+        <li class="step" data-reveal>
+          <span class="step__num">01</span>
+          <h3 class="step__title">Conte sua ideia</h3>
+          <p>Entre em contato e compartilhe informações sobre o evento.</p>
+        </li>
+        <li class="step" data-reveal>
+          <span class="step__num">02</span>
+          <h3 class="step__title">Criamos a proposta</h3>
+          <p>O projeto é desenvolvido considerando estilo, espaço e necessidades da celebração.</p>
+        </li>
+        <li class="step" data-reveal>
+          <span class="step__num">03</span>
+          <h3 class="step__title">Planejamento dos detalhes</h3>
+          <p>Os elementos da decoração são definidos para criar uma composição harmoniosa.</p>
+        </li>
+        <li class="step" data-reveal>
+          <span class="step__num">04</span>
+          <h3 class="step__title">O grande dia</h3>
+          <p>A decoração ganha vida e transforma o espaço da celebração.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ AVALIAÇÕES ============ -->
+  <!-- Avaliações reais, publicadas no perfil da By Dani Decora no Google Maps. Não editar o conteúdo dos depoimentos. -->
+  <section class="reviews section" id="avaliacoes" aria-labelledby="reviews-title">
+    <div class="container reviews__grid">
+      <div class="reviews__summary">
+        <p class="eyebrow" data-reveal>Avaliações</p>
+        <h2 class="display" id="reviews-title" data-reveal>Quem celebra com a gente conta <em>melhor</em>.</h2>
+        <div class="rating" data-reveal>
+          <span class="rating__score">5,0</span>
+          <div>
+            {{> stars}}
+            <p class="rating__count">Nota média de 13 avaliações no Google</p>
+          </div>
+        </div>
+        <a class="link-arrow" href="https://www.google.com/maps?cid=6783689280117383185" target="_blank" rel="noopener" data-reveal>Ver avaliações no Google {{> icon-arrow}}</a>
+      </div>
+
+      <div class="reviews__list">
+        <figure class="review review--featured" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Experiência com excelência. Organização, pontualidade, agilidade e qualidade de todo o material que é de primeira linha. Dani a organizadora é excelente e competente.</p>
+          </blockquote>
+          <figcaption><strong>Carlos Henrique Rodrigues</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+
+        <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Fez um trabalho fantástico, com profissionalismo e talento! Resultado foi uma decoração de Natal encantadora! Recomendo.</p>
+          </blockquote>
+          <figcaption><strong>Helisson Faria Paiva</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+
+        <figure class="review" data-reveal>
+          {{> stars}}
+          <blockquote>
+            <p>Essa foi a melhor decoração de aniversário que já vi com muitos detalhes tudo feito com balões. […] Ela se interessou muito com a minha festa, foi me dando um monte de dicas de como pode ficar, muito atenciosa.</p>
+          </blockquote>
+          <figcaption><strong>Arthur Carvalho</strong><span>Avaliação do Google</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="cta" aria-labelledby="cta-title">
+    <div class="cta__media" aria-hidden="true" data-parallax="0.12">
+      <x-img name="cta-flor" alt="" sizes="100vw"></x-img>
+    </div>
+    <div class="cta__veil" aria-hidden="true"></div>
+    <div class="container cta__content">
+      <h2 class="cta__title" id="cta-title" data-reveal>Vamos imaginar seu próximo evento <em>juntos</em>?</h2>
+      <p class="cta__text" data-reveal>Conte um pouco sobre a sua celebração e solicite uma proposta.</p>
+      <a class="btn btn--light btn--large" href="{{wa}}" target="_blank" rel="noopener" data-reveal data-track="whatsapp-cta">{{> icon-whatsapp}} Falar com a By Dani</a>
+    </div>
+  </section>
+
+  <!-- ============ ORÇAMENTO + CONTATO ============ -->
+  <section class="contact section" id="contato" aria-labelledby="contact-title">
+    <div class="container contact__grid">
+      <div class="quote-form-wrap">
+        <p class="eyebrow" data-reveal>Orçamento</p>
+        <h2 class="display display--sm" id="contact-title" data-reveal>Conte sobre a sua <em>celebração</em></h2>
+        <p class="muted" data-reveal>Preencha o essencial. Ao enviar, abrimos o WhatsApp com as informações do seu evento já organizadas para a conversa.</p>
+
+        <form class="quote-form" id="form-orcamento" novalidate data-quote-form data-whatsapp="{{wa-number}}">
+          <div class="field">
+            <label for="f-nome">Nome <span aria-hidden="true">*</span></label>
+            <input id="f-nome" name="nome" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="f-whatsapp">WhatsApp <span aria-hidden="true">*</span></label>
+            <input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000" required>
+          </div>
+          <div class="field field--full">
+            <label for="f-email">E-mail</label>
+            <input id="f-email" name="email" type="email" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="f-tipo">Tipo de evento <span aria-hidden="true">*</span></label>
+            <select id="f-tipo" name="tipo" required>
+              <option value="">Selecione</option>
+              <option>Casamento</option>
+              <option>Aniversário</option>
+              <option>Festa infantil</option>
+              <option>Chá revelação / maternidade</option>
+              <option>Decoração de Natal</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="f-data">Data do evento</label>
+            <input id="f-data" name="data" type="date">
+          </div>
+          <div class="field">
+            <label for="f-local">Local do evento</label>
+            <input id="f-local" name="local" type="text" placeholder="Bairro, salão ou endereço">
+          </div>
+          <div class="field">
+            <label for="f-convidados">Nº aproximado de convidados</label>
+            <input id="f-convidados" name="convidados" type="number" inputmode="numeric" min="1" step="1">
+          </div>
+          <div class="field field--full">
+            <label for="f-mensagem">Conte um pouco sobre o que você está imaginando</label>
+            <textarea id="f-mensagem" name="mensagem" rows="4" placeholder="Tema, cores, referências, estilo…"></textarea>
+          </div>
+          <div class="field--full quote-form__foot">
+            <button class="btn btn--dark btn--block-mobile" type="submit">Quero conversar sobre meu evento</button>
+            <p class="form-note">* Campos obrigatórios. Seus dados são usados apenas para responder à sua solicitação — veja a <a href="/politica-de-privacidade/">Política de Privacidade</a>.</p>
+            <p class="form-status" role="status" aria-live="polite" data-form-status></p>
+          </div>
+        </form>
+      </div>
+
+      <aside class="contact-info" aria-labelledby="contact-info-title">
+        <h2 class="contact-info__title" id="contact-info-title" data-reveal>Decoração de festas na <em>Barra da Tijuca</em></h2>
+        <dl class="contact-info__list" data-reveal>
+          <div>
+            <dt>Endereço</dt>
+            <dd>
+              <address>Av. João Cabral de Mello Neto, 850<br>Bloco 3 – Sala 402<br>Barra da Tijuca · Rio de Janeiro – RJ<br>CEP 22775-057</address>
+            </dd>
+          </div>
+          <div>
+            <dt>WhatsApp</dt>
+            <dd><a href="{{wa}}" target="_blank" rel="noopener">(21) 99518-8453</a></dd>
+          </div>
+          <div>
+            <dt>Instagram</dt>
+            <dd><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener">@bydanidecora</a></dd>
+          </div>
+        </dl>
+        <div class="map" data-reveal>
+          <iframe title="Mapa com a localização da By Dani Decora na Barra da Tijuca" src="https://maps.google.com/maps?q=By%20Dani%20Decora%2C%20Av.%20Jo%C3%A3o%20Cabral%20de%20Mello%20Neto%2C%20850%2C%20Barra%20da%20Tijuca%2C%20Rio%20de%20Janeiro&amp;z=16&amp;hl=pt-BR&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <a class="btn btn--outline" href="https://www.google.com/maps/dir/?api=1&amp;destination=By%20Dani%20Decora%2C%20Av.%20Jo%C3%A3o%20Cabral%20de%20Mello%20Neto%2C%20850%20-%20Barra%20da%20Tijuca%2C%20Rio%20de%20Janeiro%20-%20RJ%2C%2022775-057" target="_blank" rel="noopener" data-reveal>Como chegar {{> icon-arrow}}</a>
+      </aside>
+    </div>
+  </section>
+
+  <!-- ============ INSTAGRAM ============ -->
+  <section class="instagram section" aria-labelledby="ig-title">
+    <div class="container">
+      <header class="section-head section-head--split">
+        <div>
+          <p class="eyebrow" data-reveal>@bydanidecora</p>
+          <h2 class="display display--sm" id="ig-title" data-reveal>Acompanhe nossos últimos <em>projetos</em></h2>
+        </div>
+        <a class="btn btn--outline" href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" data-reveal>{{> icon-instagram}} Seguir no Instagram</a>
+      </header>
+      <!-- Composição inspirada no feed. Os links levam ao perfil oficial. -->
+      <ul class="ig-grid" data-reveal>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: festa tema Sininho"><x-img name="festa-sininho" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: detalhe de balões"><x-img name="detalhe-flor" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: chá revelação"><x-img name="detalhe-ursinho" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: festa Divertida Mente"><x-img name="divertida-mente-bolo" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: aniversário em tons de lilás"><x-img name="happy-birthday-lilas" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+        <li><a href="https://www.instagram.com/bydanidecora/" target="_blank" rel="noopener" aria-label="Ver no Instagram: balão Boy or Girl"><x-img name="detalhe-boy-or-girl" alt="" sizes="(min-width: 768px) 16vw, 33vw"></x-img></a></li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+{{> footer}}
+
+<!-- WhatsApp flutuante (desktop) e barra fixa (celular) -->
+<a class="wa-float" href="{{wa}}" target="_blank" rel="noopener" aria-label="Conversar no WhatsApp" data-float data-track="whatsapp-float">{{> icon-whatsapp}}<span class="wa-float__label">Fale conosco</span></a>
+<div class="mobile-cta" data-mobile-cta>
+  <a class="btn btn--dark btn--block" href="{{wa}}" target="_blank" rel="noopener" data-track="whatsapp-mobile-bar">{{> icon-whatsapp}} Solicitar orçamento</a>
+</div>
+
+<!-- Lightbox -->
+<dialog class="lightbox" aria-label="Imagem ampliada" data-lightbox-dialog>
+  <div class="lightbox__stage">
+    <img class="lightbox__img" alt="" data-lb-img>
+  </div>
+  <p class="lightbox__caption" data-lb-caption></p>
+  <p class="lightbox__count" data-lb-count aria-live="polite"></p>
+  <button class="lightbox__btn lightbox__close" type="button" data-lb-close aria-label="Fechar"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path stroke="currentColor" stroke-width="1.4" d="M5 5l14 14M19 5L5 19"/></svg></button>
+  <button class="lightbox__btn lightbox__prev" type="button" data-lb-prev aria-label="Imagem anterior"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M20 12H4.5M10.5 6l-6 6 6 6"/></svg></button>
+  <button class="lightbox__btn lightbox__next" type="button" data-lb-next aria-label="Próxima imagem"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.4" d="M4 12h15.5M13.5 6l6 6-6 6"/></svg></button>
+</dialog>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>
