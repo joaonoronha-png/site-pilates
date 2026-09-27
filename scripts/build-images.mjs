@@ -43,18 +43,26 @@ const PHOTOS = [
   ['banco-baloes-pb', 'banco-baloes-pb.jpg'],
 ];
 
-// Recortes de detalhe: frações da imagem original { left, top, width, height }
+// Recortes de detalhe em 3:4, em pixels da imagem original { left, top, width, height }
 const CROPS = [
-  ['detalhe-baloes', 'cha-revelacao.png', { left: 0.08, top: 0.015, width: 0.58, height: 0.42 }],
-  ['detalhe-ursinho', 'cha-revelacao.png', { left: 0.14, top: 0.6, width: 0.42, height: 0.39 }],
-  ['detalhe-boy-or-girl', 'cha-revelacao.png', { left: 0.63, top: 0.12, width: 0.36, height: 0.36 }],
-  ['detalhe-flor', 'flor-de-baloes.jpg', { left: 0.19, top: 0, width: 0.58, height: 0.44 }],
-  ['detalhe-tucano', 'flor-de-baloes.jpg', { left: 0.56, top: 0.28, width: 0.3, height: 0.3 }],
-  ['detalhe-guirlanda', 'divertida-mente.jpg', { left: 0, top: 0.13, width: 1, height: 0.28 }],
-  ['detalhe-guirlanda-2', 'divertida-mente-bolo.jpg', { left: 0, top: 0.0, width: 1, height: 0.24 }],
-  ['detalhe-bolo', 'divertida-mente-bolo.jpg', { left: 0, top: 0.4, width: 1, height: 0.5 }],
-  ['detalhe-arco-lilas', 'happy-birthday-lilas.jpg', { left: 0, top: 0.02, width: 1, height: 0.5 }],
+  ['detalhe-baloes', 'cha-revelacao.png', { left: 60, top: 10, width: 420, height: 560 }],
+  ['detalhe-ursinho', 'cha-revelacao.png', { left: 100, top: 520, width: 300, height: 400 }],
+  ['detalhe-boy-or-girl', 'cha-revelacao.png', { left: 460, top: 100, width: 262, height: 349 }],
+  ['detalhe-flor', 'flor-de-baloes.jpg', { left: 280, top: 0, width: 840, height: 1120 }],
+  ['detalhe-tucano', 'flor-de-baloes.jpg', { left: 760, top: 430, width: 510, height: 680 }],
+  ['detalhe-painel', 'divertida-mente.jpg', { left: 430, top: 150, width: 470, height: 627 }],
+  ['detalhe-arco-lilas', 'happy-birthday-lilas.jpg', { left: 0, top: 20, width: 480, height: 640 }],
 ];
+
+/* Enquadramento 3:4 (formato único das molduras do site). Posição do recorte escolhida
+   foto a foto para não cortar o assunto principal: 'centre', 'attention' ou 'entropy'. */
+const FRAME_POS = {
+  'cha-revelacao': 'centre', 'festa-sininho': 'centre', 'flor-de-baloes': 'centre', 'happy-birthday-lilas': 'centre',
+  'divertida-mente': 'attention', 'divertida-mente-bolo': 'attention',
+  'banco-bolo-casamento': 'centre', 'banco-recepcao': 'centre', 'banco-guirlanda-baloes': 'entropy', 'banco-mesa-posta': 'entropy',
+  'banco-bolo-macarons': 'centre', 'banco-painel-floral': 'centre', 'banco-baloes-dourados': 'centre', 'banco-hortensias': 'entropy',
+  'banco-rosas-brancas': 'centre', 'banco-velas': 'centre', 'banco-baloes-pb': 'attention',
+};
 
 const MIN_WIDTH = 1100; // largura mínima desejada para fotos inteiras
 const MAX_SCALE = 2;
@@ -129,12 +137,18 @@ async function main() {
     manifest[name] = await save(pipe, name);
     console.log('›', name, manifest[name]);
   }
+  for (const [name] of PHOTOS) {
+    const full = path.join(OUT, `${name}.webp`);
+    const { width } = await sharp(full).metadata();
+    const w = Math.min(width, 1200), h = Math.round((w * 4) / 3);
+    const pos = FRAME_POS[name] || 'attention';
+    await sharp(full).resize(w, h, { fit: 'cover', position: pos }).webp({ quality: 82, effort: 5 }).toFile(path.join(OUT, `${name}-34.webp`));
+    await sharp(full).resize(600, 800, { fit: 'cover', position: pos }).webp({ quality: 80, effort: 5 }).toFile(path.join(OUT, `${name}-34-sm.webp`));
+  }
   for (const [name, file, c] of CROPS) {
     const src = sharp(path.join(SRC, file)).rotate();
-    const m = await sharp(path.join(SRC, file)).metadata();
-    const box = { left: Math.round(c.left * m.width), top: Math.round(c.top * m.height), width: Math.round(c.width * m.width), height: Math.round(c.height * m.height) };
-    const cropped = sharp(await src.extract(box).toBuffer());
-    manifest[name] = await save(enhance(cropped, box.width, 900), name, 560);
+    const cropped = sharp(await src.extract(c).toBuffer());
+    manifest[name] = await save(enhance(cropped, c.width, 900), name, 560);
     console.log('›', name, manifest[name]);
   }
   await writeFile(path.join(OUT, 'manifest.json'), JSON.stringify(manifest, null, 2));

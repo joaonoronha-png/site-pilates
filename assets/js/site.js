@@ -545,7 +545,7 @@
       const btn = items[current];
       const src = btn.querySelector('img');
       const img = document.createElement('img');
-      img.src = src?.currentSrc || src?.src || '';
+      img.src = src?.dataset.full || src?.currentSrc || src?.src || '';
       img.alt = src?.alt || '';
       stageEl.replaceChildren(img);
       title.textContent = btn.dataset.title || '';

@@ -68,39 +68,31 @@
     "height": 1332
   },
   "detalhe-baloes": {
-    "width": 844,
-    "height": 774
+    "width": 840,
+    "height": 1120
   },
   "detalhe-ursinho": {
-    "width": 612,
-    "height": 720
+    "width": 600,
+    "height": 800
   },
   "detalhe-boy-or-girl": {
     "width": 524,
-    "height": 664
+    "height": 698
   },
   "detalhe-flor": {
     "width": 900,
-    "height": 854
+    "height": 1200
   },
   "detalhe-tucano": {
-    "width": 864,
-    "height": 1080
-  },
-  "detalhe-guirlanda": {
     "width": 900,
-    "height": 448
+    "height": 1200
   },
-  "detalhe-guirlanda-2": {
+  "detalhe-painel": {
     "width": 900,
-    "height": 384
-  },
-  "detalhe-bolo": {
-    "width": 900,
-    "height": 800
+    "height": 1201
   },
   "detalhe-arco-lilas": {
     "width": 900,
-    "height": 795
+    "height": 1200
   }
 }
