@@ -65,3 +65,26 @@ Antes de publicar, peça à empresa **autorização de uso** das imagens.
 fundação, equipe e biografia. Pendências marcadas no HTML com comentários: foto e biografia da Dani (seção Sobre),
 razão social/CNPJ e revisão jurídica das páginas legais. O domínio `bydanidecora.com.br` usado em canonical, Open Graph e
 sitemap é **provisório**.
+
+## Avaliações do Google automáticas (Lovable)
+
+O site já está preparado para atualizar sozinho a **nota**, o **total de avaliações** e acrescentar **avaliações novas** ao
+carrossel. Enquanto a integração não estiver ativa, ele mostra os dados fixos da página (5,0 · 13 avaliações).
+
+Como funciona: a função `supabase/functions/google-reviews` consulta a API oficial do Google (Places API) e guarda o
+resultado por 24 h; o site lê essa função. A chave do Google fica só no servidor, nunca no código do site.
+
+1. **Google Cloud** (console.cloud.google.com): crie um projeto, ative o faturamento e a **Places API (New)**, e gere uma
+   **chave de API** (em "Restrições", limite a chave à Places API). O Google cobra por uso, mas oferece uma cota gratuita
+   mensal. Com o cache de 24 h, a expectativa é ficar dentro dela; confira os valores atuais no painel do Google.
+2. **Lovable**: ative o backend (Lovable Cloud, que usa Supabase) e adicione o segredo `GOOGLE_PLACES_API_KEY` com a chave.
+   Opcional: `GOOGLE_PLACE_ID` (sem ele, a função encontra a empresa pelo nome e endereço).
+3. Crie a Edge Function **google-reviews** com o conteúdo de `supabase/functions/google-reviews/index.ts` (se o projeto
+   estiver sincronizado com este repositório pelo GitHub, ela já vem junto). Ela é pública (`verify_jwt = false` em
+   `supabase/config.toml`).
+4. Copie a URL da função (algo como `https://SEU-PROJETO.supabase.co/functions/v1/google-reviews`) e cole em
+   `index.html`, na linha `<meta name="bd-reviews-endpoint" content="">`.
+
+Observações: a API do Google devolve no máximo as **5 avaliações** mais relevantes por consulta (a nota e o total são
+sempre os atuais). Avaliações que já estão no site não são duplicadas. Os nomes dos menus do Lovable e do Google Cloud
+podem mudar com o tempo.

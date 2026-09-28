@@ -24,6 +24,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Figtree:wght@300;400;500;600&display=swap">
+<!-- Avaliações automáticas: cole aqui a URL da função google-reviews (Lovable Cloud / Supabase). Vazio = usa os dados fixos da página. -->
+<meta name="bd-reviews-endpoint" content="">
 <link rel="preload" as="image" href="assets/img/banco-bolo-casamento-34.webp" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/site.css">
 <script>
@@ -163,7 +165,7 @@
             <a class="btn btn--light" href="#orcamento" data-magnetic>Solicitar orçamento <span class="btn__arrow" aria-hidden="true">→</span></a>
             <a class="btn btn--ghost-light" href="#projetos">Conhecer os projetos</a>
           </div>
-          <p class="hero__rating" data-hero-in><strong>5,0</strong> <span class="stars" aria-hidden="true">★★★★★</span> 13 avaliações no Google</p>
+          <p class="hero__rating" data-hero-in><strong data-g-rating>5,0</strong> <span class="stars" aria-hidden="true">★★★★★</span> <span data-g-count>13</span> avaliações no Google</p>
         </div>
       </div>
 
@@ -385,7 +387,7 @@
           <a class="btn btn--outline" href="https://www.google.com/maps?cid=6783689280117383185" target="_blank" rel="noopener noreferrer" data-reveal>Ver avaliações no Google <span class="btn__arrow" aria-hidden="true">↗</span></a>
         </header>
       </div>
-      <div class="drift drift--quotes" data-drift data-speed="0.32" role="region" aria-label="Avaliações de clientes: passam sozinhas, arraste para navegar">
+      <div class="drift drift--quotes" data-drift data-reviews data-speed="0.32" role="region" aria-label="Avaliações de clientes: passam sozinhas, arraste para navegar">
         <ul class="drift__track" data-drift-track>
           <li class="quote"><span class="quote__mark" aria-hidden="true">“</span><p class="quote__text">O melhor! Ótimo! Atendimento maravilhoso e trabalho melhor ainda. Criatividade, dedicação e excelência. Trabalho rico em detalhes, impecável!!! Vale cada centavo!! Profissional nota mil!!!</p><footer class="quote__foot"><span class="quote__avatar" aria-hidden="true">L</span><span class="quote__who"><cite>Lara Fábian</cite><span class="quote__meta">Avaliação do Google</span></span><span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span></footer></li>
           <li class="quote"><span class="quote__mark" aria-hidden="true">“</span><p class="quote__text">Experiência com excelência. Organização, pontualidade, agilidade e qualidade de todo o material que é de primeira linha. Dani a organizadora é excelente e competente.</p><footer class="quote__foot"><span class="quote__avatar" aria-hidden="true">C</span><span class="quote__who"><cite>Carlos Henrique Rodrigues</cite><span class="quote__meta">Avaliação do Google</span></span><span class="stars" role="img" aria-label="5 de 5 estrelas">★★★★★</span></footer></li>
@@ -408,11 +410,11 @@
     <section class="proof" aria-label="Avaliações no Google">
       <div class="wrap">
         <ul class="proof__list">
-          <li class="proof__item" data-reveal><p class="proof__num"><span data-count="5" data-decimals="1">5,0</span><span class="proof__star" aria-hidden="true">★</span></p><p class="proof__label">nota média</p><p class="proof__sub">no Google</p></li>
-          <li class="proof__item" data-reveal><p class="proof__num"><span data-count="13">13</span></p><p class="proof__label">avaliações</p><p class="proof__sub">de clientes</p></li>
+          <li class="proof__item" data-reveal><p class="proof__num"><span data-count="5" data-decimals="1" data-g-rating-counter>5,0</span><span class="proof__star" aria-hidden="true">★</span></p><p class="proof__label">nota média</p><p class="proof__sub">no Google</p></li>
+          <li class="proof__item" data-reveal><p class="proof__num"><span data-count="13" data-g-count-counter>13</span></p><p class="proof__label">avaliações</p><p class="proof__sub">de clientes</p></li>
           <li class="proof__item" data-reveal><p class="proof__num proof__num--text">Barra da Tijuca</p><p class="proof__label">Rio de Janeiro</p><p class="proof__sub">CEO Corporate · sala 402</p></li>
         </ul>
-        <p class="proof__note">Dados do perfil público da By Dani Decora no <a class="link" href="https://www.google.com/maps?cid=6783689280117383185" target="_blank" rel="noopener noreferrer">Google</a>, set/2026.</p>
+        <p class="proof__note">Dados do perfil público da By Dani Decora no <a class="link" href="https://www.google.com/maps?cid=6783689280117383185" target="_blank" rel="noopener noreferrer">Google</a>, <span data-g-updated>set/2026</span>.</p>
       </div>
     </section>
 

@@ -474,7 +474,60 @@
       }
     }
   }
-  $$('[data-drift]').forEach((el) => new Drift(el));
+  /* ==========================================================================
+     AVALIAÇÕES DO GOOGLE — atualização automática
+     Lê a função google-reviews (URL na meta "bd-reviews-endpoint"). Atualiza a nota,
+     o total e acrescenta avaliações novas ao carrossel. Sem URL ou se falhar,
+     o site mantém os dados fixos da página.
+     ========================================================================== */
+  const esc = (t) => String(t ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const norm = (t) => String(t || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim().toLowerCase();
+  const loadGoogleReviews = () => {
+    const endpoint = document.querySelector('meta[name="bd-reviews-endpoint"]')?.content?.trim();
+    if (!endpoint) return Promise.resolve();
+    const timeout = new Promise((resolve) => setTimeout(resolve, 2500));
+    const req = fetch(endpoint, { headers: { Accept: 'application/json' } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || d.error) return;
+        if (typeof d.rating === 'number') {
+          $$('[data-g-rating]').forEach((el) => { el.textContent = fmt(d.rating, 1); });
+          $$('[data-g-rating-counter]').forEach((el) => { el.dataset.count = d.rating; el.textContent = fmt(d.rating, 1); });
+        }
+        if (typeof d.count === 'number') {
+          $$('[data-g-count]').forEach((el) => { el.textContent = d.count; });
+          $$('[data-g-count-counter]').forEach((el) => { el.dataset.count = d.count; el.textContent = d.count; });
+        }
+        if (d.updatedAt) {
+          const when = new Date(d.updatedAt).toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' }).replace(' de ', '/').replace('.', '');
+          $$('[data-g-updated]').forEach((el) => { el.textContent = when; });
+        }
+        const track = $('[data-reviews] [data-drift-track]');
+        if (!track || !Array.isArray(d.reviews)) return;
+        const known = new Set($$('cite', track).map((c) => norm(c.textContent)));
+        d.reviews
+          .filter((r) => r.text && r.author && !known.has(norm(r.author)))
+          .slice().reverse()
+          .forEach((r) => {
+            const stars = '★'.repeat(Math.round(r.rating || 5)).padEnd(5, '☆');
+            const li = document.createElement('li');
+            li.className = 'quote';
+            li.innerHTML = `<span class="quote__mark" aria-hidden="true">“</span><p class="quote__text">${esc(r.text)}</p>`
+              + `<footer class="quote__foot"><span class="quote__avatar" aria-hidden="true">${esc(r.author.trim()[0] || '·')}</span>`
+              + `<span class="quote__who"><cite>${esc(r.author)}</cite><span class="quote__meta">Avaliação do Google${r.relative ? ` · ${esc(r.relative)}` : ''}</span></span>`
+              + `<span class="stars" role="img" aria-label="${esc(r.rating || 5)} de 5 estrelas">${stars}</span></footer>`;
+            track.prepend(li);
+          });
+      })
+      .catch(() => {});
+    return Promise.race([req, timeout]);
+  };
+
+  // O carrossel de avaliações só começa depois de tentar buscar as novas (máx. 2,5 s)
+  $$('[data-drift]').forEach((el) => {
+    if (el.hasAttribute('data-reviews')) loadGoogleReviews().finally(() => new Drift(el));
+    else new Drift(el);
+  });
 
   /* ---------- Contadores ---------- */
   const fmt = (n, d) => n.toLocaleString('pt-BR', { minimumFractionDigits: d, maximumFractionDigits: d });
