@@ -278,7 +278,8 @@
 
     // Hero: conteúdo sobe e esmaece ao rolar
     if (hero) {
-      G.to('.hero__inner', { yPercent: -10, opacity: 0.2, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
+      // só um leve deslocamento — sem esmaecer, para os botões manterem a cor total
+      G.to('.hero__inner', { yPercent: -6, ease: 'none', scrollTrigger: { trigger: hero, start: 'top top', end: 'bottom top', scrub: true } });
     }
 
     // Serviços: a foto acompanha o item em foco
