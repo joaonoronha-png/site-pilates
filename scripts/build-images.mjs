@@ -41,6 +41,19 @@ const PHOTOS = [
   ['banco-rosas-brancas', 'banco-rosas-brancas.jpg'],
   ['banco-velas', 'banco-velas.jpg'],
   ['banco-baloes-pb', 'banco-baloes-pb.jpg'],
+  // Carrossel do Instagram: quadros de vídeos do Mixkit e fotos CC0 do WordPress (provisórios)
+  ['banco-insta-01', 'banco-insta-01.jpg'],
+  ['banco-insta-02', 'banco-insta-02.jpg'],
+  ['banco-insta-03', 'banco-insta-03.jpg'],
+  ['banco-insta-04', 'banco-insta-04.jpg'],
+  ['banco-insta-05', 'banco-insta-05.jpg'],
+  ['banco-insta-06', 'banco-insta-06.jpg'],
+  ['banco-insta-07', 'banco-insta-07.jpg'],
+  ['banco-insta-08', 'banco-insta-08.jpg'],
+  ['banco-insta-09', 'banco-insta-09.jpg'],
+  ['banco-insta-10', 'banco-insta-10.jpg'],
+  ['banco-insta-11', 'banco-insta-11.jpg'],
+  ['banco-insta-12', 'banco-insta-12.jpg'],
 ];
 
 // Recortes de detalhe em 3:4, em pixels da imagem original { left, top, width, height }

@@ -67,6 +67,54 @@
     "width": 1600,
     "height": 1332
   },
+  "banco-insta-01": {
+    "width": 1600,
+    "height": 900
+  },
+  "banco-insta-02": {
+    "width": 1600,
+    "height": 900
+  },
+  "banco-insta-03": {
+    "width": 1600,
+    "height": 900
+  },
+  "banco-insta-04": {
+    "width": 1600,
+    "height": 1066
+  },
+  "banco-insta-05": {
+    "width": 1280,
+    "height": 720
+  },
+  "banco-insta-06": {
+    "width": 1600,
+    "height": 1066
+  },
+  "banco-insta-07": {
+    "width": 1600,
+    "height": 900
+  },
+  "banco-insta-08": {
+    "width": 1280,
+    "height": 720
+  },
+  "banco-insta-09": {
+    "width": 1536,
+    "height": 2048
+  },
+  "banco-insta-10": {
+    "width": 1600,
+    "height": 900
+  },
+  "banco-insta-11": {
+    "width": 1600,
+    "height": 1600
+  },
+  "banco-insta-12": {
+    "width": 1600,
+    "height": 900
+  },
   "detalhe-baloes": {
     "width": 840,
     "height": 1120
