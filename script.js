@@ -1,5 +1,7 @@
 (() => {
   const WA_NUMBER = "5521966092692";
+  // Ano de fundação da MG — preencha (ex.: 2019) para exibir "Desde" e os anos de experiência na seção Sobre.
+  const FOUNDED_YEAR = null;
   const WA_DEFAULT_MSG = "Olá! Encontrei a MG Estética Automotiva pelo site e gostaria de saber mais sobre os serviços.";
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -8,6 +10,17 @@
     const msg = a.dataset.waMsg || WA_DEFAULT_MSG;
     a.href = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
   });
+
+  /* ---------- Ano de fundação (seção Sobre) ---------- */
+  if (FOUNDED_YEAR) {
+    const f = document.querySelector("[data-founded]");
+    const years = new Date().getFullYear() - FOUNDED_YEAR;
+    if (f) {
+      f.querySelector("[data-founded-year]").textContent = FOUNDED_YEAR;
+      if (years >= 1) f.querySelector("[data-founded-years]").textContent = `· ${years} ${years === 1 ? "ano" : "anos"} de experiência`;
+      f.hidden = false;
+    }
+  }
 
   /* ---------- Ano no rodapé ---------- */
   const year = document.querySelector("[data-year]");
