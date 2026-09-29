@@ -13,13 +13,12 @@
 
   /* ---------- Ano de fundação (seção Sobre) ---------- */
   if (FOUNDED_YEAR) {
-    const f = document.querySelector("[data-founded]");
     const years = new Date().getFullYear() - FOUNDED_YEAR;
-    if (f) {
-      f.querySelector("[data-founded-year]").textContent = FOUNDED_YEAR;
-      if (years >= 1) f.querySelector("[data-founded-years]").textContent = `· ${years} ${years === 1 ? "ano" : "anos"} de experiência`;
-      f.hidden = false;
-    }
+    document.querySelectorAll("[data-founded-year]").forEach((el) => { el.textContent = FOUNDED_YEAR; });
+    document.querySelectorAll("[data-founded-years]").forEach((el) => {
+      el.textContent = years >= 1 ? `${years} ${years === 1 ? "ano" : "anos"} de estrada` : "Começando com o pé direito";
+    });
+    document.querySelectorAll("[data-founded], [data-founded-inline]").forEach((el) => { el.hidden = false; });
   }
 
   /* ---------- Ano no rodapé ---------- */
