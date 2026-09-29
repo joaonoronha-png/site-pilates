@@ -467,3 +467,23 @@ p { margin: 0; }
   .reveal { opacity: 1; transform: none; }
   .marquee__track { animation: none; }
 }
+
+/* ---------- Depoimentos (avaliações reais do Google) ---------- */
+.reviews { margin-top: clamp(48px, 7vw, 88px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.review { margin: 0; background: var(--bg); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 20px; position: relative; transition: background .4s; }
+.review:hover { background: var(--bg-3); }
+.review__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.review__stars { color: #ffc93c; letter-spacing: 3px; font-size: 15px; }
+.review__tag { font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); border: 1px solid rgba(225,6,0,.4); padding: 3px 8px; border-radius: 2px; }
+.review blockquote { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--text); flex: 1; }
+.review figcaption { display: flex; align-items: center; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.review figcaption > span:last-child { display: grid; gap: 2px; }
+.review figcaption strong { font-family: var(--f-display); font-weight: 700; font-size: 15px; }
+.review__avatar { width: 38px; height: 38px; border-radius: 50%; display: grid; place-items: center; flex: none; background: var(--bg-3); border: 1px solid var(--line-2); font-family: var(--f-display); font-weight: 800; font-size: 15px; }
+.review--cta { justify-content: center; background: var(--bg-2); }
+.review--cta .mono { color: var(--accent); }
+.review--cta strong { font-family: var(--f-display); font-weight: 800; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.1; text-transform: uppercase; letter-spacing: -.01em; }
+.review__arrow { font-size: 28px; color: var(--accent); transition: transform .35s var(--ease); }
+.review--cta:hover .review__arrow { transform: translateX(8px); }
+@media (max-width: 1100px) { .reviews { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .reviews { grid-template-columns: 1fr; } }
