@@ -642,9 +642,11 @@ p { margin: 0; }
 .fab__opt { display: flex; align-items: center; gap: 12px; opacity: 0; transform: translateY(14px) scale(.85); transition: opacity .25s, transform .35s var(--ease); }
 .fab__group.is-open .fab__menu { pointer-events: auto; }
 .fab__group.is-open .fab__opt { opacity: 1; transform: none; }
-.fab__group.is-open .fab__opt:nth-child(3) { transition-delay: 0s; }
-.fab__group.is-open .fab__opt:nth-child(2) { transition-delay: .05s; }
-.fab__group.is-open .fab__opt:nth-child(1) { transition-delay: .1s; }
+.fab__group.is-open .fab__opt:nth-child(4) { transition-delay: 0s; }
+.fab__group.is-open .fab__opt:nth-child(3) { transition-delay: .05s; }
+.fab__group.is-open .fab__opt:nth-child(2) { transition-delay: .1s; }
+.fab__group.is-open .fab__opt:nth-child(1) { transition-delay: .15s; }
+.fab__ico--apple { background: #fff; }
 .fab__label { white-space: nowrap; padding: 7px 12px; border-radius: 4px; background: rgba(10,11,13,.94); border: 1px solid var(--line-2); font-family: var(--f-display); font-weight: 700; font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--text); box-shadow: 0 10px 24px -10px #000; }
 .fab__ico { width: 48px; height: 48px; flex: none; border-radius: 50%; display: grid; place-items: center; box-shadow: 0 10px 24px -8px rgba(0,0,0,.8); transition: transform .3s var(--ease); }
 .fab__ico svg { width: 26px; height: 26px; }
