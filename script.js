@@ -436,4 +436,24 @@
     window.addEventListener("load", () => { measure(); wrap(); });
     requestAnimationFrame(frame);
   });
+
+  /* ---------- Botão de rotas: Google Maps / Waze / Uber ---------- */
+  const route = document.querySelector("[data-route]");
+  if (route) {
+    const btn = route.querySelector(".fab__btn--map");
+    const opts = [...route.querySelectorAll(".fab__opt")];
+    const setOpen = (open) => {
+      route.classList.toggle("is-open", open);
+      btn.setAttribute("aria-expanded", String(open));
+      btn.setAttribute("aria-label", open ? "Fechar opções de rota" : "Como chegar: escolher aplicativo");
+      opts.forEach((o) => o.setAttribute("tabindex", open ? "0" : "-1"));
+    };
+    setOpen(false);
+    btn.addEventListener("click", (e) => { e.stopPropagation(); setOpen(!route.classList.contains("is-open")); });
+    opts.forEach((o) => o.addEventListener("click", () => setOpen(false)));
+    document.addEventListener("click", (e) => { if (!route.contains(e.target)) setOpen(false); });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && route.classList.contains("is-open")) { setOpen(false); btn.focus(); }
+    });
+  }
 })();
