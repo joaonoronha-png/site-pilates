@@ -192,8 +192,51 @@
     });
   });
 
+  /* ---------- Intro ---------- */
+  const root = document.documentElement;
+  const intro = document.getElementById("intro");
+  let introDone;
+  const introFinished = new Promise((r) => { introDone = r; });
+  if (root.classList.contains("intro-on") && intro) {
+    intro.querySelectorAll(".intro__word span").forEach((el, i) => el.style.setProperty("--d", `${i * 0.025}s`));
+    const pct = intro.querySelector("[data-intro-pct]");
+    const bar = intro.querySelector(".intro__bar i");
+    const log = intro.querySelector("[data-intro-log]");
+    const LOGS = ["INICIANDO SISTEMA", "CALIBRANDO BRILHO", "ANALISANDO DETALHES", "PREPARANDO ACABAMENTO", "PRONTO"];
+    const DURATION = 2300;
+    const t0 = performance.now();
+    let ended = false;
+    const finish = () => {
+      if (ended) return;
+      ended = true;
+      try { sessionStorage.setItem("mg-intro", "1"); } catch (e) {}
+      intro.classList.add("is-leaving");
+      setTimeout(introDone, 250);
+      setTimeout(() => { root.classList.remove("intro-on"); intro.remove(); }, 1000);
+    };
+    const tick = (now) => {
+      if (ended) return;
+      const k = Math.min((now - t0) / DURATION, 1);
+      const eased = 1 - Math.pow(1 - k, 3);
+      pct.textContent = String(Math.round(eased * 100)).padStart(3, "0");
+      bar.style.setProperty("--p", eased);
+      log.textContent = LOGS[Math.min(Math.floor(k * LOGS.length), LOGS.length - 1)];
+      if (k < 1) requestAnimationFrame(tick);
+      else setTimeout(finish, 280);
+    };
+    requestAnimationFrame(tick);
+    intro.querySelector(".intro__skip").addEventListener("click", finish);
+    intro.addEventListener("click", (e) => { if (e.target === intro) finish(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") finish(); });
+    setTimeout(finish, 6000); // segurança
+  } else {
+    if (intro) intro.remove();
+    introDone();
+  }
+
   /* ---------- Animações de entrada ---------- */
   const reveals = document.querySelectorAll(".reveal");
+  introFinished.then(() => {
   if (reduceMotion || !("IntersectionObserver" in window)) {
     reveals.forEach((el) => el.classList.add("is-in"));
   } else {
@@ -209,6 +252,8 @@
     reveals.forEach((el) => io.observe(el));
   }
 
+  });
+
   /* ---------- Parallax discreto no hero ---------- */
   const visual = document.querySelector(".hero__visual .hud-frame");
   if (visual && !reduceMotion && window.matchMedia("(pointer: fine)").matches) {
@@ -221,5 +266,53 @@
     });
     hero.addEventListener("mouseleave", () => { visual.style.transform = ""; });
     visual.style.transition = "transform .6s cubic-bezier(.2,.7,.1,1)";
+  }
+
+  /* ---------- Mapa interativo (tiles locais em assets/map) ---------- */
+  const mapEl = document.getElementById("map");
+  const initMap = () => {
+    if (!mapEl || !window.L || mapEl.dataset.ready) return;
+    mapEl.dataset.ready = "1";
+    const POS = [-22.8692657, -43.3147057];
+    const map = L.map(mapEl, {
+      center: POS, zoom: 16, minZoom: 13, maxZoom: 18,
+      maxBounds: L.latLngBounds([POS[0] - 0.04, POS[1] - 0.04], [POS[0] + 0.04, POS[1] + 0.04]),
+      scrollWheelZoom: false, attributionControl: true, zoomControl: true,
+    });
+    const bounds = { 13: 0.045, 14: 0.03, 15: 0.018, 16: 0.011, 17: 0.0065, 18: 0.0045 };
+    const layer = L.tileLayer("assets/map/{z}/{x}/{y}.png", {
+      tileSize: 256, minZoom: 13, maxZoom: 18, maxNativeZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+      errorTileUrl: "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+    });
+    layer.addTo(map);
+    // limita o arrasto à área com tiles no zoom atual
+    const clamp = () => {
+      const d = bounds[map.getZoom()] || 0.0045;
+      map.setMaxBounds(L.latLngBounds([POS[0] - d, POS[1] - d], [POS[0] + d, POS[1] + d]));
+    };
+    map.on("zoomend", clamp);
+    clamp();
+    const icon = L.divIcon({
+      className: "",
+      html: '<div class="map-pin"><span class="map-pin__pulse"></span><span class="map-pin__pulse map-pin__pulse--2"></span><span class="map-pin__dot"></span></div>',
+      iconSize: [22, 22], iconAnchor: [11, 11], popupAnchor: [0, -14],
+    });
+    L.marker(POS, { icon, keyboard: true, title: "MG Estética Automotiva" }).addTo(map)
+      .bindPopup('<strong>MG Estética Automotiva</strong>R. dos Lírios, 14 — Cavalcanti<br>Rio de Janeiro/RJ<br><a href="https://www.google.com/maps/dir/?api=1&destination=-22.8692657,-43.3147057" target="_blank" rel="noopener">Traçar rota →</a>')
+      .openPopup();
+    // habilita zoom pela roda do mouse só após clicar no mapa
+    map.on("click", () => map.scrollWheelZoom.enable());
+    mapEl.addEventListener("mouseleave", () => map.scrollWheelZoom.disable());
+  };
+  if (mapEl) {
+    if ("IntersectionObserver" in window) {
+      const mo = new IntersectionObserver((en) => {
+        if (en.some((e) => e.isIntersecting)) { initMap(); mo.disconnect(); }
+      }, { rootMargin: "300px" });
+      mo.observe(mapEl);
+    } else {
+      window.addEventListener("load", initMap);
+    }
   }
 })();
