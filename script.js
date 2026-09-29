@@ -315,4 +315,113 @@
       window.addEventListener("load", initMap);
     }
   }
+
+  /* ---------- Carrosséis em rotação contínua (Instagram e avaliações) ---------- */
+  document.querySelectorAll("[data-loop]").forEach((loop) => {
+    const track = loop.querySelector(".loop__track");
+    const originals = [...track.children];
+    const speed = parseFloat(loop.dataset.speed) || 30; // px por segundo
+    let setWidth = 0;
+    let x = 0;
+    let velocity = 0;       // inércia após soltar
+    let dragging = false;
+    let hovering = false;
+    let visible = true;
+    let lastX = 0, lastT = 0, startX = 0, moved = 0;
+
+    const measure = () => {
+      track.querySelectorAll("[data-clone]").forEach((c) => c.remove());
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      setWidth = originals.reduce((w, el) => w + el.getBoundingClientRect().width + gap, 0);
+      const copies = Math.max(1, Math.ceil(loop.clientWidth / setWidth) + 1);
+      for (let n = 0; n < copies; n++) {
+        originals.forEach((el) => {
+          const c = el.cloneNode(true);
+          c.setAttribute("data-clone", "");
+          c.setAttribute("aria-hidden", "true");
+          c.querySelectorAll("a, button").forEach((a) => a.setAttribute("tabindex", "-1"));
+          if (c.matches("a")) c.setAttribute("tabindex", "-1");
+          track.appendChild(c);
+        });
+      }
+    };
+    const wrap = () => {
+      if (!setWidth) return;
+      x = ((x % setWidth) + setWidth) % setWidth; // mantém 0 <= x < setWidth
+      track.style.transform = `translate3d(${-x}px, 0, 0)`;
+    };
+
+    let prev = performance.now();
+    const frame = (now) => {
+      const dt = Math.min((now - prev) / 1000, 0.05);
+      prev = now;
+      if (visible && !dragging) {
+        if (Math.abs(velocity) > 5) {
+          x += velocity * dt;
+          velocity *= Math.pow(0.04, dt); // desacelera suavemente
+        } else if (!hovering && !reduceMotion) {
+          velocity = 0;
+          x += speed * dt;
+        }
+        wrap();
+      }
+      requestAnimationFrame(frame);
+    };
+
+    loop.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      dragging = true;
+      moved = 0;
+      velocity = 0;
+      startX = lastX = e.clientX;
+      lastT = performance.now();
+    });
+    window.addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      const dx = e.clientX - lastX;
+      const now = performance.now();
+      moved = Math.max(moved, Math.abs(e.clientX - startX));
+      if (moved > 6 && !loop.classList.contains("is-dragging")) {
+        loop.classList.add("is-dragging");
+        try { loop.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      x -= dx;
+      velocity = -dx / Math.max((now - lastT) / 1000, 0.001);
+      lastX = e.clientX;
+      lastT = now;
+      wrap();
+    });
+    const release = () => {
+      if (!dragging) return;
+      dragging = false;
+      if (performance.now() - lastT > 80) velocity = 0;
+      velocity = Math.max(-2500, Math.min(2500, velocity));
+      setTimeout(() => loop.classList.remove("is-dragging"), 0);
+    };
+    window.addEventListener("pointerup", release);
+    window.addEventListener("pointercancel", release);
+    // não abrir link se foi um arraste
+    loop.addEventListener("click", (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+    if (window.matchMedia("(hover: hover)").matches) {
+      loop.addEventListener("mouseenter", () => { hovering = true; });
+      loop.addEventListener("mouseleave", () => { hovering = false; });
+    }
+    // teclado: setas movem o carrossel quando ele tem foco
+    loop.tabIndex = 0;
+    loop.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight") { velocity = 900; e.preventDefault(); }
+      if (e.key === "ArrowLeft") { velocity = -900; e.preventDefault(); }
+    });
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((en) => { visible = en[0].isIntersecting; }, { rootMargin: "100px" }).observe(loop);
+    }
+
+    measure();
+    wrap();
+    let rt;
+    window.addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { measure(); wrap(); }, 150); });
+    window.addEventListener("load", () => { measure(); wrap(); });
+    requestAnimationFrame(frame);
+  });
 })();

@@ -309,8 +309,7 @@ p { margin: 0; }
 .step p { margin-top: 10px; color: var(--muted); font-size: 15px; }
 
 /* ---------- Instagram ---------- */
-.insta { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; }
-.insta__item { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; background: var(--bg-3); }
+.insta__item { flex: none; width: clamp(190px, 21vw, 290px); position: relative; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 2px; background: var(--bg-3); }
 .insta__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease), filter .5s; filter: saturate(.85); }
 .insta__item span { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 12px 12px; font-family: var(--f-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; background: linear-gradient(transparent, rgba(0,0,0,.85)); opacity: 0; transform: translateY(8px); transition: all .4s var(--ease); }
 .insta__item:hover img { transform: scale(1.08); filter: saturate(1); }
@@ -375,7 +374,6 @@ p { margin: 0; }
 @media (max-width: 1100px) {
   .services { grid-template-columns: repeat(2, 1fr); }
   .gallery { grid-template-columns: repeat(3, 1fr); }
-  .insta { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 900px) {
@@ -426,8 +424,6 @@ p { margin: 0; }
   .filters { width: 100%; flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 calc(var(--gutter) * -1); padding: 0 var(--gutter); width: calc(100% + var(--gutter) * 2); }
   .filters::-webkit-scrollbar { display: none; }
   .filter { flex: none; }
-
-  .insta { grid-template-columns: repeat(2, 1fr); }
   .insta__item span { opacity: 1; transform: none; }
 
   .steps { grid-template-columns: 1fr; gap: 36px; }
@@ -451,8 +447,7 @@ p { margin: 0; }
 }
 
 /* ---------- Depoimentos (avaliações reais do Google) ---------- */
-.reviews { margin-top: clamp(48px, 7vw, 88px); display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
-.review { margin: 0; background: var(--bg); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 20px; position: relative; transition: background .4s; }
+.review { flex: none; width: clamp(290px, 30vw, 410px); border: 1px solid var(--line); border-radius: 4px; margin: 0; background: var(--bg); padding: clamp(24px, 3vw, 36px); display: flex; flex-direction: column; gap: 20px; position: relative; transition: background .4s; }
 .review:hover { background: var(--bg-3); }
 .review__top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .review__stars { color: #ffc93c; letter-spacing: 3px; font-size: 15px; }
@@ -467,8 +462,6 @@ p { margin: 0; }
 .review--cta strong { font-family: var(--f-display); font-weight: 800; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.1; text-transform: uppercase; letter-spacing: -.01em; }
 .review__arrow { font-size: 28px; color: var(--accent); transition: transform .35s var(--ease); }
 .review--cta:hover .review__arrow { transform: translateX(8px); }
-@media (max-width: 1100px) { .reviews { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px) { .reviews { grid-template-columns: 1fr; } }
 
 /* ---------- Botões fixos (Mapa + WhatsApp) ---------- */
 .fab { position: fixed; right: 20px; bottom: 20px; z-index: 60; display: flex; flex-direction: column; gap: 12px; align-items: center; }
@@ -586,3 +579,25 @@ p { margin: 0; }
 .intro.is-leaving::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: var(--accent); box-shadow: 0 0 30px 6px var(--accent-glow); animation: flash .7s ease forwards; z-index: 1; }
 @keyframes flash { 0% { transform: scaleX(0); opacity: 1; } 45% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
 .intro.is-leaving .intro__panel { background: #050607; }
+
+/* ---------- Carrosséis em rotação contínua (arrastáveis) ---------- */
+.loop {
+  position: relative; overflow: hidden;
+  margin-left: calc(50% - 50vw); margin-right: calc(50% - 50vw);
+  cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+}
+.loop.is-dragging { cursor: grabbing; }
+.loop.is-dragging a { pointer-events: none; }
+.loop__track { display: flex; align-items: stretch; gap: 14px; width: max-content; will-change: transform; padding: 4px 0; }
+.loop img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+.loop--reviews { margin-top: clamp(48px, 7vw, 88px); }
+.loop--reviews .loop__track { gap: 16px; }
+.loop-hint { margin-top: 18px; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--dim); }
+.loop-hint::before, .loop-hint::after { content: ""; width: 28px; height: 1px; background: var(--line-2); }
+@media (max-width: 600px) {
+  .insta__item { width: 62vw; }
+  .review { width: 84vw; }
+  .loop { mask-image: none; -webkit-mask-image: none; }
+}
