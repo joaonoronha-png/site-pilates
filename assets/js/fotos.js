@@ -19,8 +19,13 @@ window.CARRIONE_FOTOS = {
 
   /* Fotos de destaque ----------------------------------------------------- */
   destaques: {
-    // Abertura do site. Use a foto MAIS bonita, horizontal (ex.: 2400x1600).
-    hero:        { src: 'assets/fotos/bailarina-1-1600.webp', alt: "Decoração tema Bailarina feita pela Carrione Festas, com painel redondo, balões rosa e lilás e mesa com saia de tule" },
+    // Abertura do site: fotos horizontais que se alternam (a primeira carrega primeiro).
+    heroSlides: [
+      { src: 'assets/fotos/bailarina-1-1600.webp', tema: 'Bailarina', alt: "Decoração tema Bailarina feita pela Carrione Festas, com painel redondo, balões rosa e lilás e mesa com saia de tule" },
+      { src: 'assets/fotos/moana-baby-1-1600.webp', tema: 'Moana Baby', alt: "Decoração tema Moana Baby com arco de balões coloridos e painel do mar" },
+      { src: 'assets/fotos/princesa-e-o-sapo-2-1600.webp', tema: 'Princesa e o Sapo', alt: "Decoração tema Princesa e o Sapo com balões lilás e piso florido" },
+      { src: 'assets/fotos/princesas-disney-1-1600.webp', tema: 'Princesas Disney', alt: "Decoração tema Princesas Disney com balões rosa, azul e amarelo" },
+    ],
 
     // Blocos de serviços (fotos verticais, ex.: 1200x1500).
     decoracao:   { src: 'assets/fotos/princesa-e-o-sapo-1-1600.webp', alt: "Decoração tema Princesa e o Sapo com balões lilás e verdes e mesas brancas" },

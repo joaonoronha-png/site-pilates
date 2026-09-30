@@ -309,8 +309,15 @@
   var canParallax = !reduceMotion && window.matchMedia('(min-width: 860px) and (pointer: fine)').matches;
   var lastY = window.scrollY, ticking = false;
 
+  var progress = document.querySelector('[data-progress]');
+  var useGsap = false; // vira true quando GSAP carregar (ver fim do arquivo)
+
   function onScroll() {
     var y = window.scrollY;
+    if (progress) {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      progress.style.transform = 'scaleX(' + (max > 0 ? Math.min(1, y / max) : 0).toFixed(4) + ')';
+    }
     var heroH = hero ? hero.offsetHeight : 600;
     header.classList.toggle('is-solid', y > 40);
     header.classList.toggle('is-hidden', y > heroH && y > lastY + 4 && !document.body.classList.contains('menu-open'));
@@ -322,7 +329,7 @@
       waFloat.classList.toggle('is-visible', y > heroH * 0.6 && !overCta);
     }
 
-    if (canParallax) {
+    if (canParallax && !useGsap) {
       var vh = window.innerHeight;
       parallaxEls.forEach(function (el) {
         var img = el.querySelector('img');
@@ -341,43 +348,97 @@
   }, { passive: true });
   onScroll();
 
-  /* ---------- Instagram (incorporação oficial, carregada sob demanda) ---------- */
-  var insta = document.querySelector('[data-insta]');
-  var instaFb = insta && insta.querySelector('.insta__fallback');
-  if (instaFb) {
-    // Mosaico com fotos reais por trás do perfil incorporado (aparece se o Instagram bloquear o embed).
-    var picks = [];
-    temas.forEach(function (t) { if (t.fotos && t.fotos[1]) picks.push(t.fotos[1]); });
-    if (picks.length >= 6) {
-      var grid = document.createElement('span');
-      grid.className = 'insta__grid';
-      grid.innerHTML = picks.slice(0, 6).map(function (f) {
-        return '<img src="' + f.src.replace(/-1600\./, '-800.') + '" alt="" loading="lazy" decoding="async">';
-      }).join('');
-      instaFb.insertBefore(grid, instaFb.firstChild);
-      instaFb.classList.add('has-grid');
+  /* ---------- Carrossel giratório (Instagram) ---------- */
+  var reel = document.querySelector('[data-reel]');
+  if (reel) {
+    var all = [];
+    temas.forEach(function (t) { (t.fotos || []).forEach(function (f) { all.push({ f: f, t: t }); }); });
+    // intercala os temas e divide em duas faixas
+    all.sort(function (a, b) { return a.f.src < b.f.src ? -1 : a.f.src > b.f.src ? 1 : 0; });
+    var mixed = [], byTema = {};
+    all.forEach(function (x) { (byTema[x.t.id] = byTema[x.t.id] || []).push(x); });
+    var keys = Object.keys(byTema), more = true;
+    for (var k = 0; more; k++) {
+      more = false;
+      keys.forEach(function (id) { if (byTema[id][k]) { mixed.push(byTema[id][k]); more = true; } });
     }
+    var rows = [mixed.filter(function (_, i) { return i % 2 === 0; }), mixed.filter(function (_, i) { return i % 2 === 1; })];
+    reel.querySelectorAll('[data-reel-row]').forEach(function (row, r) {
+      var items = rows[r];
+      if (!items.length) return;
+      var html = items.map(function (x) {
+        var ar = x.f.w && x.f.h ? (x.f.w / x.f.h).toFixed(3) : '0.8';
+        return '<a class="reel__item" href="https://www.instagram.com/carrione_festas/" target="_blank" rel="noopener" style="--ar:' + ar + '" tabindex="-1">' +
+          '<img src="' + x.f.src.replace(/-1600\./, '-800.') + '" alt="' + esc(x.f.alt || ('Tema ' + x.t.nome)) + '" loading="lazy" decoding="async">' +
+          '<span class="reel__tag"><svg class="i" aria-hidden="true"><use href="#i-ig"/></svg>' + esc(x.t.nome) + '</span></a>';
+      }).join('');
+      row.innerHTML = '<div class="reel__track" style="--dur:' + (items.length * 5) + 's">' + html + html + '</div>';
+      // a segunda metade é só repetição visual
+      [].slice.call(row.querySelectorAll('.reel__item')).slice(items.length).forEach(function (el) { el.setAttribute('aria-hidden', 'true'); });
+    });
   }
-  if (insta && 'IntersectionObserver' in window) {
-    var io2 = new IntersectionObserver(function (entries) {
-      if (!entries[0].isIntersecting) return;
-      io2.disconnect();
-      var f = document.createElement('iframe');
-      f.src = 'https://www.instagram.com/carrione_festas/embed/';
-      f.title = 'Publicações do Instagram @carrione_festas';
-      f.loading = 'lazy';
-      f.setAttribute('scrolling', 'yes');
-      f.style.opacity = '0';
-      f.style.transition = 'opacity .6s';
-      f.onload = function () { f.style.opacity = '1'; };
-      insta.appendChild(f);
-    }, { rootMargin: '400px 0px' });
-    io2.observe(insta);
+
+  /* ---------- Abertura: fotos em rotação ---------- */
+  var slidesBox = document.querySelector('[data-hero-slides]');
+  var slides = (DATA.destaques && DATA.destaques.heroSlides) ||
+    (DATA.destaques && DATA.destaques.hero && DATA.destaques.hero.src ? [DATA.destaques.hero] : []);
+  var slideEls = [], slideIdx = 0, slideTimer = null;
+  var heroCap = document.querySelector('[data-hero-cap]');
+  var heroDots = document.querySelector('[data-hero-dots]');
+  function makeSlide(d, i) {
+    var img = new Image();
+    img.decoding = 'async';
+    img.alt = i === 0 ? (d.alt || '') : '';
+    if (i === 0) img.fetchPriority = 'high';
+    img.sizes = '100vw';
+    img.dataset.srcset = d.src.replace(/-1600\./, '-800.') + ' 800w, ' + d.src + ' 1600w';
+    img.dataset.src = d.src;
+    if (i === 0) { img.srcset = img.dataset.srcset; img.src = d.src; img.className = 'is-active'; }
+    slidesBox.appendChild(img);
+    return img;
+  }
+  function showSlide(i) {
+    if (!slideEls.length) return;
+    slideIdx = (i + slideEls.length) % slideEls.length;
+    [slideEls[slideIdx], slideEls[(slideIdx + 1) % slideEls.length]].forEach(function (el) {
+      if (el && !el.getAttribute('src')) { el.srcset = el.dataset.srcset; el.src = el.dataset.src; }
+    });
+    slideEls.forEach(function (el, n) {
+      var wasActive = el.classList.contains('is-active');
+      el.classList.toggle('is-prev', n !== slideIdx && wasActive);
+      el.classList.toggle('is-active', n === slideIdx);
+    });
+    if (heroCap) heroCap.textContent = 'Tema ' + (slides[slideIdx].tema || '');
+    if (heroDots) [].forEach.call(heroDots.children, function (b, n) { b.setAttribute('aria-current', n === slideIdx); });
+  }
+  function startSlides() {
+    if (slideEls.length < 2 || reduceMotion || slideTimer) return;
+    slideTimer = setInterval(function () { if (!document.hidden) showSlide(slideIdx + 1); }, 6500);
+  }
+  if (slidesBox && slides.length) {
+    slidesBox.classList.add('has-img');
+    slideEls = slides.map(makeSlide);
+    if (slides.length > 1 && heroDots) {
+      heroDots.innerHTML = slides.map(function (d, n) {
+        return '<button type="button" aria-label="Mostrar tema ' + esc(d.tema || n + 1) + '"><span></span></button>';
+      }).join('');
+      heroDots.addEventListener('click', function (e) {
+        var b = e.target.closest('button');
+        if (!b) return;
+        clearInterval(slideTimer); slideTimer = null;
+        showSlide([].indexOf.call(heroDots.children, b));
+        startSlides();
+      });
+      var heroBar = document.querySelector('[data-hero-bar]');
+      if (heroBar) heroBar.hidden = false;
+    }
+    showSlide(0);
   }
 
   /* ---------- Intro ---------- */
   function heroIn() {
     document.querySelectorAll('.hero .reveal').forEach(function (el) { el.classList.add('is-in'); });
+    startSlides();
   }
   if (introActive) {
     var started = Date.now(), done = false;
@@ -400,6 +461,78 @@
   } else {
     if (intro) intro.remove();
     heroIn();
+  }
+
+  /* ---------- GSAP + Lenis: rolagem suave e parallax (só se carregarem) ---------- */
+  // Carregadas depois da página: o site funciona igual se o CDN falhar.
+  function loadScript(src) {
+    return new Promise(function (ok, fail) {
+      var el = document.createElement('script');
+      el.src = src; el.async = true; el.onload = ok; el.onerror = fail;
+      document.head.appendChild(el);
+    });
+  }
+  function initMotion() {
+    useGsap = true;
+    var gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    if (window.Lenis && canParallax) {
+      var lenis = new window.Lenis({ duration: 1.1, smoothWheel: true });
+      lenis.on('scroll', window.ScrollTrigger.update);
+      gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest('a[href^="#"]');
+        if (!a || a.getAttribute('href').length < 2) return;
+        var target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        lenis.scrollTo(target, { offset: -60 });
+      });
+    }
+    // parallax suave nas fotos editoriais e dos serviços
+    document.querySelectorAll('[data-parallax] > img, .service__media > img').forEach(function (img) {
+      var box = img.parentElement;
+      var amount = parseFloat(box.getAttribute('data-parallax') || '0.06') * 600;
+      gsap.fromTo(img, { yPercent: 0, y: -amount / 2 }, {
+        y: amount / 2, ease: 'none',
+        scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true }
+      });
+    });
+    // o mapa aproxima de leve ao entrar
+    var mapImg = document.querySelector('[data-map] img');
+    if (mapImg) {
+      gsap.fromTo(mapImg, { scale: 1.12 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: mapImg, start: 'top bottom', end: 'center center', scrub: true }
+      });
+    }
+    // a faixa de temas acelera com a velocidade da rolagem
+    var track = document.querySelector('[data-ribbon]');
+    if (track) {
+      window.ScrollTrigger.create({
+        onUpdate: function (st) {
+          var v = Math.min(4, 1 + Math.abs(st.getVelocity()) / 800);
+          track.getAnimations().forEach(function (an) { an.playbackRate = v; });
+          clearTimeout(track._calm);
+          track._calm = setTimeout(function () {
+            track.getAnimations().forEach(function (an) { an.playbackRate = 1; });
+          }, 180);
+        }
+      });
+    }
+  }
+
+  if (!reduceMotion) {
+    var boot = function () {
+      loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js')
+        .then(function () { return loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'); })
+        .then(function () { return canParallax ? loadScript('https://unpkg.com/lenis@1.1.13/dist/lenis.min.js').catch(function () {}) : null; })
+        .then(initMotion)
+        .catch(function () { /* sem GSAP: fica o parallax simples */ });
+    };
+    if (document.readyState === 'complete') boot();
+    else window.addEventListener('load', boot);
   }
 
   var yr = document.querySelector('[data-year]');

@@ -11,6 +11,16 @@ HTML, CSS e JavaScript puros, sem etapa de build. Para publicar, envie a pasta i
 Na primeira visita da sessão aparece uma abertura curta (logo + "Decoração · Buffet · Pegue e Monte", ~2 s) que se abre
 revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mesma sessão nem para quem ativou "reduzir movimento".
 
+## Recursos visuais
+
+- Abertura com 4 fotos reais em rotação (zoom lento, indicadores clicáveis).
+- Carrossel giratório de duas faixas no bloco do Instagram (pausa ao passar o mouse; cada foto leva ao perfil).
+- Mapa da área atendida (Rio de Janeiro), gerado a partir do OpenStreetMap nas cores da marca. Arquivo local:
+  não depende de Google Maps nem de chave de API. Não mostra endereço, porque ele não é público.
+- GSAP + ScrollTrigger (parallax, zoom do mapa, faixa de temas que acelera com a rolagem) e Lenis (rolagem suave no desktop).
+  São carregados depois da página; se o CDN falhar, o site continua funcionando com animações simples.
+- Barra de progresso de leitura, galeria com filtros e ampliação, botão flutuante de WhatsApp.
+
 ## Estrutura
 
 | Arquivo | Conteúdo |

@@ -27,6 +27,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..600,50&family=Manrope:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="preload" as="image" href="assets/fotos/bailarina-1-1600.webp" imagesrcset="assets/fotos/bailarina-1-800.webp 800w, assets/fotos/bailarina-1-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
   <script>
     /* Intro: só na primeira visita da sessão e nunca para quem prefere menos movimento. */
     (function (d) {
@@ -71,6 +72,7 @@
     </div>
   </div>
 
+  <div class="progress" aria-hidden="true"><span data-progress></span></div>
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- ====================== CABEÇALHO ====================== -->
@@ -99,7 +101,7 @@
 
     <!-- ====================== HERO ====================== -->
     <section class="hero" id="topo">
-      <div class="hero__media media" data-slot="hero" data-tone="hero" aria-hidden="true"></div>
+      <div class="hero__media media" data-hero-slides data-tone="hero" aria-hidden="true"></div>
       <div class="hero__veil" aria-hidden="true"></div>
       <div class="hero__content container">
         <p class="eyebrow eyebrow--light reveal">Decoração de festas · Buffet · Pegue e Monte — Rio de Janeiro</p>
@@ -112,6 +114,10 @@
           </a>
           <a class="btn btn--glass btn--lg" href="#trabalhos">Conhecer nossos trabalhos</a>
         </div>
+      </div>
+      <div class="hero__slidebar" data-hero-bar hidden>
+        <span class="hero__slidecap" data-hero-cap></span>
+        <span class="hero__dots" data-hero-dots></span>
       </div>
       <a class="hero__scroll" href="#trabalhos" aria-label="Rolar para os trabalhos"><span></span></a>
     </section>
@@ -254,23 +260,23 @@
 
     <!-- ====================== INSTAGRAM ====================== -->
     <section class="section insta" aria-labelledby="t-insta">
-      <div class="container insta__inner">
-        <div class="insta__text">
+      <div class="container insta__head">
+        <div>
           <p class="eyebrow reveal">@carrione_festas</p>
           <h2 id="t-insta" class="reveal" style="--d:1">Mais momentos no Instagram</h2>
+        </div>
+        <div class="insta__side">
           <p class="reveal" style="--d:2">As festas mais recentes, os bastidores das montagens e os novos temas aparecem primeiro por lá.</p>
           <a class="btn btn--outline reveal" style="--d:3" href="https://www.instagram.com/carrione_festas/" target="_blank" rel="noopener">
             <svg class="i" aria-hidden="true"><use href="#i-ig"/></svg>
             Ver Instagram
           </a>
         </div>
-        <div class="insta__embed reveal-img" data-insta>
-          <!-- Incorporação oficial do perfil (carregada só quando visível). -->
-          <a class="insta__fallback" href="https://www.instagram.com/carrione_festas/" target="_blank" rel="noopener">
-            <svg class="i" aria-hidden="true"><use href="#i-ig"/></svg>
-            <span>Abrir o perfil @carrione_festas</span>
-          </a>
-        </div>
+      </div>
+      <!-- Carrossel giratório: fotos reais da Carrione, cada uma leva ao perfil. -->
+      <div class="reel" data-reel>
+        <div class="reel__row" data-reel-row="0"></div>
+        <div class="reel__row reel__row--rev" data-reel-row="1"></div>
       </div>
     </section>
 
@@ -326,15 +332,35 @@
             <a class="contact__card" href="mailto:carrionefernanda@gmail.com">
               <svg class="i" aria-hidden="true"><use href="#i-mail"/></svg>
               <span class="contact__label">E-mail</span>
-              <span class="contact__value contact__value--sm">carrionefernanda@gmail.com</span>
+              <span class="contact__value contact__value--sm">carrionefernanda<wbr>@gmail.com</span>
             </a>
           </li>
         </ul>
-        <!-- [PENDENTE] Endereço físico não é público. Não incluir sem confirmação. -->
-        <p class="contact__area reveal">
-          <svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>
-          Atendimento no Rio de Janeiro
-        </p>
+        <!-- [PENDENTE] Endereço físico não é público. O mapa mostra só a área atendida. -->
+        <figure class="area reveal-img" aria-labelledby="t-area">
+          <div class="area__map" data-map>
+            <picture>
+              <source media="(max-width: 700px)" srcset="assets/img/mapa-rio-1000.webp">
+              <img src="assets/img/mapa-rio.webp" width="2097" height="1107" loading="lazy" decoding="async"
+                   alt="Mapa do município do Rio de Janeiro, área atendida pela Carrione Festas">
+            </picture>
+            <span class="area__glow" aria-hidden="true"></span>
+            <span class="area__pin" aria-hidden="true"><span></span></span>
+          </div>
+          <figcaption class="area__card">
+            <span class="eyebrow">Onde atendemos</span>
+            <h3 id="t-area">Rio de Janeiro</h3>
+            <p>Decoração, buffet e Pegue e Monte para festas na cidade do Rio. Conte o bairro e a data da sua festa no WhatsApp.</p>
+            <div class="area__actions">
+              <a class="btn btn--primary btn--sm" data-wa="geral" href="#orcamento">
+                <svg class="i" aria-hidden="true"><use href="#i-wa"/></svg>
+                Consultar minha data
+              </a>
+              <a class="link" href="https://www.google.com/maps/place/Rio+de+Janeiro,+RJ" target="_blank" rel="noopener">Abrir no Google Maps</a>
+            </div>
+            <small class="area__credit">Mapa: © colaboradores do OpenStreetMap</small>
+          </figcaption>
+        </figure>
       </div>
     </section>
   </main>
