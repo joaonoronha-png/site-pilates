@@ -441,11 +441,11 @@
     startSlides();
   }
   if (introActive) {
-    var started = Date.now(), done = false;
+    var started = Date.now(), introDone = false;
     var heroImg = document.querySelector('.hero__media img');
     var finish = function () {
-      if (done) return;
-      done = true;
+      if (introDone) return;
+      introDone = true;
       intro.classList.add('is-out');
       document.documentElement.classList.remove('intro-on');
       setTimeout(heroIn, 350);
@@ -538,7 +538,7 @@
   /* ---------- Pedido: respostas viram mensagem para o WhatsApp ---------- */
   var form = document.querySelector('[data-form]');
   if (form) {
-    var done = document.querySelector('[data-form-done]');
+    var formDone = document.querySelector('[data-form-done]');
     var doneWa = document.querySelector('[data-form-wa]');
     var summary = document.querySelector('[data-form-summary]');
     var statusEl = form.querySelector('.form__status');
@@ -630,14 +630,14 @@
       doneWa.href = waLink(msg);
       statusEl.textContent = '';
       form.hidden = true;
-      done.hidden = false;
-      done.focus({ preventScroll: true });
-      done.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      formDone.hidden = false;
+      formDone.focus({ preventScroll: true });
+      formDone.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();
     });
 
     document.querySelector('[data-form-edit]').addEventListener('click', function () {
-      done.hidden = true;
+      formDone.hidden = true;
       form.hidden = false;
       form.elements.nome.focus();
       if (window.ScrollTrigger) window.ScrollTrigger.refresh();

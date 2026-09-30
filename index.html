@@ -36,6 +36,8 @@
       try { seen = sessionStorage.getItem('carrione-intro') === '1'; } catch (e) {}
       if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('no-intro');
       else c.add('intro-on');
+      // trava de segurança: a intro nunca prende o visitante
+      setTimeout(function () { c.add('no-intro'); c.remove('intro-on'); }, 5000);
     })(document);
   </script>
 
