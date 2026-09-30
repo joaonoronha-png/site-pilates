@@ -302,7 +302,7 @@
 
   /* ---------- Cabeçalho, botão flutuante e parallax ---------- */
   var header = document.querySelector('[data-header]');
-  var waFloat = document.querySelector('[data-wa-float]');
+  var fabs = document.querySelector('[data-fabs]');
   var hero = document.querySelector('.hero');
   var ctaSection = document.getElementById('orcamento');
   var parallaxEls = [].slice.call(document.querySelectorAll('[data-parallax]'));
@@ -323,10 +323,12 @@
     header.classList.toggle('is-hidden', y > heroH && y > lastY + 4 && !document.body.classList.contains('menu-open'));
     if (y < lastY - 4) header.classList.remove('is-hidden');
 
-    if (waFloat) {
+    if (fabs) {
       var ctaRect = ctaSection ? ctaSection.getBoundingClientRect() : null;
       var overCta = ctaRect && ctaRect.top < window.innerHeight * 0.6 && ctaRect.bottom > window.innerHeight * 0.4;
-      waFloat.classList.toggle('is-visible', y > heroH * 0.6 && !overCta);
+      var show = y > heroH * 0.6 && !overCta;
+      fabs.classList.toggle('is-visible', show);
+      if (!show && typeof closeMapMenu === 'function') closeMapMenu();
     }
 
     if (canParallax && !useGsap) {
@@ -499,14 +501,6 @@
         scrollTrigger: { trigger: box, start: 'top bottom', end: 'bottom top', scrub: true }
       });
     });
-    // o mapa aproxima de leve ao entrar
-    var mapImg = document.querySelector('[data-map] img');
-    if (mapImg) {
-      gsap.fromTo(mapImg, { scale: 1.12 }, {
-        scale: 1, ease: 'none',
-        scrollTrigger: { trigger: mapImg, start: 'top bottom', end: 'center center', scrub: true }
-      });
-    }
     // a faixa de temas acelera com a velocidade da rolagem
     var track = document.querySelector('[data-ribbon]');
     if (track) {
@@ -533,6 +527,123 @@
     };
     if (document.readyState === 'complete') boot();
     else window.addEventListener('load', boot);
+  }
+
+  /* ---------- Mapa: apps de navegação ----------
+     [PENDENTE] A Carrione não tem endereço público. Quando tiver, preencha
+     ENDERECO (ex.: 'Rua Tal, 123 - Tijuca, Rio de Janeiro - RJ') e o botão
+     passa a traçar rota até lá. Vazio = mostra a área de atendimento. */
+  var ENDERECO = '';
+  var DESTINO = ENDERECO || 'Rio de Janeiro, RJ';
+  var q = encodeURIComponent(DESTINO);
+  var mapLinks = {
+    google: ENDERECO ? 'https://www.google.com/maps/dir/?api=1&destination=' + q : 'https://www.google.com/maps/search/?api=1&query=' + q,
+    apple: ENDERECO ? 'https://maps.apple.com/?daddr=' + q + '&dirflg=d' : 'https://maps.apple.com/?q=' + q,
+    waze: 'https://waze.com/ul?q=' + q + (ENDERECO ? '&navigate=yes' : '')
+  };
+  document.querySelectorAll('[data-map-app]').forEach(function (a) { a.href = mapLinks[a.getAttribute('data-map-app')]; });
+  if (ENDERECO) {
+    var mt = document.querySelector('[data-map-title]');
+    if (mt) mt.innerHTML = 'Como chegar<small>' + esc(ENDERECO) + '</small>';
+  }
+
+  var fabMap = document.querySelector('[data-fab-map]');
+  var fabBtn = fabMap && fabMap.querySelector('[data-fab-map-toggle]');
+  function closeMapMenu() {
+    if (!fabMap || !fabMap.classList.contains('is-open')) return;
+    fabMap.classList.remove('is-open');
+    fabBtn.setAttribute('aria-expanded', 'false');
+  }
+  function openMapMenu() {
+    if (!fabMap) return;
+    if (fabs) fabs.classList.add('is-visible');
+    fabMap.classList.add('is-open');
+    fabBtn.setAttribute('aria-expanded', 'true');
+    var first = fabMap.querySelector('.fab-map__menu a');
+    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+  }
+  if (fabMap) {
+    fabBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (fabMap.classList.contains('is-open')) closeMapMenu(); else openMapMenu();
+    });
+    fabMap.querySelectorAll('.fab-map__menu a').forEach(function (a) { a.addEventListener('click', closeMapMenu); });
+    document.addEventListener('click', function (e) { if (!fabMap.contains(e.target)) closeMapMenu(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && fabMap.classList.contains('is-open')) { closeMapMenu(); fabBtn.focus(); }
+    });
+  }
+  document.querySelectorAll('[data-open-mapmenu]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); openMapMenu(); });
+  });
+
+  /* ---------- Mapa: zoom e arrastar ---------- */
+  var mapBox = document.querySelector('[data-map]');
+  var canvas = mapBox && mapBox.querySelector('[data-map-canvas]');
+  if (mapBox && canvas) {
+    var zs = 1, zx = 0, zy = 0, MAXZ = 3, RATIO = 2097 / 1107, cw = 0, ch = 0, W = 0, H = 0;
+    var zin = mapBox.querySelector('[data-map-zoom="in"]');
+    var zout = mapBox.querySelector('[data-map-zoom="out"]');
+    // O mapa cobre a caixa sem distorcer; no celular fica mais largo que a tela e dá para arrastar.
+    var measure = function () {
+      W = mapBox.clientWidth; H = mapBox.clientHeight;
+      if (W / H < RATIO) { ch = H; cw = H * RATIO; } else { cw = W; ch = W / RATIO; }
+      canvas.style.width = cw + 'px';
+      canvas.style.height = ch + 'px';
+    };
+    var clamp = function () {
+      zx = Math.min(0, Math.max(W - cw * zs, zx));
+      zy = Math.min(0, Math.max(H - ch * zs, zy));
+    };
+    var apply = function (animate) {
+      clamp();
+      canvas.classList.toggle('is-animating', !!animate);
+      canvas.style.transform = 'translate(' + zx + 'px,' + zy + 'px) scale(' + zs + ')';
+      canvas.style.setProperty('--inv', (1 / zs).toFixed(3));
+      mapBox.classList.toggle('is-zoomed', zs > 1);
+      mapBox.classList.toggle('can-pan', cw * zs > W + 1 || ch * zs > H + 1);
+      zin.disabled = zs >= MAXZ;
+      zout.disabled = zs <= 1;
+    };
+    var home = function () { zs = 1; zx = (W - cw) * 0.78; zy = (H - ch) / 2; };
+    var zoomAt = function (ns, cx, cy) {
+      ns = Math.min(MAXZ, Math.max(1, ns));
+      zx = cx - (cx - zx) * (ns / zs);
+      zy = cy - (cy - zy) * (ns / zs);
+      zs = ns;
+      apply(true);
+    };
+    mapBox.querySelector('.area__zoom').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-map-zoom]');
+      if (!b) return;
+      var w = mapBox.clientWidth / 2, h = mapBox.clientHeight / 2, act = b.getAttribute('data-map-zoom');
+      if (act === 'in') zoomAt(zs * 1.5, w, h);
+      else if (act === 'out') zoomAt(zs / 1.5, w, h);
+      else { home(); apply(true); }
+    });
+    mapBox.addEventListener('dblclick', function (e) {
+      var r = mapBox.getBoundingClientRect();
+      zoomAt(zs >= MAXZ ? 1 : zs * 1.8, e.clientX - r.left, e.clientY - r.top);
+    });
+    var drag = null;
+    mapBox.addEventListener('pointerdown', function (e) {
+      if (!mapBox.classList.contains('can-pan') || e.target.closest('.area__zoom')) return;
+      drag = { x: e.clientX, y: e.clientY, zx: zx, zy: zy };
+      mapBox.setPointerCapture(e.pointerId);
+      mapBox.classList.add('is-dragging');
+    });
+    mapBox.addEventListener('pointermove', function (e) {
+      if (!drag) return;
+      zx = drag.zx + e.clientX - drag.x;
+      zy = drag.zy + e.clientY - drag.y;
+      mapBox.classList.add('was-moved');
+      apply(false);
+    });
+    var endDrag = function () { drag = null; mapBox.classList.remove('is-dragging'); };
+    mapBox.addEventListener('pointerup', endDrag);
+    mapBox.addEventListener('pointercancel', endDrag);
+    window.addEventListener('resize', function () { measure(); apply(false); });
+    measure(); home(); apply(false);
   }
 
   /* ---------- Pedido: respostas viram mensagem para o WhatsApp ---------- */

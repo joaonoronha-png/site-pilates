@@ -15,8 +15,11 @@ revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mes
 
 - Abertura com 4 fotos reais em rotação (zoom lento, indicadores clicáveis).
 - Carrossel giratório de duas faixas no bloco do Instagram (pausa ao passar o mouse; cada foto leva ao perfil).
-- Mapa da área atendida (Rio de Janeiro), gerado a partir do OpenStreetMap nas cores da marca. Arquivo local:
-  não depende de Google Maps nem de chave de API. Não mostra endereço, porque ele não é público.
+- Mapa da área atendida: município do Rio contornado (limite oficial do OpenStreetMap), regiões marcadas,
+  zoom (+/−, duplo clique) e arrastar; no celular o mapa é arrastável para os lados. Arquivo local, sem chave de API.
+- Botão redondo de mapa (como nos outros sites) acima do WhatsApp: abre Google Maps, Apple Maps, Waze ou o mapa do site.
+  [PENDENTE] Sem endereço público, os apps mostram "Rio de Janeiro, RJ". Preencha `ENDERECO` no `main.js`
+  e o botão passa a traçar rota até o endereço.
 - GSAP + ScrollTrigger (parallax, zoom do mapa, faixa de temas que acelera com a rolagem) e Lenis (rolagem suave no desktop).
   São carregados depois da página; se o CDN falhar, o site continua funcionando com animações simples.
 - Formulário "Monte seu pedido" no final (mesmo modelo do By Dani Decora): nome, WhatsApp, serviços, tipo de festa, tema,
