@@ -19,6 +19,10 @@ revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mes
   não depende de Google Maps nem de chave de API. Não mostra endereço, porque ele não é público.
 - GSAP + ScrollTrigger (parallax, zoom do mapa, faixa de temas que acelera com a rolagem) e Lenis (rolagem suave no desktop).
   São carregados depois da página; se o CDN falhar, o site continua funcionando com animações simples.
+- Formulário "Monte seu pedido" no final (mesmo modelo do By Dani Decora): nome, WhatsApp, serviços, tipo de festa, tema,
+  data, bairro, convidados e mensagem. Ao enviar, mostra um resumo e abre o WhatsApp com a mensagem pronta.
+  Nada é salvo ou enviado pelo site. Os links "Prefere responder umas perguntas?" dos serviços já marcam o serviço no formulário.
+  Os Google Forms do Linktree deixaram de aparecer no site; o formulário próprio os substitui.
 - Barra de progresso de leitura, galeria com filtros e ampliação, botão flutuante de WhatsApp.
 
 ## Estrutura

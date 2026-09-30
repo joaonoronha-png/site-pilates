@@ -535,6 +535,115 @@
     else window.addEventListener('load', boot);
   }
 
+  /* ---------- Pedido: respostas viram mensagem para o WhatsApp ---------- */
+  var form = document.querySelector('[data-form]');
+  if (form) {
+    var done = document.querySelector('[data-form-done]');
+    var doneWa = document.querySelector('[data-form-wa]');
+    var summary = document.querySelector('[data-form-summary]');
+    var statusEl = form.querySelector('.form__status');
+    var phoneEl = form.querySelector('[data-mask="phone"]');
+
+    if (phoneEl) phoneEl.addEventListener('input', function () {
+      var d = phoneEl.value.replace(/\D/g, '');
+      if (d.indexOf('55') === 0 && d.length > 11) d = d.slice(2);
+      d = d.slice(0, 11);
+      var out = d;
+      if (d.length > 2) out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
+      if (d.length > 6) out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
+      phoneEl.value = out;
+    });
+
+    var checked = function (name) {
+      return [].map.call(form.querySelectorAll('input[name="' + name + '"]:checked'), function (i) { return i.value; });
+    };
+    var rules = {
+      nome: function () { return form.elements.nome.value.trim().length >= 2 ? '' : 'Conte como podemos te chamar.'; },
+      whatsapp: function () { return form.elements.whatsapp.value.replace(/\D/g, '').length >= 10 ? '' : 'Informe um WhatsApp com DDD.'; },
+      servicos: function () { return checked('servicos').length ? '' : 'Escolha pelo menos um serviço.'; }
+    };
+    var fieldOf = function (name) {
+      return name === 'servicos' ? form.querySelector('[data-group="servicos"]') : form.elements[name].closest('.field');
+    };
+    var validate = function (name) {
+      var msg = rules[name]();
+      var field = fieldOf(name);
+      field.classList.toggle('has-error', !!msg);
+      var err = field.querySelector('.field__error');
+      if (err) { err.id = err.id || 'erro-' + name; err.textContent = msg; }
+      if (name !== 'servicos') {
+        var input = form.elements[name];
+        input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+        if (msg) input.setAttribute('aria-describedby', err.id); else input.removeAttribute('aria-describedby');
+      }
+      return !msg;
+    };
+    ['nome', 'whatsapp'].forEach(function (name) {
+      var input = form.elements[name];
+      input.addEventListener('blur', function () { if (input.value) validate(name); });
+      input.addEventListener('input', function () { if (input.closest('.field').classList.contains('has-error')) validate(name); });
+    });
+    form.querySelectorAll('input[name="servicos"]').forEach(function (c) { c.addEventListener('change', function () { validate('servicos'); }); });
+
+    // Botões de serviço do site já deixam o serviço marcado no formulário
+    document.querySelectorAll('[data-pedido]').forEach(function (a) {
+      a.addEventListener('click', function () {
+        var box = form.querySelector('input[name="servicos"][value="' + a.getAttribute('data-pedido') + '"]');
+        if (box) box.checked = true;
+      });
+    });
+
+    var fmtDate = function (v) {
+      var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(v);
+      return m ? m[3] + '/' + m[2] + '/' + m[1] : v;
+    };
+    var buildMessage = function () {
+      var el = form.elements;
+      var val = function (n) { return (el[n] && el[n].value || '').trim(); };
+      return [
+        'Olá! Encontrei a Carrione Festas pelo site e gostaria de solicitar um orçamento.',
+        '',
+        '*Nome:* ' + val('nome'),
+        '*WhatsApp:* ' + val('whatsapp'),
+        '*Serviço:* ' + checked('servicos').join(', '),
+        checked('tipo').length ? '*Tipo de festa:* ' + checked('tipo')[0] : null,
+        val('tema') ? '*Tema:* ' + val('tema') : null,
+        val('data') ? '*Data:* ' + fmtDate(val('data')) : null,
+        val('bairro') ? '*Bairro/local:* ' + val('bairro') : null,
+        val('convidados') ? '*Convidados (aprox.):* ' + val('convidados') : null,
+        val('mensagem') ? '*O que estou imaginando:* ' + val('mensagem') : null
+      ].filter(function (l) { return l !== null; }).join('\n');
+    };
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (form.elements.empresa && form.elements.empresa.value) return;
+      var invalid = Object.keys(rules).filter(function (n) { return !validate(n); });
+      if (invalid.length) {
+        var first = invalid[0] === 'servicos' ? form.querySelector('input[name="servicos"]') : form.elements[invalid[0]];
+        first.focus();
+        statusEl.textContent = 'Revise os campos destacados para continuar.';
+        return;
+      }
+      var msg = buildMessage();
+      summary.textContent = msg.replace(/\*/g, '');
+      doneWa.href = waLink(msg);
+      statusEl.textContent = '';
+      form.hidden = true;
+      done.hidden = false;
+      done.focus({ preventScroll: true });
+      done.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' });
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    });
+
+    document.querySelector('[data-form-edit]').addEventListener('click', function () {
+      done.hidden = true;
+      form.hidden = false;
+      form.elements.nome.focus();
+      if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+    });
+  }
+
   var yr = document.querySelector('[data-year]');
   if (yr) yr.textContent = new Date().getFullYear();
 })();

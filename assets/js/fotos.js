@@ -37,6 +37,7 @@ window.CARRIONE_FOTOS = {
     momento2:    { src: 'assets/fotos/bailarina-2-1600.webp', alt: "Bolo rosa tema Bailarina com topo personalizado e base de flores" },  // vertical
     momento3:    { src: 'assets/fotos/princesas-disney-3-1600.webp', alt: "Display da Cinderela ao lado de cilindro com doces e caixas 'Era uma vez...'" },    // vertical
     momento4:    { src: 'assets/fotos/princesas-disney-1-1600.webp', alt: "Decoração tema Princesas Disney com balões rosa, azul e amarelo e personagens em displays" },        // horizontal
+    pedido:      { src: 'assets/fotos/princesas-disney-2-1600.webp', alt: "Caixas 'Era uma vez...' com bonecas das princesas e arranjo de rosas" },  // seção do formulário
     momento5:    { src: 'assets/fotos/mickey-safari-6-1600.webp', alt: "Mickeys exploradores de biscuit em prato laranja" },     // vertical ou quadrada
   },
 

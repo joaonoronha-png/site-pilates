@@ -89,6 +89,7 @@
         <a href="#servicos">Serviços</a>
         <a href="#como-funciona">Como funciona</a>
         <a href="#contato">Contato</a>
+        <a href="#pedido">Pedido</a>
         <a class="btn btn--sm btn--primary nav__cta" data-wa="geral" href="#orcamento">Orçamento</a>
       </nav>
       <button class="menu-toggle" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu" data-menu-toggle>
@@ -162,7 +163,7 @@
             <ul class="tags reveal" style="--d:3" data-theme-tags aria-label="Alguns temas já realizados"></ul>
             <div class="service__actions reveal" style="--d:4">
               <a class="btn btn--primary" data-wa="decoracao" href="#orcamento">Quero minha decoração</a>
-              <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSfR9kRQeEootOXzbEMDSSk41aqUmDXguNr_XpyXPWAu7eRmzg/viewform" target="_blank" rel="noopener">Prefere formulário? Preencher</a>
+              <a class="link" href="#pedido" data-pedido="Decoração de festa">Prefere responder umas perguntas?</a>
             </div>
           </div>
         </article>
@@ -177,6 +178,7 @@
             <p class="reveal" style="--d:3">Fale com a equipe pelo WhatsApp para saber os temas e as peças disponíveis para a sua data.</p>
             <div class="service__actions reveal" style="--d:4">
               <a class="btn btn--primary" data-wa="pegue" href="#orcamento">Pedir orçamento</a>
+              <a class="link" href="#pedido" data-pedido="Pegue e Monte">Prefere responder umas perguntas?</a>
             </div>
           </div>
         </article>
@@ -190,7 +192,7 @@
             <p class="reveal" style="--d:2">Para completar a celebração, a Carrione também oferece serviço de buffet. Conte como será a sua festa e receba uma proposta preparada para o seu evento.</p>
             <div class="service__actions reveal" style="--d:3">
               <a class="btn btn--primary" data-wa="buffet" href="#orcamento">Consultar buffet</a>
-              <a class="link" href="https://docs.google.com/forms/d/e/1FAIpQLSc29yBUFpZ9TXrR6jseVjiEbXb6azJduKr9emGUL2TZ-BntYA/viewform" target="_blank" rel="noopener">Prefere formulário? Preencher</a>
+              <a class="link" href="#pedido" data-pedido="Buffet">Prefere responder umas perguntas?</a>
             </div>
           </div>
         </article>
@@ -292,9 +294,7 @@
           Pedir orçamento pelo WhatsApp
         </a>
         <p class="cta__alt reveal" style="--d:4">
-          Prefere formulário?
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSfR9kRQeEootOXzbEMDSSk41aqUmDXguNr_XpyXPWAu7eRmzg/viewform" target="_blank" rel="noopener">Decoração</a> ·
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSc29yBUFpZ9TXrR6jseVjiEbXb6azJduKr9emGUL2TZ-BntYA/viewform" target="_blank" rel="noopener">Buffet</a>
+          Prefere responder algumas perguntas? <a href="#pedido">Monte seu pedido</a>
         </p>
       </div>
     </section>
@@ -361,6 +361,84 @@
             <small class="area__credit">Mapa: © colaboradores do OpenStreetMap</small>
           </figcaption>
         </figure>
+      </div>
+    </section>
+
+    <!-- ====================== PEDIDO DE ORÇAMENTO (formulário → WhatsApp) ====================== -->
+    <section class="section order" id="pedido" aria-labelledby="t-pedido">
+      <div class="container order__grid">
+        <div class="order__intro">
+          <p class="eyebrow reveal">Monte seu pedido</p>
+          <h2 id="t-pedido" class="reveal" style="--d:1">Conte como vai ser <em>a sua festa.</em></h2>
+          <p class="reveal" style="--d:2">Responda o essencial em um minuto. No final, a mensagem sai pronta para você enviar pelo WhatsApp da Carrione.</p>
+          <ul class="order__steps reveal" style="--d:3">
+            <li><span>1</span>Preencha as respostas</li>
+            <li><span>2</span>Confira o resumo</li>
+            <li><span>3</span>Envie pelo WhatsApp</li>
+          </ul>
+          <div class="order__photo media reveal-img" data-slot="pedido" data-sizes="(min-width: 900px) 40vw, 100vw" data-tone="m1"></div>
+        </div>
+
+        <div class="order__card">
+          <form class="form" data-form novalidate aria-describedby="form-intro">
+            <p class="form__intro" id="form-intro">Campos com * são obrigatórios.</p>
+            <div class="form__row">
+              <div class="field"><label for="f-nome">Seu nome *</label><input id="f-nome" name="nome" type="text" autocomplete="name" required><p class="field__error" aria-live="polite"></p></div>
+              <div class="field"><label for="f-whatsapp">WhatsApp *</label><input id="f-whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 90000-0000" required data-mask="phone"><p class="field__error" aria-live="polite"></p></div>
+            </div>
+
+            <fieldset class="field field--choices" data-group="servicos">
+              <legend>O que você procura? *</legend>
+              <div class="choices">
+                <label class="choice"><input type="checkbox" name="servicos" value="Decoração de festa"><span>Decoração</span></label>
+                <label class="choice"><input type="checkbox" name="servicos" value="Pegue e Monte"><span>Pegue e Monte</span></label>
+                <label class="choice"><input type="checkbox" name="servicos" value="Buffet"><span>Buffet</span></label>
+              </div>
+              <p class="field__hint">Pode marcar mais de um.</p>
+              <p class="field__error" aria-live="polite"></p>
+            </fieldset>
+
+            <fieldset class="field field--choices" data-group="tipo">
+              <legend>Tipo de festa</legend>
+              <div class="choices">
+                <label class="choice"><input type="radio" name="tipo" value="Festa infantil"><span>Infantil</span></label>
+                <label class="choice"><input type="radio" name="tipo" value="Aniversário de adulto"><span>Adulto</span></label>
+                <label class="choice"><input type="radio" name="tipo" value="Outra comemoração"><span>Outra</span></label>
+              </div>
+            </fieldset>
+
+            <div class="form__row">
+              <div class="field"><label for="f-tema">Tema</label><input id="f-tema" name="tema" type="text" list="temas-lista" placeholder="Ex.: Bailarina, Safari..."><datalist id="temas-lista"><option value="Bailarina"></option><option value="Flamengo"></option><option value="Mickey Safari"></option><option value="Moana Baby"></option><option value="Patrulha Canina"></option><option value="Princesas Disney"></option><option value="Princesa e o Sapo"></option><option value="Ainda não sei"></option></datalist></div>
+              <div class="field"><label for="f-data">Data da festa</label><input id="f-data" name="data" type="date"></div>
+            </div>
+            <div class="form__row">
+              <div class="field"><label for="f-bairro">Bairro / local</label><input id="f-bairro" name="bairro" type="text" placeholder="Ex.: Tijuca, salão do prédio"></div>
+              <div class="field"><label for="f-convidados">Convidados (aprox.)</label><input id="f-convidados" name="convidados" type="text" inputmode="numeric" placeholder="Ex.: 50"></div>
+            </div>
+            <div class="field"><label for="f-mensagem">O que você está imaginando?</label><textarea id="f-mensagem" name="mensagem" rows="4" placeholder="Cores, referências, idade do aniversariante..."></textarea></div>
+            <div class="hp" aria-hidden="true"><label>Não preencha <input type="text" name="empresa" tabindex="-1" autocomplete="off"></label></div>
+            <p class="form__consent">Suas respostas não ficam salvas no site: elas só montam a mensagem que você mesmo envia pelo WhatsApp.</p>
+            <button class="btn btn--primary btn--lg form__submit" type="submit">
+              Ver resumo do pedido
+              <svg class="i" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </button>
+            <p class="form__status" role="status" aria-live="polite"></p>
+          </form>
+
+          <div class="form-done" data-form-done hidden tabindex="-1">
+            <p class="eyebrow">Tudo pronto</p>
+            <p class="form-done__title">Sua festa <em>começa agora.</em></p>
+            <p class="form-done__text">Confira o resumo. Ao tocar no botão, o WhatsApp abre com a mensagem escrita; é só enviar.</p>
+            <pre class="form-done__summary" data-form-summary></pre>
+            <div class="form-done__actions">
+              <a class="btn btn--primary btn--lg" href="https://wa.me/5521999874670" target="_blank" rel="noopener" data-form-wa>
+                <svg class="i" aria-hidden="true"><use href="#i-wa"/></svg>
+                Enviar pelo WhatsApp
+              </a>
+              <button class="link" type="button" data-form-edit>Editar respostas</button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   </main>
