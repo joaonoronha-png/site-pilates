@@ -32,10 +32,15 @@
   var temas = DATA.temas || [];
 
   /* ---------- Fotos nos espaços fixos (hero, serviços, momentos) ---------- */
-  function putImage(el, src, alt, eager) {
+  // Fotos com "-1600." no nome ganham automaticamente a versão "-800." para celular.
+  function putImage(el, src, alt, eager, sizes) {
     if (!src) return;
     var img = new Image();
     img.decoding = 'async';
+    if (/-1600\.(webp|jpe?g|png)$/.test(src)) {
+      img.srcset = src.replace(/-1600\./, '-800.') + ' 800w, ' + src + ' 1600w';
+      img.sizes = sizes || '100vw';
+    }
     if (eager) { img.fetchPriority = 'high'; } else { img.loading = 'lazy'; }
     img.alt = alt || '';
     img.onload = function () { img.classList.add('is-loaded'); };
@@ -48,7 +53,7 @@
 
   document.querySelectorAll('[data-slot]').forEach(function (el) {
     var d = (DATA.destaques || {})[el.getAttribute('data-slot')];
-    if (d && d.src) putImage(el, d.src, d.alt, el.getAttribute('data-slot') === 'hero');
+    if (d && d.src) putImage(el, d.src, d.alt, el.getAttribute('data-slot') === 'hero', el.getAttribute('data-sizes'));
   });
 
   /* ---------- Faixa de temas + tags ---------- */
@@ -87,15 +92,17 @@
   }
 
   function buildItems(filter) {
-    var items = [];
-    temas.forEach(function (t) {
-      if (filter !== 'todos' && filter !== t.id) return;
-      if (t.fotos && t.fotos.length) {
-        t.fotos.forEach(function (f) { items.push({ type: 'photo', tema: t, foto: f }); });
-      } else {
-        items.push({ type: 'tone', tema: t });
-      }
-    });
+    var groups = temas.filter(function (t) { return filter === 'todos' || filter === t.id; })
+      .map(function (t) {
+        return t.fotos && t.fotos.length
+          ? t.fotos.map(function (f) { return { type: 'photo', tema: t, foto: f }; })
+          : [{ type: 'tone', tema: t }];
+      });
+    // Em "Todos", intercala os temas para a galeria ficar variada.
+    var items = [], max = Math.max.apply(null, groups.map(function (g) { return g.length; }).concat(0));
+    for (var i = 0; i < max; i++) {
+      groups.forEach(function (g) { if (g[i]) items.push(g[i]); });
+    }
     return items;
   }
 
@@ -125,7 +132,7 @@
         if (f.w && f.h) media.style.setProperty('--ar', f.w + ' / ' + f.h);
         else media.style.setProperty('--ar', RATIOS[i % RATIOS.length]);
         el.appendChild(media);
-        putImage(media, f.src, visiblePhotos[idx].alt, false);
+        putImage(media, f.src, visiblePhotos[idx].alt, false, '(min-width: 1180px) 300px, (min-width: 760px) 33vw, 50vw');
       } else {
         // Sem foto ainda: capa artística nas cores do tema, levando ao álbum oficial.
         el = document.createElement('a');
@@ -278,7 +285,10 @@
   }
 
   /* ---------- Reveal ao rolar ---------- */
-  var revealEls = document.querySelectorAll('.reveal, .reveal-img');
+  var intro = document.querySelector('[data-intro]');
+  var introActive = intro && !document.documentElement.classList.contains('no-intro');
+  var revealEls = [].slice.call(document.querySelectorAll('.reveal, .reveal-img'))
+    .filter(function (el) { return !(introActive && el.closest('.hero')); });
   if ('IntersectionObserver' in window && !reduceMotion) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) {
@@ -333,6 +343,21 @@
 
   /* ---------- Instagram (incorporação oficial, carregada sob demanda) ---------- */
   var insta = document.querySelector('[data-insta]');
+  var instaFb = insta && insta.querySelector('.insta__fallback');
+  if (instaFb) {
+    // Mosaico com fotos reais por trás do perfil incorporado (aparece se o Instagram bloquear o embed).
+    var picks = [];
+    temas.forEach(function (t) { if (t.fotos && t.fotos[1]) picks.push(t.fotos[1]); });
+    if (picks.length >= 6) {
+      var grid = document.createElement('span');
+      grid.className = 'insta__grid';
+      grid.innerHTML = picks.slice(0, 6).map(function (f) {
+        return '<img src="' + f.src.replace(/-1600\./, '-800.') + '" alt="" loading="lazy" decoding="async">';
+      }).join('');
+      instaFb.insertBefore(grid, instaFb.firstChild);
+      instaFb.classList.add('has-grid');
+    }
+  }
   if (insta && 'IntersectionObserver' in window) {
     var io2 = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
@@ -348,6 +373,33 @@
       insta.appendChild(f);
     }, { rootMargin: '400px 0px' });
     io2.observe(insta);
+  }
+
+  /* ---------- Intro ---------- */
+  function heroIn() {
+    document.querySelectorAll('.hero .reveal').forEach(function (el) { el.classList.add('is-in'); });
+  }
+  if (introActive) {
+    var started = Date.now(), done = false;
+    var heroImg = document.querySelector('.hero__media img');
+    var finish = function () {
+      if (done) return;
+      done = true;
+      intro.classList.add('is-out');
+      document.documentElement.classList.remove('intro-on');
+      setTimeout(heroIn, 350);
+      setTimeout(function () { intro.remove(); }, 1300);
+      try { sessionStorage.setItem('carrione-intro', '1'); } catch (e) {}
+    };
+    var ready = function () { setTimeout(finish, Math.max(0, 2100 - (Date.now() - started))); };
+    if (!heroImg || heroImg.complete) ready();
+    else { heroImg.addEventListener('load', ready); heroImg.addEventListener('error', ready); }
+    setTimeout(finish, 3200); // nunca segura o visitante por mais tempo
+    intro.addEventListener('click', finish);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' || e.key === 'Enter') finish(); }, { once: true });
+  } else {
+    if (intro) intro.remove();
+    heroIn();
   }
 
   var yr = document.querySelector('[data-year]');

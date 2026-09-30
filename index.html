@@ -26,6 +26,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..600,50;1,9..144,300..600,50&family=Manrope:wght@400;500;600;700&display=swap">
   <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="preload" as="image" href="assets/fotos/bailarina-1-1600.webp" imagesrcset="assets/fotos/bailarina-1-800.webp 800w, assets/fotos/bailarina-1-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
+  <script>
+    /* Intro: só na primeira visita da sessão e nunca para quem prefere menos movimento. */
+    (function (d) {
+      var c = d.documentElement.classList, seen = false;
+      c.add('js');
+      try { seen = sessionStorage.getItem('carrione-intro') === '1'; } catch (e) {}
+      if (seen || matchMedia('(prefers-reduced-motion: reduce)').matches) c.add('no-intro');
+      else c.add('intro-on');
+    })(document);
+  </script>
 
   <script type="application/ld+json">
   {
@@ -33,7 +44,7 @@
     "@type": "LocalBusiness",
     "name": "Carrione Festas",
     "description": "Decoração de festas, buffet e Pegue e Monte no Rio de Janeiro.",
-    "image": "assets/img/og-image.jpg",
+    "image": ["assets/img/og-image.jpg", "assets/fotos/bailarina-1-1600.webp"],
     "logo": "assets/img/logo-320.png",
     "telephone": "+55 21 99987-4670",
     "email": "carrionefernanda@gmail.com",
@@ -48,6 +59,18 @@
   </script>
 </head>
 <body>
+  <!-- Intro -->
+  <div class="intro" data-intro aria-hidden="true">
+    <div class="intro__inner">
+      <picture>
+        <source srcset="assets/img/logo-320.webp" type="image/webp">
+        <img class="intro__logo" src="assets/img/logo-320.png" width="200" height="190" alt="">
+      </picture>
+      <p class="intro__words"><span>Decoração</span><span>Buffet</span><span>Pegue e Monte</span></p>
+      <span class="intro__bar"><span></span></span>
+    </div>
+  </div>
+
   <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- ====================== CABEÇALHO ====================== -->
@@ -104,7 +127,7 @@
         <div class="section__head">
           <p class="eyebrow reveal">Portfólio</p>
           <h2 id="t-trabalhos" class="reveal" style="--d:1">Festas que já ganharam vida</h2>
-          <p class="section__lead reveal" style="--d:2">Cada tema é criado sob medida. Explore alguns dos trabalhos de decoração de festa infantil e outras celebrações que a Carrione já realizou no Rio de Janeiro.</p>
+          <p class="section__lead reveal" style="--d:2">Cada tema é criado sob medida. Da festa infantil ao aniversário de adulto: explore alguns trabalhos de decoração que a Carrione já realizou no Rio de Janeiro.</p>
         </div>
 
         <div class="filters reveal" role="toolbar" aria-label="Filtrar por tema" data-filters></div>
@@ -125,7 +148,7 @@
         </div>
 
         <article class="service" id="decoracao">
-          <div class="service__media media reveal-img" data-slot="decoracao" data-tone="decoracao"></div>
+          <div class="service__media media reveal-img" data-slot="decoracao" data-sizes="(min-width: 860px) 50vw, 100vw" data-tone="decoracao"></div>
           <div class="service__body">
             <span class="service__num reveal">01</span>
             <h3 class="reveal" style="--d:1">Decoração de Festas</h3>
@@ -139,7 +162,7 @@
         </article>
 
         <article class="service service--reverse" id="pegue-e-monte">
-          <div class="service__media media reveal-img" data-slot="pegueMonte" data-tone="pegue"></div>
+          <div class="service__media media reveal-img" data-slot="pegueMonte" data-sizes="(min-width: 860px) 50vw, 100vw" data-tone="pegue"></div>
           <div class="service__body">
             <span class="service__num reveal">02</span>
             <h3 class="reveal" style="--d:1">Pegue e Monte</h3>
@@ -153,7 +176,7 @@
         </article>
 
         <article class="service" id="buffet">
-          <div class="service__media media reveal-img" data-slot="buffet" data-tone="buffet"></div>
+          <div class="service__media media reveal-img" data-slot="buffet" data-sizes="(min-width: 860px) 50vw, 100vw" data-tone="buffet"></div>
           <div class="service__body">
             <span class="service__num reveal">03</span>
             <h3 class="reveal" style="--d:1">Buffet</h3>
@@ -210,13 +233,13 @@
         </div>
 
         <div class="moments__grid">
-          <figure class="m m--1 media reveal-img" data-slot="momento1" data-tone="m1" data-parallax="0.06"></figure>
+          <figure class="m m--1 media reveal-img" data-slot="momento1" data-sizes="(min-width: 860px) 66vw, 100vw" data-tone="m1" data-parallax="0.06"></figure>
           <p class="m-quote m-quote--1 reveal">Cada festa começa com uma ideia. <em>E termina cheia de histórias para contar.</em></p>
-          <figure class="m m--2 media reveal-img" data-slot="momento2" data-tone="m2" data-parallax="-0.05"></figure>
-          <figure class="m m--3 media reveal-img" data-slot="momento3" data-tone="m3" data-parallax="0.08"></figure>
+          <figure class="m m--2 media reveal-img" data-slot="momento2" data-sizes="(min-width: 860px) 33vw, 58vw" data-tone="m2" data-parallax="-0.05"></figure>
+          <figure class="m m--3 media reveal-img" data-slot="momento3" data-sizes="(min-width: 860px) 42vw, 42vw" data-tone="m3" data-parallax="0.08"></figure>
           <p class="m-quote m-quote--2 reveal">Os detalhes são a parte <em>que todo mundo lembra.</em></p>
-          <figure class="m m--4 media reveal-img" data-slot="momento4" data-tone="m4" data-parallax="0.05"></figure>
-          <figure class="m m--5 media reveal-img" data-slot="momento5" data-tone="m5" data-parallax="-0.07"></figure>
+          <figure class="m m--4 media reveal-img" data-slot="momento4" data-sizes="(min-width: 860px) 58vw, 100vw" data-tone="m4" data-parallax="0.05"></figure>
+          <figure class="m m--5 media reveal-img" data-slot="momento5" data-sizes="(min-width: 860px) 33vw, 66vw" data-tone="m5" data-parallax="-0.07"></figure>
         </div>
       </div>
     </section>

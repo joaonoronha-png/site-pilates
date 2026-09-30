@@ -6,6 +6,11 @@ O objetivo principal é gerar pedidos de orçamento pelo WhatsApp.
 HTML, CSS e JavaScript puros, sem etapa de build. Para publicar, envie a pasta inteira para qualquer hospedagem estática
 (Netlify, Vercel, GitHub Pages, Hostinger etc.). Para ver localmente, rode `python3 -m http.server` e abra `http://localhost:8000`.
 
+## Intro
+
+Na primeira visita da sessão aparece uma abertura curta (logo + "Decoração · Buffet · Pegue e Monte", ~2 s) que se abre
+revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mesma sessão nem para quem ativou "reduzir movimento".
+
 ## Estrutura
 
 | Arquivo | Conteúdo |
@@ -33,9 +38,9 @@ Tudo o que aparece no site foi conferido no Linktree oficial (`linktr.ee/carrion
 
 Os itens abaixo estão marcados com `[PENDENTE]` no código:
 
-1. **Fotos reais.** Instagram e Facebook exigem login para baixar imagens, então nenhuma foto foi incluída.
-   Enquanto faltarem, o site mostra fundos nas cores de cada tema, e cada tema do portfólio leva ao álbum oficial no Facebook.
-   Veja `assets/js/fotos.js`.
+1. **Mais fotos / fotos do Instagram.** As 32 fotos atuais vêm dos álbuns públicos da página da Carrione no Facebook
+   (os mesmos do Linktree). O Instagram bloqueia download sem login; para usar fotos de lá, basta salvá-las em
+   `assets/fotos/` e registrar em `assets/js/fotos.js`. Não há fotos de buffet publicadas; o bloco Buffet usa uma foto de doces da decoração.
 2. **Depoimentos.** Não foram encontradas avaliações públicas verificáveis, então a seção não existe.
    Quando houver (Google, Facebook), inclua primeiro nome, nota e plataforma.
 3. **Pegue e Monte.** O texto usa só a definição da modalidade. Faltam confirmar temas/kits, retirada e devolução, prazos e condições.
