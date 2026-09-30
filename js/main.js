@@ -1,0 +1,163 @@
+(() => {
+  const header = document.getElementById('siteHeader');
+  const navToggle = document.getElementById('navToggle');
+  const mainNav = document.getElementById('mainNav');
+  const whatsappFab = document.getElementById('whatsappFab');
+  const yearEl = document.getElementById('year');
+
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // header shrink + whatsapp fab visibility on scroll
+  const onScroll = () => {
+    const scrolled = window.scrollY > 40;
+    header?.classList.toggle('scrolled', scrolled);
+    whatsappFab?.classList.toggle('visible', window.scrollY > 300);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // mobile nav toggle
+  navToggle?.addEventListener('click', () => {
+    const isOpen = mainNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.classList.toggle('is-active', isOpen);
+  });
+  mainNav?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('open');
+      navToggle?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // scroll reveal
+  const revealEls = document.querySelectorAll('[data-reveal]');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('in-view'));
+  }
+
+  // animated stat counters
+  const statEls = document.querySelectorAll('.stat-number');
+  const animateCount = (el) => {
+    const target = parseFloat(el.dataset.count);
+    const format = el.dataset.format;
+    const duration = 1400;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = target * eased;
+
+      if (format === 'year') {
+        el.textContent = Math.round(value);
+      } else if (format === 'decimal') {
+        el.textContent = value.toFixed(1).replace('.', ',');
+      } else {
+        el.textContent = Math.round(value);
+      }
+
+      if (progress < 1) requestAnimationFrame(step);
+      else {
+        if (format === 'decimal') el.textContent = target.toFixed(1).replace('.', ',');
+        else el.textContent = Math.round(target);
+      }
+    };
+    requestAnimationFrame(step);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const statIo = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          statIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statEls.forEach(el => statIo.observe(el));
+  } else {
+    statEls.forEach(animateCount);
+  }
+
+  // auto-scrolling marquee (reviews) — smooth CSS animation by default,
+  // hands control over to the finger/mouse while actively dragging, no per-frame JS work
+  const initMarquee = (container, durationSec) => {
+    const track = container.querySelector(':scope > *');
+    if (!track) return;
+    let dragging = false;
+    let startX = 0;
+    let startOffset = 0;
+    let shift = 0; // exact px distance to the duplicated set (always positive)
+
+    // The exact loop distance is where the duplicated (aria-hidden) items begin —
+    // measuring it directly avoids rounding mismatches that a 50% guess can have
+    // with flex gaps, which caused a visible snap once per cycle.
+    const measure = () => {
+      const firstDup = track.querySelector('[aria-hidden="true"]');
+      shift = firstDup ? firstDup.offsetLeft : track.scrollWidth / 2;
+      track.style.setProperty('--shift', `-${shift}px`);
+    };
+    measure();
+    if (!shift) return;
+    // force the animation to (re)start after --shift is set, so the keyframe's
+    // end value is resolved correctly from the first cycle
+    track.style.animation = 'none';
+    void track.offsetHeight;
+    track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 200);
+    });
+
+    const currentX = () => new DOMMatrixReadOnly(getComputedStyle(track).transform).m41;
+    const wrap = (x) => {
+      let v = x % shift;
+      if (v > 0) v -= shift;
+      return v;
+    };
+
+    container.addEventListener('pointerdown', (e) => {
+      dragging = true;
+      startX = e.clientX;
+      startOffset = currentX();
+      track.style.animation = 'none';
+      track.style.transform = `translateX(${startOffset}px)`;
+      container.setPointerCapture?.(e.pointerId);
+      container.style.cursor = 'grabbing';
+    });
+    container.addEventListener('pointermove', (e) => {
+      if (!dragging) return;
+      track.style.transform = `translateX(${wrap(startOffset + (e.clientX - startX))}px)`;
+    });
+    const endDrag = () => {
+      if (!dragging) return;
+      dragging = false;
+      container.style.cursor = '';
+      const elapsed = (-currentX() / shift) * durationSec;
+      track.style.transform = '';
+      track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
+      track.style.animationDelay = `-${elapsed}s`;
+    };
+    container.addEventListener('pointerup', endDrag);
+    container.addEventListener('pointercancel', endDrag);
+
+    // pause on real mouse hover only — on touch devices a tap can leave a
+    // synthetic :hover stuck "on", which is what made it look frozen after tapping
+    container.addEventListener('mouseenter', () => { if (!dragging) track.style.animationPlayState = 'paused'; });
+    container.addEventListener('mouseleave', () => { if (!dragging) track.style.animationPlayState = 'running'; });
+  };
+
+  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 46));
+})();

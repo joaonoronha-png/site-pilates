@@ -1,1 +1,52 @@
-# site-pilates
+# Dra. Carol Haneda — Estética e Harmonização
+
+Site institucional de uma página para a Dra. Carol Haneda (@carolhanedaestetica),
+biomédica esteta em Bauru – SP. Segue a mesma base do site da Aline Lima
+(HTML + CSS + JS puros, sem build), com direção visual adaptada à identidade
+real da clínica: paredes brancas com boiserie, móveis rosé e o monograma CH dourado.
+
+## Estrutura
+
+- `index.html` — conteúdo de todas as seções
+- `css/style.css` — paleta marfim / rosé / ouro velho, tipografia Cormorant Garamond + Manrope
+- `js/main.js` — menu mobile, header retrátil, reveal on-scroll, contadores, carrossel de avaliações e botão flutuante do WhatsApp
+- `assets/images/` — fotos reais (ver tabela abaixo)
+
+Rodar localmente: `python3 -m http.server 8000` e abrir http://localhost:8000
+
+## Seções
+
+Hero → Sobre → Procedimentos → Resultado (antes/depois) → Experiência (estacionamento,
+menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações → Momentos
+(Carol Haneda Experience 2026, Clube do Botox, Toque de Fada) → Cursos para profissionais
+→ Instagram → Localização.
+
+## Fotos (cada uma usada uma única vez)
+
+| Arquivo | Onde aparece | Origem |
+|---|---|---|
+| `hero-consulta-carol.jpg` | Fundo do hero | Matéria Social Bauru (Toque de Fada, 2024) |
+| `sobre-carol-haneda.jpg` | Retrato da seção Sobre | Foto de perfil do canal do YouTube |
+| `atendimento-harmonizacao.jpg` | Abertura de Procedimentos | Matéria JCNET/Sampi (2023) |
+| `resultado-labios-antes-depois.jpg` | Resultado real | Fotos do perfil no Google (via Telu) |
+| `espaco-sala-consulta.jpg` | Experiência | Fotos do perfil no Google (via Telu) |
+| `experiencia-menu-cafe.jpg` | Experiência | Fotos do perfil no Google (via Telu) |
+| `carol-editorial.jpg` | Faixa "Fada da harmonização" | Foto de perfil do TikTok |
+| `carol-haneda-experience-2026.jpg` | Momentos | Matéria Social Bauru (maio/2026) — foto @anderson_photografia |
+| `cursos-carol-rinomodelacao.jpg` | Cursos | Capa do curso na Hotmart (recortada) |
+
+O Instagram bloqueou acesso automatizado (HTTP 429), então as fotos vieram das
+outras redes/perfis públicos dela. Ideal substituir por originais em alta
+resolução enviados pela clínica, principalmente a do Sobre (900 px) e a dos Cursos (pequena).
+
+## Dados — o que confirmar com a cliente
+
+- **Horários**: não publicados de propósito (fontes divergentes). O site diz
+  "com hora marcada — consulte pelo WhatsApp".
+- **Avaliações**: textos reais de avaliações públicas do Google, sem nome
+  (as fontes não traziam o nome das autoras) — assinadas como "Paciente · Google".
+- **Nota 4,9 / 206 avaliações** e **9 anos na área** (matéria de maio/2026) — atualizar periodicamente.
+- CRBM 51120 conforme perfil da Hotmart.
+- Bairro/CEP: listagens do Google indicam Jardim Planalto, 17012-450; uma matéria
+  de 2024 fala em Jardim Aeroporto — por isso o site mostra só rua, número e cidade.
+- Nenhum preço, equipamento ou depoimento foi inventado.
