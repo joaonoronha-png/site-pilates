@@ -314,22 +314,35 @@ section{ position:relative; scroll-margin-top: 72px; }
   display:grid; grid-template-columns: .9fr 1.1fr; gap: 64px; align-items:center;
 }
 .results-note{ margin-top: 22px; font-size: .88rem; font-style: italic; color: var(--tinta-suave); max-width: 44ch; }
-.result-figure{
-  position:relative; border-radius: 18px; overflow:hidden;
-  box-shadow: 0 30px 60px -26px rgba(42,33,36,.45);
+/* antes/depois: arraste para comparar (mesmo recurso do site da Aline) */
+.ba-slider{
+  position:relative; width:100%; max-width: 460px; justify-self:center; aspect-ratio: 645/958;
+  border-radius: 18px; overflow:hidden; box-shadow: 0 30px 60px -26px rgba(42,33,36,.45);
+  touch-action:none; cursor:ew-resize; -webkit-user-select:none; user-select:none; --pos: 50%;
 }
-.result-figure img{ width:100%; height:auto; }
-.result-figure::after{
-  content:''; position:absolute; top:0; bottom:0; left:50%; width:2px; transform: translateX(-1px);
-  background: rgba(253,250,247,.9);
+.ba-img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+.ba-img-before{ clip-path: inset(0 calc(100% - var(--pos)) 0 0); }
+.ba-handle{
+  position:absolute; top:0; bottom:0; left: var(--pos); width:0; border:0; padding:0;
+  background:none; cursor:ew-resize; z-index:2;
+}
+.ba-handle::before{
+  content:''; position:absolute; top:0; bottom:0; left:0; width:2px;
+  background: rgba(253,250,247,.92); transform: translateX(-1px);
+}
+.ba-handle-circle{
+  position:absolute; top:50%; left:0; transform:translate(-50%,-50%);
+  width:48px; height:48px; border-radius:50%; background: var(--marfim-alto);
+  display:flex; align-items:center; justify-content:center; color: var(--tinta);
+  box-shadow: 0 8px 20px -6px rgba(42,33,36,.45);
 }
 .ba-tag{
   position:absolute; top:16px; z-index:1; font-size:.75rem; font-weight:700; letter-spacing:.1em;
   text-transform:uppercase; color: var(--marfim-alto); background: var(--scrim-tag);
-  padding:6px 12px; border-radius:999px;
+  padding:6px 12px; border-radius:999px; pointer-events:none;
 }
 .ba-tag-before{ left:16px; }
-.ba-tag-after{ left: calc(50% + 16px); }
+.ba-tag-after{ right:16px; }
 
 @media (max-width: 860px){
   .results-inner{ grid-template-columns: 1fr; gap: 40px; }
@@ -390,35 +403,29 @@ section{ position:relative; scroll-margin-top: 72px; }
 .reviews-score .stars svg{ width:18px; height:18px; }
 .reviews-count{ font-size:.9rem; color: rgba(253,250,247,.78); }
 
-.reviews-carousel{ max-width: calc(var(--container) + 2 * var(--gutter)); margin: 0 auto; }
-.reviews-track{
-  display:grid; grid-auto-flow: column; grid-auto-columns: min(360px, 82vw); gap: 20px;
-  overflow-x:auto; overscroll-behavior-x: contain; scroll-snap-type: x mandatory;
-  padding: 4px var(--gutter) 8px; scroll-padding: 0 var(--gutter);
-  scrollbar-width: none;
+/* faixa em rotação contínua, arrastável e pausável (mesmo recurso do site da Aline) */
+.reviews-marquee{ position:relative; overflow:hidden; cursor: grab; }
+.reviews-marquee::before, .reviews-marquee::after{
+  content:''; position:absolute; top:0; bottom:0; width: min(120px, 8vw); z-index:1; pointer-events:none;
 }
-.reviews-track::-webkit-scrollbar{ display:none; }
+.reviews-marquee::before{ left:0; background: linear-gradient(90deg, var(--tinta), transparent); }
+.reviews-marquee::after{ right:0; background: linear-gradient(270deg, var(--tinta), transparent); }
+.reviews-track{
+  display:flex; gap: 20px; width: max-content; padding: 0 var(--gutter); touch-action: pan-y;
+  animation: marquee-scroll 46s linear infinite;
+}
 .review-card{
-  scroll-snap-align: start;
+  flex: 0 0 360px;
   display:flex; flex-direction:column; justify-content:space-between; gap: 24px;
   background: rgba(253,250,247,.05); border: 1px solid rgba(217,194,154,.22);
   border-radius: 16px; padding: 30px 28px;
 }
 .review-card blockquote{ font-family: var(--serif); font-style: italic; font-size: 1.32rem; line-height:1.4; color: rgba(253,250,247,.95); }
 .review-card figcaption{ font-size: .78rem; color: rgba(253,250,247,.72); text-transform: uppercase; letter-spacing: .1em; }
+.reviews-cta{ max-width: var(--container); margin: 44px auto 0; padding: 0 var(--gutter); text-align:center; }
+@media (max-width: 640px){ .review-card{ flex-basis: 290px; } }
 
-.reviews-controls{ display:flex; align-items:center; gap: 12px; margin-top: 32px; padding: 0 var(--gutter); }
-.reviews-controls .btn{ margin-left: auto; }
-.icon-btn{
-  width:48px; height:48px; border-radius:50%; cursor:pointer;
-  display:inline-flex; align-items:center; justify-content:center;
-  background: transparent; color: var(--marfim-alto); border: 1.5px solid rgba(253,250,247,.4);
-  transition: background-color .25s ease, color .25s ease, border-color .25s ease, opacity .25s ease;
-}
-.icon-btn svg{ width:20px; height:20px; }
-.icon-btn .flip{ transform: scaleX(-1); }
-.icon-btn:hover{ background: var(--marfim-alto); color: var(--tinta); border-color: var(--marfim-alto); }
-.icon-btn:disabled{ opacity:.35; cursor:default; background:transparent; color: var(--marfim-alto); }
+@keyframes marquee-scroll{ from{ transform: translateX(0); } to{ transform: translateX(var(--shift, -50%)); } }
 
 /* ---------- moments ---------- */
 .moments{ padding: var(--section) 0; }
@@ -453,11 +460,23 @@ section{ position:relative; scroll-margin-top: 72px; }
   .pro-media{ max-width: 280px; }
 }
 
-/* ---------- instagram ---------- */
-.insta{ background: var(--rose); }
-.insta-inner{ max-width: var(--container); margin: 0 auto; text-align:center; padding: clamp(80px, 10vw, 120px) var(--gutter); }
-.insta-handle{ font-size: clamp(2.1rem, 6vw, 4rem); font-style: italic; overflow-wrap: anywhere; }
-.insta-inner .section-lead{ margin: 18px auto 32px; }
+/* ---------- instagram: galeria em rotação (mesmo recurso do site da Aline) ---------- */
+.gallery{ background: var(--rose); padding: var(--section) 0; }
+.gallery .section-title{ font-style: italic; max-width: none; overflow-wrap: anywhere; }
+.gallery-marquee{ position:relative; overflow:hidden; margin-bottom: 48px; cursor: grab; }
+.gallery-marquee::before, .gallery-marquee::after{
+  content:''; position:absolute; top:0; bottom:0; width: min(120px, 8vw); z-index:1; pointer-events:none;
+}
+.gallery-marquee::before{ left:0; background: linear-gradient(90deg, var(--rose), transparent); }
+.gallery-marquee::after{ right:0; background: linear-gradient(270deg, var(--rose), transparent); }
+.gallery-track{
+  display:flex; gap: 18px; width: max-content; touch-action: pan-y;
+  animation: marquee-scroll 5s linear infinite;
+}
+.gallery-item{ flex: 0 0 260px; aspect-ratio: 4/5; border-radius: 14px; overflow:hidden; position:relative; }
+.gallery-item img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+.gallery-cta{ text-align:center; padding: 0 var(--gutter); }
+@media (max-width: 640px){ .gallery-item{ flex-basis: 200px; } }
 
 /* ---------- location ---------- */
 .location{ padding: var(--section) 0; }
@@ -544,9 +563,9 @@ section{ position:relative; scroll-margin-top: 72px; }
   opacity:0; transform: translateY(16px);
   transition: opacity .9s var(--ease), transform .9s var(--ease);
 }
-.js-anim figure[data-reveal], .js-anim .map[data-reveal]{
+.js-anim figure[data-reveal], .js-anim .map[data-reveal], .js-anim .ba-slider[data-reveal]{
   transform: none; clip-path: inset(8% 0 0 0 round 18px);
   transition: opacity 1s var(--ease), clip-path 1.2s var(--ease);
 }
 [data-reveal].in-view{ opacity:1; transform: none; }
-.js-anim figure[data-reveal].in-view, .js-anim .map[data-reveal].in-view{ clip-path: inset(0 0 0 0 round 18px); }
+.js-anim figure[data-reveal].in-view, .js-anim .map[data-reveal].in-view, .js-anim .ba-slider[data-reveal].in-view{ clip-path: inset(0 0 0 0 round 18px); }

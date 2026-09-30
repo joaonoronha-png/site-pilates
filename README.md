@@ -22,7 +22,7 @@ Refinado com as skills do branch `claude/instalar-skill-uiux-pro-max-mnz4y9`:
   A paleta sugerida (rosa/lilás genérico) foi descartada em favor da identidade real da
   clínica; aplicadas as regras de UX: contraste ≥ 4.5:1, alvos de toque ≥ 44 px, foco
   visível, `prefers-reduced-motion`, imagens com `width/height` + `loading="lazy"`,
-  depoimentos com botões anterior/próximo e sem autoplay.
+  depoimentos acessíveis.
 - **impeccable** (craft-floor + detector) — removidos eyebrows acima de títulos, números
   01–09, grid de cards iguais, bloco de estatísticas, texto em gradiente, estrelas em
   Unicode (agora SVG), marquee infinito, bolinha pulsante, textura invisível e excesso de
@@ -30,13 +30,23 @@ Refinado com as skills do branch `claude/instalar-skill-uiux-pro-max-mnz4y9`:
   trocado por mapa estático com pin da marca. Alertas restantes do detector: fundo creme
   (é a identidade da clínica) e falso-positivos de padding/contraste sobre foto.
 
+## Recursos iguais ao site da Aline (a pedido)
+
+- **Antes/depois com slider de arrastar** (mouse, dedo e setas do teclado).
+- **Avaliações em rotação contínua** — arrastáveis com o dedo, pausam com o mouse em cima.
+- **Galeria do Instagram em rotação** — mesmo ritmo da Aline (ciclo de 5 s), arrastável.
+
+Esses três pontos seguem o pedido do cliente mesmo onde o impeccable recomendaria o
+contrário (ele desaconselha faixas em rotação infinita); com "reduzir movimento" ativado
+no aparelho, as rotações param.
+
 ## Seções
 
 Abertura (monograma CH dourado + nome, ~3 s; toca 1x por sessão, pula com um toque,
 desligada para quem prefere menos movimento) → Hero → Sobre → Procedimentos (lista editorial Rosto / Pele & corpo) → Resultado (antes/depois) → Experiência (estacionamento,
 menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações → Momentos
 (Carol Haneda Experience 2026, Clube do Botox, Toque de Fada) → Cursos para profissionais
-→ Instagram → Localização.
+→ Instagram (galeria em rotação) → Localização.
 
 ## Fotos (cada uma usada uma única vez)
 
@@ -45,12 +55,13 @@ menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações
 | `hero-consulta-carol.jpg` | Fundo do hero | Matéria Social Bauru (Toque de Fada, 2024) |
 | `sobre-carol-haneda.jpg` | Retrato da seção Sobre | Foto de perfil do canal do YouTube |
 | `atendimento-harmonizacao.jpg` | Abertura de Procedimentos | Matéria JCNET/Sampi (2023) |
-| `resultado-labios-antes-depois.jpg` | Resultado real | Fotos do perfil no Google (via Telu) |
+| `resultado-labios-antes.jpg`, `resultado-labios-depois.jpg` | Slider de antes/depois (arrastar) | Foto do perfil no Google (via Telu), dividida ao meio |
 | `espaco-sala-consulta.jpg` | Experiência | Fotos do perfil no Google (via Telu) |
 | `experiencia-menu-cafe.jpg` | Experiência | Fotos do perfil no Google (via Telu) |
 | `carol-editorial.jpg` | Faixa "Fada da harmonização" | Foto de perfil do TikTok |
 | `carol-haneda-experience-2026.jpg` | Momentos | Matéria Social Bauru (maio/2026) — foto @anderson_photografia |
 | `cursos-carol-rinomodelacao.jpg` | Cursos | Capa do curso na Hotmart (recortada) |
+| `galeria-carol-*.jpg` (6) | Galeria do Instagram em rotação | Retratos recortados das capas dos vídeos do YouTube dela (baixa resolução — trocar por posts originais do Instagram quando ela enviar) |
 
 O Instagram bloqueou acesso automatizado (HTTP 429), então as fotos vieram das
 outras redes/perfis públicos dela. Ideal substituir por originais em alta

@@ -87,6 +87,7 @@
       <a href="#procedimentos">Procedimentos</a>
       <a href="#experiencia">Experiência</a>
       <a href="#avaliacoes">Avaliações</a>
+      <a href="#galeria">Instagram</a>
       <a href="#localizacao">Localização</a>
       <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-nav">Agendar</a>
     </nav>
@@ -214,15 +215,21 @@
       <h2 class="section-title" id="resultados-titulo" data-reveal>Resultado real: elegante e natural.</h2>
       <p class="section-lead" data-reveal>
         Preenchimento labial realizado na clínica: mais hidratação, contorno e volume,
-        respeitando a anatomia de cada paciente.
+        respeitando a anatomia de cada paciente. Arraste para comparar.
       </p>
       <p class="results-note" data-reveal>Os resultados variam de pessoa para pessoa. A indicação é sempre feita em avaliação individual.</p>
     </div>
-    <figure class="result-figure" data-reveal>
-      <img src="assets/images/resultado-labios-antes-depois.jpg" width="1290" height="958" loading="lazy" alt="Antes e depois de preenchimento labial: à esquerda, lábios antes do procedimento; à direita, lábios com mais volume e contorno">
+    <div class="ba-slider" data-reveal data-ba-slider>
+      <img class="ba-img ba-img-after" src="assets/images/resultado-labios-depois.jpg" width="645" height="958" loading="lazy" alt="Lábios depois do preenchimento labial, com mais volume e contorno">
+      <img class="ba-img ba-img-before" src="assets/images/resultado-labios-antes.jpg" width="645" height="958" loading="lazy" alt="Lábios antes do preenchimento labial">
       <span class="ba-tag ba-tag-before">Antes</span>
       <span class="ba-tag ba-tag-after">Depois</span>
-    </figure>
+      <button class="ba-handle" type="button" aria-label="Arraste para comparar antes e depois" data-ba-handle>
+        <span class="ba-handle-circle" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7 4 12l4 5M16 7l4 5-4 5"/></svg>
+        </span>
+      </button>
+    </div>
   </div>
 </section>
 
@@ -306,8 +313,8 @@
     </div>
   </div>
 
-  <div class="reviews-carousel" data-reveal>
-    <div class="reviews-track" id="reviewsTrack" tabindex="0" role="region" aria-label="Avaliações de pacientes (role para ver mais)">
+  <div class="reviews-marquee" data-reveal>
+    <div class="reviews-track">
       <figure class="review-card">
         <blockquote>“A clínica é linda, a profissional muito atenciosa e ética na hora da consulta, oferece para as pacientes o que acha seguro e necessário! Resultados elegantes e naturais.”</blockquote>
         <figcaption>Paciente · Google</figcaption>
@@ -332,14 +339,37 @@
         <blockquote>“Você é recebido com uma experiência incrível do início ao fim! Cadeira de massagem, menu para os pacientes e um resultado incrível quando termina o procedimento.”</blockquote>
         <figcaption>Paciente · Google</figcaption>
       </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“A clínica é linda, a profissional muito atenciosa e ética na hora da consulta, oferece para as pacientes o que acha seguro e necessário! Resultados elegantes e naturais.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“A Dra. Carol é uma excelente profissional, me passou muita confiança e o resultado não poderia ser outro: amei minha harmonização facial.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“A clínica é maravilhosa, tem estacionamento exclusivo! Menu especial para os clientes e as pacientes ganham buquê de flores após fazer o Full Face.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“Atendimento maravilhoso! A Dra. Carol é super atenciosa e cuidadosa, além do espaço ser lindo e super confortável!”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“É a melhor clínica de estética e harmonização facial de Bauru! Os produtos são de altíssima qualidade!”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card" aria-hidden="true">
+        <blockquote>“Você é recebido com uma experiência incrível do início ao fim! Cadeira de massagem, menu para os pacientes e um resultado incrível quando termina o procedimento.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
     </div>
-    <div class="reviews-controls">
-      <button class="icon-btn" type="button" data-dir="-1" aria-label="Avaliação anterior" aria-controls="reviewsTrack"><svg class="flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      <button class="icon-btn" type="button" data-dir="1" aria-label="Próxima avaliação" aria-controls="reviewsTrack"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-      <a href="https://www.google.com/search?q=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" class="btn btn-light">
-        Ver todas no Google
-      </a>
-    </div>
+  </div>
+
+  <div class="reviews-cta" data-reveal>
+    <a href="https://www.google.com/search?q=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" class="btn btn-light">
+      Ver todas as avaliações no Google
+    </a>
   </div>
 </section>
 
@@ -401,10 +431,30 @@
 </section>
 
 <!-- ============ INSTAGRAM ============ -->
-<section class="insta" aria-labelledby="insta-titulo">
-  <div class="insta-inner" data-reveal>
-    <h2 class="insta-handle" id="insta-titulo">@carolhanedaestetica</h2>
-    <p class="section-lead">Bastidores, resultados, dicas e os momentos especiais da clínica no Instagram. Acompanhe de perto.</p>
+<section class="gallery" id="galeria" aria-labelledby="insta-titulo">
+  <div class="section-head">
+    <h2 class="section-title" id="insta-titulo" data-reveal>@carolhanedaestetica</h2>
+    <p class="section-lead" data-reveal>Bastidores, resultados, dicas e os momentos especiais da clínica no Instagram. Acompanhe de perto.</p>
+  </div>
+
+  <div class="gallery-marquee" data-reveal>
+    <div class="gallery-track">
+      <div class="gallery-item"><img src="assets/images/galeria-carol-sorriso.jpg" width="456" height="570" alt="Dra. Carol Haneda sorrindo, com as mãos junto ao rosto"></div>
+      <div class="gallery-item"><img src="assets/images/galeria-carol-blusa-branca.jpg" width="456" height="570" alt="Dra. Carol Haneda de blusa branca, em retrato com fundo escuro"></div>
+      <div class="gallery-item"><img src="assets/images/galeria-carol-blazer.jpg" width="456" height="570" alt="Dra. Carol Haneda de blazer branco, na clínica"></div>
+      <div class="gallery-item"><img src="assets/images/galeria-carol-perfil.jpg" width="456" height="570" alt="Dra. Carol Haneda em retrato de perfil, com blazer rosa"></div>
+      <div class="gallery-item"><img src="assets/images/galeria-carol-retrato.jpg" width="456" height="570" alt="Dra. Carol Haneda em retrato na clínica"></div>
+      <div class="gallery-item"><img src="assets/images/galeria-carol-italia.jpg" width="456" height="570" alt="Dra. Carol Haneda em retrato durante a residência na Itália"></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-sorriso.jpg" width="456" height="570" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-blusa-branca.jpg" width="456" height="570" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-blazer.jpg" width="456" height="570" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-perfil.jpg" width="456" height="570" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-retrato.jpg" width="456" height="570" alt=""></div>
+      <div class="gallery-item" aria-hidden="true"><img src="assets/images/galeria-carol-italia.jpg" width="456" height="570" alt=""></div>
+    </div>
+  </div>
+
+  <div class="gallery-cta" data-reveal>
     <a href="https://www.instagram.com/carolhanedaestetica/" target="_blank" rel="noopener" class="btn btn-outline">Seguir no Instagram</a>
   </div>
 </section>
@@ -469,6 +519,7 @@
       <a href="#experiencia">Experiência</a>
       <a href="#avaliacoes">Avaliações</a>
       <a href="#cursos">Cursos</a>
+      <a href="#galeria">Instagram</a>
       <a href="#localizacao">Localização</a>
     </nav>
 
