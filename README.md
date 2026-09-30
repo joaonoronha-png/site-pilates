@@ -60,6 +60,7 @@ menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações
 | `experiencia-menu-cafe.jpg` | Experiência | Fotos do perfil no Google (via Telu) |
 | `carol-editorial.jpg` | Faixa "Fada da harmonização" | Foto de perfil do TikTok |
 | `carol-haneda-experience-2026.jpg` | Momentos | Matéria Social Bauru (maio/2026) — foto @anderson_photografia |
+| `mapa-clinica.jpg` | Localização (mapa estático + pin CH) | Tiles © OpenStreetMap, centrados nas coordenadas do perfil no Google (-22.33963, -49.05320) |
 | `cursos-carol-rinomodelacao.jpg` | Cursos | Capa do curso na Hotmart (recortada) |
 | `galeria-carol-*.jpg` (6) | Galeria do Instagram em rotação | Retratos recortados das capas dos vídeos do YouTube dela (baixa resolução — trocar por posts originais do Instagram quando ela enviar) |
 
