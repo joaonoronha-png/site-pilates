@@ -15,12 +15,7 @@ revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mes
 
 - Abertura com 4 fotos reais em rotação (zoom lento, indicadores clicáveis).
 - Carrossel giratório de duas faixas no bloco do Instagram (pausa ao passar o mouse; cada foto leva ao perfil).
-- Mapa da área atendida: município do Rio contornado (limite oficial do OpenStreetMap), regiões marcadas,
-  zoom (+/−, duplo clique) e arrastar; no celular o mapa é arrastável para os lados. Arquivo local, sem chave de API.
-- Botão redondo de mapa (como nos outros sites) acima do WhatsApp: abre Google Maps, Apple Maps, Waze ou o mapa do site.
-  [PENDENTE] Sem endereço público, os apps mostram "Rio de Janeiro, RJ". Preencha `ENDERECO` no `main.js`
-  e o botão passa a traçar rota até o endereço.
-- GSAP + ScrollTrigger (parallax, zoom do mapa, faixa de temas que acelera com a rolagem) e Lenis (rolagem suave no desktop).
+- GSAP + ScrollTrigger (parallax, faixa de temas que acelera com a rolagem) e Lenis (rolagem suave no desktop).
   São carregados depois da página; se o CDN falhar, o site continua funcionando com animações simples.
 - Formulário "Monte seu pedido" no final (mesmo modelo do By Dani Decora): nome, WhatsApp, serviços, tipo de festa, tema,
   data, bairro, convidados e mensagem. Ao enviar, mostra um resumo e abre o WhatsApp com a mensagem pronta.
@@ -63,4 +58,4 @@ Os itens abaixo estão marcados com `[PENDENTE]` no código:
 3. **Pegue e Monte.** O texto usa só a definição da modalidade. Faltam confirmar temas/kits, retirada e devolução, prazos e condições.
 4. **Buffet.** Cardápios, itens inclusos e capacidade não são públicos e não foram inseridos.
 5. **Domínio.** Preencher `canonical` e `og:url` no `index.html` e trocar os caminhos de `og:image`/schema por URLs absolutas.
-6. **Endereço.** Não é público e não foi incluído.
+6. **Endereço.** Não é público e não foi incluído. O mapa foi retirado; se a Carrione confirmar um endereço, dá para trazer de volta o mapa com pin e o botão de rotas (histórico do git, commit "Mapa com contorno do município").

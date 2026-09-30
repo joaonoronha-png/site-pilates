@@ -338,45 +338,11 @@
             </a>
           </li>
         </ul>
-        <!-- [PENDENTE] Endereço físico não é público. O mapa mostra só a área atendida. -->
-        <figure class="area reveal-img" id="area" aria-labelledby="t-area">
-          <div class="area__map" data-map>
-            <div class="area__canvas" data-map-canvas>
-              <picture>
-                <source media="(max-width: 700px)" srcset="assets/img/mapa-rio-1000.webp">
-                <img src="assets/img/mapa-rio.webp" width="2097" height="1107" loading="lazy" decoding="async" draggable="false"
-                     alt="Mapa do município do Rio de Janeiro com o contorno da área atendida pela Carrione Festas">
-              </picture>
-              <span class="area__zone" style="left:33.1%;top:46.7%">Zona Oeste</span>
-              <span class="area__zone" style="left:69.4%;top:38.5%">Zona Norte</span>
-              <span class="area__zone" style="left:56.9%;top:71.4%">Barra e Jacarepaguá</span>
-              <span class="area__zone" style="left:87.1%;top:47.6%">Centro</span>
-              <span class="area__zone" style="left:85.8%;top:66%">Zona Sul</span>
-            </div>
-            <div class="area__zoom" role="group" aria-label="Zoom do mapa">
-              <button type="button" data-map-zoom="in" aria-label="Aproximar">+</button>
-              <button type="button" data-map-zoom="out" aria-label="Afastar">−</button>
-              <button type="button" data-map-zoom="reset" aria-label="Ver a cidade inteira">
-                <svg class="i" aria-hidden="true"><use href="#i-expand"/></svg>
-              </button>
-            </div>
-            <span class="area__legend"><i></i>Área de atendimento</span>
-            <span class="area__hint" aria-hidden="true">← Arraste para ver a cidade →</span>
-          </div>
-          <figcaption class="area__card">
-            <span class="eyebrow">Onde atendemos</span>
-            <h3 id="t-area">Rio de Janeiro</h3>
-            <p>Decoração, buffet e Pegue e Monte para festas na cidade do Rio. Conte o bairro e a data da sua festa no WhatsApp.</p>
-            <div class="area__actions">
-              <a class="btn btn--primary btn--sm" data-wa="geral" href="#orcamento">
-                <svg class="i" aria-hidden="true"><use href="#i-wa"/></svg>
-                Consultar minha data
-              </a>
-              <button type="button" class="link" data-open-mapmenu>Abrir no app de mapas</button>
-            </div>
-            <small class="area__credit">Mapa: © colaboradores do OpenStreetMap</small>
-          </figcaption>
-        </figure>
+        <!-- [PENDENTE] Endereço físico não é público. Sem mapa até a Carrione confirmar um local. -->
+        <p class="contact__area reveal">
+          <svg class="i" aria-hidden="true"><use href="#i-pin"/></svg>
+          Atendimento no Rio de Janeiro
+        </p>
       </div>
     </section>
 
@@ -468,25 +434,8 @@
     </div>
   </footer>
 
-  <!-- Botões flutuantes: mapa + WhatsApp -->
+  <!-- Botão flutuante: WhatsApp -->
   <div class="fabs" data-fabs>
-    <div class="fab-map" data-fab-map>
-      <div class="fab-map__menu" id="fab-map-menu" role="menu" aria-label="Abrir no app de mapas">
-        <p class="fab-map__title" data-map-title>Área de atendimento<small data-map-sub>Rio de Janeiro · RJ</small></p>
-        <a role="menuitem" data-map-app="google" href="https://www.google.com/maps/search/?api=1&amp;query=Rio+de+Janeiro%2C+RJ" target="_blank" rel="noopener">
-          <span class="fab-map__ico fab-map__ico--google" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 22s7-7.58 7-12.5A7 7 0 0 0 5 9.5C5 14.42 12 22 12 22Z" fill="currentColor"/><circle cx="12" cy="9.5" r="2.6" fill="#fff"/></svg></span>Google Maps</a>
-        <a role="menuitem" data-map-app="apple" href="https://maps.apple.com/?q=Rio+de+Janeiro%2C+RJ" target="_blank" rel="noopener">
-          <span class="fab-map__ico fab-map__ico--apple" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="currentColor" d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.2.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.5 1.3-2.6 0 0-2.5-1-2.5-3.7ZM14.1 5.8c.6-.8 1.1-1.8 1-2.8-.9 0-2 .6-2.7 1.4-.6.7-1.1 1.7-1 2.7 1 .1 2-.5 2.7-1.3Z"/></svg></span>Apple Maps</a>
-        <a role="menuitem" data-map-app="waze" href="https://waze.com/ul?q=Rio%20de%20Janeiro%2C%20RJ" target="_blank" rel="noopener">
-          <span class="fab-map__ico fab-map__ico--waze" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" d="M4.5 15.5c-1.2-.4-1.8-1.3-1.8-2.3 1-.3 1.4-1.3 1.6-2.6C5 6.8 8.3 4 12.3 4c4.2 0 7.7 3.3 7.7 7.4 0 3.1-2 5.6-4.8 6.7"/><circle cx="8" cy="18.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="15.5" cy="18.5" r="1.8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.8 18.3h3.9M10 10.2h.01M15 10.2h.01M10 13c1.2 1 3.4 1 4.8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>Waze</a>
-        <a role="menuitem" href="#area" data-map-local>
-          <span class="fab-map__ico fab-map__ico--site" aria-hidden="true"><svg class="i"><use href="#i-pin"/></svg></span>Ver o mapa no site</a>
-      </div>
-      <button type="button" class="fab fab--map" aria-expanded="false" aria-controls="fab-map-menu" aria-label="Mapa: escolher app" data-fab-map-toggle>
-        <svg class="i" aria-hidden="true"><use href="#i-map"/></svg>
-        <span class="fab__tip">Ver no mapa</span>
-      </button>
-    </div>
     <a class="wa-float" data-wa="geral" data-wa-float href="https://wa.me/5521999874670" aria-label="Pedir orçamento pelo WhatsApp">
       <svg class="i" aria-hidden="true"><use href="#i-wa"/></svg>
       <span class="wa-float__label">Orçamento</span>
@@ -523,8 +472,6 @@
     <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.5"/></g></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-6-6 6 6-6 6"/></symbol>
     <symbol id="i-x" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" d="M6 6l12 12M18 6 6 18"/></symbol>
-    <symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M9 4 3.5 6v14L9 18l6 2 5.5-2V4L15 6 9 4Z"/><path d="M9 4v14M15 6v14"/></g></symbol>
-    <symbol id="i-expand" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></symbol>
     <symbol id="i-out" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4"/></symbol>
   </svg>
 
