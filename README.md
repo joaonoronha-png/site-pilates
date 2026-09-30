@@ -14,10 +14,26 @@ real da clínica: paredes brancas com boiserie, móveis rosé e o monograma CH d
 
 Rodar localmente: `python3 -m http.server 8000` e abrir http://localhost:8000
 
+## Skills de design aplicadas
+
+Refinado com as skills do branch `claude/instalar-skill-uiux-pro-max-mnz4y9`:
+
+- **ui-ux-pro-max** — design system gerado para "clínica de estética / harmonização / luxo".
+  A paleta sugerida (rosa/lilás genérico) foi descartada em favor da identidade real da
+  clínica; aplicadas as regras de UX: contraste ≥ 4.5:1, alvos de toque ≥ 44 px, foco
+  visível, `prefers-reduced-motion`, imagens com `width/height` + `loading="lazy"`,
+  depoimentos com botões anterior/próximo e sem autoplay.
+- **impeccable** (craft-floor + detector) — removidos eyebrows acima de títulos, números
+  01–09, grid de cards iguais, bloco de estatísticas, texto em gradiente, estrelas em
+  Unicode (agora SVG), marquee infinito, bolinha pulsante, textura invisível e excesso de
+  travessões; ouro de texto/botões escurecido para passar contraste; mapa em iframe
+  trocado por mapa estático com pin da marca. Alertas restantes do detector: fundo creme
+  (é a identidade da clínica) e falso-positivos de padding/contraste sobre foto.
+
 ## Seções
 
 Abertura (monograma CH dourado + nome, ~3 s; toca 1x por sessão, pula com um toque,
-desligada para quem prefere menos movimento) → Hero → Sobre → Procedimentos → Resultado (antes/depois) → Experiência (estacionamento,
+desligada para quem prefere menos movimento) → Hero → Sobre → Procedimentos (lista editorial Rosto / Pele & corpo) → Resultado (antes/depois) → Experiência (estacionamento,
 menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações → Momentos
 (Carol Haneda Experience 2026, Clube do Botox, Toque de Fada) → Cursos para profissionais
 → Instagram → Localização.

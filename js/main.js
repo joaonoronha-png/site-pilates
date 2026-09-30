@@ -71,119 +71,26 @@
     revealEls.forEach(el => el.classList.add('in-view'));
   }
 
-  // animated stat counters
-  const statEls = document.querySelectorAll('.stat-number');
-  const animateCount = (el) => {
-    const target = parseFloat(el.dataset.count);
-    const format = el.dataset.format;
-    const duration = 1400;
-    const start = performance.now();
-
-    const step = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      const value = target * eased;
-
-      if (format === 'year') {
-        el.textContent = Math.round(value);
-      } else if (format === 'decimal') {
-        el.textContent = value.toFixed(1).replace('.', ',');
-      } else {
-        el.textContent = Math.round(value);
-      }
-
-      if (progress < 1) requestAnimationFrame(step);
-      else {
-        if (format === 'decimal') el.textContent = target.toFixed(1).replace('.', ',');
-        else el.textContent = Math.round(target);
-      }
+  // carrossel de avaliações: rolagem nativa com snap + botões anterior/próximo
+  // (sem autoplay — o conteúdo só se move quando a pessoa pede)
+  const track = document.getElementById('reviewsTrack');
+  if (track) {
+    const prev = document.querySelector('.reviews-controls [data-dir="-1"]');
+    const next = document.querySelector('.reviews-controls [data-dir="1"]');
+    const step = () => {
+      const card = track.querySelector('.review-card');
+      return card ? card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 20) : 360;
     };
-    requestAnimationFrame(step);
-  };
-
-  if ('IntersectionObserver' in window) {
-    const statIo = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          statIo.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-    statEls.forEach(el => statIo.observe(el));
-  } else {
-    statEls.forEach(animateCount);
+    const update = () => {
+      const max = track.scrollWidth - track.clientWidth - 2;
+      if (prev) prev.disabled = track.scrollLeft <= 2;
+      if (next) next.disabled = track.scrollLeft >= max;
+    };
+    [prev, next].forEach(btn => btn?.addEventListener('click', () => {
+      track.scrollBy({ left: step() * Number(btn.dataset.dir), behavior: 'smooth' });
+    }));
+    track.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
   }
-
-  // auto-scrolling marquee (reviews) — smooth CSS animation by default,
-  // hands control over to the finger/mouse while actively dragging, no per-frame JS work
-  const initMarquee = (container, durationSec) => {
-    const track = container.querySelector(':scope > *');
-    if (!track) return;
-    let dragging = false;
-    let startX = 0;
-    let startOffset = 0;
-    let shift = 0; // exact px distance to the duplicated set (always positive)
-
-    // The exact loop distance is where the duplicated (aria-hidden) items begin —
-    // measuring it directly avoids rounding mismatches that a 50% guess can have
-    // with flex gaps, which caused a visible snap once per cycle.
-    const measure = () => {
-      const firstDup = track.querySelector('[aria-hidden="true"]');
-      shift = firstDup ? firstDup.offsetLeft : track.scrollWidth / 2;
-      track.style.setProperty('--shift', `-${shift}px`);
-    };
-    measure();
-    if (!shift) return;
-    // force the animation to (re)start after --shift is set, so the keyframe's
-    // end value is resolved correctly from the first cycle
-    track.style.animation = 'none';
-    void track.offsetHeight;
-    track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
-
-    let resizeTimer = null;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(measure, 200);
-    });
-
-    const currentX = () => new DOMMatrixReadOnly(getComputedStyle(track).transform).m41;
-    const wrap = (x) => {
-      let v = x % shift;
-      if (v > 0) v -= shift;
-      return v;
-    };
-
-    container.addEventListener('pointerdown', (e) => {
-      dragging = true;
-      startX = e.clientX;
-      startOffset = currentX();
-      track.style.animation = 'none';
-      track.style.transform = `translateX(${startOffset}px)`;
-      container.setPointerCapture?.(e.pointerId);
-      container.style.cursor = 'grabbing';
-    });
-    container.addEventListener('pointermove', (e) => {
-      if (!dragging) return;
-      track.style.transform = `translateX(${wrap(startOffset + (e.clientX - startX))}px)`;
-    });
-    const endDrag = () => {
-      if (!dragging) return;
-      dragging = false;
-      container.style.cursor = '';
-      const elapsed = (-currentX() / shift) * durationSec;
-      track.style.transform = '';
-      track.style.animation = `marquee-scroll ${durationSec}s linear infinite`;
-      track.style.animationDelay = `-${elapsed}s`;
-    };
-    container.addEventListener('pointerup', endDrag);
-    container.addEventListener('pointercancel', endDrag);
-
-    // pause on real mouse hover only — on touch devices a tap can leave a
-    // synthetic :hover stuck "on", which is what made it look frozen after tapping
-    container.addEventListener('mouseenter', () => { if (!dragging) track.style.animationPlayState = 'paused'; });
-    container.addEventListener('mouseleave', () => { if (!dragging) track.style.animationPlayState = 'running'; });
-  };
-
-  document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 46));
 })();

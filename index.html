@@ -56,9 +56,13 @@
 }
 </script>
 </head>
+
 <body>
 
-<div class="grain-overlay" aria-hidden="true"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.8l2.76 5.6 6.18.9-4.47 4.36 1.05 6.15L12 16.9l-5.52 2.9 1.05-6.15L3.06 9.3l6.18-.9z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+</svg>
 
 <!-- ============ ABERTURA ============ -->
 <div class="intro" id="intro" aria-hidden="true">
@@ -73,12 +77,12 @@
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="siteHeader">
   <div class="header-inner">
-    <a href="#topo" class="brand">
-      <span class="brand-mark">CH</span>
+    <a href="#topo" class="brand" aria-label="Carol Haneda, início">
+      <span class="brand-mark" aria-hidden="true">CH</span>
       <span class="brand-name">Carol Haneda<em>Estética e Harmonização</em></span>
     </a>
 
-    <nav class="main-nav" id="mainNav">
+    <nav class="main-nav" id="mainNav" aria-label="Principal">
       <a href="#sobre">Sobre</a>
       <a href="#procedimentos">Procedimentos</a>
       <a href="#experiencia">Experiência</a>
@@ -87,206 +91,135 @@
       <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-nav">Agendar</a>
     </nav>
 
-    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false">
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
+<main>
+
 <!-- ============ HERO ============ -->
 <section class="hero" id="topo">
   <div class="hero-media">
-    <img class="hero-bg" src="assets/images/hero-consulta-carol.jpg" alt="Dra. Carol Haneda em consulta com paciente, na recepção da clínica com o monograma CH dourado">
+    <img class="hero-bg" src="assets/images/hero-consulta-carol.jpg" width="1800" height="1462" alt="Dra. Carol Haneda em consulta com uma paciente, na mesa de atendimento da clínica" fetchpriority="high">
     <div class="hero-scrim"></div>
   </div>
 
   <div class="hero-content">
-    <p class="eyebrow eyebrow--light reveal" data-reveal>Biomédica esteta · Bauru, SP</p>
     <h1 class="hero-title">
-      <span class="reveal" data-reveal>Beleza <em>natural</em>,</span>
-      <span class="reveal" data-reveal>cuidado do início ao fim.</span>
+      <span data-reveal>Beleza <em>natural</em>,</span>
+      <span data-reveal>cuidado do início ao fim.</span>
     </h1>
-    <p class="hero-sub reveal" data-reveal>
-      Harmonização facial e corporal com técnica, ética e olhar personalizado —
-      em uma clínica pensada para que você se sinta cuidada e especial em cada detalhe.
+    <p class="hero-sub" data-reveal>
+      Harmonização facial e corporal em Bauru, com técnica, ética e olhar personalizado,
+      numa clínica pensada para que você se sinta cuidada em cada detalhe.
     </p>
-    <div class="hero-actions reveal" data-reveal>
+    <div class="hero-actions" data-reveal>
       <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">
         Agendar avaliação no WhatsApp
       </a>
       <a href="#procedimentos" class="btn btn-ghost">Ver procedimentos</a>
     </div>
-    <p class="hero-rating reveal" data-reveal><span aria-hidden="true">★★★★★</span> 4,9 no Google · 206 avaliações</p>
+    <p class="hero-rating" data-reveal>
+      <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+      4,9 no Google · 206 avaliações
+    </p>
   </div>
-
-  <a href="#sobre" class="scroll-cue" aria-label="Rolar para baixo">
-    <span></span>
-  </a>
 </section>
-
-<!-- ============ MARQUEE ============ -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track">
-    <span>Toxina botulínica</span><span>✦</span>
-    <span>Bioestimulador de colágeno</span><span>✦</span>
-    <span>Sculptra</span><span>✦</span>
-    <span>Preenchimentos</span><span>✦</span>
-    <span>Full Face</span><span>✦</span>
-    <span>Ultraformer</span><span>✦</span>
-    <span>Laser Lavieen</span><span>✦</span>
-    <span>Harmonização corporal</span><span>✦</span>
-    <span>Toxina botulínica</span><span>✦</span>
-    <span>Bioestimulador de colágeno</span><span>✦</span>
-    <span>Sculptra</span><span>✦</span>
-    <span>Preenchimentos</span><span>✦</span>
-    <span>Full Face</span><span>✦</span>
-    <span>Ultraformer</span><span>✦</span>
-    <span>Laser Lavieen</span><span>✦</span>
-    <span>Harmonização corporal</span><span>✦</span>
-  </div>
-</div>
 
 <!-- ============ SOBRE ============ -->
 <section class="about" id="sobre">
-  <div class="about-media reveal" data-reveal>
+  <div class="about-media" data-reveal>
     <div class="about-photo-frame">
-      <img src="assets/images/sobre-carol-haneda.jpg" alt="Retrato da Dra. Carol Haneda na clínica">
+      <img src="assets/images/sobre-carol-haneda.jpg" width="900" height="900" loading="lazy" alt="Retrato da Dra. Carol Haneda na clínica">
     </div>
     <div class="about-photo-accent"></div>
   </div>
 
   <div class="about-content">
-    <p class="eyebrow reveal" data-reveal>Quem cuida de você</p>
-    <h2 class="section-title reveal" data-reveal>Dra. Carol Haneda</h2>
-    <p class="about-lead reveal" data-reveal>
-      Biomédica esteta, mentora e professora — há 9 anos transformando autoestima
+    <h2 class="section-title" data-reveal>Dra. Carol Haneda</h2>
+    <p class="about-lead" data-reveal>
+      Biomédica esteta, mentora e professora. Há 9 anos transformando autoestima
       com resultados de verdade e naturalidade.
     </p>
-    <p class="reveal" data-reveal>
+    <p data-reveal>
       Caroline Haneda Xavier começou cedo: formação técnica em estética, graduação em
       biomedicina, <strong>pós-graduação em Estética Avançada</strong> e especializações
       nacionais e internacionais. Fez residência na Itália e segue buscando referências
       em destinos como Miami, Paris, Itália e Mônaco para trazer o que há de mais atual
       aos protocolos da clínica.
     </p>
-    <p class="reveal" data-reveal>
+    <p data-reveal>
       Na consulta, a conduta é ética: indicar apenas o que é seguro e realmente
       necessário para você, com um plano feito sob medida para os seus traços.
     </p>
 
-    <ul class="credentials reveal" data-reveal>
+    <ul class="credentials" data-reveal>
       <li>CRBM 51120</li>
       <li>Pós em Estética Avançada</li>
       <li>Residência na Itália</li>
     </ul>
-
-    <div class="stats reveal" data-reveal>
-      <div class="stat">
-        <span class="stat-number" data-count="4.9" data-format="decimal">0</span>
-        <span class="stat-label">Nota no Google</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number" data-count="206" data-format="int">0</span>
-        <span class="stat-label">Avaliações de pacientes</span>
-      </div>
-      <div class="stat">
-        <span class="stat-number" data-count="9" data-format="int">0</span>
-        <span class="stat-label">Anos de atuação</span>
-      </div>
-    </div>
   </div>
 </section>
 
 <!-- ============ PROCEDIMENTOS ============ -->
 <section class="services" id="procedimentos">
   <div class="services-intro">
-    <div class="section-head section-head--flush">
-      <p class="eyebrow reveal" data-reveal>Procedimentos</p>
-      <h2 class="section-title reveal" data-reveal>Harmonização facial e corporal</h2>
-      <p class="section-lead reveal" data-reveal>
+    <div>
+      <h2 class="section-title" data-reveal>Harmonização facial e corporal</h2>
+      <p class="section-lead" data-reveal>
         Cada tratamento começa por uma avaliação individual. A proposta é realçar os seus
-        traços com elegância — nunca transformar você em outra pessoa.
+        traços com elegância, nunca transformar você em outra pessoa.
       </p>
     </div>
-    <figure class="services-photo reveal" data-reveal>
-      <img src="assets/images/atendimento-harmonizacao.jpg" alt="Dra. Carol Haneda avaliando o rosto de uma paciente, que confere o resultado no espelho">
+    <figure class="services-photo" data-reveal>
+      <img src="assets/images/atendimento-harmonizacao.jpg" width="850" height="568" loading="lazy" alt="Dra. Carol Haneda avaliando o rosto de uma paciente, que confere o resultado no espelho">
     </figure>
   </div>
 
-  <div class="services-grid">
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">01</span>
-      <h3>Toxina botulínica</h3>
-      <p>O Botox para suavizar rugas e linhas de expressão, preservando a naturalidade do olhar e do sorriso.</p>
-    </article>
+  <div class="proc-groups">
+    <div class="proc-group" data-reveal>
+      <h3 class="proc-group-title">Rosto</h3>
+      <dl class="proc-list">
+        <div><dt>Toxina botulínica</dt><dd>O Botox para suavizar rugas e linhas de expressão, preservando a naturalidade do olhar e do sorriso.</dd></div>
+        <div><dt>Bioestimuladores &amp; Sculptra</dt><dd>Estímulo da produção de colágeno para tratar flacidez e devolver firmeza e qualidade à pele.</dd></div>
+        <div><dt>Preenchimentos</dt><dd>Lábios, contornos e rinomodelação com ácido hialurônico: volume e definição na medida certa.</dd></div>
+        <div><dt>Full Face</dt><dd>Harmonização facial completa, planejada como um todo para equilibrar proporções com leveza.</dd></div>
+      </dl>
+    </div>
+    <div class="proc-group" data-reveal>
+      <h3 class="proc-group-title">Pele &amp; corpo</h3>
+      <dl class="proc-list">
+        <div><dt>Ultraformer</dt><dd>Ultrassom microfocado para efeito lifting e firmeza, no rosto e no corpo.</dd></div>
+        <div><dt>Laser Lavieen</dt><dd>Laser para textura, viço e uniformização do tom, um aliado no tratamento de manchas.</dd></div>
+        <div><dt>Harmonização corporal</dt><dd>Protocolos para flacidez, celulite e gordura localizada, pensados para os seus objetivos.</dd></div>
+        <div><dt>Depilação</dt><dd>Pele lisa com praticidade, no mesmo ambiente acolhedor dos demais cuidados.</dd></div>
+      </dl>
+    </div>
+  </div>
 
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">02</span>
-      <h3>Bioestimuladores &amp; Sculptra</h3>
-      <p>Estímulo da produção de colágeno para tratar flacidez e devolver firmeza e qualidade à pele.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">03</span>
-      <h3>Preenchimentos</h3>
-      <p>Lábios, contornos e rinomodelação com ácido hialurônico — volume e definição na medida certa.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">04</span>
-      <h3>Full Face</h3>
-      <p>Harmonização facial completa, planejada como um todo para equilibrar proporções com leveza.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">05</span>
-      <h3>Ultraformer</h3>
-      <p>Tecnologia de ultrassom microfocado para efeito lifting e firmeza, no rosto e no corpo.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">06</span>
-      <h3>Laser Lavieen</h3>
-      <p>Laser para textura, viço e uniformização do tom — um aliado no tratamento de manchas.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">07</span>
-      <h3>Harmonização corporal</h3>
-      <p>Protocolos para flacidez, celulite e gordura localizada, pensados para os seus objetivos.</p>
-    </article>
-
-    <article class="service-card reveal" data-reveal>
-      <span class="service-index">08</span>
-      <h3>Depilação</h3>
-      <p>Pele lisa com praticidade, no mesmo ambiente acolhedor dos demais cuidados.</p>
-    </article>
-
-    <article class="service-card service-card--cta reveal" data-reveal>
-      <span class="service-index">09</span>
-      <h3>Não sabe por onde começar?</h3>
-      <p>Agende uma avaliação: a Dra. Carol monta com você o plano ideal para o seu momento.</p>
-      <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20saber%20qual%20procedimento%20%C3%A9%20ideal%20para%20mim." target="_blank" rel="noopener" class="btn btn-primary btn-small">
-        Conversar no WhatsApp
-      </a>
-    </article>
+  <div class="proc-cta" data-reveal>
+    <p><strong>Não sabe por onde começar?</strong> Agende uma avaliação e a Dra. Carol monta com você o plano ideal para o seu momento.</p>
+    <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20saber%20qual%20procedimento%20%C3%A9%20ideal%20para%20mim." target="_blank" rel="noopener" class="btn btn-primary">
+      Conversar no WhatsApp
+    </a>
   </div>
 </section>
 
 <!-- ============ RESULTADO ============ -->
-<section class="results">
+<section class="results" aria-labelledby="resultados-titulo">
   <div class="results-inner">
     <div class="results-text">
-      <p class="eyebrow reveal" data-reveal>Resultados reais</p>
-      <h2 class="section-title reveal" data-reveal>Elegante, natural, seu.</h2>
-      <p class="section-lead reveal" data-reveal>
+      <h2 class="section-title" id="resultados-titulo" data-reveal>Resultado real: elegante e natural.</h2>
+      <p class="section-lead" data-reveal>
         Preenchimento labial realizado na clínica: mais hidratação, contorno e volume,
         respeitando a anatomia de cada paciente.
       </p>
-      <p class="results-note reveal" data-reveal>Os resultados variam de pessoa para pessoa. A indicação é sempre feita em avaliação individual.</p>
+      <p class="results-note" data-reveal>Os resultados variam de pessoa para pessoa. A indicação é sempre feita em avaliação individual.</p>
     </div>
-    <figure class="result-figure reveal" data-reveal>
-      <img src="assets/images/resultado-labios-antes-depois.jpg" alt="Antes e depois de preenchimento labial: à esquerda, lábios antes do procedimento; à direita, lábios com mais volume e contorno">
+    <figure class="result-figure" data-reveal>
+      <img src="assets/images/resultado-labios-antes-depois.jpg" width="1290" height="958" loading="lazy" alt="Antes e depois de preenchimento labial: à esquerda, lábios antes do procedimento; à direita, lábios com mais volume e contorno">
       <span class="ba-tag ba-tag-before">Antes</span>
       <span class="ba-tag ba-tag-after">Depois</span>
     </figure>
@@ -296,21 +229,20 @@
 <!-- ============ EXPERIENCIA ============ -->
 <section class="experience" id="experiencia">
   <div class="section-head">
-    <p class="eyebrow reveal" data-reveal>A experiência Carol Haneda</p>
-    <h2 class="section-title reveal" data-reveal>Cada detalhe foi pensado para você</h2>
-    <p class="section-lead reveal" data-reveal>
+    <h2 class="section-title" data-reveal>Cada detalhe foi pensado para você</h2>
+    <p class="section-lead" data-reveal>
       Não é só o procedimento. É ser recebida com carinho, esperar com conforto e sair
-      se sentindo especial — é disso que as pacientes mais falam.
+      se sentindo especial. É disso que as pacientes mais falam.
     </p>
   </div>
 
   <div class="experience-grid">
-    <figure class="exp-photo exp-photo--tall reveal" data-reveal>
-      <img src="assets/images/espaco-sala-consulta.jpg" alt="Sala de consulta da clínica, em tons de branco e rosé, com o monograma CH dourado na parede">
+    <figure class="exp-photo exp-photo--tall" data-reveal>
+      <img src="assets/images/espaco-sala-consulta.jpg" width="1170" height="760" loading="lazy" alt="Sala de consulta da clínica, em tons de branco e rosé, com o monograma CH dourado na parede">
       <figcaption>Sala de consulta</figcaption>
     </figure>
 
-    <ul class="exp-list reveal" data-reveal>
+    <ul class="exp-list" data-reveal>
       <li>
         <span class="exp-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
@@ -337,25 +269,24 @@
       </li>
     </ul>
 
-    <figure class="exp-photo reveal" data-reveal>
-      <img src="assets/images/experiencia-menu-cafe.jpg" alt="Cantinho do café da recepção, com máquina de café, bandeja dourada e cardápio para as pacientes">
+    <figure class="exp-photo" data-reveal>
+      <img src="assets/images/experiencia-menu-cafe.jpg" width="1170" height="780" loading="lazy" alt="Cantinho do café da recepção, com máquina de café, bandeja dourada e cardápio para as pacientes">
       <figcaption>Menu da recepção</figcaption>
     </figure>
   </div>
 </section>
 
 <!-- ============ FEATURE / FADA ============ -->
-<section class="feature">
+<section class="feature" aria-labelledby="fada-titulo">
   <div class="feature-media">
-    <img class="feature-el" src="assets/images/carol-editorial.jpg" alt="Retrato editorial da Dra. Carol Haneda">
+    <img class="feature-el" src="assets/images/carol-editorial.jpg" width="1080" height="1080" loading="lazy" alt="Retrato editorial da Dra. Carol Haneda">
     <div class="hero-scrim hero-scrim--soft"></div>
   </div>
-  <div class="feature-text reveal" data-reveal>
-    <p class="eyebrow eyebrow--light">Fada da harmonização</p>
-    <h2>Referência em Bauru, com olhar para o mundo.</h2>
+  <div class="feature-text" data-reveal>
+    <h2 id="fada-titulo">A “fada da harmonização”, com olhar para o mundo.</h2>
     <p>
       Da residência na Itália às atualizações em Miami, Paris e Mônaco, a Dra. Carol traz
-      para a clínica o que há de mais atual — sempre com a assinatura dela: resultado
+      para Bauru o que há de mais atual, sempre com a assinatura dela: resultado
       natural e sofisticado.
     </p>
   </div>
@@ -363,119 +294,81 @@
 
 <!-- ============ AVALIACOES ============ -->
 <section class="reviews" id="avaliacoes">
-  <div class="section-head">
-    <p class="eyebrow reveal" data-reveal>Avaliações</p>
-    <h2 class="section-title reveal" data-reveal>O que dizem as pacientes</h2>
-    <p class="section-lead reveal" data-reveal>
-      Trechos de avaliações públicas deixadas no perfil da clínica no Google.
-    </p>
-  </div>
-
-  <div class="reviews-score-row reveal" data-reveal>
-    <span class="reviews-number">4,9</span>
-    <div class="reviews-stars" aria-label="4,9 de 5 estrelas">★★★★★</div>
-    <p>206 avaliações no Google</p>
-  </div>
-
-  <div class="reviews-marquee reveal" data-reveal>
-    <div class="reviews-track">
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A clínica é linda, a profissional muito atenciosa e ética na hora da consulta, oferece para as pacientes o que acha seguro e necessário! Resultados elegantes e naturais.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A Dra. Carol é uma excelente profissional, me passou muita confiança e o resultado não poderia ser outro: amei minha harmonização facial.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A clínica é maravilhosa, tem estacionamento exclusivo! Menu especial para os clientes e as pacientes ganham buquê de flores após fazer o Full Face.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“Atendimento maravilhoso! A Dra. Carol é super atenciosa e cuidadosa, além do espaço ser lindo e super confortável!”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“É a melhor clínica de estética e harmonização facial de Bauru! Os produtos são de altíssima qualidade!”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“Você é recebido com uma experiência incrível do início ao fim! Cadeira de massagem, menu para os pacientes e um resultado incrível quando termina o procedimento.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A clínica é linda, a profissional muito atenciosa e ética na hora da consulta, oferece para as pacientes o que acha seguro e necessário! Resultados elegantes e naturais.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A Dra. Carol é uma excelente profissional, me passou muita confiança e o resultado não poderia ser outro: amei minha harmonização facial.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“A clínica é maravilhosa, tem estacionamento exclusivo! Menu especial para os clientes e as pacientes ganham buquê de flores após fazer o Full Face.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“Atendimento maravilhoso! A Dra. Carol é super atenciosa e cuidadosa, além do espaço ser lindo e super confortável!”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“É a melhor clínica de estética e harmonização facial de Bauru! Os produtos são de altíssima qualidade!”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
-      <article class="review-card" aria-hidden="true">
-        <div class="review-stars" aria-hidden="true">★★★★★</div>
-        <p class="review-text">“Você é recebido com uma experiência incrível do início ao fim! Cadeira de massagem, menu para os pacientes e um resultado incrível quando termina o procedimento.”</p>
-        <p class="review-author">Paciente · Google</p>
-      </article>
+  <div class="reviews-head">
+    <div>
+      <h2 class="section-title" data-reveal>O que dizem as pacientes</h2>
+      <p class="section-lead" data-reveal>Trechos de avaliações públicas deixadas no perfil da clínica no Google.</p>
+    </div>
+    <div class="reviews-score" data-reveal>
+      <span class="reviews-number">4,9</span>
+      <span class="stars" role="img" aria-label="4,9 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+      <span class="reviews-count">206 avaliações no Google</span>
     </div>
   </div>
 
-  <div class="reviews-cta reveal" data-reveal>
-    <a href="https://www.google.com/search?q=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" class="btn btn-primary">
-      Ver todas as avaliações no Google
-    </a>
+  <div class="reviews-carousel" data-reveal>
+    <div class="reviews-track" id="reviewsTrack" tabindex="0" role="region" aria-label="Avaliações de pacientes (role para ver mais)">
+      <figure class="review-card">
+        <blockquote>“A clínica é linda, a profissional muito atenciosa e ética na hora da consulta, oferece para as pacientes o que acha seguro e necessário! Resultados elegantes e naturais.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card">
+        <blockquote>“A Dra. Carol é uma excelente profissional, me passou muita confiança e o resultado não poderia ser outro: amei minha harmonização facial.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card">
+        <blockquote>“A clínica é maravilhosa, tem estacionamento exclusivo! Menu especial para os clientes e as pacientes ganham buquê de flores após fazer o Full Face.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card">
+        <blockquote>“Atendimento maravilhoso! A Dra. Carol é super atenciosa e cuidadosa, além do espaço ser lindo e super confortável!”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card">
+        <blockquote>“É a melhor clínica de estética e harmonização facial de Bauru! Os produtos são de altíssima qualidade!”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+      <figure class="review-card">
+        <blockquote>“Você é recebido com uma experiência incrível do início ao fim! Cadeira de massagem, menu para os pacientes e um resultado incrível quando termina o procedimento.”</blockquote>
+        <figcaption>Paciente · Google</figcaption>
+      </figure>
+    </div>
+    <div class="reviews-controls">
+      <button class="icon-btn" type="button" data-dir="-1" aria-label="Avaliação anterior" aria-controls="reviewsTrack"><svg class="flip" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <button class="icon-btn" type="button" data-dir="1" aria-label="Próxima avaliação" aria-controls="reviewsTrack"><svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      <a href="https://www.google.com/search?q=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" class="btn btn-light">
+        Ver todas no Google
+      </a>
+    </div>
   </div>
 </section>
 
 <!-- ============ MOMENTOS ============ -->
 <section class="moments" id="momentos">
   <div class="moments-grid">
-    <figure class="moments-photo reveal" data-reveal>
-      <img src="assets/images/carol-haneda-experience-2026.jpg" alt="Dra. Carol Haneda no Carol Haneda Experience 2026">
+    <figure class="moments-photo" data-reveal>
+      <img src="assets/images/carol-haneda-experience-2026.jpg" width="1080" height="1080" loading="lazy" alt="Dra. Carol Haneda no Carol Haneda Experience 2026">
       <figcaption>Carol Haneda Experience · 2026</figcaption>
     </figure>
 
     <div class="moments-content">
-      <p class="eyebrow reveal" data-reveal>Momentos</p>
-      <h2 class="section-title reveal" data-reveal>Muito além da clínica</h2>
-      <p class="section-lead reveal" data-reveal>
-        Criar conexões com as pacientes faz parte da história da clínica — e virou tradição.
+      <h2 class="section-title" data-reveal>Muito além da clínica</h2>
+      <p class="section-lead" data-reveal>
+        Criar conexões com as pacientes faz parte da história da clínica e virou tradição.
       </p>
 
-      <div class="moment reveal" data-reveal>
+      <div class="moment" data-reveal>
         <h3>Carol Haneda Experience</h3>
         <p>
           Em 2026, “Mais um ano celebrando histórias” reuniu pacientes e amigas para
           comemorar o aniversário da clínica, com gastronomia, música ao vivo e experiências sensoriais.
         </p>
       </div>
-      <div class="moment reveal" data-reveal>
+      <div class="moment" data-reveal>
         <h3>Clube do Botox Experience</h3>
         <p>Encontros exclusivos para as pacientes do clube, com mais uma edição celebrada em 2026.</p>
       </div>
-      <div class="moment reveal" data-reveal>
+      <div class="moment" data-reveal>
         <h3>Toque de Fada</h3>
         <p>
           Ação que presenteou mulheres com uma transformação completa de autoestima,
@@ -487,95 +380,90 @@
 </section>
 
 <!-- ============ PROFISSIONAIS ============ -->
-<section class="pro" id="cursos">
-  <div class="pro-card reveal" data-reveal>
+<section class="pro" id="cursos" aria-labelledby="cursos-titulo">
+  <div class="pro-inner" data-reveal>
     <div class="pro-media">
-      <img src="assets/images/cursos-carol-rinomodelacao.jpg" alt="Dra. Carol Haneda em demonstração de rinomodelação">
+      <img src="assets/images/cursos-carol-rinomodelacao.jpg" width="362" height="472" loading="lazy" alt="Dra. Carol Haneda em demonstração de rinomodelação">
     </div>
     <div class="pro-body">
-      <p class="eyebrow">Para profissionais</p>
-      <h2>Cursos e mentoria com a Dra. Carol</h2>
+      <h2 id="cursos-titulo">Para profissionais: cursos e mentoria com a Dra. Carol</h2>
       <p>
         Além da clínica, Carol é professora e mentora de profissionais da estética. Compartilha
         técnica, segurança e experiência em conteúdos como o <strong>curso de rinomodelação</strong>
         e materiais sobre <strong>intercorrências em preenchimento</strong>.
       </p>
       <div class="pro-actions">
-        <a href="https://hotmart.com/pt-br/marketplace/especialista/caroline-haneda-xavier/D8PB62HJ8Q" target="_blank" rel="noopener" class="btn btn-primary btn-small">Conhecer os cursos</a>
-        <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Sou%20profissional%20da%20%C3%A1rea%20e%20gostaria%20de%20saber%20mais%20sobre%20cursos%20e%20mentoria." target="_blank" rel="noopener" class="btn btn-ghost btn-small">Falar sobre mentoria</a>
+        <a href="https://hotmart.com/pt-br/marketplace/especialista/caroline-haneda-xavier/D8PB62HJ8Q" target="_blank" rel="noopener" class="btn btn-primary">Conhecer os cursos</a>
+        <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Sou%20profissional%20da%20%C3%A1rea%20e%20gostaria%20de%20saber%20mais%20sobre%20cursos%20e%20mentoria." target="_blank" rel="noopener" class="btn btn-ghost">Falar sobre mentoria</a>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ INSTAGRAM ============ -->
-<section class="insta">
-  <div class="insta-inner reveal" data-reveal>
-    <p class="eyebrow">No Instagram</p>
-    <h2 class="insta-handle">@carolhanedaestetica</h2>
-    <p class="section-lead">Bastidores, resultados, dicas e os momentos especiais da clínica — acompanhe de perto.</p>
+<section class="insta" aria-labelledby="insta-titulo">
+  <div class="insta-inner" data-reveal>
+    <h2 class="insta-handle" id="insta-titulo">@carolhanedaestetica</h2>
+    <p class="section-lead">Bastidores, resultados, dicas e os momentos especiais da clínica no Instagram. Acompanhe de perto.</p>
     <a href="https://www.instagram.com/carolhanedaestetica/" target="_blank" rel="noopener" class="btn btn-outline">Seguir no Instagram</a>
   </div>
 </section>
 
 <!-- ============ LOCALIZACAO ============ -->
 <section class="location" id="localizacao">
-  <div class="section-head">
-    <p class="eyebrow reveal" data-reveal>Visite</p>
-    <h2 class="section-title reveal" data-reveal>Onde encontrar a clínica</h2>
-  </div>
-
   <div class="location-grid">
-    <div class="location-info reveal" data-reveal>
-      <div class="info-block">
+    <div class="location-info">
+      <h2 class="section-title" data-reveal>Onde encontrar a clínica</h2>
+      <div class="info-block" data-reveal>
         <h3>Endereço</h3>
-        <p>Rua Eduardo Vergueiro de Lorena, 5-5<br>Bauru — SP<br>Estacionamento exclusivo para pacientes</p>
+        <p>Rua Eduardo Vergueiro de Lorena, 5-5<br>Bauru, SP<br>Estacionamento exclusivo para pacientes</p>
       </div>
-      <div class="info-block">
+      <div class="info-block" data-reveal>
         <h3>Atendimento</h3>
-        <p>Com hora marcada.</p>
-        <p class="info-note">Consulte dias e horários disponíveis pelo WhatsApp.</p>
+        <p>Com hora marcada. Consulte dias e horários disponíveis pelo WhatsApp.</p>
       </div>
-      <div class="info-block">
+      <div class="info-block" data-reveal>
         <h3>Contato</h3>
         <p><a href="https://wa.me/5514998155786" target="_blank" rel="noopener">(14) 99815-5786</a><br>
         <a href="https://www.instagram.com/carolhanedaestetica/" target="_blank" rel="noopener">@carolhanedaestetica</a></p>
       </div>
-      <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">
-        Agendar agora
-      </a>
-    </div>
-
-    <div class="location-map reveal" data-reveal>
-      <iframe
-        title="Mapa — Dra. Carol Haneda Estética e Harmonização"
-        src="https://www.google.com/maps?q=Rua+Eduardo+Vergueiro+de+Lorena,+5-5,+Bauru+-+SP&output=embed"
-        loading="lazy"
-        referrerpolicy="no-referrer-when-downgrade">
-      </iframe>
-
-      <div class="map-card">
-        <p class="map-card-name">Dra. Carol Haneda — Estética e Harmonização</p>
-        <p class="map-card-rating"><span aria-hidden="true">★</span> 4,9 · 206 avaliações</p>
-        <p class="map-card-addr">Rua Eduardo Vergueiro de Lorena, 5-5 · Bauru</p>
-        <div class="map-card-actions">
-          <a href="https://www.google.com/maps/search/?api=1&query=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" class="btn btn-outline btn-small">Abrir no Maps</a>
-          <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Eduardo+Vergueiro+de+Lorena%2C+5-5%2C+Bauru+-+SP" target="_blank" rel="noopener" class="btn btn-primary btn-small">Traçar rota</a>
-        </div>
+      <div class="location-actions" data-reveal>
+        <a href="https://wa.me/5514998155786?text=Ol%C3%A1%2C%20Dra.%20Carol!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">Agendar agora</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Rua+Eduardo+Vergueiro+de+Lorena%2C+5-5%2C+Bauru+-+SP" target="_blank" rel="noopener" class="btn btn-ghost">Traçar rota</a>
       </div>
     </div>
+
+    <a class="map" href="https://www.google.com/maps/search/?api=1&query=Dra.+Carol+Haneda+Est%C3%A9tica+e+Harmoniza%C3%A7%C3%A3o+Bauru" target="_blank" rel="noopener" aria-label="Abrir a localização da clínica no Google Maps" data-reveal>
+      <svg class="map-art" viewBox="0 0 640 480" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <rect width="640" height="480" class="map-land"/>
+        <path class="map-block" d="M40 40h150v110H40zM230 40h170v110H230zM440 40h170v70H440zM40 190h150v120H40zM440 150h170v160H440zM40 350h230v100H40zM310 350h130v100H310zM480 350h130v100H480z"/>
+        <path class="map-park" d="M230 190h170v120H230z"/>
+        <path class="map-road" d="M0 170h640M0 330h640M210 0v480M420 0v480"/>
+        <path class="map-street" d="M0 20h640M0 460h640M20 0v480M620 0v480M290 330v150M460 330v150M520 150h100"/>
+      </svg>
+      <span class="map-pin" aria-hidden="true">
+        <span class="map-pin-mark">CH</span>
+      </span>
+      <span class="map-label">
+        <strong>Dra. Carol Haneda</strong>
+        <span>Rua Eduardo Vergueiro de Lorena, 5-5 · Bauru</span>
+        <span class="map-open">Abrir no Google Maps <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </span>
+    </a>
   </div>
 </section>
+
+</main>
 
 <!-- ============ FOOTER ============ -->
 <footer class="site-footer">
   <div class="footer-inner">
     <div class="footer-brand">
-      <span class="brand-mark">CH</span>
+      <span class="brand-mark" aria-hidden="true">CH</span>
       <span class="brand-name">Carol Haneda<em>Estética e Harmonização</em></span>
     </div>
 
-    <nav class="footer-nav">
+    <nav class="footer-nav" aria-label="Rodapé">
       <a href="#sobre">Sobre</a>
       <a href="#procedimentos">Procedimentos</a>
       <a href="#experiencia">Experiência</a>
@@ -590,7 +478,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© <span id="year"></span> Dra. Carol Haneda — Estética e Harmonização · Biomédica esteta · CRBM 51120. Rua Eduardo Vergueiro de Lorena, 5-5, Bauru — SP.</p>
+    <p>© <span id="year"></span> Dra. Carol Haneda Estética e Harmonização · Biomédica esteta · CRBM 51120. Rua Eduardo Vergueiro de Lorena, 5-5, Bauru, SP.</p>
   </div>
 </footer>
 
