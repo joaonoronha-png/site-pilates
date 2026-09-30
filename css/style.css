@@ -316,7 +316,7 @@ section{ position:relative; scroll-margin-top: 72px; }
 .results-note{ margin-top: 22px; font-size: .88rem; font-style: italic; color: var(--tinta-suave); max-width: 44ch; }
 /* antes/depois: arraste para comparar (mesmo recurso do site da Aline) */
 .ba-slider{
-  position:relative; width:100%; max-width: 460px; justify-self:center; aspect-ratio: 645/958;
+  position:relative; width:100%; max-width: 320px; justify-self:center; aspect-ratio: 645/958;
   border-radius: 18px; overflow:hidden; box-shadow: 0 30px 60px -26px rgba(42,33,36,.45);
   touch-action:none; cursor:ew-resize; -webkit-user-select:none; user-select:none; --pos: 50%;
 }
@@ -346,6 +346,7 @@ section{ position:relative; scroll-margin-top: 72px; }
 
 @media (max-width: 860px){
   .results-inner{ grid-template-columns: 1fr; gap: 40px; }
+  .ba-slider{ max-width: 260px; }
 }
 
 /* ---------- experience ---------- */
