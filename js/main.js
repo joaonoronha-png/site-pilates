@@ -7,6 +7,32 @@
 
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
+  // abertura: toque/tecla pula; o nó sai do DOM quando a cortina termina de subir
+  const intro = document.getElementById('intro');
+  const heroSection = document.querySelector('.hero');
+  requestAnimationFrame(() => requestAnimationFrame(() => heroSection?.classList.add('is-ready')));
+  if (intro && document.documentElement.classList.contains('no-intro')) intro.remove();
+  if (intro?.isConnected) {
+    intro.addEventListener('animationend', (e) => { if (e.animationName === 'intro-out') intro.remove(); });
+    const skip = () => {
+      if (!intro.isConnected || intro.classList.contains('is-skipping')) return;
+      intro.classList.add('is-skipping');
+      document.documentElement.style.setProperty('--intro-offset', '.45s');
+      // transições já agendadas não relêem o novo atraso: volta o hero ao
+      // estado inicial sem transição e o reanima com o atraso curto
+      const heroEls = [...heroSection.querySelectorAll('[data-reveal]'), heroSection.querySelector('.hero-bg')];
+      heroEls.forEach(el => { el.style.transition = 'none'; el.classList.remove('in-view'); });
+      heroSection.classList.remove('is-ready');
+      void heroSection.offsetHeight;
+      heroEls.forEach(el => { el.style.transition = ''; });
+      void heroSection.offsetHeight;
+      heroEls.forEach(el => { if (el.hasAttribute('data-reveal')) el.classList.add('in-view'); });
+      heroSection.classList.add('is-ready');
+    };
+    intro.addEventListener('click', skip);
+    window.addEventListener('keydown', skip, { once: true });
+  }
+
   // header shrink + whatsapp fab visibility on scroll
   const onScroll = () => {
     const scrolled = window.scrollY > 40;

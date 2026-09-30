@@ -3,7 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>document.documentElement.classList.add('js-anim');</script>
+<script>
+  (function () {
+    var r = document.documentElement;
+    r.classList.add('js-anim');
+    // a abertura toca uma vez por sessão e nunca para quem prefere menos movimento
+    try {
+      if (sessionStorage.getItem('ch-intro') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('no-intro');
+      else sessionStorage.setItem('ch-intro', '1');
+    } catch (e) {}
+  })();
+</script>
 <title>Dra. Carol Haneda | Estética e Harmonização — Bauru, SP</title>
 <meta name="description" content="Dra. Carol Haneda, biomédica esteta em Bauru: harmonização facial e corporal, toxina botulínica, bioestimuladores, preenchimentos, Full Face, Ultraformer e laser, com resultados naturais e uma experiência pensada do início ao fim.">
 
@@ -49,6 +59,16 @@
 <body>
 
 <div class="grain-overlay" aria-hidden="true"></div>
+
+<!-- ============ ABERTURA ============ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <span class="intro-mark"><span class="intro-c">C</span><span class="intro-h">H</span></span>
+    <span class="intro-line"></span>
+    <span class="intro-name">Carol Haneda</span>
+    <span class="intro-sub">Estética e Harmonização</span>
+  </div>
+</div>
 
 <!-- ============ HEADER ============ -->
 <header class="site-header" id="siteHeader">

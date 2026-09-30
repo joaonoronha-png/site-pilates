@@ -16,7 +16,8 @@ Rodar localmente: `python3 -m http.server 8000` e abrir http://localhost:8000
 
 ## Seções
 
-Hero → Sobre → Procedimentos → Resultado (antes/depois) → Experiência (estacionamento,
+Abertura (monograma CH dourado + nome, ~3 s; toca 1x por sessão, pula com um toque,
+desligada para quem prefere menos movimento) → Hero → Sobre → Procedimentos → Resultado (antes/depois) → Experiência (estacionamento,
 menu, cadeira de massagem, buquê) → "Fada da harmonização" → Avaliações → Momentos
 (Carol Haneda Experience 2026, Clube do Botox, Toque de Fada) → Cursos para profissionais
 → Instagram → Localização.
