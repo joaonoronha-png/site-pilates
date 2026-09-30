@@ -30,7 +30,7 @@ window.CARRIONE_FOTOS = {
     // Blocos de serviços (fotos verticais, ex.: 1200x1500).
     decoracao:   { src: 'assets/fotos/princesa-e-o-sapo-1-1600.webp', alt: "Decoração tema Princesa e o Sapo com balões lilás e verdes e mesas brancas" },
     pegueMonte:  { src: 'assets/fotos/bailarina-4-1600.webp', alt: "Arranjo de flores e peças de decoração sobre cilindro" },
-    buffet:      { src: 'assets/fotos/princesa-e-o-sapo-4-1600.webp', alt: "Doces personalizados em festa decorada pela Carrione Festas" },
+    buffet:      { src: 'assets/fotos/salao-1-1600.webp', alt: "Salão montado pela Carrione Festas com mesas redondas, toalhas amarelas e mesa decorada ao fundo" },
 
     // Seção "Momentos Carrione" (editorial).
     momento1:    { src: 'assets/fotos/moana-baby-1-1600.webp', alt: "Decoração tema Moana Baby com arco de balões coloridos, painel do mar e mesa do bolo" },   // horizontal
@@ -128,6 +128,79 @@ window.CARRIONE_FOTOS = {
         { src: 'assets/fotos/princesa-e-o-sapo-3-1600.webp', w: 1200, h: 1600, alt: "Tiana e sapos em destaque na mesa da Princesa e o Sapo" },
         { src: 'assets/fotos/princesa-e-o-sapo-4-1600.webp', w: 1200, h: 1600, alt: "Doces personalizados tema Princesa e o Sapo" },
         { src: 'assets/fotos/princesa-e-o-sapo-5-1600.webp', w: 1200, h: 1600, alt: "Arranjos de flores, balões e cilindros na festa Princesa e o Sapo" },
+      ],
+    },
+    /* Temas de outros álbuns públicos da página da Carrione no Facebook */
+    {
+      id: 'pequeno-principe', nome: 'Pequeno Príncipe',
+      album: 'https://www.facebook.com/media/set/?set=a.1080633934201917&type=3',
+      tons: ["#6fa3d6", "#e7c56f", "#d9e6f2"],
+      fotos: [
+        { src: 'assets/fotos/pequeno-principe-1-1600.webp', w: 1600, h: 1302, alt: "Decoração tema Pequeno Príncipe com balões azuis, dourados e vermelhos" },
+        { src: 'assets/fotos/pequeno-principe-2-1600.webp', w: 1200, h: 1600, alt: "Mesa do Pequeno Príncipe com arco de balões e arranjos de flores azuis" },
+        { src: 'assets/fotos/pequeno-principe-3-1600.webp', w: 720, h: 960, alt: "Bolo do Pequeno Príncipe com personagens e nome do aniversariante" },
+        { src: 'assets/fotos/pequeno-principe-4-1600.webp', w: 960, h: 720, alt: "Doces personalizados do Pequeno Príncipe e arranjo de rosas azuis" },
+      ],
+    },
+    {
+      id: 'futebol', nome: 'Futebol',
+      album: 'https://www.facebook.com/media/set/?set=a.1081302297468414&type=3',
+      tons: ["#3f8f4a", "#1f2320", "#e6e9e2"],
+      fotos: [
+        { src: 'assets/fotos/futebol-1-1600.webp', w: 1076, h: 869, alt: "Decoração tema futebol com bola gigante, balões verdes e pretos e gramado" },
+        { src: 'assets/fotos/futebol-2-1600.webp', w: 1440, h: 1091, alt: "Mesa tema futebol com troféus, rosas azuis e bolas" },
+        { src: 'assets/fotos/futebol-3-1600.webp', w: 1440, h: 1087, alt: "Painel de futebol com jogador, balões e mesa com troféus" },
+      ],
+    },
+    {
+      id: 'niver-40-anos', nome: 'Aniversário de 40 anos',
+      album: 'https://www.facebook.com/media/set/?set=a.1128056722792971&type=3',
+      tons: ["#c9a24a", "#2b2420", "#efe4cf"],
+      fotos: [
+        { src: 'assets/fotos/niver-40-anos-1-1600.webp', w: 1200, h: 1600, alt: "Mesa de aniversário de 40 anos com balões dourados, pretos e brancos" },
+        { src: 'assets/fotos/niver-40-anos-2-1600.webp', w: 1200, h: 1600, alt: "Mesa do bolo de 40 anos com arranjos de flores e balões dourados" },
+      ],
+    },
+    {
+      id: 'africa', nome: 'África',
+      album: 'https://www.facebook.com/media/set/?set=a.1174901768108466&type=3',
+      tons: ["#c0592b", "#3a2a20", "#e8d3b0"],
+      fotos: [
+        { src: 'assets/fotos/africa-1-1600.webp', w: 1440, h: 1125, alt: "Decoração tema África com painéis de estampa étnica, vasos de palha e folhagens" },
+        { src: 'assets/fotos/africa-2-1600.webp', w: 1440, h: 1125, alt: "Mesa tema África com leques de palha, vasos e boleiras coloridas" },
+      ],
+    },
+    {
+      id: 'princesa-jasmine', nome: 'Princesa Jasmine',
+      album: 'https://www.facebook.com/media/set/?set=a.1174902541441722&type=3',
+      tons: ["#2aa6a6", "#e0b64a", "#cfe9e6"],
+      fotos: [
+        { src: 'assets/fotos/princesa-jasmine-1-1600.webp', w: 960, h: 762, alt: "Decoração tema Princesa Jasmine com painel, balões azuis e tigre" },
+        { src: 'assets/fotos/princesa-jasmine-2-1600.webp', w: 1440, h: 1086, alt: "Mesa da Princesa Jasmine com balões turquesa e dourados" },
+      ],
+    },
+    {
+      id: 'minnie', nome: 'Minnie',
+      album: 'https://www.facebook.com/media/set/?set=a.858800339718612&type=3',
+      tons: ["#e98bb6", "#1f1a1c", "#f6dce8"],
+      fotos: [
+        { src: 'assets/fotos/minnie-1-1600.webp', w: 1440, h: 1080, alt: "Decoração tema Minnie rosa com balões e piso estampado" },
+      ],
+    },
+    {
+      id: 'ursinho-pooh', nome: 'Ursinho Pooh',
+      album: 'https://www.facebook.com/media/set/?set=a.394049399527044&type=3',
+      tons: ["#e8a93a", "#c24a3a", "#f3e6c8"],
+      fotos: [
+        { src: 'assets/fotos/ursinho-pooh-1-1600.webp', w: 1600, h: 1389, alt: "Decoração tema Ursinho Pooh com arco de balões coloridos e pote de mel" },
+      ],
+    },
+    {
+      id: 'brilha-estrelinha', nome: 'Brilha Brilha Estrelinha',
+      album: 'https://www.facebook.com/media/set/?set=a.858800339718612&type=3',
+      tons: ["#f0c9cf", "#e8d49a", "#f7ece6"],
+      fotos: [
+        { src: 'assets/fotos/brilha-estrelinha-1-1600.webp', w: 1440, h: 1018, alt: "Decoração tema Brilha Brilha Estrelinha com lua, estrelas e balões em tons pastel" },
       ],
     },
   ],

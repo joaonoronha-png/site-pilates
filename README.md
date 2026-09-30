@@ -21,6 +21,7 @@ revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mes
   data, bairro, convidados e mensagem. Ao enviar, mostra um resumo e abre o WhatsApp com a mensagem pronta.
   Nada é salvo ou enviado pelo site. Os links "Prefere responder umas perguntas?" dos serviços já marcam o serviço no formulário.
   Os Google Forms do Linktree deixaram de aparecer no site; o formulário próprio os substitui.
+- Mapa "Onde estamos" (Tijuca, OpenStreetMap nas cores da marca) com pin e botão redondo de mapas: Google Maps, Apple Maps e Waze já traçam rota até o endereço (`ENDERECO` no `main.js`).
 - Barra de progresso de leitura, galeria com filtros e ampliação, botão flutuante de WhatsApp.
 
 ## Estrutura
@@ -37,7 +38,8 @@ revelando a foto principal. Clicar pula a intro. Ela não aparece de novo na mes
 
 Tudo o que aparece no site foi conferido no Linktree oficial (`linktr.ee/carrionefestas`):
 
-- WhatsApp: +55 21 99987-4670
+- WhatsApp: +55 21 99987-4670 e +55 21 99416-4793 (o segundo aparece no post "Parceria de Sucesso" do Facebook)
+- Endereço: Av. Melo Matos, 29 - Tijuca, Rio de Janeiro - RJ, 20270-290 (mesmo post, parceria com a Liga Libanesa do Brasil)
 - E-mail: carrionefernanda@gmail.com
 - Instagram: **@carrione_festas** (é o perfil para onde o Linktree aponta)
 - Facebook: facebook.com/profile.php?id=100067659618283
@@ -58,4 +60,5 @@ Os itens abaixo estão marcados com `[PENDENTE]` no código:
 3. **Pegue e Monte.** O texto usa só a definição da modalidade. Faltam confirmar temas/kits, retirada e devolução, prazos e condições.
 4. **Buffet.** Cardápios, itens inclusos e capacidade não são públicos e não foram inseridos.
 5. **Domínio.** Preencher `canonical` e `og:url` no `index.html` e trocar os caminhos de `og:image`/schema por URLs absolutas.
-6. **Endereço.** Não é público e não foi incluído. O mapa foi retirado; se a Carrione confirmar um endereço, dá para trazer de volta o mapa com pin e o botão de rotas (histórico do git, commit "Mapa com contorno do município").
+6. **Endereço.** Usado o endereço do post oficial "Parceria de Sucesso". Confirmar com a Carrione se é o endereço dela ou o salão parceiro (Liga Libanesa do Brasil). O pin fica no meio da Av. Melo Matos (o número 29 não está no OpenStreetMap); os apps de mapa usam o endereço completo.
+7. **Buffet.** Não há fotos de comida publicadas; o bloco usa a foto de um salão montado pela Carrione.

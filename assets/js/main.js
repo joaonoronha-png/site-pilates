@@ -22,7 +22,9 @@
   }
 
   document.querySelectorAll('[data-wa]').forEach(function (a) {
+    var num = a.getAttribute('data-wa-num');
     a.href = waLink(MENSAGENS[a.getAttribute('data-wa')] || MENSAGENS.geral);
+    if (num) a.href = a.href.replace(WHATSAPP, num);
     a.target = '_blank';
     a.rel = 'noopener';
   });
@@ -328,6 +330,7 @@
       var overCta = ctaRect && ctaRect.top < window.innerHeight * 0.6 && ctaRect.bottom > window.innerHeight * 0.4;
       var show = y > heroH * 0.6 && !overCta;
       fabs.classList.toggle('is-visible', show);
+      if (!show && typeof closeMapMenu === 'function') closeMapMenu();
     }
 
     if (canParallax && !useGsap) {
@@ -527,6 +530,48 @@
     if (document.readyState === 'complete') boot();
     else window.addEventListener('load', boot);
   }
+
+  /* ---------- Mapa: apps de navegação ----------
+     Endereço divulgado pela Carrione. Vazio = os apps mostram só a cidade. */
+  var ENDERECO = 'Av. Melo Matos, 29 - Tijuca, Rio de Janeiro - RJ, 20270-290';
+  var DESTINO = ENDERECO || 'Rio de Janeiro, RJ';
+  var q = encodeURIComponent(DESTINO);
+  var mapLinks = {
+    google: ENDERECO ? 'https://www.google.com/maps/dir/?api=1&destination=' + q : 'https://www.google.com/maps/search/?api=1&query=' + q,
+    apple: ENDERECO ? 'https://maps.apple.com/?daddr=' + q + '&dirflg=d' : 'https://maps.apple.com/?q=' + q,
+    waze: 'https://waze.com/ul?q=' + q + (ENDERECO ? '&navigate=yes' : '')
+  };
+  document.querySelectorAll('[data-map-app]').forEach(function (a) { a.href = mapLinks[a.getAttribute('data-map-app')]; });
+
+  var fabMap = document.querySelector('[data-fab-map]');
+  var fabBtn = fabMap && fabMap.querySelector('[data-fab-map-toggle]');
+  function closeMapMenu() {
+    if (!fabMap || !fabMap.classList.contains('is-open')) return;
+    fabMap.classList.remove('is-open');
+    fabBtn.setAttribute('aria-expanded', 'false');
+  }
+  function openMapMenu() {
+    if (!fabMap) return;
+    if (fabs) fabs.classList.add('is-visible');
+    fabMap.classList.add('is-open');
+    fabBtn.setAttribute('aria-expanded', 'true');
+    var first = fabMap.querySelector('.fab-map__menu a');
+    if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+  }
+  if (fabMap) {
+    fabBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (fabMap.classList.contains('is-open')) closeMapMenu(); else openMapMenu();
+    });
+    fabMap.querySelectorAll('.fab-map__menu a').forEach(function (a) { a.addEventListener('click', closeMapMenu); });
+    document.addEventListener('click', function (e) { if (!fabMap.contains(e.target)) closeMapMenu(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && fabMap.classList.contains('is-open')) { closeMapMenu(); fabBtn.focus(); }
+    });
+  }
+  document.querySelectorAll('[data-open-mapmenu]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); openMapMenu(); });
+  });
 
   /* ---------- Pedido: respostas viram mensagem para o WhatsApp ---------- */
   var form = document.querySelector('[data-form]');

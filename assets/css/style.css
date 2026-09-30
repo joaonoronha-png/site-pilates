@@ -631,6 +631,39 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 .contact__area .i { color: var(--apricot); }
 
+/* ---------- onde estamos ---------- */
+.where { margin: clamp(48px, 7vw, 88px) 0 0; display: grid; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); background: #fff; }
+.where__map { position: relative; display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #f4ede9; }
+.where__map img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+.where__map:hover img { transform: scale(1.04); }
+.where__pin { position: absolute; left: 50%; top: 50%; z-index: 2; transform: translate(-50%, -100%); filter: drop-shadow(0 10px 14px rgba(74, 17, 66, .45)); animation: pinDrop .9s var(--ease-out) both; }
+.where__pulse { position: absolute; left: 50%; top: 50%; width: 30px; height: 14px; margin: -7px 0 0 -15px; border-radius: 50%; background: rgba(138, 29, 122, .4); animation: pinPulse 2.4s var(--ease) infinite; }
+@keyframes pinPulse { from { transform: scale(.6); opacity: .9; } to { transform: scale(3); opacity: 0; } }
+@keyframes pinDrop { from { transform: translate(-50%, -160%); opacity: 0; } to { transform: translate(-50%, -100%); opacity: 1; } }
+.where__hint {
+  position: absolute; right: 14px; bottom: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 8px;
+  padding: .5em 1em; border-radius: 999px; background: rgba(255, 255, 255, .95); color: var(--plum-deep);
+  font-size: .8rem; font-weight: 700; box-shadow: 0 10px 24px -12px rgba(42, 28, 46, .5);
+}
+.where__hint .i { width: 16px; height: 16px; transition: transform .4s var(--ease-out); }
+.where__map:hover .where__hint .i { transform: translateX(3px); }
+.where__credit { position: absolute; left: 10px; bottom: 6px; z-index: 2; font-size: .64rem; color: var(--ink-2); background: rgba(255, 255, 255, .7); padding: 0 .4em; border-radius: 4px; }
+.where__card { display: grid; gap: 10px; align-content: center; padding: 28px 24px; }
+.where__card .eyebrow { margin: 0; }
+.where__card h3 { font-size: clamp(1.8rem, 1.4rem + 1.6vw, 2.6rem); }
+.where__addr { font-style: normal; font-size: 1.08rem; font-weight: 600; line-height: 1.55; color: var(--ink); }
+.where__note { margin: 0; color: var(--muted); font-size: .92rem; max-width: 40ch; }
+.where__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 8px; }
+.where__actions .link { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-weight: 600; font-size: .92rem; }
+@media (min-width: 900px) {
+  .where { grid-template-columns: minmax(300px, 36%) 1fr; }
+  .where__card { order: -1; padding: 40px 34px; border-right: 1px solid var(--line); }
+  .where__map { aspect-ratio: auto; min-height: 440px; }
+}
+@media (max-width: 640px) { .where__actions .btn { width: 100%; } }
+.contact__card a.contact__value { text-decoration: none; }
+.contact__card a.contact__value:hover { color: var(--plum); }
+
 /* ---------- pedido (formulário → WhatsApp) ---------- */
 .order { background: linear-gradient(180deg, var(--ivory), var(--paper)); border-top: 1px solid var(--line); }
 .order__grid { display: grid; gap: clamp(36px, 6vw, 80px); align-items: start; }
@@ -711,7 +744,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .footer p { margin: 0; }
 .footer__small { font-size: .8rem; opacity: .8; }
 
-/* ---------- botão flutuante: WhatsApp ---------- */
+/* ---------- botões flutuantes: mapa + WhatsApp ---------- */
 .fabs {
   position: fixed; z-index: 40; display: grid; justify-items: end; gap: 10px;
   right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
@@ -720,6 +753,45 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 .fabs.is-visible { opacity: 1; transform: none; pointer-events: auto; }
 body.menu-open .fabs { opacity: 0; pointer-events: none; }
+.fab {
+  position: relative; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; border: 0;
+  background: var(--plum); color: #fff; box-shadow: 0 14px 30px -12px rgba(74, 17, 66, .7), 0 2px 6px rgba(0, 0, 0, .12);
+  transition: transform .4s var(--ease-out), background-color .3s;
+}
+.fab .i { width: 24px; height: 24px; }
+.fab:hover { transform: translateY(-3px) scale(1.04); }
+.fab:active { transform: scale(.94); }
+.fab--map[aria-expanded="true"] { background: var(--plum-deep); }
+.fab__tip {
+  position: absolute; right: calc(100% + 10px); top: 50%; transform: translate(6px, -50%); white-space: nowrap;
+  padding: .4em .85em; border-radius: 999px; background: var(--ink); color: #fff; font-size: .74rem; font-weight: 700;
+  opacity: 0; pointer-events: none; transition: opacity .3s, transform .3s var(--ease-out);
+}
+.fab:hover .fab__tip, .fab:focus-visible .fab__tip { opacity: 1; transform: translate(0, -50%); }
+.fab-map.is-open .fab__tip { opacity: 0 !important; }
+@media (hover: none) { .fab__tip { display: none; } }
+.fab-map { position: relative; }
+.fab-map__menu {
+  position: absolute; right: 0; bottom: calc(100% + 10px); width: 230px; display: grid; gap: 2px; padding: 8px;
+  border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 24px 50px -18px rgba(42, 28, 46, .5);
+  opacity: 0; transform: translateY(8px) scale(.96); transform-origin: bottom right; pointer-events: none;
+  transition: opacity .25s var(--ease), transform .35s var(--ease-out);
+}
+.fab-map.is-open .fab-map__menu { opacity: 1; transform: none; pointer-events: auto; }
+.fab-map__title { margin: 0; padding: 6px 10px 8px; font-size: .68rem; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); display: grid; gap: 2px; }
+.fab-map__title small { font-size: .82rem; letter-spacing: 0; text-transform: none; color: var(--ink); font-weight: 600; }
+.fab-map__menu a {
+  display: flex; align-items: center; gap: 12px; min-height: 46px; padding: 6px 10px; border-radius: 12px;
+  font-size: .92rem; font-weight: 600; color: var(--ink); text-decoration: none; transition: background-color .2s;
+}
+.fab-map__menu a:hover, .fab-map__menu a:focus-visible { background: var(--ivory); }
+.fab-map__ico { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; flex: none; }
+.fab-map__ico .i { width: 16px; height: 16px; }
+.fab-map__ico--google { background: #fff; color: #ea4335; border: 1px solid var(--line); }
+.fab-map__ico--apple { background: #1d1d1f; color: #fff; }
+.fab-map__ico--waze { background: #33ccff; color: #fff; }
+.fab-map__ico--site { background: rgba(138, 29, 122, .1); color: var(--plum); }
+
 .wa-float {
   position: relative; display: inline-flex; align-items: center; gap: 10px;
   height: 56px; padding: 0 16px; border-radius: 999px;
