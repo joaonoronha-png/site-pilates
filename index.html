@@ -336,13 +336,36 @@
 
       <div class="wrap">
         <div class="map rv-img">
-          <div class="map__ph" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M12 21.5s-7-6.2-7-11.8a7 7 0 0 1 14 0c0 5.6-7 11.8-7 11.8z"/><circle cx="12" cy="9.7" r="2.6"/></svg>
-            <b>Graal Marcenaria</b>
-            <span>Rua Maria Luíza Pitanga, 45, Loja E · Joá</span>
+          <a class="map__canvas" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Maria+Lu%C3%ADza+Pitanga+45+Jo%C3%A1+Rio+de+Janeiro+RJ+22611-190" target="_blank" rel="noopener" aria-label="Abrir a localização da Graal Marcenaria no Google Maps">
+            <img src="assets/img/mapa.jpg" alt="Mapa da região do Joá e Barrinha, com a localização da Graal Marcenaria na Rua Maria Luíza Pitanga" loading="lazy">
+            <span class="map__pin" aria-hidden="true">
+              <span class="map__pulse"></span>
+              <svg viewBox="0 0 40 52"><path d="M20 51S2 32.6 2 19.5A18 18 0 0 1 38 19.5C38 32.6 20 51 20 51z"/><rect x="12" y="11" width="16" height="16" fill="none" stroke="#f6f3ee" stroke-width="1.6"/><path d="M12 22h16M17 22v5M23 11v11" fill="none" stroke="#f6f3ee" stroke-width="1.6"/></svg>
+              <span class="map__label">Graal Marcenaria</span>
+            </span>
+          </a>
+
+          <div class="map__card">
+            <p class="kicker">Nossa loja</p>
+            <h3>Rua Maria Luíza Pitanga, 45 — Loja E</h3>
+            <p class="map__addr">Joá · Rio de Janeiro – RJ · 22611-190<br>Próximo à Ponte da Joatinga</p>
+            <ul class="map__hours">
+              <li><span>Seg a sex</span><b>9h – 21h</b></li>
+              <li><span>Sábado</span><b>10h – 16h</b></li>
+              <li><span>Domingo</span><b>Fechado</b></li>
+            </ul>
+            <div class="map__actions">
+              <a class="map__go" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua+Maria+Lu%C3%ADza+Pitanga+45+Jo%C3%A1+Rio+de+Janeiro+RJ+22611-190" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21.5s-7-6.2-7-11.8a7 7 0 0 1 14 0c0 5.6-7 11.8-7 11.8z"/><circle cx="12" cy="9.7" r="2.6"/></svg>
+                Google Maps
+              </a>
+              <a class="map__go map__go--alt" href="https://waze.com/ul?q=Rua%20Maria%20Lu%C3%ADza%20Pitanga%2045%20Jo%C3%A1%20Rio%20de%20Janeiro&amp;navigate=yes" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 13.5a8 8 0 1 1 15.6 2.5c-.7 2-2.6 3.5-5 3.5H9.5A2 2 0 0 1 6 20.5"/><circle cx="9.5" cy="10.5" r=".9" fill="currentColor"/><circle cx="14.5" cy="10.5" r=".9" fill="currentColor"/><path d="M9.5 13.8c1.4 1.2 3.6 1.2 5 0"/></svg>
+                Waze
+              </a>
+            </div>
           </div>
-          <iframe title="Mapa — Graal Marcenaria, Rua Maria Luíza Pitanga 45, Joá" src="https://maps.google.com/maps?q=Rua%20Maria%20Lu%C3%ADza%20Pitanga%2C%2045%20-%20Jo%C3%A1%2C%20Rio%20de%20Janeiro%20-%20RJ%2C%2022611-190&z=16&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-          <a class="map__btn" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Maria+Lu%C3%ADza+Pitanga+45+Jo%C3%A1+Rio+de+Janeiro+RJ+22611-190" target="_blank" rel="noopener">Como chegar ↗</a>
+          <small class="map__credit">© <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></small>
         </div>
       </div>
     </section>
