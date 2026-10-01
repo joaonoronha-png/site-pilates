@@ -175,7 +175,13 @@ form.addEventListener('submit', (e) => {
     form.mensagem.value.trim() && `• Observações: ${form.mensagem.value.trim()}`,
   ].filter(Boolean);
   note.textContent = 'Abrindo o WhatsApp…';
-  window.open(waLink(lines.join('\n')), '_blank', 'noopener');
+  const a = document.createElement('a');
+  a.href = waLink(lines.join('\n'));
+  a.target = '_blank';
+  a.rel = 'noopener';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
