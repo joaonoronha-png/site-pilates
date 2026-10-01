@@ -37,6 +37,35 @@
   </script>
 </head>
 <body>
+  <script>
+    // mostra a abertura uma vez por sessão (e nunca para quem prefere menos movimento)
+    (function () {
+      var seen = false;
+      try { seen = sessionStorage.getItem('vh-intro') === '1'; } catch (e) {}
+      if (!seen && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('intro-on');
+      }
+    })();
+  </script>
+
+  <!-- ============ ABERTURA ============ -->
+  <div class="intro" id="intro" aria-hidden="true">
+    <div class="intro-half intro-top"></div>
+    <div class="intro-half intro-bottom"></div>
+    <div class="intro-stage">
+      <svg class="intro-logo" viewBox="0 0 220 140">
+        <ellipse class="intro-oval" cx="110" cy="70" rx="106" ry="66"/>
+        <ellipse class="intro-oval-in" cx="110" cy="70" rx="96" ry="57"/>
+        <text class="intro-w1" x="110" y="62" text-anchor="middle">Buffet</text>
+        <text class="intro-w2" x="110" y="100" text-anchor="middle">Von Held</text>
+      </svg>
+      <span class="intro-line"></span>
+      <p class="intro-tag">Desde 2009 · Taquara · Rio de Janeiro</p>
+    </div>
+    <button class="intro-skip" type="button">Pular</button>
+  </div>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
 
   <!-- Ícones: logotipo recriado em vetor a partir da marca oval azul do Buffet Von Held + WhatsApp -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -60,10 +89,10 @@
     <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
       <a href="#eventos">Eventos</a>
       <a href="#gastronomia">Gastronomia</a>
-      <a href="#estrutura">Estrutura</a>
       <a href="#galeria">Galeria</a>
-      <a href="#sobre">Sobre</a>
+      <a href="#planeje">Monte sua festa</a>
       <a href="#avaliacoes">Avaliações</a>
+      <a href="#duvidas">Dúvidas</a>
       <a href="#localizacao">Localização</a>
       <a href="#orcamento" class="nav-cta">Orçamento</a>
     </nav>
@@ -127,6 +156,11 @@
         <div class="hl reveal"><strong>1</strong><span>só lugar para cerimônia, recepção e festa</span></div>
       </div>
     </section>
+
+    <!-- ============ FAIXA DE EVENTOS ============ -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track"><span>Casamentos</span><i>✦</i><span>Festas de 15 anos</span><i>✦</i><span>Aniversários</span><i>✦</i><span>Bodas</span><i>✦</i><span>Festas infantis</span><i>✦</i><span>Confraternizações</span><i>✦</i><span>Eventos corporativos</span><i>✦</i><span>Festas juninas</span><i>✦</i><span>Casamentos</span><i>✦</i><span>Festas de 15 anos</span><i>✦</i><span>Aniversários</span><i>✦</i><span>Bodas</span><i>✦</i><span>Festas infantis</span><i>✦</i><span>Confraternizações</span><i>✦</i><span>Eventos corporativos</span><i>✦</i><span>Festas juninas</span><i>✦</i></div>
+    </div>
 
     <!-- ============ EVENTOS ============ -->
     <section class="section events" id="eventos">
@@ -317,16 +351,22 @@
           <p class="eyebrow">Galeria</p>
           <h2>Momentos que<br><em>já celebramos</em></h2>
         </header>
+        <div class="filters reveal" role="group" aria-label="Filtrar fotos">
+          <button type="button" class="chip is-on" data-filter="todos" aria-pressed="true">Todas</button>
+          <button type="button" class="chip" data-filter="espaco" aria-pressed="false">Espaço</button>
+          <button type="button" class="chip" data-filter="decoracao" aria-pressed="false">Decoração</button>
+          <button type="button" class="chip" data-filter="doces" aria-pressed="false">Doces</button>
+        </div>
       </div>
       <div class="gallery-grid">
-        <button class="g-item g-big" data-full="img/mesa-posta-lg.jpg"><img src="img/mesa-posta.jpg" alt="Mesa posta com arranjo floral e taças sob luz dourada" loading="lazy"></button>
-        <button class="g-item" data-full="img/bem-casados-lg.jpg"><img src="img/bem-casados.jpg" alt="Torres de bem-casados com girassóis" loading="lazy"></button>
-        <button class="g-item" data-full="img/mesa-de-doces-lg.jpg"><img src="img/mesa-de-doces.jpg" alt="Mesa de doces decorada com flores e iluminação" loading="lazy"></button>
-        <button class="g-item g-wide" data-full="img/cerimonia-lg.jpg"><img src="img/cerimonia.jpg" alt="Espaço de cerimônia com corredor e arranjos" loading="lazy"></button>
-        <button class="g-item" data-full="img/doces-finos-lg.jpg"><img src="img/doces-finos.jpg" alt="Doces finos e margaridas na mesa de doces" loading="lazy"></button>
-        <button class="g-item" data-full="img/salao-casamento-lg.jpg"><img src="img/salao-casamento.jpg" alt="Salão montado para casamento com mesas redondas" loading="lazy"></button>
-        <button class="g-item g-wide" data-full="img/salao-lg.jpg"><img src="img/salao.jpg" alt="Salão do Buffet Von Held com mesas e toalhas azuis" loading="lazy"></button>
-        <button class="g-item g-wide" data-full="img/variedade-doces-lg.jpg"><img src="img/variedade-doces.jpg" alt="Variedade de doces servidos no buffet" loading="lazy"></button>
+        <button class="g-item g-big" data-cat="decoracao" data-full="img/mesa-posta-lg.jpg"><img src="img/mesa-posta.jpg" alt="Mesa posta com arranjo floral e taças sob luz dourada" loading="lazy"></button>
+        <button class="g-item" data-cat="doces" data-full="img/bem-casados-lg.jpg"><img src="img/bem-casados.jpg" alt="Torres de bem-casados com girassóis" loading="lazy"></button>
+        <button class="g-item" data-cat="decoracao" data-full="img/mesa-de-doces-lg.jpg"><img src="img/mesa-de-doces.jpg" alt="Mesa de doces decorada com flores e iluminação" loading="lazy"></button>
+        <button class="g-item g-wide" data-cat="espaco" data-full="img/cerimonia-lg.jpg"><img src="img/cerimonia.jpg" alt="Espaço de cerimônia com corredor e arranjos" loading="lazy"></button>
+        <button class="g-item" data-cat="doces" data-full="img/doces-finos-lg.jpg"><img src="img/doces-finos.jpg" alt="Doces finos e margaridas na mesa de doces" loading="lazy"></button>
+        <button class="g-item" data-cat="espaco" data-full="img/salao-casamento-lg.jpg"><img src="img/salao-casamento.jpg" alt="Salão montado para casamento com mesas redondas" loading="lazy"></button>
+        <button class="g-item g-wide" data-cat="espaco" data-full="img/salao-lg.jpg"><img src="img/salao.jpg" alt="Salão do Buffet Von Held com mesas e toalhas azuis" loading="lazy"></button>
+        <button class="g-item g-wide" data-cat="doces" data-full="img/variedade-doces-lg.jpg"><img src="img/variedade-doces.jpg" alt="Variedade de doces servidos no buffet" loading="lazy"></button>
       </div>
     </section>
 
@@ -379,6 +419,120 @@
         </div>
 
         <a class="link-arrow center light reveal" href="https://www.google.com/maps/search/?api=1&query=Buffet+Von+Held+Rua+Macembu+1703+Taquara+Rio+de+Janeiro" target="_blank" rel="noopener">Ler avaliações no Google <span>→</span></a>
+      </div>
+    </section>
+
+    <!-- ============ MONTE SUA FESTA ============ -->
+    <section class="section planner" id="planeje">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Monte sua festa</p>
+          <h2>Desenhe a sua celebração<br><em>em poucos cliques</em></h2>
+          <p class="lead center">Escolha o tipo de evento, o número de convidados e o que não pode faltar. Enviamos tudo para a nossa equipe preparar o seu orçamento.</p>
+        </header>
+
+        <div class="planner-wrap">
+          <form class="planner-form reveal" id="planner">
+            <fieldset>
+              <legend>Tipo de evento</legend>
+              <div class="chips">
+              <label class="chip"><input type="radio" name="p-evento" value="Casamento" checked><span>Casamento</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="15 anos"><span>15 anos</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="Aniversário"><span>Aniversário</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="Infantil"><span>Infantil</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="Bodas"><span>Bodas</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="Confraternização"><span>Confraternização</span></label>
+              <label class="chip"><input type="radio" name="p-evento" value="Corporativo"><span>Corporativo</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Convidados <output id="pConvOut" for="pConv">120</output></legend>
+              <input type="range" id="pConv" name="p-conv" min="20" max="500" step="10" value="120" aria-label="Número de convidados">
+              <div class="range-scale"><span>20</span><span>250</span><span>500+</span></div>
+            </fieldset>
+
+            <fieldset>
+              <legend>No cardápio</legend>
+              <div class="chips">
+              <label class="chip"><input type="checkbox" name="p-menu" value="Entradas"><span>Entradas</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Mini porções"><span>Mini porções</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Crepe no salão"><span>Crepe no salão</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Pratos quentes"><span>Pratos quentes</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Menu infantil"><span>Menu infantil</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Menu junino"><span>Menu junino</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Menu boteco"><span>Menu boteco</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Doces finos"><span>Doces finos</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Bem-casados"><span>Bem-casados</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Bolo"><span>Bolo</span></label>
+              <label class="chip"><input type="checkbox" name="p-menu" value="Open bar"><span>Open bar</span></label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>Extras</legend>
+              <div class="chips">
+              <label class="chip"><input type="checkbox" name="p-extra" value="Cerimônia no local"><span>Cerimônia no local</span></label>
+              <label class="chip"><input type="checkbox" name="p-extra" value="Decoração"><span>Decoração</span></label>
+              <label class="chip"><input type="checkbox" name="p-extra" value="Organização completa"><span>Organização completa</span></label>
+              </div>
+            </fieldset>
+          </form>
+
+          <aside class="ticket reveal" aria-live="polite">
+            <svg class="ticket-logo" aria-hidden="true"><use href="#logo"/></svg>
+            <p class="ticket-label">Sua festa</p>
+            <h3 class="ticket-title" id="tEvento">Casamento</h3>
+            <p class="ticket-guests"><strong id="tConv">120</strong> convidados</p>
+            <div class="ticket-sep"></div>
+            <p class="ticket-label">Cardápio &amp; extras</p>
+            <ul class="ticket-list" id="tList"><li class="empty">Escolha os itens ao lado</li></ul>
+            <a class="btn btn-gold btn-block" id="tSend" href="#orcamento" target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#wa"/></svg>
+              Enviar pelo WhatsApp
+            </a>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DÚVIDAS ============ -->
+    <section class="section faq" id="duvidas">
+      <div class="container narrow">
+        <header class="section-head reveal">
+          <p class="eyebrow">Dúvidas frequentes</p>
+          <h2>Tudo o que você<br><em>quer saber</em></h2>
+        </header>
+        <div class="faq-list">
+          <details class="reveal" open>
+            <summary>Posso fazer a cerimônia no próprio buffet?</summary>
+            <p>Sim. Temos espaço preparado para cerimônia, então você casa e celebra no mesmo endereço, sem deslocar os convidados.</p>
+          </details>
+          <details class="reveal">
+            <summary>A comida é preparada no local?</summary>
+            <p>Sim. Temos cozinha própria e tudo é preparado no dia do evento: entradas, mini porções em ramequins, crepe montado no salão e pratos quentes.</p>
+          </details>
+          <details class="reveal">
+            <summary>Vocês têm cardápios temáticos?</summary>
+            <p>Temos menu infantil, menu junino e menu estilo boteco, além de cardápios totalmente personalizados com gastronomia tradicional e regional.</p>
+          </details>
+          <details class="reveal">
+            <summary>Posso levar o meu próprio bolo?</summary>
+            <p>Pode. Oferecemos bolo, mas se você já tem a sua confeitaria preferida, fique à vontade para trazer o seu.</p>
+          </details>
+          <details class="reveal">
+            <summary>Como funciona o open bar?</summary>
+            <p>O open bar é contratado em pacotes, com bebidas à vontade durante o tempo de festa combinado. Fale com a gente para ver as opções.</p>
+          </details>
+          <details class="reveal">
+            <summary>O salão é climatizado?</summary>
+            <p>Sim, o salão tem ar-condicionado para o conforto de todos os convidados.</p>
+          </details>
+          <details class="reveal">
+            <summary>Posso visitar o espaço antes de fechar?</summary>
+            <p>Claro. Agende uma visita pelo WhatsApp para conhecer o salão, o espaço de cerimônia e conversar sobre o seu cardápio.</p>
+          </details>
+        </div>
       </div>
     </section>
 
@@ -440,6 +594,7 @@
             <div class="field">
               <label for="qData">Data prevista</label>
               <input id="qData" name="data" type="date">
+              <small class="countdown" id="countdown" aria-live="polite"></small>
             </div>
             <div class="field">
               <label for="qConv">Convidados</label>
@@ -486,6 +641,8 @@
       <span>© <span id="year">2026</span> Buffet Von Held · desde 2009. Todos os direitos reservados.</span>
     </div>
   </footer>
+
+  <a class="to-top" id="toTop" href="#inicio" aria-label="Voltar ao topo">↑</a>
 
   <!-- WhatsApp flutuante -->
   <a class="wa-float js-wa" href="#orcamento" aria-label="Falar no WhatsApp">

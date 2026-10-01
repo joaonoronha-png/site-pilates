@@ -7,16 +7,44 @@ const waLink = (text) =>
   `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(text)}`;
 
 document.documentElement.classList.remove('no-js');
-window.addEventListener('load', () => document.body.classList.add('loaded'));
-setTimeout(() => document.body.classList.add('loaded'), 600);
+
+/* Abertura: logotipo desenhado + cortina que se abre */
+const root = document.documentElement;
+const intro = document.getElementById('intro');
+let heroStarted = false;
+const startHero = () => {
+  if (heroStarted) return;
+  heroStarted = true;
+  document.body.classList.add('loaded');
+};
+const closeIntro = () => {
+  if (!root.classList.contains('intro-on') || intro.classList.contains('is-leaving')) return;
+  try { sessionStorage.setItem('vh-intro', '1'); } catch (e) {}
+  intro.classList.add('is-leaving');
+  setTimeout(startHero, 450);
+  setTimeout(() => root.classList.remove('intro-on'), 1200);
+};
+if (root.classList.contains('intro-on')) {
+  setTimeout(closeIntro, 3000);
+  intro.addEventListener('click', closeIntro);
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' || e.key === 'Enter') closeIntro(); });
+} else {
+  window.addEventListener('load', startHero);
+  setTimeout(startHero, 600);
+}
 
 /* Header ao rolar + botão flutuante */
 const nav = document.getElementById('nav');
 const waFloat = document.querySelector('.wa-float');
+const progress = document.getElementById('progress');
+const toTop = document.getElementById('toTop');
 const onScroll = () => {
   const y = window.scrollY;
+  const max = document.documentElement.scrollHeight - window.innerHeight;
   nav.classList.toggle('scrolled', y > 60);
   waFloat.classList.toggle('show', y > window.innerHeight * 0.6);
+  toTop.classList.toggle('show', y > window.innerHeight * 1.5);
+  progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 };
 window.addEventListener('scroll', onScroll, { passive: true });
 onScroll();
@@ -104,10 +132,12 @@ const lb = document.getElementById('lightbox');
 const lbImg = lb.querySelector('img');
 let lbIndex = 0;
 let lastFocus = null;
+const visibleItems = () => items.filter((it) => !it.classList.contains('is-out'));
 const showLb = (i) => {
-  lbIndex = (i + items.length) % items.length;
-  lbImg.src = items[lbIndex].dataset.full;
-  lbImg.alt = items[lbIndex].querySelector('img').alt;
+  const list = visibleItems();
+  lbIndex = (i + list.length) % list.length;
+  lbImg.src = list[lbIndex].dataset.full;
+  lbImg.alt = list[lbIndex].querySelector('img').alt;
 };
 const openLb = (i) => {
   lastFocus = document.activeElement;
@@ -121,7 +151,7 @@ const closeLb = () => {
   document.body.style.overflow = '';
   if (lastFocus) lastFocus.focus();
 };
-items.forEach((item, i) => item.addEventListener('click', () => openLb(i)));
+items.forEach((item) => item.addEventListener('click', () => openLb(visibleItems().indexOf(item))));
 lb.querySelector('.lb-close').addEventListener('click', closeLb);
 lb.querySelector('.lb-prev').addEventListener('click', () => showLb(lbIndex - 1));
 lb.querySelector('.lb-next').addEventListener('click', () => showLb(lbIndex + 1));
@@ -185,3 +215,77 @@ form.addEventListener('submit', (e) => {
 });
 
 document.getElementById('year').textContent = new Date().getFullYear();
+
+/* Galeria — filtros */
+document.querySelectorAll('.filters .chip').forEach((btn, _, all) => {
+  btn.addEventListener('click', () => {
+    all.forEach((b) => {
+      b.classList.toggle('is-on', b === btn);
+      b.setAttribute('aria-pressed', b === btn);
+    });
+    const f = btn.dataset.filter;
+    items.forEach((it) => {
+      const show = f === 'todos' || it.dataset.cat === f;
+      it.classList.toggle('is-out', !show);
+      it.classList.remove('is-in');
+      if (show) { void it.offsetWidth; it.classList.add('is-in'); }
+    });
+  });
+});
+
+/* Monte sua festa */
+const planner = document.getElementById('planner');
+const pConv = document.getElementById('pConv');
+const pConvOut = document.getElementById('pConvOut');
+const tEvento = document.getElementById('tEvento');
+const tConv = document.getElementById('tConv');
+const tList = document.getElementById('tList');
+const tSend = document.getElementById('tSend');
+const convLabel = (v) => (v >= 500 ? '500+' : String(v));
+const updatePlanner = () => {
+  const evento = planner.querySelector('input[name="p-evento"]:checked').value;
+  const conv = parseInt(pConv.value, 10);
+  const escolhas = [...planner.querySelectorAll('input[name="p-menu"]:checked, input[name="p-extra"]:checked')].map((i) => i.value);
+  pConvOut.textContent = convLabel(conv);
+  tEvento.textContent = evento;
+  tConv.textContent = convLabel(conv);
+  tList.innerHTML = '';
+  if (!escolhas.length) {
+    const li = document.createElement('li');
+    li.className = 'empty';
+    li.textContent = 'Escolha os itens ao lado';
+    tList.appendChild(li);
+  }
+  escolhas.forEach((e) => {
+    const li = document.createElement('li');
+    li.textContent = e;
+    tList.appendChild(li);
+  });
+  const msg = [
+    'Olá! Montei minha festa no site do Buffet Von Held:',
+    `• Evento: ${evento}`,
+    `• Convidados: cerca de ${convLabel(conv)}`,
+    escolhas.length && `• Quero: ${escolhas.join(', ')}`,
+    'Pode me enviar um orçamento?',
+  ].filter(Boolean).join('\n');
+  tSend.href = waLink(msg);
+};
+planner.addEventListener('input', updatePlanner);
+planner.addEventListener('submit', (e) => e.preventDefault());
+updatePlanner();
+
+/* Contagem regressiva até a festa */
+const qData = document.getElementById('qData');
+const countdown = document.getElementById('countdown');
+qData.addEventListener('input', () => {
+  countdown.textContent = '';
+  if (!qData.value) return;
+  const [y, m, d] = qData.value.split('-').map(Number);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const dias = Math.round((new Date(y, m - 1, d) - today) / 86400000);
+  if (dias > 1) countdown.textContent = `Faltam ${dias} dias para a sua festa`;
+  else if (dias === 1) countdown.textContent = 'Sua festa é amanhã!';
+  else if (dias === 0) countdown.textContent = 'Sua festa é hoje!';
+  else countdown.textContent = 'Escolha uma data futura.';
+});
