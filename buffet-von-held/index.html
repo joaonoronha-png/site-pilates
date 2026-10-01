@@ -3,23 +3,26 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Buffet Von Held — Casamentos, 15 anos e eventos na Taquara, RJ</title>
-  <meta name="description" content="Buffet Von Held: buffet completo, gastronomia personalizada e organização de casamentos, festas de 15 anos, aniversários e eventos corporativos na Taquara, Rio de Janeiro. Avaliação 4,6 no Google.">
+  <title>Buffet Von Held — Casamentos, 15 anos e eventos na Taquara, RJ · Desde 2009</title>
+  <meta name="description" content="Buffet Von Held, desde 2009 na Taquara (Jacarepaguá), Rio de Janeiro: cerimônia e recepção no mesmo lugar, salão climatizado, cozinha própria e cardápios personalizados para casamentos, 15 anos, aniversários, bodas e eventos corporativos.">
   <meta property="og:title" content="Buffet Von Held — Taquara, RJ">
-  <meta property="og:description" content="Momentos especiais merecem celebrações inesquecíveis.">
+  <meta property="og:description" content="Momentos especiais merecem celebrações inesquecíveis. Buffet completo desde 2009.">
   <meta property="og:type" content="website">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=80">
-  <meta name="theme-color" content="#14110f">
+  <meta property="og:image" content="img/mesa-posta-lg.jpg">
+  <meta name="theme-color" content="#0c1f3a">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cellipse cx='32' cy='32' rx='30' ry='22' fill='%2318579c'/%3E%3Ctext x='32' y='40' font-family='Georgia' font-style='italic' font-size='22' fill='white' text-anchor='middle'%3EVH%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&family=Pinyon+Script&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "EventVenue",
     "name": "Buffet Von Held",
-    "description": "Buffet, catering e organização de eventos na Taquara, Rio de Janeiro.",
+    "foundingDate": "2009",
+    "description": "Buffet completo, cerimônia, recepção e organização de eventos na Taquara, Rio de Janeiro.",
+    "image": "img/mesa-posta-lg.jpg",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Rua Macembu, 1703",
@@ -35,11 +38,24 @@
 </head>
 <body>
 
+  <!-- Ícones: logotipo recriado em vetor a partir da marca oval azul do Buffet Von Held + WhatsApp -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="logo" viewBox="0 0 220 140">
+      <ellipse cx="110" cy="70" rx="106" ry="66" fill="currentColor"/>
+      <ellipse cx="110" cy="70" rx="96" ry="57" fill="none" stroke="#fff" stroke-width="1.6"/>
+      <text x="110" y="62" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="34" fill="#fff">Buffet</text>
+      <text x="110" y="100" text-anchor="middle" font-family="Pinyon Script, cursive" font-size="40" fill="#fff">Von Held</text>
+    </symbol>
+    <symbol id="wa" viewBox="0 0 24 24">
+      <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/>
+    </symbol>
+  </svg>
+
   <!-- ============ HEADER ============ -->
   <header class="nav" id="nav">
     <a href="#inicio" class="brand" aria-label="Buffet Von Held — início">
-      <span class="brand-mark">VH</span>
-      <span class="brand-name">Von Held<small>Buffet &amp; Eventos</small></span>
+      <svg class="brand-logo"><use href="#logo"/></svg>
+      <span class="brand-since">Desde 2009<br>Taquara · RJ</span>
     </a>
     <nav class="nav-links" id="navLinks" aria-label="Navegação principal">
       <a href="#eventos">Eventos</a>
@@ -61,14 +77,15 @@
     <!-- ============ HERO ============ -->
     <section class="hero" id="inicio">
       <div class="hero-slides" aria-hidden="true">
-        <div class="slide is-active" style="background-image:url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=2000&q=80')"></div>
-        <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=2000&q=80')"></div>
+        <div class="slide is-active" style="background-image:url('img/mesa-posta-lg.jpg')"></div>
+        <div class="slide" style="background-image:url('img/cerimonia-lg.jpg')"></div>
+        <div class="slide" style="background-image:url('img/mesa-de-doces-lg.jpg')"></div>
+        <div class="slide" style="background-image:url('img/salao-casamento-lg.jpg')"></div>
       </div>
       <div class="hero-veil"></div>
 
       <div class="hero-content">
-        <p class="eyebrow reveal">Buffet &amp; Eventos · Taquara, Rio de Janeiro</p>
+        <p class="eyebrow reveal">Buffet Von Held · Taquara, Rio de Janeiro</p>
         <h1 class="hero-title">
           <span class="line"><span>Momentos especiais</span></span>
           <span class="line"><span>merecem celebrações</span></span>
@@ -76,7 +93,7 @@
         </h1>
         <div class="hero-actions reveal">
           <a href="#orcamento" class="btn btn-gold">Solicitar orçamento</a>
-          <a href="#eventos" class="btn btn-ghost">Conhecer os eventos</a>
+          <a href="#eventos" class="btn btn-ghost">Conhecer o espaço</a>
         </div>
       </div>
 
@@ -85,18 +102,29 @@
         <span><strong>4,6</strong> no Google · 81 avaliações</span>
       </div>
 
+      <div class="hero-dots" aria-hidden="true"><i class="on"></i><i></i><i></i><i></i></div>
       <a href="#manifesto" class="scroll-cue" aria-label="Rolar para baixo"><span></span></a>
     </section>
 
     <!-- ============ MANIFESTO ============ -->
     <section class="manifesto" id="manifesto">
       <div class="container narrow">
-        <span class="ornament reveal" aria-hidden="true">❦</span>
+        <svg class="manifesto-logo reveal" aria-hidden="true"><use href="#logo"/></svg>
         <p class="manifesto-text reveal">
-          Cada celebração conta uma história. A nossa parte é cuidar de
-          <em>cada detalhe</em> — da primeira prova do cardápio ao último brinde —
-          para que você só precise viver o momento.
+          Desde 2009 transformando datas importantes em
+          <em>celebrações cheias de sabor, requinte e elegância</em> —
+          com cardápios criados de acordo com o seu gosto, para que a sua festa seja única.
         </p>
+      </div>
+    </section>
+
+    <!-- ============ DESTAQUES ============ -->
+    <section class="highlights" aria-label="Destaques">
+      <div class="container hl-grid">
+        <div class="hl reveal"><strong>2009</strong><span>fundado na Taquara</span></div>
+        <div class="hl reveal"><strong data-count="4.6" data-decimals="1">4,6</strong><span>81 avaliações no Google</span></div>
+        <div class="hl reveal"><strong>5,0</strong><span>no Casamentos.com.br · 100% recomendam</span></div>
+        <div class="hl reveal"><strong>1</strong><span>só lugar para cerimônia, recepção e festa</span></div>
       </div>
     </section>
 
@@ -108,69 +136,74 @@
           <h2>Para cada história,<br><em>uma celebração</em></h2>
         </header>
 
-        <div class="events-grid">
-          <article class="event-card event-lg reveal">
-            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1400&q=80" alt="Mesa de casamento decorada com flores e velas" loading="lazy">
-            <div class="event-info">
-              <span class="event-num">01</span>
-              <h3>Casamentos</h3>
-              <p>O grande dia, do jeito que vocês sonharam: cerimônia, recepção e festa em um só lugar.</p>
-            </div>
+        <article class="wedding">
+          <div class="wedding-img reveal">
+            <img src="img/cerimonia.jpg" alt="Espaço de cerimônia do Buffet Von Held com tapete verde, cadeiras e arranjos florais" loading="lazy">
+          </div>
+          <div class="wedding-text reveal">
+            <span class="event-num">01 · O grande dia</span>
+            <h3>Casamentos</h3>
+            <p>Diga “sim” e celebre sem trocar de lugar: cerimônia montada no nosso espaço, recepção no salão climatizado e um jantar preparado na hora pela nossa cozinha.</p>
+            <ul class="checks">
+              <li>Cerimônia e recepção no mesmo endereço</li>
+              <li>Decoração e arranjos florais</li>
+              <li>Doces finos, bem-casados e bolo — ou traga o seu</li>
+              <li>Organização completa no dia</li>
+            </ul>
+            <a href="#orcamento" class="link-arrow light" data-evento="Casamento">Orçamento de casamento <span>→</span></a>
+          </div>
+        </article>
+
+        <div class="event-list">
+          <article class="event-item reveal">
+            <span class="event-num">02</span>
+            <h3>Festas de 15 anos</h3>
+            <p>Uma noite de debutante com brilho, emoção e pista cheia.</p>
           </article>
-          <article class="event-card reveal">
-            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?auto=format&fit=crop&w=1000&q=80" alt="Pista de dança iluminada em festa" loading="lazy">
-            <div class="event-info">
-              <span class="event-num">02</span>
-              <h3>Festas de 15 anos</h3>
-              <p>Uma noite de debutante com brilho, emoção e muita pista.</p>
-            </div>
+          <article class="event-item reveal">
+            <span class="event-num">03</span>
+            <h3>Aniversários</h3>
+            <p>Do intimista ao grandioso, com cardápio no seu estilo.</p>
           </article>
-          <article class="event-card reveal">
-            <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=80" alt="Festa infantil com balões coloridos" loading="lazy">
-            <div class="event-info">
-              <span class="event-num">03</span>
-              <h3>Festas infantis</h3>
-              <p>Menu infantil, cores e alegria para os pequenos — e tranquilidade para os pais.</p>
-            </div>
+          <article class="event-item reveal">
+            <span class="event-num">04</span>
+            <h3>Festas infantis</h3>
+            <p>Menu infantil pensado para os pequenos — e tranquilidade para os pais.</p>
           </article>
-          <article class="event-card reveal">
-            <img src="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?auto=format&fit=crop&w=1000&q=80" alt="Bolo de aniversário com velas" loading="lazy">
-            <div class="event-info">
-              <span class="event-num">04</span>
-              <h3>Aniversários &amp; Bodas</h3>
-              <p>Celebre anos de vida e de amor ao lado de quem importa.</p>
-            </div>
+          <article class="event-item reveal">
+            <span class="event-num">05</span>
+            <h3>Bodas</h3>
+            <p>Renove os votos e celebre anos de amor com quem fez parte da história.</p>
           </article>
-          <article class="event-card reveal">
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=1000&q=80" alt="Evento corporativo em salão" loading="lazy">
-            <div class="event-info">
-              <span class="event-num">05</span>
-              <h3>Corporativos &amp; Confraternizações</h3>
-              <p>Recepções, coquetéis e festas de fim de ano para sua empresa.</p>
-            </div>
+          <article class="event-item reveal">
+            <span class="event-num">06</span>
+            <h3>Confraternizações</h3>
+            <p>Festas de fim de ano, juninas e encontros de família e amigos.</p>
+          </article>
+          <article class="event-item reveal">
+            <span class="event-num">07</span>
+            <h3>Eventos corporativos</h3>
+            <p>Recepções, coquetéis e eventos sociais para sua empresa.</p>
           </article>
         </div>
-
-        <ul class="tags reveal" aria-label="Também realizamos">
-          <li>Recepções</li><li>Bodas</li><li>Eventos sociais</li><li>Festas juninas</li><li>Confraternizações</li><li>Chás</li>
-        </ul>
       </div>
     </section>
 
-    <!-- ============ PARALLAX QUOTE ============ -->
-    <section class="parallax" style="--bg:url('https://images.unsplash.com/photo-1505236858219-8359eb29e329?auto=format&fit=crop&w=2000&q=80')">
+    <!-- ============ DEPOIMENTO (parallax) ============ -->
+    <section class="parallax" style="--bg:url('img/salao-casamento-lg.jpg')">
       <div class="parallax-veil"></div>
-      <blockquote class="parallax-quote reveal">
-        “A festa perfeita é aquela em que<br>os anfitriões também se divertem.”
-      </blockquote>
+      <figure class="parallax-quote reveal">
+        <blockquote>“Profissionais super educados, a todo o momento serviam a comida, bebida, dando total atenção aos nossos convidados. <em>Recomendo de olhos fechados!</em>”</blockquote>
+        <figcaption>Tassa · avaliação 5 de 5 no Casamentos.com.br</figcaption>
+      </figure>
     </section>
 
     <!-- ============ GASTRONOMIA ============ -->
     <section class="section food" id="gastronomia">
       <div class="container food-wrap">
         <div class="food-media reveal">
-          <img class="food-img-a" src="https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1000&q=80" alt="Mesa de buffet com pratos servidos" loading="lazy">
-          <img class="food-img-b" src="https://images.unsplash.com/photo-1546039907-7fa05f864c02?auto=format&fit=crop&w=800&q=80" alt="Entradas e mini porções finamente servidas" loading="lazy">
+          <img class="food-img-a" src="img/doces-finos.jpg" alt="Mesa de doces finos do Buffet Von Held com margaridas" loading="lazy">
+          <img class="food-img-b" src="img/variedade-doces.jpg" alt="Variedade de doces servidos em evento do Buffet Von Held" loading="lazy">
           <span class="food-badge">Cozinha<br>no próprio local</span>
         </div>
 
@@ -178,34 +211,38 @@
           <header class="section-head left reveal">
             <p class="eyebrow">Buffet &amp; Gastronomia</p>
             <h2>Sabor que vira<br><em>lembrança</em></h2>
-            <p class="lead">Tudo preparado na nossa própria cozinha, no dia do seu evento. Cardápios personalizados — do tradicional ao regional — pensados junto com você.</p>
+            <p class="lead">Menus desenvolvidos de acordo com o seu gosto e preferência, com ingredientes do que há de melhor no mercado e sempre em busca de inovação nos pratos. Tudo preparado na nossa cozinha, no dia da festa.</p>
           </header>
 
           <div class="menu-tabs reveal" role="tablist" aria-label="Cardápios">
-            <button role="tab" aria-selected="true" data-tab="classico">Clássico</button>
+            <button role="tab" aria-selected="true" data-tab="buffet">Buffet</button>
             <button role="tab" aria-selected="false" data-tab="tematico">Temáticos</button>
+            <button role="tab" aria-selected="false" data-tab="doces">Doces</button>
             <button role="tab" aria-selected="false" data-tab="bar">Bar</button>
           </div>
 
           <div class="menu-panels reveal">
-            <ul class="menu-list is-active" data-panel="classico" role="tabpanel">
-              <li><span>Entradas</span><i></i><small>recepção dos convidados</small></li>
-              <li><span>Mini porções</span><i></i><small>servidas à francesa</small></li>
+            <ul class="menu-list is-active" data-panel="buffet" role="tabpanel">
+              <li><span>Entradas</span><i></i><small>na recepção dos convidados</small></li>
+              <li><span>Mini porções</span><i></i><small>servidas em ramequins</small></li>
+              <li><span>Crepe</span><i></i><small>estação montada no salão</small></li>
               <li><span>Pratos quentes</span><i></i><small>buffet completo</small></li>
-              <li><span>Crepes</span><i></i><small>doces e salgados</small></li>
-              <li><span>Gastronomia tradicional</span><i></i><small>clássicos que agradam a todos</small></li>
-              <li><span>Gastronomia regional</span><i></i><small>sabores brasileiros</small></li>
+              <li><span>Tradicional &amp; regional</span><i></i><small>sabores que agradam a todos</small></li>
             </ul>
             <ul class="menu-list" data-panel="tematico" role="tabpanel" hidden>
               <li><span>Menu infantil</span><i></i><small>para os pequenos convidados</small></li>
               <li><span>Menu junino</span><i></i><small>arraiá com quitutes típicos</small></li>
-              <li><span>Menu estilo boteco</span><i></i><small>petiscos e clima descontraído</small></li>
-              <li><span>Cardápio personalizado</span><i></i><small>montado com você</small></li>
+              <li><span>Menu boteco</span><i></i><small>petiscos e clima descontraído</small></li>
+              <li><span>Sob medida</span><i></i><small>criado junto com você</small></li>
+            </ul>
+            <ul class="menu-list" data-panel="doces" role="tabpanel" hidden>
+              <li><span>Doces finos</span><i></i><small>mesa decorada</small></li>
+              <li><span>Bem-casados</span><i></i><small>a lembrança clássica</small></li>
+              <li><span>Bolo</span><i></i><small>oferecemos — ou traga o seu</small></li>
             </ul>
             <ul class="menu-list" data-panel="bar" role="tabpanel" hidden>
-              <li><span>Open bar</span><i></i><small>drinks e bebidas à vontade</small></li>
-              <li><span>Coquetelaria</span><i></i><small>consulte opções</small></li>
-              <li><span>Bebidas não alcoólicas</span><i></i><small>sucos, refrigerantes e águas</small></li>
+              <li><span>Open bar</span><i></i><small>pacotes por tempo de festa</small></li>
+              <li><span>Bebidas à vontade</span><i></i><small>consulte as opções</small></li>
             </ul>
           </div>
 
@@ -222,44 +259,54 @@
           <h2>Tudo em um só lugar,<br><em>do início ao fim</em></h2>
         </header>
 
-        <div class="features">
-          <div class="feature reveal">
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M10 38h28M14 38V22h20v16M10 22h28M18 22c0-6 3-10 6-10s6 4 6 10M24 8v4"/></svg>
-            </span>
-            <h3>Buffet completo</h3>
-            <p>Da recepção à sobremesa, com equipe própria de cozinha e salão.</p>
+        <div class="structure-wrap">
+          <div class="structure-img reveal">
+            <img src="img/salao.jpg" alt="Salão do Buffet Von Held montado com mesas redondas e toalhas azuis" loading="lazy">
           </div>
-          <div class="feature reveal">
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M8 40V18l16-10 16 10v22M18 40V28h12v12M8 40h32"/></svg>
-            </span>
-            <h3>Espaço para eventos</h3>
-            <p>Salão preparado para festas intimistas e grandes celebrações.</p>
-          </div>
-          <div class="feature reveal">
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M24 40c-8-4-14-10-14-18a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 8-6 14-14 18z"/></svg>
-            </span>
-            <h3>Decoração</h3>
-            <p>Ambientação pensada para o estilo e as cores do seu evento.</p>
-          </div>
-          <div class="feature reveal">
-            <span class="feature-icon" aria-hidden="true">
-              <svg viewBox="0 0 48 48"><path d="M10 10h28v28H10zM10 18h28M18 10v-4M30 10v-4M16 26h4M22 26h4M28 26h4M16 32h4M22 32h4"/></svg>
-            </span>
-            <h3>Organização</h3>
-            <p>Planejamento e coordenação no dia, para você aproveitar sem preocupação.</p>
+          <div class="features">
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M8 40V18l16-10 16 10v22M18 40V28h12v12M8 40h32"/></svg></span>
+              <div><h3>Salão climatizado</h3><p>Ambiente aconchegante com ar-condicionado.</p></div>
+            </div>
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 40c-8-4-14-10-14-18a7 7 0 0 1 14-2 7 7 0 0 1 14 2c0 8-6 14-14 18z"/></svg></span>
+              <div><h3>Espaço para cerimônia</h3><p>Case e celebre no mesmo endereço.</p></div>
+            </div>
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 38h28M14 38V22h20v16M10 22h28M18 22c0-6 3-10 6-10s6 4 6 10M24 8v4"/></svg></span>
+              <div><h3>Cozinha própria</h3><p>Comida preparada no local, no dia do evento.</p></div>
+            </div>
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M24 8v8M24 32v8M8 24h8M32 24h8M13 13l5 5M30 30l5 5M35 13l-5 5M18 30l-5 5"/></svg></span>
+              <div><h3>Decoração</h3><p>Arranjos e ambientação no estilo da sua festa.</p></div>
+            </div>
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M10 10h28v28H10zM10 18h28M18 10V6M30 10V6M16 26h4M22 26h4M28 26h4M16 32h4M22 32h4"/></svg></span>
+              <div><h3>Organização</h3><p>Planejamento e coordenação completos.</p></div>
+            </div>
+            <div class="feature reveal">
+              <span class="feature-icon" aria-hidden="true"><svg viewBox="0 0 48 48"><circle cx="18" cy="16" r="6"/><circle cx="32" cy="18" r="5"/><path d="M6 40c0-7 5-12 12-12s12 5 12 12M28 30c6-1 14 2 14 10"/></svg></span>
+              <div><h3>Equipe treinada</h3><p>Profissionais qualificados e atenciosos.</p></div>
+            </div>
           </div>
         </div>
+        <!-- Capacidade: o perfil no Casamentos.com.br informa 60 a 500 convidados — CONFIRMAR com a empresa antes de publicar. -->
+      </div>
+    </section>
 
-        <!-- Capacidade: plataforma externa informa 60 a 500 convidados — CONFIRMAR com a empresa antes de publicar o número. -->
-        <div class="stats reveal">
-          <div class="stat"><strong data-count="4.6" data-decimals="1">0</strong><span>nota no Google</span></div>
-          <div class="stat"><strong data-count="81">0</strong><span>avaliações</span></div>
-          <div class="stat"><strong>7<sup>dias</sup></strong><span>por semana, 11h às 00h</span></div>
-          <div class="stat"><strong>100<sup>%</sup></strong><span>cozinha própria</span></div>
-        </div>
+    <!-- ============ COMO FUNCIONA ============ -->
+    <section class="section steps-sec">
+      <div class="container">
+        <header class="section-head reveal">
+          <p class="eyebrow">Como funciona</p>
+          <h2>Do primeiro contato<br><em>ao último brinde</em></h2>
+        </header>
+        <ol class="steps">
+          <li class="reveal"><span>1</span><h3>Conversa</h3><p>Conte sobre a data, o estilo e o número de convidados.</p></li>
+          <li class="reveal"><span>2</span><h3>Visita</h3><p>Venha conhecer o salão e o espaço de cerimônia.</p></li>
+          <li class="reveal"><span>3</span><h3>Cardápio</h3><p>Montamos o menu sob medida para o seu gosto.</p></li>
+          <li class="reveal"><span>4</span><h3>A festa</h3><p>Nossa equipe cuida de tudo. Você só celebra.</p></li>
+        </ol>
       </div>
     </section>
 
@@ -271,16 +318,15 @@
           <h2>Momentos que<br><em>já celebramos</em></h2>
         </header>
       </div>
-      <!-- Imagens ilustrativas: substituir pelas fotos reais dos eventos do Buffet Von Held. -->
       <div class="gallery-grid">
-        <button class="g-item g-tall" data-full="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=75" alt="Noivos em celebração de casamento" loading="lazy"></button>
-        <button class="g-item" data-full="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=800&q=75" alt="Prato elaborado servido em evento" loading="lazy"></button>
-        <button class="g-item g-wide" data-full="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1478146896981-b80fe463b330?auto=format&fit=crop&w=1000&q=75" alt="Mesa posta com taças e arranjos" loading="lazy"></button>
-        <button class="g-item" data-full="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?auto=format&fit=crop&w=800&q=75" alt="Drinks preparados no open bar" loading="lazy"></button>
-        <button class="g-item g-tall" data-full="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1523438885200-e635ba2c371e?auto=format&fit=crop&w=800&q=75" alt="Convidados brindando em festa" loading="lazy"></button>
-        <button class="g-item" data-full="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=75" alt="Prato quente do buffet" loading="lazy"></button>
-        <button class="g-item g-wide" data-full="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1000&q=75" alt="Salão de festa decorado e iluminado" loading="lazy"></button>
-        <button class="g-item" data-full="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1800&q=85"><img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=75" alt="Detalhe de decoração com flores" loading="lazy"></button>
+        <button class="g-item g-big" data-full="img/mesa-posta-lg.jpg"><img src="img/mesa-posta.jpg" alt="Mesa posta com arranjo floral e taças sob luz dourada" loading="lazy"></button>
+        <button class="g-item" data-full="img/bem-casados-lg.jpg"><img src="img/bem-casados.jpg" alt="Torres de bem-casados com girassóis" loading="lazy"></button>
+        <button class="g-item" data-full="img/mesa-de-doces-lg.jpg"><img src="img/mesa-de-doces.jpg" alt="Mesa de doces decorada com flores e iluminação" loading="lazy"></button>
+        <button class="g-item g-wide" data-full="img/cerimonia-lg.jpg"><img src="img/cerimonia.jpg" alt="Espaço de cerimônia com corredor e arranjos" loading="lazy"></button>
+        <button class="g-item" data-full="img/doces-finos-lg.jpg"><img src="img/doces-finos.jpg" alt="Doces finos e margaridas na mesa de doces" loading="lazy"></button>
+        <button class="g-item" data-full="img/salao-casamento-lg.jpg"><img src="img/salao-casamento.jpg" alt="Salão montado para casamento com mesas redondas" loading="lazy"></button>
+        <button class="g-item g-wide" data-full="img/salao-lg.jpg"><img src="img/salao.jpg" alt="Salão do Buffet Von Held com mesas e toalhas azuis" loading="lazy"></button>
+        <button class="g-item g-wide" data-full="img/variedade-doces-lg.jpg"><img src="img/variedade-doces.jpg" alt="Variedade de doces servidos no buffet" loading="lazy"></button>
       </div>
     </section>
 
@@ -288,16 +334,17 @@
     <section class="section about" id="sobre">
       <div class="container about-wrap">
         <div class="about-img reveal">
-          <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1100&q=80" alt="Equipe preparando o salão para um evento" loading="lazy">
+          <img src="img/bem-casados.jpg" alt="Bem-casados preparados pelo Buffet Von Held" loading="lazy">
+          <span class="about-badge">Desde<br><strong>2009</strong></span>
         </div>
         <div class="about-text">
           <header class="section-head left reveal">
             <p class="eyebrow">Sobre nós</p>
             <h2>Recebemos cada convidado<br><em>como se fosse nosso</em></h2>
           </header>
-          <p class="reveal">O Buffet Von Held nasceu da vontade de transformar datas importantes em memórias que duram para sempre. Na Taquara, Zona Oeste do Rio, reunimos gastronomia, decoração e organização em um só lugar — para que você tenha um único parceiro do primeiro contato ao último convidado.</p>
-          <p class="reveal">Nossa equipe acompanha cada etapa: entende o seu estilo, sugere o cardápio ideal e cuida de toda a operação no dia. Você recebe, celebra e se emociona. O resto é com a gente.</p>
-          <div class="signature reveal">Von Held</div>
+          <p class="reveal">Desde 2009 o Buffet Von Held faz parte das histórias mais importantes de famílias da Taquara e de toda Jacarepaguá. Oferecemos o serviço completo de buffet para festas — feito com muita qualidade e sempre em busca de inovação nos pratos elaborados pela nossa equipe.</p>
+          <p class="reveal">Nossos profissionais são qualificados e treinados para que o seu evento seja perfeito e com muito requinte, e para que você e seus convidados aproveitem um belo jantar. Desenvolvemos o menu de acordo com o seu gosto: assim a sua festa é diferente e original.</p>
+          <svg class="signature reveal" aria-hidden="true"><use href="#logo"/></svg>
         </div>
       </div>
     </section>
@@ -305,24 +352,33 @@
     <!-- ============ AVALIAÇÕES ============ -->
     <section class="section reviews" id="avaliacoes">
       <div class="container">
-        <div class="rating-hero reveal">
-          <div class="rating-score">4,6</div>
-          <div>
+        <header class="section-head reveal">
+          <p class="eyebrow">Avaliações</p>
+          <h2>Quem celebrou,<br><em>recomenda</em></h2>
+        </header>
+
+        <div class="scores">
+          <div class="score reveal">
+            <div class="score-num">4,6</div>
             <div class="stars big" aria-label="4,6 de 5 estrelas">★★★★★</div>
-            <p>Média de <strong>81 avaliações</strong> no Google</p>
+            <p><strong>81 avaliações</strong> no Google</p>
+          </div>
+          <div class="score reveal">
+            <div class="score-num">5,0</div>
+            <div class="stars big" aria-label="5 de 5 estrelas">★★★★★</div>
+            <p><strong>100% recomendam</strong> no Casamentos.com.br</p>
           </div>
         </div>
 
-        <p class="reviews-intro reveal">O que os clientes mais elogiam:</p>
+        <p class="reviews-intro reveal">O que os clientes mais elogiam</p>
         <div class="praise">
-          <div class="praise-item reveal"><span>01</span><h3>Comida</h3><p>Elogios recorrentes ao sabor e à qualidade dos pratos.</p></div>
-          <div class="praise-item reveal"><span>02</span><h3>Atendimento</h3><p>Equipe atenciosa do primeiro contato ao fim da festa.</p></div>
-          <div class="praise-item reveal"><span>03</span><h3>Organização</h3><p>Tudo no horário, sem que os anfitriões precisem se preocupar.</p></div>
-          <div class="praise-item reveal"><span>04</span><h3>Espaço</h3><p>Ambiente agradável e preparado para receber bem.</p></div>
+          <div class="praise-item reveal"><span>01</span><h3>Comida</h3><p>“A qualidade das comidas também maravilhosa.”</p></div>
+          <div class="praise-item reveal"><span>02</span><h3>Atendimento</h3><p>“Total atenção aos nossos convidados.”</p></div>
+          <div class="praise-item reveal"><span>03</span><h3>Organização</h3><p>“Tudo muito bem organizado.”</p></div>
+          <div class="praise-item reveal"><span>04</span><h3>Espaço</h3><p>“Espaço aconchegante, com ar-condicionado.”</p></div>
         </div>
 
-        <!-- Substituir o link abaixo pela URL do perfil no Google (Ficha da empresa). -->
-        <a class="link-arrow center reveal" href="https://www.google.com/maps/search/?api=1&query=Buffet+Von+Held+Rua+Macembu+1703+Taquara+Rio+de+Janeiro" target="_blank" rel="noopener">Ler avaliações no Google <span>→</span></a>
+        <a class="link-arrow center light reveal" href="https://www.google.com/maps/search/?api=1&query=Buffet+Von+Held+Rua+Macembu+1703+Taquara+Rio+de+Janeiro" target="_blank" rel="noopener">Ler avaliações no Google <span>→</span></a>
       </div>
     </section>
 
@@ -334,13 +390,16 @@
           <h2>Venha nos<br><em>conhecer</em></h2>
           <dl>
             <dt>Endereço</dt>
-            <dd>Rua Macembu, 1703 — Taquara<br>Rio de Janeiro – RJ · CEP 22710-401</dd>
+            <dd>Rua Macembu, 1703 — Taquara, Jacarepaguá<br>Rio de Janeiro – RJ · CEP 22710-401</dd>
             <dt>Horário</dt>
             <dd>Todos os dias, das 11h às 00h</dd>
             <dt>Visitas</dt>
-            <dd>Agende uma visita para conhecer o espaço e degustar o cardápio.</dd>
+            <dd>Agende uma visita para conhecer o salão e o espaço de cerimônia.</dd>
           </dl>
-          <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Macembu+1703+Taquara+Rio+de+Janeiro+RJ+22710-401" target="_blank" rel="noopener">Como chegar</a>
+          <div class="loc-actions">
+            <a class="btn btn-dark" href="https://www.google.com/maps/dir/?api=1&destination=Rua+Macembu+1703+Taquara+Rio+de+Janeiro+RJ+22710-401" target="_blank" rel="noopener">Como chegar</a>
+            <a class="btn btn-outline js-wa" href="#orcamento" data-msg="Olá! Gostaria de agendar uma visita ao Buffet Von Held.">Agendar visita</a>
+          </div>
         </div>
         <div class="map reveal">
           <iframe title="Mapa — Buffet Von Held, Rua Macembu 1703, Taquara" src="https://www.google.com/maps?q=Rua+Macembu,+1703+-+Taquara,+Rio+de+Janeiro+-+RJ,+22710-401&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -349,13 +408,13 @@
     </section>
 
     <!-- ============ CTA / ORÇAMENTO ============ -->
-    <section class="cta" id="orcamento" style="--bg:url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=2000&q=80')">
+    <section class="cta" id="orcamento" style="--bg:url('img/mesa-de-doces-lg.jpg')">
       <div class="cta-veil"></div>
       <div class="container cta-wrap">
         <div class="cta-text reveal">
           <p class="eyebrow">Solicite um orçamento</p>
           <h2>Vamos planejar<br><em>sua festa?</em></h2>
-          <p>Conte um pouco sobre o seu evento e fale direto com a nossa equipe pelo WhatsApp. Respondemos rapidinho.</p>
+          <p>Conte um pouco sobre o seu evento e fale direto com a equipe do Buffet Von Held pelo WhatsApp.</p>
         </div>
 
         <form class="quote reveal" id="quoteForm" novalidate>
@@ -372,8 +431,8 @@
               <option>Aniversário</option>
               <option>Festa infantil</option>
               <option>Bodas</option>
-              <option>Evento corporativo</option>
               <option>Confraternização</option>
+              <option>Evento corporativo</option>
               <option>Outro</option>
             </select>
           </div>
@@ -389,10 +448,10 @@
           </div>
           <div class="field">
             <label for="qMsg">Algo mais? <small>(opcional)</small></label>
-            <textarea id="qMsg" name="mensagem" rows="3" placeholder="Estilo da festa, cardápio que imagina, dúvidas…"></textarea>
+            <textarea id="qMsg" name="mensagem" rows="3" placeholder="Estilo da festa, cardápio que imagina, se quer cerimônia no local…"></textarea>
           </div>
           <button type="submit" class="btn btn-gold btn-block">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+            <svg aria-hidden="true"><use href="#wa"/></svg>
             Solicitar orçamento pelo WhatsApp
           </button>
           <p class="form-note" id="formNote" role="status" aria-live="polite"></p>
@@ -406,34 +465,31 @@
   <footer class="footer">
     <div class="container footer-wrap">
       <div>
-        <a href="#inicio" class="brand light">
-          <span class="brand-mark">VH</span>
-          <span class="brand-name">Von Held<small>Buffet &amp; Eventos</small></span>
-        </a>
+        <svg class="footer-logo" role="img" aria-label="Buffet Von Held"><use href="#logo"/></svg>
         <p class="footer-tag">Momentos especiais merecem celebrações inesquecíveis.</p>
       </div>
       <div>
-        <h4>Contato</h4>
+        <h4>Endereço</h4>
         <p>Rua Macembu, 1703 — Taquara<br>Rio de Janeiro – RJ, 22710-401</p>
-        <p><a href="#orcamento" class="js-wa">WhatsApp</a></p>
       </div>
       <div>
         <h4>Horário</h4>
         <p>Todos os dias<br>11h às 00h</p>
+        <p><a href="#orcamento" class="js-wa">Fale no WhatsApp →</a></p>
       </div>
       <div>
         <h4>Navegue</h4>
-        <p><a href="#eventos">Eventos</a> · <a href="#gastronomia">Gastronomia</a> · <a href="#galeria">Galeria</a> · <a href="#avaliacoes">Avaliações</a></p>
+        <p><a href="#eventos">Eventos</a><br><a href="#gastronomia">Gastronomia</a><br><a href="#galeria">Galeria</a><br><a href="#avaliacoes">Avaliações</a></p>
       </div>
     </div>
     <div class="container footer-bottom">
-      <span>© <span id="year">2026</span> Buffet Von Held. Todos os direitos reservados.</span>
+      <span>© <span id="year">2026</span> Buffet Von Held · desde 2009. Todos os direitos reservados.</span>
     </div>
   </footer>
 
   <!-- WhatsApp flutuante -->
   <a class="wa-float js-wa" href="#orcamento" aria-label="Falar no WhatsApp">
-    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm5.3 14.2c-.2.6-1.3 1.2-1.8 1.3-.5.1-1 .1-1.7-.1-.4-.1-.9-.3-1.5-.6-2.7-1.2-4.4-3.9-4.6-4.1-.1-.2-1.1-1.4-1.1-2.7s.7-1.9.9-2.2c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.3.5-.4.4c-.1.1-.3.3-.1.6.2.3.7 1.2 1.6 2 1.1 1 2 1.3 2.3 1.4.3.1.5.1.6-.1l.9-1c.2-.3.4-.2.6-.1l1.9.9c.3.1.5.2.5.3.1.2.1.7-.1 1.3z"/></svg>
+    <svg aria-hidden="true"><use href="#wa"/></svg>
   </a>
 
   <!-- Lightbox -->

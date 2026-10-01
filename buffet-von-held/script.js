@@ -35,6 +35,7 @@ navLinks.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => 
 
 /* Slideshow do hero */
 const slides = document.querySelectorAll('.hero .slide');
+const dots = document.querySelectorAll('.hero-dots i');
 let current = 0;
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 if (slides.length > 1 && !reduceMotion) {
@@ -42,6 +43,7 @@ if (slides.length > 1 && !reduceMotion) {
     slides[current].classList.remove('is-active');
     current = (current + 1) % slides.length;
     slides[current].classList.add('is-active');
+    dots.forEach((d, i) => d.classList.toggle('on', i === current));
   }, 6000);
 }
 
@@ -136,13 +138,18 @@ document.addEventListener('keydown', (e) => {
 
 /* Links diretos de WhatsApp */
 document.querySelectorAll('.js-wa').forEach((a) => {
-  a.href = waLink('Olá! Vim pelo site e gostaria de um orçamento para o meu evento no Buffet Von Held.');
+  a.href = waLink(a.dataset.msg || 'Olá! Vim pelo site e gostaria de um orçamento para o meu evento no Buffet Von Held.');
   a.target = '_blank';
   a.rel = 'noopener';
 });
 
 /* Formulário → WhatsApp */
 const form = document.getElementById('quoteForm');
+
+// links como "Orçamento de casamento" já deixam o tipo de evento selecionado
+document.querySelectorAll('[data-evento]').forEach((a) => {
+  a.addEventListener('click', () => { form.tipo.value = a.dataset.evento; });
+});
 const note = document.getElementById('formNote');
 form.addEventListener('submit', (e) => {
   e.preventDefault();
