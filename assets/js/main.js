@@ -24,10 +24,29 @@ const WHATSAPP = "5521998680606";
   /* ---------- Intro ---------- */
   const first = new Image();
   first.src = "assets/img/hero-1.jpg";
-  Promise.all([
-    new Promise((r) => setTimeout(r, reduced ? 0 : 1400)),
-    new Promise((r) => { first.onload = first.onerror = r; setTimeout(r, 3500); }),
-  ]).then(() => { root.classList.add("ready"); hero(); });
+  const pctEl = $(".intro__pct b");
+  const bar = $(".intro__bar");
+  const minTime = reduced ? 0 : 2300;
+  const t0 = performance.now();
+  let loaded = false;
+  const imgReady = new Promise((r) => { first.onload = first.onerror = r; setTimeout(r, 4000); })
+    .then(() => { loaded = true; });
+  // contador: avança com o tempo, mas só chega a 100 quando a foto da capa carregou
+  const count = () => {
+    const k = Math.min(1, (performance.now() - t0) / Math.max(minTime, 1));
+    const p = loaded ? k : Math.min(k, 0.9);
+    const eased = p * p * (3 - 2 * p);
+    pctEl.textContent = Math.round(eased * 100);
+    bar.style.setProperty("--p", eased);
+    if (eased < 1) requestAnimationFrame(count);
+  };
+  requestAnimationFrame(count);
+  Promise.all([new Promise((r) => setTimeout(r, minTime)), imgReady]).then(() => {
+    pctEl.textContent = 100;
+    bar.style.setProperty("--p", 1);
+    root.classList.add("leaving");
+    setTimeout(() => { root.classList.add("ready"); hero(); }, reduced ? 0 : 450);
+  });
 
   /* ---------- Hero slideshow ---------- */
   function hero() {
@@ -47,12 +66,14 @@ const WHATSAPP = "5521998680606";
   /* ---------- Header + float ---------- */
   const header = $(".header");
   const waBtn = $(".wa");
+  const mapBtn = $(".map-fab");
   let lastY = 0;
   const onScroll = () => {
     const y = scrollY;
     header.classList.toggle("solid", y > 40);
     header.classList.toggle("up", y > lastY && y > 700 && !document.body.classList.contains("open"));
     waBtn.classList.toggle("show", y > innerHeight * 0.5);
+    mapBtn.classList.toggle("show", y > innerHeight * 0.5);
     lastY = y;
   };
   addEventListener("scroll", onScroll, { passive: true });
