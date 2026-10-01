@@ -37,12 +37,14 @@ if (root.classList.contains('intro-on')) {
 const nav = document.getElementById('nav');
 const waFloat = document.querySelector('.wa-float');
 const progress = document.getElementById('progress');
+const mapFab = document.getElementById('mapFab');
 const toTop = document.getElementById('toTop');
 const onScroll = () => {
   const y = window.scrollY;
   const max = document.documentElement.scrollHeight - window.innerHeight;
   nav.classList.toggle('scrolled', y > 60);
   waFloat.classList.toggle('show', y > window.innerHeight * 0.6);
+  mapFab.classList.toggle('show', y > window.innerHeight * 0.6);
   toTop.classList.toggle('show', y > window.innerHeight * 1.5);
   progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
 };
@@ -288,4 +290,48 @@ qData.addEventListener('input', () => {
   else if (dias === 1) countdown.textContent = 'Sua festa é amanhã!';
   else if (dias === 0) countdown.textContent = 'Sua festa é hoje!';
   else countdown.textContent = 'Escolha uma data futura.';
+});
+
+/* Botão redondo de mapa */
+const mapBtn = document.getElementById('mapBtn');
+const mapPop = document.getElementById('mapPop');
+const setPop = (open) => {
+  mapPop.hidden = !open;
+  mapBtn.setAttribute('aria-expanded', open);
+};
+mapBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  setPop(mapPop.hidden);
+});
+mapPop.addEventListener('click', (e) => e.stopPropagation());
+mapPop.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setPop(false)));
+document.addEventListener('click', () => { if (!mapPop.hidden) setPop(false); });
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && !mapPop.hidden) { setPop(false); mapBtn.focus(); }
+});
+
+/* Copiar endereço */
+const ENDERECO = 'Rua Macembu, 1703 - Taquara, Rio de Janeiro - RJ, 22710-401';
+document.querySelectorAll('.js-copy').forEach((btn) => {
+  const label = btn.querySelector('span');
+  const done = (txt) => {
+    label.textContent = txt;
+    btn.classList.add('copied');
+    setTimeout(() => { label.textContent = 'Copiar endereço'; btn.classList.remove('copied'); }, 2200);
+  };
+  btn.addEventListener('click', () => {
+    const fallback = () => {
+      const sel = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(document.getElementById('addrText'));
+      sel.removeAllRanges();
+      sel.addRange(range);
+      done('Endereço selecionado');
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(ENDERECO).then(() => done('Copiado!'), fallback);
+    } else {
+      fallback();
+    }
+  });
 });
