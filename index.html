@@ -257,16 +257,32 @@
 
     <!-- ================= AVALIAÇÕES ================= -->
     <section class="reviews" id="avaliacoes">
-      <div class="wrap reviews__grid">
-        <div class="reviews__big rv">
-          <b>5,0</b>
-          <span class="stars" aria-label="5 de 5 estrelas">★★★★★</span>
-        </div>
-        <div class="reviews__text">
-          <p class="kicker rv">Avaliações</p>
-          <h2 class="title rv">Nota máxima em <em>49 avaliações</em> no Google.</h2>
-          <p class="lead rv">A confiança de quem já transformou a casa com a Graal é o nosso melhor cartão de visitas. Leia o que os clientes dizem sobre os projetos, o acabamento e o atendimento.</p>
-          <a class="link rv" href="https://www.google.com/maps/search/?api=1&query=Graal+Marcenaria+Rua+Maria+Lu%C3%ADza+Pitanga+45+Jo%C3%A1+Rio+de+Janeiro" target="_blank" rel="noopener">Ler avaliações no Google <span>↗</span></a>
+      <div class="wrap">
+        <header class="reviews__head">
+          <div>
+            <p class="kicker rv">Avaliações</p>
+            <h2 class="title rv">Quem fez, <em>recomenda.</em></h2>
+          </div>
+          <a class="score rv" href="https://www.google.com/maps/search/?api=1&amp;query=Graal+Marcenaria+Rua+Maria+Lu%C3%ADza+Pitanga+45+Jo%C3%A1+Rio+de+Janeiro" target="_blank" rel="noopener" aria-label="Nota 5,0 com 49 avaliações no Google — ver no Google">
+            <svg class="score__g" viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2.1 5-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.8-12.3-9H4.4v5.7C8 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.7 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.4C2.9 17 2 20.4 2 24s.9 7 2.4 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14l7.3 5.7c1.7-5.2 6.6-9 12.3-9z"/></svg>
+            <span class="score__n">5,0</span>
+            <span class="score__meta"><i aria-hidden="true">★★★★★</i>49 avaliações no Google</span>
+            <span class="score__go" aria-hidden="true">↗</span>
+          </a>
+        </header>
+
+        <div class="carousel rv" aria-roledescription="carrossel" aria-label="Avaliações de clientes">
+          <div class="carousel__viewport">
+            <ul class="carousel__track"></ul>
+          </div>
+          <div class="carousel__ui">
+            <div class="carousel__dots" role="tablist" aria-label="Escolher avaliação"></div>
+            <div class="carousel__nav">
+              <button class="carousel__btn carousel__prev" aria-label="Avaliação anterior">←</button>
+              <button class="carousel__btn carousel__next" aria-label="Próxima avaliação">→</button>
+            </div>
+          </div>
+          <div class="carousel__progress" aria-hidden="true"><i></i></div>
         </div>
       </div>
     </section>

@@ -5,6 +5,22 @@
 // Número do WhatsApp (DDI + DDD + número, só dígitos)
 const WHATSAPP = "5521998680606";
 
+/* ----------------------------------------------------------
+   AVALIAÇÕES (rotação)
+   Copie avaliações reais do perfil da Graal no Google Maps.
+   nome: como aparece no Google · quando: ex. "há 2 meses" ·
+   texto: a avaliação · nota: 1 a 5
+   Itens com texto vazio aparecem como espaço reservado.
+   ---------------------------------------------------------- */
+const AVALIACOES = [
+  { nome: "", quando: "", nota: 5, texto: "" },
+  { nome: "", quando: "", nota: 5, texto: "" },
+  { nome: "", quando: "", nota: 5, texto: "" },
+  { nome: "", quando: "", nota: 5, texto: "" },
+  { nome: "", quando: "", nota: 5, texto: "" },
+  { nome: "", quando: "", nota: 5, texto: "" },
+];
+
 (() => {
   const $ = (s, c = document) => c.querySelector(s);
   const $$ = (s, c = document) => [...c.querySelectorAll(s)];
@@ -224,6 +240,106 @@ const WHATSAPP = "5521998680606";
       a.addEventListener("mousemove", (e) => { x = e.clientX; y = e.clientY; });
     });
   }
+
+  /* ---------- Avaliações: carrossel ---------- */
+  (() => {
+    const box = $(".carousel");
+    if (!box) return;
+    const track = $(".carousel__track", box);
+    const dotsEl = $(".carousel__dots", box);
+    const bar = $(".carousel__progress i", box);
+    const gIcon = '<svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-3.1-.4-4.5H24v8.5h11.8c-.5 2.7-2.1 5-4.4 6.6v5.5h7.1c4.2-3.8 6.6-9.5 6.6-16.1z"/><path fill="#34A853" d="M24 46c5.9 0 10.9-2 14.5-5.3l-7.1-5.5c-2 1.3-4.5 2.1-7.4 2.1-5.7 0-10.6-3.8-12.3-9H4.4v5.7C8 41.1 15.4 46 24 46z"/><path fill="#FBBC05" d="M11.7 28.3c-.4-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3V14H4.4C2.9 17 2 20.4 2 24s.9 7 2.4 10l7.3-5.7z"/><path fill="#EA4335" d="M24 10.7c3.2 0 6.1 1.1 8.4 3.3l6.3-6.3C34.9 4.2 29.9 2 24 2 15.4 2 8 6.9 4.4 14l7.3 5.7c1.7-5.2 6.6-9 12.3-9z"/></svg>';
+    const esc = (t) => t.replace(/[&<>"]/g, (ch) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[ch]));
+
+    AVALIACOES.forEach((r, n) => {
+      const empty = !r.texto.trim();
+      const nome = r.nome.trim() || "Cliente Graal";
+      const li = document.createElement("li");
+      li.className = "rcard" + (empty ? " is-empty" : "");
+      li.setAttribute("role", "group");
+      li.setAttribute("aria-label", `Avaliação ${n + 1} de ${AVALIACOES.length}`);
+      li.innerHTML = `<div class="rcard__in">
+        <div class="rcard__top"><span class="rcard__stars" aria-label="${r.nota} de 5 estrelas">${"★".repeat(r.nota)}</span>${gIcon}</div>
+        <blockquote>${empty ? "Cole aqui uma avaliação real do Google (veja AVALIACOES em main.js)." : esc(r.texto.trim())}</blockquote>
+        <div class="rcard__who"><span class="rcard__av" aria-hidden="true">${esc(nome[0].toUpperCase())}</span>
+          <div><b>${esc(nome)}</b><span>Avaliação no Google${r.quando ? " · " + esc(r.quando) : ""}</span></div></div>
+      </div>`;
+      track.appendChild(li);
+    });
+    const cards = $$(".rcard", track);
+    const perView = () => Math.max(1, Math.round(track.parentElement.clientWidth / cards[0].getBoundingClientRect().width));
+    let i = 0, timer = null;
+    const DUR = 6000;
+    box.style.setProperty("--dur", DUR + "ms");
+
+    const pages = () => Math.max(1, cards.length - perView() + 1);
+    const renderDots = () => {
+      dotsEl.innerHTML = "";
+      for (let k = 0; k < pages(); k++) {
+        const d = document.createElement("button");
+        d.setAttribute("role", "tab");
+        d.setAttribute("aria-label", `Ir para avaliação ${k + 1}`);
+        d.addEventListener("click", () => go(k));
+        dotsEl.appendChild(d);
+      }
+    };
+    const go = (k) => {
+      const max = pages();
+      i = (k + max) % max;
+      track.style.transform = `translateX(${-i * cards[0].getBoundingClientRect().width}px)`;
+      cards.forEach((c, n) => c.classList.toggle("is-current", n >= i && n < i + perView()));
+      $$("button", dotsEl).forEach((d, n) => d.setAttribute("aria-selected", n === i));
+      restart();
+    };
+    const restart = () => {
+      clearTimeout(timer);
+      bar.classList.remove("run"); void bar.offsetWidth;
+      if (reduced || box.classList.contains("paused")) return;
+      bar.classList.add("run");
+      timer = setTimeout(() => go(i + 1), DUR);
+    };
+    const pause = () => { box.classList.add("paused"); clearTimeout(timer); };
+    const resume = () => {
+      if (!box.classList.contains("paused")) return;
+      box.classList.remove("paused");
+      restart();
+    };
+
+    $(".carousel__prev", box).addEventListener("click", () => go(i - 1));
+    $(".carousel__next", box).addEventListener("click", () => go(i + 1));
+    box.addEventListener("mouseenter", pause);
+    box.addEventListener("mouseleave", resume);
+    box.addEventListener("focusin", pause);
+    box.addEventListener("focusout", resume);
+
+    // arrastar / deslizar
+    let sx = 0, dx = 0, dragging = false;
+    const vp = $(".carousel__viewport", box);
+    vp.addEventListener("pointerdown", (e) => { dragging = true; sx = e.clientX; dx = 0; track.classList.add("dragging"); clearTimeout(timer); });
+    addEventListener("pointermove", (e) => {
+      if (!dragging) return;
+      dx = e.clientX - sx;
+      track.style.transform = `translateX(${-i * cards[0].getBoundingClientRect().width + dx}px)`;
+    });
+    addEventListener("pointerup", () => {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove("dragging");
+      go(Math.abs(dx) > 60 ? i + (dx < 0 ? 1 : -1) : i);
+    });
+
+    // só começa a rodar quando a seção aparece na tela
+    let started = false;
+    new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started) { started = true; go(0); }
+      else if (!e.isIntersecting && started) clearTimeout(timer);
+      else if (e.isIntersecting) restart();
+    }, { threshold: 0.3 }).observe(box);
+
+    let rt;
+    addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { renderDots(); go(Math.min(i, pages() - 1)); }, 150); });
+    renderDots();
+  })();
 
   /* ---------- Form → WhatsApp ---------- */
   const form = $("#form");
