@@ -261,19 +261,35 @@
     return null;
   }
 
-  /* ---------- seção "Perguntas frequentes" na página ---------- */
-  const faq = document.getElementById("faqList");
-  if (faq) {
-    const cats = [...new Set(KB.map((e) => e.cat))];
-    const tabs = document.getElementById("faqTabs");
-    tabs.innerHTML = cats.map((c, n) => `<button type="button" data-cat="${c}" class="${n ? "" : "is-active"}" aria-selected="${!n}">${c}</button>`).join("");
-    const show = (cat) => {
-      faq.innerHTML = KB.filter((e) => e.cat === cat).map((e, n) => `
-        <details${n ? "" : " open"}><summary>${e.q}</summary><div class="faq__a">${e.a}</div></details>`).join("");
-      tabs.querySelectorAll("button").forEach((b) => { const on = b.dataset.cat === cat; b.classList.toggle("is-active", on); b.setAttribute("aria-selected", String(on)); });
-    };
-    tabs.addEventListener("click", (e) => { const b = e.target.closest("[data-cat]"); if (b) show(b.dataset.cat); });
-    show(cats[0]);
+  /* ---------- temas ---------- */
+  const IC = {
+    "Comprar": '<path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/>',
+    "Financiamento": '<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 9v.01M18 15v.01"/>',
+    "Lançamentos": '<path d="M4 21V10l5-3v14M9 21V4l11 4v13M13 10h3M13 14h3M13 18h3"/>',
+    "Alugar": '<circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/>',
+    "Proprietários": '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+    "Visitas": '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/>',
+    "Atendimento": '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+  };
+  const TOPICS = [
+    ["Comprar", "Etapas, documentos, custos e ITBI"],
+    ["Financiamento", "Bancos, FGTS, SAC ou Price, consórcio"],
+    ["Lançamentos", "Imóveis na planta, obra e entrega"],
+    ["Alugar", "Documentos, garantias, multa e reajuste"],
+    ["Proprietários", "Vender, alugar, avaliar e administrar"],
+    ["Visitas", "Agendar, remarcar e visita por vídeo"],
+    ["Atendimento", "Contato, endereço, segurança e dados"],
+  ];
+  const icon = (cat) => `<svg viewBox="0 0 24 24" aria-hidden="true">${IC[cat] || ""}</svg>`;
+
+  /* ---------- seção "Perguntas frequentes" na página: só os temas; o assistente mostra as perguntas ---------- */
+  const faqTopics = document.getElementById("faqTopics");
+  if (faqTopics) {
+    faqTopics.innerHTML = TOPICS.map(([cat, desc]) => `
+      <button type="button" class="topic-card" data-open-topic="${cat}">
+        ${icon(cat)}<span><b>${cat}</b><small>${desc}</small></span>
+        <em>${KB.filter((e) => e.cat === cat).length} perguntas →</em>
+      </button>`).join("");
   }
 
   /* ---------- interface ---------- */
@@ -301,7 +317,6 @@
   const $ = (s) => root.querySelector(s);
   const log = $("#chatLog"), input = $("#chatInput"), win = $("#chatWin"), fab = $("#chatFab");
   const history = [];
-  const START = ["Como agendar uma visita?", "Quais documentos preciso para comprar?", "Como funciona o financiamento?", "Quais documentos preciso para alugar?", "Quanto vale meu imóvel?", "Onde fica a Vitta Prime?"];
 
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const scrollDown = () => (log.scrollTop = log.scrollHeight);
@@ -318,14 +333,15 @@
     log.insertAdjacentHTML("beforeend", `<div class="msg msg--me">${esc(text)}</div>`);
     scrollDown();
   }
-  function addBot({ a, act = [], list = [], related = [], chips = false }) {
+  function addBot({ a, act = [], list = [], related = [], chips = false, qs = [], back = false }) {
     const el = document.createElement("div");
     el.className = "msg msg--bot";
     el.innerHTML = `<div class="msg__body">${a}</div>
       ${list.length ? `<div class="msg__list">${list.map((i) => `<button type="button" data-open="${i.id}"><img src="${i.img}" alt=""><span><small>${i.bairro}</small><b>${i.titulo}</b><em>${window.VP.brl(i.preco)}${i.mode === "aluguel" ? "/mês" : ""}</em></span></button>`).join("")}</div>` : ""}
       ${act.length ? `<div class="msg__acts">${act.map(([l, v]) => actHtml(l, v)).join("")}</div>` : ""}
       ${related.length ? `<div class="msg__rel"><small>Perguntas relacionadas</small>${related.map((q) => `<button type="button" data-ask="${esc(q)}">${q}</button>`).join("")}</div>` : ""}
-      ${chips ? `<div class="msg__chips">${START.map((q) => `<button type="button" data-ask="${esc(q)}">${q}</button>`).join("")}</div>` : ""}`;
+      ${chips ? `<div class="msg__topics">${TOPICS.map(([c]) => `<button type="button" data-topic="${c}">${icon(c)}${c}</button>`).join("")}</div>` : ""}
+      ${qs.length ? `<div class="msg__chips">${qs.map((q) => `<button type="button" data-ask="${esc(q)}">${q}</button>`).join("")}${back ? '<button type="button" class="is-back" data-topics>← Outros temas</button>' : ""}</div>` : ""}`;
     log.appendChild(el);
     scrollDown();
   }
@@ -366,15 +382,26 @@
     const [res] = await Promise.all([answer(text), new Promise((r) => setTimeout(r, 450 + Math.min(text.length * 12, 600)))]);
     t.remove();
     addBot(res);
-    try { sessionStorage.setItem("vp-chat", log.innerHTML); } catch {}
+    save();
   }
 
-  function setOpen(open) {
+  function showTopic(cat) {
+    addUser(cat);
+    const t = typing();
+    setTimeout(() => {
+      t.remove();
+      addBot({ a: `Sobre <b>${cat}</b>, o que você quer saber? Escolha uma pergunta ou escreva a sua.`, qs: KB.filter((e) => e.cat === cat).map((e) => e.q), back: true });
+      save();
+    }, 350);
+  }
+  const save = () => { try { sessionStorage.setItem("vp-chat", log.innerHTML); } catch {} };
+
+  function setOpen(open, welcome = true) {
     win.hidden = !open;
     root.classList.toggle("is-open", open);
     fab.setAttribute("aria-expanded", String(open));
     if (open) {
-      if (!log.children.length) addBot({ a: "Olá! Sou o assistente da <b>Vitta Prime</b>. Posso tirar dúvidas sobre compra, aluguel, financiamento, lançamentos e sobre o seu imóvel. Escolha um tema ou escreva sua pergunta:", chips: true });
+      if (welcome && !log.children.length) addBot({ a: "Olá! Sou o assistente da <b>Vitta Prime</b>. Posso tirar dúvidas sobre compra, aluguel, financiamento, lançamentos e sobre o seu imóvel. Escolha um tema ou escreva sua pergunta:", chips: true });
       setTimeout(() => input.focus(), 50);
     }
   }
@@ -386,9 +413,20 @@
   $("#chatForm").addEventListener("submit", (e) => { e.preventDefault(); ask(input.value); });
   document.querySelectorAll("[data-chat]").forEach((b) => b.addEventListener("click", () => { setOpen(true); if (b.dataset.chat) ask(b.dataset.chat); }));
 
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-open-topic]");
+    if (!t) return;
+    const first = !log.children.length;
+    setOpen(true, false);
+    if (first) addBot({ a: "Olá! Sou o assistente da <b>Vitta Prime</b>." });
+    showTopic(t.dataset.openTopic);
+  });
   log.addEventListener("click", (e) => {
     const q = e.target.closest("[data-ask]");
     if (q) { ask(q.dataset.ask); return; }
+    const tp = e.target.closest("[data-topic]");
+    if (tp) { showTopic(tp.dataset.topic); return; }
+    if (e.target.closest("[data-topics]")) { addBot({ a: "Claro! Escolha um tema:", chips: true }); save(); return; }
     const b = e.target.closest("[data-act]");
     if (!b) return;
     const [type, val = ""] = b.dataset.act.split(/:(.*)/s);

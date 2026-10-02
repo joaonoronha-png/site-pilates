@@ -823,16 +823,6 @@ body.sheet-open { overflow: hidden; }
 .faq { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.4fr); gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: start; }
 .faq__intro .lead { margin: 1rem 0 1.75rem; }
 .faq__intro { position: sticky; top: calc(var(--header-h) + 24px); }
-.faq__tabs { margin-bottom: 1.25rem; flex-wrap: wrap; border-radius: 16px; overflow: visible; }
-.faq__list details { border-bottom: 1px solid var(--line); }
-.faq__list details:first-child { border-top: 1px solid var(--line); }
-.faq__list summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.1rem 0; font-weight: 600; }
-.faq__list summary::-webkit-details-marker { display: none; }
-.faq__list summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg) translateY(-3px); transition: transform .2s; }
-.faq__list details[open] summary::after { transform: rotate(-135deg) translateY(-3px); }
-.faq__list summary:hover { color: var(--accent); }
-.faq__a { padding: 0 0 1.25rem; color: var(--muted); max-width: 65ch; line-height: 1.65; }
-.faq__a b { color: var(--fg); }
 @media (max-width: 900px) { .faq { grid-template-columns: minmax(0, 1fr); } .faq__intro { position: static; } }
 
 /* ============ ASSISTENTE (CHAT) ============ */
@@ -889,3 +879,20 @@ body.sheet-open { overflow: hidden; }
   .chat.is-open { inset: 0; left: 0; bottom: 0; z-index: 85; }
   .chat__win { width: 100%; height: 100%; border-radius: 0; border: 0; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
 }
+
+/* temas das perguntas frequentes (abrem o assistente) */
+.faq__topics { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.topic-card { display: grid; grid-template-columns: 44px minmax(0, 1fr); grid-template-rows: auto auto; column-gap: .9rem; row-gap: .5rem; align-items: center; padding: 1.1rem 1.2rem; text-align: left; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--fg); cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.topic-card:hover { border-color: var(--accent); box-shadow: var(--shadow); transform: translateY(-2px); }
+.topic-card svg { grid-row: span 2; width: 44px; height: 44px; padding: 11px; border-radius: 50%; background: var(--mist); fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.topic-card span { display: grid; gap: .15rem; }
+.topic-card b { font-weight: 700; }
+.topic-card small { color: var(--muted); font-size: .84rem; }
+.topic-card em { font-style: normal; font-size: .8rem; font-weight: 600; color: var(--accent); }
+.topic-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+@media (max-width: 520px) { .faq__topics { grid-template-columns: 1fr; } }
+.msg__topics { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem; }
+.msg__topics button { display: flex; align-items: center; gap: .5rem; padding: .55rem .65rem; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--fg); font-size: .82rem; font-weight: 600; cursor: pointer; text-align: left; }
+.msg__topics button:hover { border-color: var(--accent); color: var(--accent); }
+.msg__topics svg { width: 18px; height: 18px; flex: none; fill: none; stroke: var(--accent); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.msg__chips .is-back { border-style: dashed; color: var(--muted); }

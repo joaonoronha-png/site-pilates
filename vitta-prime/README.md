@@ -25,7 +25,7 @@ Cada imóvel, guia e opção de proprietário abre uma página sobreposta com en
 - **Formulários**: hoje só exibem confirmação na tela; ligar a WhatsApp/e-mail/CRM.
 
 ## Assistente (chat) e Perguntas frequentes
-- `chat.js`: botão "Tire suas dúvidas" (canto inferior esquerdo) e a seção "Perguntas frequentes" usam a mesma base `KB`.
+- `chat.js`: botão "Tire suas dúvidas" (canto inferior esquerdo) e a seção "Perguntas frequentes" usam a mesma base `KB`. Na seção, cada tema abre o assistente com as perguntas daquele tema.
 - O assistente entende variações e erros de digitação, busca imóveis do site ("tem cobertura na Barra?"), calcula o ITBI ("ITBI de 2 milhões")
   e passa para o WhatsApp quando não sabe. Não é IA generativa: só responde com os textos revisados da base.
 - Para ligar uma IA generativa no futuro, defina `window.VP_AI = async (pergunta, historico) => "resposta"` chamando um backend próprio
