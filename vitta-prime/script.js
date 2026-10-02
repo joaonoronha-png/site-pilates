@@ -395,7 +395,7 @@
   /* ---------- PÁGINAS SOBREPOSTAS (imóvel, guia, proprietário) ---------- */
   const sheet = $("#sheet"), sheetBody = $("#sheetBody"), sheetPanel = $(".sheet__panel", sheet);
   let lastFocus = null;
-  const isRoute = (r) => /^(imovel-VP-\d+|guia-[a-z-]+|proprietario-[a-z]+)$/.test(r);
+  const isRoute = (r) => /^(imovel-VP-\d+|guia-[a-z-]+|proprietario-[a-z]+|duvidas)$/.test(r);
 
   function openRoute(route) {
     if (!isRoute(route)) return;
@@ -412,6 +412,15 @@
       const g = GUIAS.find((x) => x.id === route.slice(5));
       if (!g) return;
       html = guideHtml(g); crumb = `Explore com a Vitta Prime · ${g.cat}`; narrow = true;
+    } else if (route === "duvidas") {
+      html = `<div class="article" style="max-width:820px">
+        <p class="eyebrow">Dúvidas frequentes</p>
+        <h2 id="sheetTitle">Tire suas dúvidas</h2>
+        <p class="lead" style="margin-bottom:1.75rem">Escolha um tema e o nosso assistente mostra as perguntas mais comuns, com as respostas na hora.</p>
+        <div class="faq__topics" id="faqTopics"></div>
+        <div class="article__cta"><p>Não encontrou o que procura?</p><button type="button" class="btn btn--navy" data-chat="">Perguntar ao assistente</button></div>
+      </div>`;
+      crumb = "Dúvidas frequentes"; narrow = true;
     } else {
       const o = OWNER_PAGES[route.slice(13)];
       if (!o) return;
@@ -427,6 +436,7 @@
     sheetPanel.focus({ preventScroll: true });
     $$("[data-rail]", sheetBody).forEach(initRail);
     bindSheet(route);
+    if (route === "duvidas") window.VP_CHAT?.renderTopics($("#faqTopics", sheetBody));
   }
   function hideSheet() {
     if (sheet.hidden) return;
@@ -468,7 +478,7 @@
     if (r) openRoute(r.dataset.route);
   });
   // links do rodapé para páginas (#proprietario-...) abrem a página sobreposta
-  $$('a[href^="#proprietario-"]').forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); openRoute(a.getAttribute("href").slice(1)); }));
+  $$('a[href^="#proprietario-"], a[href="#duvidas"]').forEach((a) => a.addEventListener("click", (e) => { e.preventDefault(); openRoute(a.getAttribute("href").slice(1)); }));
 
   /* detalhe do imóvel */
   const DIAS = ["dom", "seg", "ter", "qua", "qui", "sex", "sáb"];

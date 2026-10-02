@@ -283,14 +283,16 @@
   const icon = (cat) => `<svg viewBox="0 0 24 24" aria-hidden="true">${IC[cat] || ""}</svg>`;
 
   /* ---------- seção "Perguntas frequentes" na página: só os temas; o assistente mostra as perguntas ---------- */
-  const faqTopics = document.getElementById("faqTopics");
-  if (faqTopics) {
-    faqTopics.innerHTML = TOPICS.map(([cat, desc]) => `
+  const renderTopics = (el) => {
+    if (!el) return;
+    el.innerHTML = TOPICS.map(([cat, desc]) => `
       <button type="button" class="topic-card" data-open-topic="${cat}">
         ${icon(cat)}<span><b>${cat}</b><small>${desc}</small></span>
         <em>${KB.filter((e) => e.cat === cat).length} perguntas →</em>
       </button>`).join("");
-  }
+  };
+  window.VP_CHAT = { renderTopics };
+  renderTopics(document.getElementById("faqTopics"));
 
   /* ---------- interface ---------- */
   const root = document.createElement("div");
@@ -411,7 +413,12 @@
   $("#chatClose").addEventListener("click", () => { setOpen(false); fab.focus(); });
   addEventListener("keydown", (e) => { if (e.key === "Escape" && !win.hidden) { setOpen(false); fab.focus(); } });
   $("#chatForm").addEventListener("submit", (e) => { e.preventDefault(); ask(input.value); });
-  document.querySelectorAll("[data-chat]").forEach((b) => b.addEventListener("click", () => { setOpen(true); if (b.dataset.chat) ask(b.dataset.chat); }));
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("[data-chat]");
+    if (!b) return;
+    setOpen(true);
+    if (b.dataset.chat) ask(b.dataset.chat);
+  });
 
   document.addEventListener("click", (e) => {
     const t = e.target.closest("[data-open-topic]");
