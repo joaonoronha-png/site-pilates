@@ -323,7 +323,7 @@
 
   /* ---------- EXPLORE: guias ---------- */
   const GUIAS = [
-    { id: "comprar-passo-a-passo", cat: "Comprar", titulo: "Comprar um imóvel: o passo a passo", resumo: "Da primeira visita ao registro no cartório, sem surpresas.", foto: "1600596542815-ffad4c1539a9",
+    { id: "comprar-passo-a-passo", cat: "Comprar", titulo: "Comprar um imóvel: o passo a passo", resumo: "Da primeira visita ao registro no cartório, sem surpresas.", foto: "1560518883-ce09059eeffa",
       body: `<p>Comprar bem é seguir uma ordem. Este é o caminho que usamos com nossos clientes.</p>
       <ol><li><b>Defina o orçamento total.</b> Some entrada, parcelas e os custos da compra (ITBI, escritura e registro).</li>
       <li><b>Visite com critério.</b> Compare pelo menos três imóveis da mesma região e anote condomínio, IPTU e estado de conservação.</li>
@@ -332,14 +332,14 @@
       <li><b>Assine o contrato e pague o sinal.</b> O contrato de promessa de compra e venda define prazos e multas.</li>
       <li><b>Financiamento, se houver.</b> O banco avalia o imóvel e aprova o crédito.</li>
       <li><b>Pague o ITBI, lavre a escritura e registre.</b> O imóvel só é seu depois do registro no Cartório de Registro de Imóveis.</li></ol>` },
-    { id: "financiamento", cat: "Comprar", titulo: "Como funciona o financiamento imobiliário", resumo: "Entrada, tabelas SAC e Price, FGTS e como comparar bancos.", foto: "1600607687939-ce8a6c25118c",
+    { id: "financiamento", cat: "Comprar", titulo: "Como funciona o financiamento imobiliário", resumo: "Entrada, tabelas SAC e Price, FGTS e como comparar bancos.", foto: "1579621970563-ebec7560ff3e",
       body: `<p>O financiamento permite pagar o imóvel em parcelas, com o próprio imóvel como garantia (alienação fiduciária).</p>
       <h3>Entrada</h3><p>Os bancos costumam financiar só parte do valor. O restante é a entrada, paga com recursos próprios ou FGTS.</p>
       <h3>SAC ou Price</h3><ul><li><b>SAC:</b> parcelas começam mais altas e diminuem ao longo do tempo. O total de juros é menor.</li>
       <li><b>Price:</b> parcelas fixas no início, mais fáceis de encaixar no orçamento, mas com mais juros no total.</li></ul>
       <h3>FGTS</h3><p>Pode ser usado na entrada ou para amortizar, desde que o imóvel seja residencial, para moradia própria, e você cumpra as regras da Caixa.</p>
       <h3>Compare o CET</h3><p>Simule em pelo menos três bancos e compare o Custo Efetivo Total (CET), não só a taxa de juros.</p>` },
-    { id: "custos-da-compra", cat: "Comprar", titulo: "Custos além do preço: ITBI, escritura e registro", resumo: "Quanto reservar para as despesas de cartório e impostos.", foto: "1545324418-cc1a3fa10c00",
+    { id: "custos-da-compra", cat: "Comprar", titulo: "Custos além do preço: ITBI, escritura e registro", resumo: "Quanto reservar para as despesas de cartório e impostos.", foto: "1554224155-6726b3ff858f",
       body: `<p>Além do valor do imóvel, a compra tem custos obrigatórios. Planeje-os desde o início.</p>
       <ul><li><b>ITBI:</b> imposto municipal pago antes da escritura. No Rio de Janeiro a alíquota é de 3% sobre o valor do imóvel.</li>
       <li><b>Escritura:</b> lavrada em Cartório de Notas, com valor definido pela tabela de emolumentos do estado.</li>
@@ -352,26 +352,26 @@
       <li><b>Península:</b> torres cercadas de verde junto à Lagoa da Tijuca, com segurança e lazer completo.</li>
       <li><b>Recreio dos Bandeirantes:</b> clima mais tranquilo, casas e praias para quem gosta de esportes ao ar livre.</li>
       <li><b>Itanhangá e Joá:</b> casas amplas, muito verde e vistas para o mar e a pedra da Gávea.</li></ul>` },
-    { id: "preparar-para-vender", cat: "Vender", titulo: "Como preparar seu imóvel para vender", resumo: "Documentos, pequenos reparos e fotos que aceleram a venda.", foto: "1600566753190-17f0baa2a6c3",
+    { id: "preparar-para-vender", cat: "Vender", titulo: "Como preparar seu imóvel para vender", resumo: "Documentos, pequenos reparos e fotos que aceleram a venda.", foto: "1562259949-e8e7689d7828",
       body: `<ol><li><b>Separe a documentação:</b> matrícula atualizada, IPTU quitado e declaração de quitação do condomínio.</li>
       <li><b>Faça pequenos reparos:</b> pintura, vazamentos, tomadas e portas. Detalhes pesam na primeira impressão.</li>
       <li><b>Despersonalize:</b> menos objetos pessoais ajudam o comprador a se imaginar no imóvel.</li>
       <li><b>Fotos profissionais:</b> são o primeiro contato do comprador com o imóvel nos portais.</li>
       <li><b>Preço certo desde o início:</b> imóvel acima do mercado fica parado e perde força nos anúncios.</li></ol>` },
-    { id: "preco-certo", cat: "Vender", titulo: "Como definir o preço certo", resumo: "Comparativos de m², estado de conservação e tempo de venda.", foto: "1600607687644-c7171b42498f",
+    { id: "preco-certo", cat: "Vender", titulo: "Como definir o preço certo", resumo: "Comparativos de m², estado de conservação e tempo de venda.", foto: "1434626881859-194d67b2b86f",
       body: `<p>O preço certo vem da comparação com imóveis parecidos que foram vendidos recentemente, não só dos anunciados.</p>
       <ul><li><b>Preço por m²:</b> compare imóveis do mesmo prédio ou condomínio e da mesma rua.</li>
       <li><b>Diferenciais:</b> andar, vista, vagas, reforma e lazer do condomínio mudam o valor.</li>
       <li><b>Prazo:</b> quem precisa vender rápido deve anunciar mais perto do valor de mercado.</li></ul>
       <p>A Vitta Prime faz essa análise gratuitamente na avaliação do seu imóvel.</p>` },
-    { id: "documentos-para-alugar", cat: "Alugar", titulo: "Documentos e garantias para alugar", resumo: "Fiador, seguro-fiança, caução: qual escolher.", foto: "1522708323590-d24dbb6b0267",
+    { id: "documentos-para-alugar", cat: "Alugar", titulo: "Documentos e garantias para alugar", resumo: "Fiador, seguro-fiança, caução: qual escolher.", foto: "1450101499163-c8848c66ca85",
       body: `<p>Para alugar, o inquilino apresenta documento de identidade, CPF, comprovante de residência e de renda. A renda costuma ser de pelo menos três vezes o valor do aluguel.</p>
       <h3>Garantias mais comuns</h3><ul><li><b>Fiador:</b> pessoa com imóvel quitado que se responsabiliza pela dívida.</li>
       <li><b>Seguro-fiança:</b> contratado com uma seguradora, com pagamento mensal ou anual.</li>
       <li><b>Caução:</b> depósito em dinheiro de até três meses de aluguel, devolvido ao fim do contrato.</li>
       <li><b>Título de capitalização:</b> valor aplicado que fica bloqueado durante a locação.</li></ul>
       <p>A lei permite apenas uma garantia por contrato.</p>` },
-    { id: "vistoria", cat: "Alugar", titulo: "Checklist da vistoria de entrada", resumo: "O que conferir antes de receber as chaves.", foto: "1493809842364-78817add7ffb",
+    { id: "vistoria", cat: "Alugar", titulo: "Checklist da vistoria de entrada", resumo: "O que conferir antes de receber as chaves.", foto: "1586281380349-632531db7ed4",
       body: `<ul><li>Teste torneiras, chuveiros, descargas e ralos.</li><li>Ligue todas as tomadas, interruptores e o quadro de luz.</li>
       <li>Abra e feche portas, janelas e armários.</li><li>Procure manchas de umidade em tetos e paredes.</li>
       <li>Fotografe tudo com data e anexe ao laudo de vistoria.</li></ul>
@@ -738,6 +738,19 @@
     clearTimeout(toastT);
     toastT = setTimeout(() => (t.hidden = true), 2600);
   }
+
+  /* ---------- BOTÃO "COMO CHEGAR" (Waze, Google Maps, Mapas, Uber) ---------- */
+  const route = $("#route"), routeBtn = $("#routeBtn"), routeMenu = $("#routeMenu");
+  const setRoute = (open) => {
+    route.classList.toggle("is-open", open);
+    routeMenu.hidden = !open;
+    routeBtn.setAttribute("aria-expanded", String(open));
+    if (open) $("a", routeMenu).focus();
+  };
+  routeBtn.addEventListener("click", () => setRoute(routeMenu.hidden));
+  document.addEventListener("click", (e) => { if (!routeMenu.hidden && !route.contains(e.target)) setRoute(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !routeMenu.hidden) { setRoute(false); routeBtn.focus(); } });
+  $$("a", routeMenu).forEach((a) => a.addEventListener("click", () => setRoute(false)));
 
   const mapApi = {};
   $$("[data-rail]").forEach(initRail);
