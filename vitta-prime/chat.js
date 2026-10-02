@@ -163,6 +163,10 @@
   const near = (a, b) => {
     if (a === b) return true;
     if (Math.abs(a.length - b.length) > 1 || a.length < 5) return false;
+    if (a.length === b.length) { // letras trocadas de lugar ("financiamneto")
+      const d = [...a].map((c, i) => (c !== b[i] ? i : -1)).filter((i) => i >= 0);
+      if (d.length === 2 && d[1] === d[0] + 1 && a[d[0]] === b[d[1]] && a[d[1]] === b[d[0]]) return true;
+    }
     let i = 0, j = 0, edits = 0;
     while (i < a.length && j < b.length) {
       if (a[i] === b[j]) { i++; j++; continue; }
@@ -175,6 +179,20 @@
     e.tq = tokens(e.q);
     e.tk = new Set([...e.tq, ...tokens(e.k)]);
   });
+  // vocabulário do assunto (imóveis). A pergunta precisa ter ao menos um destes termos para ser respondida.
+  const DOMAIN = new Set(tokens(`imovel imoveis casa apartamento cobertura sala terreno lote condominio aluguel locacao compra venda vender
+    vitta prime imobiliaria corretor corretagem visita visitar documento documentos contrato escritura cartorio registro matricula certidao
+    itbi iptu fgts financiamento banco credito consorcio carta entrada parcela juros sac price ipca incc igpm reajuste multa rescisao
+    garantia fiador caucao seguro inquilino proprietario anunciar anuncio avaliar avaliacao administracao administrar planta lancamento
+    obra construtora incorporadora entrega chave chaves vistoria endereco whatsapp telefone instagram horario atendimento golpe fraude lgpd
+    bairro bairros barra recreio peninsula joa itanhanga oceanico tijuca preco valor metro quarto quartos suite vaga piscina morar mudar
+    investir investimento renda empresa escritorio mapa rota chegar waze uber localizacao agendar especialista`));
+  const inDomain = (text) => tokens(text).some((w) => DOMAIN.has(w) || (w.length >= 6 && [...DOMAIN].some((d) => near(w, d))));
+  const RUDE = /\b(porra|caralho|merda|bosta|puta|fdp|idiota|burro|otario|vsf|vtnc|pqp)\b/;
+  const OFF_TOPIC = {
+    a: "Sou o assistente da <b>Vitta Prime Imóveis</b> e respondo apenas sobre o nosso trabalho: compra, venda e aluguel de imóveis de alto padrão, financiamento, lançamentos, visitas e administração na Barra e região. Posso ajudar com alguma dessas dúvidas?",
+    chips: true,
+  };
   function rank(text) {
     const t = tokens(text);
     if (!t.length) return [];
@@ -323,6 +341,8 @@
     history.push({ role: "user", text });
     const sp = special(text);
     if (sp) return sp;
+    if (RUDE.test(norm(text))) return { a: "Vamos manter a conversa respeitosa, combinado? Estou aqui para ajudar com compra, venda, aluguel e financiamento de imóveis. Em que posso ajudar?", chips: true };
+    if (!inDomain(text)) return OFF_TOPIC;
     const r = rank(text);
     if (r.length && r[0].s >= 1.1) {
       const best = r[0].e;
