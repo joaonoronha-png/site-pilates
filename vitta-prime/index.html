@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -44,9 +45,9 @@
       <a href="#imoveis" data-mode="venda">Comprar</a>
       <a href="#imoveis" data-mode="aluguel">Alugar</a>
       <a href="#lancamentos">Lançamentos</a>
-      <a href="#anuncie">Anuncie</a>
-      <a href="#avaliacao">Avaliação</a>
+      <a href="#proprietarios">Proprietários</a>
       <a href="#sobre">Sobre</a>
+      <a href="#mapa">Mapa</a>
       <a href="#contato">Contato</a>
     </nav>
     <div class="header__actions">
@@ -63,7 +64,7 @@
 
 <main>
 
-<!-- ============ HERO ============ -->
+<!-- ============ 1. HERO + BUSCA ============ -->
 <section class="hero" id="inicio">
   <div class="hero__media">
     <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=80&auto=format&fit=crop" alt="Residência de alto padrão com piscina ao entardecer">
@@ -128,41 +129,31 @@
       <button type="button" data-quick-bairro="Península">Península</button>
     </div>
   </div>
-  <a href="#numeros" class="hero__scroll" aria-label="Rolar para baixo"><i></i></a>
 </section>
 
-<!-- ============ NÚMEROS / PILARES ============ -->
-<section class="pillars" id="numeros">
-  <div class="wrap pillars__grid">
-    <div class="pillar">
+<!-- Atalhos: um caminho para cada tipo de visitante -->
+<nav class="paths" aria-label="Atalhos">
+  <div class="wrap paths__grid">
+    <a href="#imoveis" data-mode="venda" class="path">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
-      <h3>Compra &amp; venda</h3>
-      <p>Curadoria de imóveis residenciais e comerciais, da visita à escritura.</p>
-    </div>
-    <div class="pillar">
+      <span><b>Quero comprar</b><small>Apartamentos, coberturas e casas</small></span>
+    </a>
+    <a href="#imoveis" data-mode="aluguel" class="path">
       <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg>
-      <h3>Locação</h3>
-      <p>Análise de cadastro, contrato e vistoria para inquilinos e proprietários.</p>
-    </div>
-    <div class="pillar">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
-      <h3>Administração</h3>
-      <p>Gestão de aluguéis, repasses, manutenção e relatórios mensais.</p>
-    </div>
-    <div class="pillar">
+      <span><b>Quero alugar</b><small>Residencial e comercial</small></span>
+    </a>
+    <a href="#proprietarios" class="path">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
-      <h3>Avaliação</h3>
-      <p>Laudo de mercado com comparativos reais de preço por m² na região.</p>
-    </div>
-    <div class="pillar">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M8 21v-8h8v8M3 13h18"/></svg>
-      <h3>Incorporação &amp; loteamento</h3>
-      <p>Estruturação de empreendimentos e venda de terrenos e lançamentos.</p>
-    </div>
+      <span><b>Tenho um imóvel</b><small>Avaliar, vender ou alugar</small></span>
+    </a>
+    <a href="#mapa" class="path">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>
+      <span><b>Ver no mapa</b><small>Imóveis por localização</small></span>
+    </a>
   </div>
-</section>
+</nav>
 
-<!-- ============ IMÓVEIS ============ -->
+<!-- ============ 2. IMÓVEIS ============ -->
 <section class="section" id="imoveis">
   <div class="wrap">
     <div class="section__head">
@@ -212,7 +203,7 @@
   </div>
 </section>
 
-<!-- ============ LANÇAMENTOS ============ -->
+<!-- ============ 3. LANÇAMENTOS ============ -->
 <section class="launch" id="lancamentos">
   <div class="launch__media">
     <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80&auto=format&fit=crop" alt="Fachada de edifício residencial contemporâneo" loading="lazy">
@@ -235,7 +226,7 @@
   </div>
 </section>
 
-<!-- ============ BAIRROS ============ -->
+<!-- ============ 4. BAIRROS ============ -->
 <section class="section" id="bairros">
   <div class="wrap">
     <div class="section__head">
@@ -270,102 +261,90 @@
   </div>
 </section>
 
-<!-- ============ AVALIAÇÃO ============ -->
-<section class="section section--tint" id="avaliacao">
-  <div class="wrap split">
-    <div class="split__text">
-      <p class="eyebrow">Avaliação imobiliária</p>
-      <h2 class="section__title">Quanto vale o seu imóvel hoje?</h2>
-      <p class="lead">Uma estimativa rápida para começar a conversa. A avaliação definitiva é feita por um corretor da Vitta Prime, com visita e comparativos de vendas recentes na sua região.</p>
-      <ol class="steps">
-        <li><b>Informe o imóvel</b><span>Bairro, tipo e metragem.</span></li>
-        <li><b>Receba uma faixa de preço</b><span>Calculada pelo preço médio do m² no bairro.</span></li>
-        <li><b>Agende a avaliação completa</b><span>Visita, laudo e estratégia de venda ou locação.</span></li>
-      </ol>
+<!-- ============ 5. PROPRIETÁRIOS (avaliação + anuncie) ============ -->
+<section class="section section--tint" id="proprietarios">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Para proprietários</p>
+        <h2 class="section__title">Avalie, venda ou alugue seu imóvel</h2>
+      </div>
+      <p class="section__aside">Comece pela estimativa de valor e, quando quiser, peça a captação. Fotos profissionais e divulgação nos portais estão incluídas.</p>
     </div>
 
-    <form class="card-form" id="evalForm" novalidate>
-      <h3>Estimativa de valor</h3>
-      <div class="grid2">
-        <label class="input"><span>Bairro</span>
-          <select id="eBairro" required>
-            <option value="">Selecione</option>
-            <option value="16500">Barra da Tijuca</option>
-            <option value="17800">Jardim Oceânico</option>
-            <option value="11200">Recreio dos Bandeirantes</option>
-            <option value="12500">Itanhangá</option>
-            <option value="15000">Joá</option>
-            <option value="14200">Península</option>
-          </select>
-        </label>
-        <label class="input"><span>Tipo</span>
-          <select id="eTipo">
-            <option value="1">Apartamento</option>
-            <option value="1.12">Cobertura</option>
-            <option value="1.05">Casa em condomínio</option>
-            <option value="0.85">Sala comercial</option>
-          </select>
-        </label>
-        <label class="input"><span>Área privativa (m²)</span>
-          <input id="eArea" type="number" inputmode="numeric" min="20" max="3000" placeholder="Ex.: 120" required>
-        </label>
-        <label class="input"><span>Estado de conservação</span>
-          <select id="eEstado">
-            <option value="1.08">Reformado</option>
-            <option value="1" selected>Bom</option>
-            <option value="0.9">Precisa de reforma</option>
-          </select>
-        </label>
-      </div>
-      <button type="submit" class="btn btn--navy btn--block">Calcular estimativa</button>
-      <div class="estimate" id="estimate" hidden>
-        <span>Faixa estimada</span>
-        <strong id="estValue"></strong>
-        <small id="estM2"></small>
-        <a href="#contato" class="btn btn--gold btn--block" data-interest="Avaliação completa do meu imóvel">Agendar avaliação completa</a>
-      </div>
-      <p class="form-error" id="evalError" hidden>Selecione o bairro e informe a área para calcular.</p>
-      <p class="note">Valores de m² de referência, apenas para demonstração. Ajustar com dados de mercado da Vitta Prime.</p>
-    </form>
-  </div>
-</section>
+    <div class="owners">
+      <form class="card-form" id="avaliacao" novalidate>
+        <div class="card-form__head">
+          <span class="step-tag">1</span>
+          <div><h3>Quanto vale o seu imóvel?</h3><p>Faixa estimada pelo preço médio do m² no bairro.</p></div>
+        </div>
+        <div class="grid2">
+          <label class="input"><span>Bairro</span>
+            <select id="eBairro" required>
+              <option value="">Selecione</option>
+              <option value="16500">Barra da Tijuca</option>
+              <option value="17800">Jardim Oceânico</option>
+              <option value="11200">Recreio dos Bandeirantes</option>
+              <option value="12500">Itanhangá</option>
+              <option value="15000">Joá</option>
+              <option value="14200">Península</option>
+            </select>
+          </label>
+          <label class="input"><span>Tipo</span>
+            <select id="eTipo">
+              <option value="1">Apartamento</option>
+              <option value="1.12">Cobertura</option>
+              <option value="1.05">Casa em condomínio</option>
+              <option value="0.85">Sala comercial</option>
+            </select>
+          </label>
+          <label class="input"><span>Área privativa (m²)</span>
+            <input id="eArea" type="number" inputmode="numeric" min="20" max="3000" placeholder="Ex.: 120" required>
+          </label>
+          <label class="input"><span>Estado de conservação</span>
+            <select id="eEstado">
+              <option value="1.08">Reformado</option>
+              <option value="1" selected>Bom</option>
+              <option value="0.9">Precisa de reforma</option>
+            </select>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--navy btn--block">Calcular estimativa</button>
+        <div class="estimate" id="estimate" hidden>
+          <span>Faixa estimada</span>
+          <strong id="estValue"></strong>
+          <small id="estM2"></small>
+        </div>
+        <p class="form-error" id="evalError" hidden>Selecione o bairro e informe a área para calcular.</p>
+        <p class="note">Valores de m² de referência, apenas para demonstração.</p>
+      </form>
 
-<!-- ============ ANUNCIE ============ -->
-<section class="section" id="anuncie">
-  <div class="wrap split split--reverse">
-    <div class="split__media">
-      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80&auto=format&fit=crop" alt="Sala de estar ampla e iluminada" loading="lazy">
-      <div class="badge-float">
-        <strong>Fotos profissionais</strong>
-        <span>Incluídas na captação</span>
-      </div>
-    </div>
-    <div class="split__text">
-      <p class="eyebrow">Para proprietários</p>
-      <h2 class="section__title">Anuncie seu imóvel com a Vitta Prime</h2>
-      <ul class="checks">
-        <li>Divulgação no site, nas redes sociais e nos principais portais</li>
-        <li>Fotos e descrição profissionais do imóvel</li>
-        <li>Corretor dedicado acompanhando visitas e propostas</li>
-        <li>Apoio jurídico e documental até a escritura</li>
-      </ul>
-      <form class="card-form card-form--flat" id="ownerForm" novalidate>
+      <form class="card-form" id="anuncie" novalidate>
+        <div class="card-form__head">
+          <span class="step-tag">2</span>
+          <div><h3>Anuncie com a Vitta Prime</h3><p>Um corretor dedicado cuida de tudo, da visita à escritura.</p></div>
+        </div>
+        <ul class="checks">
+          <li>Divulgação no site, nas redes e nos principais portais</li>
+          <li>Fotos e descrição profissionais</li>
+          <li>Apoio jurídico e documental</li>
+        </ul>
         <div class="grid2">
           <label class="input"><span>Seu nome</span><input id="oNome" type="text" required autocomplete="name"></label>
           <label class="input"><span>WhatsApp</span><input id="oFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
           <label class="input"><span>Bairro do imóvel</span><input id="oBairro" type="text" required placeholder="Ex.: Barra da Tijuca"></label>
           <label class="input"><span>Finalidade</span>
-            <select id="oFin"><option>Vender</option><option>Alugar</option><option>Vender ou alugar</option></select>
+            <select id="oFin"><option>Vender</option><option>Alugar</option><option>Vender ou alugar</option><option>Administração do aluguel</option></select>
           </label>
         </div>
-        <button type="submit" class="btn btn--navy">Quero anunciar</button>
+        <button type="submit" class="btn btn--gold btn--block">Quero anunciar</button>
         <p class="form-ok" id="ownerOk" hidden></p>
       </form>
     </div>
   </div>
 </section>
 
-<!-- ============ SOBRE ============ -->
+<!-- ============ 6. SOBRE ============ -->
 <section class="section section--navy" id="sobre">
   <div class="wrap">
     <div class="about">
@@ -381,20 +360,27 @@
       </div>
     </div>
 
-    <div class="team">
-      <h3 class="team__title">Sócios-administradores</h3>
-      <ul class="team__list">
-        <li><span class="avatar">MS</span><b>Maricelo Batista Souza</b></li>
-        <li><span class="avatar">PM</span><b>Patrick Fragoso Mello</b></li>
-        <li><span class="avatar">BS</span><b>Bernardo Martins Braga Saraiva</b></li>
-        <li><span class="avatar">CM</span><b>Carolina Pentagna Mascarenhas</b></li>
-        <li><span class="avatar">DF</span><b>Daniel Vital Ferreira</b></li>
-      </ul>
-    </div>
+    <h3 class="sub-title">O que fazemos</h3>
+    <ul class="services">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg><b>Compra &amp; venda</b><span>Da visita à escritura.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg><b>Locação</b><span>Cadastro, contrato e vistoria.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></svg><b>Administração</b><span>Repasses, manutenção e relatórios.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg><b>Avaliação</b><span>Laudo com comparativos de m².</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M8 21v-8h8v8M3 13h18"/></svg><b>Incorporação &amp; loteamento</b><span>Lançamentos e terrenos.</span></li>
+    </ul>
+
+    <h3 class="sub-title">Sócios-administradores</h3>
+    <ul class="team__list">
+      <li><span class="avatar">MS</span><b>Maricelo Batista Souza</b></li>
+      <li><span class="avatar">PM</span><b>Patrick Fragoso Mello</b></li>
+      <li><span class="avatar">BS</span><b>Bernardo Martins Braga Saraiva</b></li>
+      <li><span class="avatar">CM</span><b>Carolina Pentagna Mascarenhas</b></li>
+      <li><span class="avatar">DF</span><b>Daniel Vital Ferreira</b></li>
+    </ul>
   </div>
 </section>
 
-<!-- ============ CONTATO ============ -->
+<!-- ============ 7. CONTATO ============ -->
 <section class="section" id="contato">
   <div class="wrap split">
     <div class="split__text">
@@ -410,6 +396,7 @@
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
           <div><small>Endereço</small><span>Barra da Tijuca · Rio de Janeiro · RJ</span></div>
+          <a href="#mapa" class="link-btn">Ver no mapa</a>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
@@ -443,6 +430,42 @@
   </div>
 </section>
 
+<!-- ============ 8. MAPA ============ -->
+<section class="section section--tint section--map" id="mapa">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Mapa de imóveis</p>
+        <h2 class="section__title">Encontre pelo mapa</h2>
+      </div>
+      <div class="segmented" role="tablist" aria-label="Filtrar mapa" id="mapTabs">
+        <button type="button" data-map="todos" class="is-active" aria-selected="true">Todos</button>
+        <button type="button" data-map="venda" aria-selected="false">Comprar</button>
+        <button type="button" data-map="aluguel" aria-selected="false">Alugar</button>
+        <button type="button" data-map="lancamento" aria-selected="false">Lançamentos</button>
+      </div>
+    </div>
+
+    <div class="mapbox">
+      <aside class="maplist" aria-label="Imóveis no mapa">
+        <p class="maplist__count" id="mapCount"></p>
+        <ul id="mapList"></ul>
+      </aside>
+      <div class="mapwrap">
+        <div id="map" role="region" aria-label="Mapa interativo da Barra da Tijuca e região"></div>
+        <div class="maplegend">
+          <span><i class="lg lg--venda"></i>Venda</span>
+          <span><i class="lg lg--aluguel"></i>Aluguel</span>
+          <span><i class="lg lg--lancamento"></i>Lançamento</span>
+          <span><i class="lg lg--office"></i>Vitta Prime</span>
+        </div>
+        <p class="map-fallback" id="mapFallback" hidden>Não foi possível carregar o mapa agora. A lista ao lado continua disponível.</p>
+      </div>
+    </div>
+    <p class="note">Localizações aproximadas dos imóveis ilustrativos. A posição do escritório é provisória até a confirmação do endereço.</p>
+  </div>
+</section>
+
 </main>
 
 <!-- ============ FOOTER ============ -->
@@ -461,11 +484,12 @@
       <a href="#imoveis" data-mode="aluguel">Alugar</a>
       <a href="#lancamentos">Lançamentos</a>
       <a href="#bairros">Bairros</a>
+      <a href="#mapa">Mapa</a>
     </div>
     <div>
       <h4>Proprietários</h4>
-      <a href="#anuncie">Anunciar imóvel</a>
       <a href="#avaliacao">Avaliar imóvel</a>
+      <a href="#anuncie">Anunciar imóvel</a>
       <a href="#sobre">Administração</a>
     </div>
     <div>
@@ -488,6 +512,8 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="map-data.js"></script>
 <script src="script.js"></script>
 </body>
 </html>

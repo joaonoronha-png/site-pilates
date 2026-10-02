@@ -63,20 +63,20 @@
   /* ---------- IMÓVEIS (dados ilustrativos) ---------- */
   const U = (id) => `https://images.unsplash.com/photo-${id}?w=900&q=75&auto=format&fit=crop`;
   const IMOVEIS = [
-    { id: "VP-1024", mode: "venda", tipo: "Cobertura", bairro: "Barra da Tijuca", titulo: "Cobertura linear com vista para o mar", area: 310, quartos: 4, suites: 4, vagas: 3, preco: 6900000, img: U("1600596542815-ffad4c1539a9"), tag: "Exclusivo", destaque: 1 },
-    { id: "VP-1031", mode: "venda", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Apartamento a 200 m da praia, próximo ao metrô", area: 128, quartos: 3, suites: 1, vagas: 2, preco: 2350000, img: U("1502672260266-1c1ef2d93688"), destaque: 2 },
-    { id: "VP-1047", mode: "venda", tipo: "Casa em condomínio", bairro: "Barra da Tijuca", titulo: "Casa contemporânea em condomínio fechado", area: 520, quartos: 5, suites: 5, vagas: 4, preco: 8500000, img: U("1600585154340-be6161a56a0c"), tag: "Novo", destaque: 3 },
-    { id: "VP-1052", mode: "venda", tipo: "Apartamento", bairro: "Península", titulo: "Andar alto com varanda gourmet e vista para a lagoa", area: 165, quartos: 3, suites: 3, vagas: 2, preco: 2980000, img: U("1600607687644-c7171b42498f"), destaque: 4 },
-    { id: "VP-1060", mode: "venda", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Casa com piscina e área gourmet", area: 380, quartos: 4, suites: 3, vagas: 4, preco: 3200000, img: U("1564013799919-ab600027ffc6"), destaque: 5 },
-    { id: "VP-1068", mode: "venda", tipo: "Casa em condomínio", bairro: "Joá", titulo: "Residência com vista panorâmica do mar", area: 640, quartos: 5, suites: 5, vagas: 6, preco: 12500000, img: U("1512917774080-9991f1c4c750"), tag: "Exclusivo", destaque: 6 },
-    { id: "VP-2011", mode: "aluguel", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Apartamento mobiliado em condomínio com lazer completo", area: 96, quartos: 2, suites: 1, vagas: 1, preco: 6800, img: U("1522708323590-d24dbb6b0267"), destaque: 1 },
-    { id: "VP-2018", mode: "aluguel", tipo: "Cobertura", bairro: "Recreio dos Bandeirantes", titulo: "Cobertura duplex com piscina privativa", area: 240, quartos: 3, suites: 3, vagas: 3, preco: 14500, img: U("1600566753190-17f0baa2a6c3"), tag: "Novo", destaque: 2 },
-    { id: "VP-2025", mode: "aluguel", tipo: "Sala comercial", bairro: "Barra da Tijuca", titulo: "Sala comercial em centro empresarial na Av. das Américas", area: 42, quartos: 0, suites: 0, vagas: 1, preco: 3900, img: U("1486406146926-c627a92ad1ab"), destaque: 3 },
-    { id: "VP-2033", mode: "aluguel", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Três quartos reformado, a uma quadra da praia", area: 118, quartos: 3, suites: 1, vagas: 1, preco: 9200, img: U("1493809842364-78817add7ffb"), destaque: 4 },
-    { id: "VP-2040", mode: "aluguel", tipo: "Casa em condomínio", bairro: "Itanhangá", titulo: "Casa em meio ao verde com quintal amplo", area: 410, quartos: 4, suites: 4, vagas: 4, preco: 18000, img: U("1600047509807-ba8f99d2cdde"), destaque: 5 },
-    { id: "VP-3001", mode: "lancamento", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Residencial Orla Prime", area: 142, quartos: 3, suites: 3, vagas: 2, preco: 2890000, img: U("1545324418-cc1a3fa10c00"), tag: "Pré-venda", destaque: 1 },
-    { id: "VP-3002", mode: "lancamento", tipo: "Apartamento", bairro: "Península", titulo: "Torre Lagoa: plantas de 2 a 4 suítes", area: 98, quartos: 2, suites: 2, vagas: 2, preco: 1650000, img: U("1560448204-e02f11c3d0e2"), tag: "Lançamento", destaque: 2 },
-    { id: "VP-3003", mode: "lancamento", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Condomínio de casas Vila Recreio", area: 260, quartos: 4, suites: 4, vagas: 3, preco: 2750000, img: U("1580587771525-78b9dba3b914"), tag: "Em obras", destaque: 3 },
+    { id: "VP-1024", lat: -23.0112, lng: -43.3585, mode: "venda", tipo: "Cobertura", bairro: "Barra da Tijuca", titulo: "Cobertura linear com vista para o mar", area: 310, quartos: 4, suites: 4, vagas: 3, preco: 6900000, img: U("1600596542815-ffad4c1539a9"), tag: "Exclusivo", destaque: 1 },
+    { id: "VP-1031", lat: -23.0079, lng: -43.3105, mode: "venda", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Apartamento a 200 m da praia, próximo ao metrô", area: 128, quartos: 3, suites: 1, vagas: 2, preco: 2350000, img: U("1502672260266-1c1ef2d93688"), destaque: 2 },
+    { id: "VP-1047", lat: -23.003, lng: -43.379, mode: "venda", tipo: "Casa em condomínio", bairro: "Barra da Tijuca", titulo: "Casa contemporânea em condomínio fechado", area: 520, quartos: 5, suites: 5, vagas: 4, preco: 8500000, img: U("1600585154340-be6161a56a0c"), tag: "Novo", destaque: 3 },
+    { id: "VP-1052", lat: -22.9978, lng: -43.3445, mode: "venda", tipo: "Apartamento", bairro: "Península", titulo: "Andar alto com varanda gourmet e vista para a lagoa", area: 165, quartos: 3, suites: 3, vagas: 2, preco: 2980000, img: U("1600607687644-c7171b42498f"), destaque: 4 },
+    { id: "VP-1060", lat: -23.015, lng: -43.456, mode: "venda", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Casa com piscina e área gourmet", area: 380, quartos: 4, suites: 3, vagas: 4, preco: 3200000, img: U("1564013799919-ab600027ffc6"), destaque: 5 },
+    { id: "VP-1068", lat: -23.0072, lng: -43.2895, mode: "venda", tipo: "Casa em condomínio", bairro: "Joá", titulo: "Residência com vista panorâmica do mar", area: 640, quartos: 5, suites: 5, vagas: 6, preco: 12500000, img: U("1512917774080-9991f1c4c750"), tag: "Exclusivo", destaque: 6 },
+    { id: "VP-2011", lat: -23.0005, lng: -43.366, mode: "aluguel", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Apartamento mobiliado em condomínio com lazer completo", area: 96, quartos: 2, suites: 1, vagas: 1, preco: 6800, img: U("1522708323590-d24dbb6b0267"), destaque: 1 },
+    { id: "VP-2018", lat: -23.0185, lng: -43.4695, mode: "aluguel", tipo: "Cobertura", bairro: "Recreio dos Bandeirantes", titulo: "Cobertura duplex com piscina privativa", area: 240, quartos: 3, suites: 3, vagas: 3, preco: 14500, img: U("1600566753190-17f0baa2a6c3"), tag: "Novo", destaque: 2 },
+    { id: "VP-2025", lat: -23.0002, lng: -43.35, mode: "aluguel", tipo: "Sala comercial", bairro: "Barra da Tijuca", titulo: "Sala comercial em centro empresarial na Av. das Américas", area: 42, quartos: 0, suites: 0, vagas: 1, preco: 3900, img: U("1486406146926-c627a92ad1ab"), destaque: 3 },
+    { id: "VP-2033", lat: -23.0093, lng: -43.315, mode: "aluguel", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Três quartos reformado, a uma quadra da praia", area: 118, quartos: 3, suites: 1, vagas: 1, preco: 9200, img: U("1493809842364-78817add7ffb"), destaque: 4 },
+    { id: "VP-2040", lat: -22.9905, lng: -43.3045, mode: "aluguel", tipo: "Casa em condomínio", bairro: "Itanhangá", titulo: "Casa em meio ao verde com quintal amplo", area: 410, quartos: 4, suites: 4, vagas: 4, preco: 18000, img: U("1600047509807-ba8f99d2cdde"), destaque: 5 },
+    { id: "VP-3001", lat: -23.0035, lng: -43.3925, mode: "lancamento", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Residencial Orla Prime", area: 142, quartos: 3, suites: 3, vagas: 2, preco: 2890000, img: U("1545324418-cc1a3fa10c00"), tag: "Pré-venda", destaque: 1 },
+    { id: "VP-3002", lat: -22.996, lng: -43.348, mode: "lancamento", tipo: "Apartamento", bairro: "Península", titulo: "Torre Lagoa: plantas de 2 a 4 suítes", area: 98, quartos: 2, suites: 2, vagas: 2, preco: 1650000, img: U("1560448204-e02f11c3d0e2"), tag: "Lançamento", destaque: 2 },
+    { id: "VP-3003", lat: -23.0125, lng: -43.441, mode: "lancamento", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Condomínio de casas Vila Recreio", area: 260, quartos: 4, suites: 4, vagas: 3, preco: 2750000, img: U("1580587771525-78b9dba3b914"), tag: "Em obras", destaque: 3 },
   ];
 
   const state = { mode: "venda", bairro: "", tipo: "", quartos: 0, ordem: "destaque" };
@@ -210,7 +210,7 @@
   });
 
   /* ---------- AVALIAÇÃO ---------- */
-  $("#evalForm").addEventListener("submit", (e) => {
+  $("#avaliacao").addEventListener("submit", (e) => {
     e.preventDefault();
     const m2 = Number($("#eBairro").value);
     const area = Number($("#eArea").value);
@@ -244,7 +244,7 @@
       e.target.reset();
     });
   }
-  handleForm("#ownerForm", "#ownerOk", ["#oNome", "#oFone", "#oBairro"],
+  handleForm("#anuncie", "#ownerOk", ["#oNome", "#oFone", "#oBairro"],
     () => `Obrigado, ${$("#oNome").value.split(" ")[0]}! Um corretor vai entrar em contato pelo WhatsApp informado para agendar a visita de captação.`);
   handleForm("#contactForm", "#contactOk", ["#cNome", "#cFone"],
     () => `Recebemos sua mensagem, ${$("#cNome").value.split(" ")[0]}. Um corretor responde em breve.`);
@@ -268,4 +268,141 @@
   }
 
   render();
+
+  /* ---------- MAPA ---------- */
+  // Escritório: posição provisória na Barra da Tijuca até a confirmação do endereço.
+  const ESCRITORIO = { lat: -23.0003, lng: -43.3560, titulo: "Vitta Prime Imóveis", sub: "Barra da Tijuca · endereço a confirmar" };
+  const mapEl = $("#map");
+  const shortPrice = (i) => {
+    if (i.mode === "aluguel") return `R$ ${(i.preco / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} mil`;
+    const mi = i.preco / 1e6;
+    return mi >= 1 ? `R$ ${mi.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} mi` : `R$ ${Math.round(i.preco / 1000)} mil`;
+  };
+  const LOGO = '<svg viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108"/><path d="M28 34 L48 86 L68 34"/><path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62"/></svg>';
+  const mapState = { filter: "todos", active: null };
+
+  if (!window.L || !mapEl) {
+    if (mapEl) $("#mapFallback").hidden = false;
+  } else {
+    const bounds = L.latLngBounds([-23.06, -43.52], [-22.95, -43.25]);
+    const map = L.map(mapEl, {
+      scrollWheelZoom: false, minZoom: 12, maxZoom: 16, zoomSnap: 0.5,
+      maxBounds: bounds, maxBoundsViscosity: 0.9,
+    }).setView([-23.003, -43.37], 13);
+    map.attributionControl.setPrefix(false);
+    map.attributionControl.addAttribution('&copy; <a href="https://www.openstreetmap.org/copyright">colaboradores do OpenStreetMap</a>');
+
+    // Mapa vetorial próprio (orla, lagoas, áreas verdes e vias principais); as cores vêm do CSS.
+    if (window.VP_GEO) {
+      L.geoJSON(window.VP_GEO, {
+        interactive: false,
+        style: (f) => ({ className: `g g-${f.properties.k}${f.properties.c ? " g-road-" + f.properties.c : ""}` }),
+      }).addTo(map);
+    }
+    const LABELS = [
+      ["Barra da Tijuca", -23.0045, -43.372, "hood"], ["Recreio dos Bandeirantes", -23.012, -43.465, "hood"],
+      ["Jardim Oceânico", -23.004, -43.309, "hood"], ["Península", -22.9935, -43.345, "hood"],
+      ["Itanhangá", -22.985, -43.307, "hood"], ["Joá", -23.0115, -43.288, "hood"],
+      ["Lagoa da Tijuca", -22.9915, -43.330, "water"], ["Lagoa de Marapendi", -23.0105, -43.405, "water"],
+      ["Oceano Atlântico", -23.035, -43.39, "sea"],
+    ];
+    LABELS.forEach(([t, lat, lng, k]) => L.marker([lat, lng], {
+      icon: L.divIcon({ className: `maplabel maplabel--${k}`, html: `<span>${t}</span>`, iconSize: [0, 0] }),
+      interactive: false, keyboard: false,
+    }).addTo(map));
+    // Zoom mínimo calculado para a área do mapa sempre preencher a tela (sem bordas vazias).
+    const fitMinZoom = () => {
+      map.invalidateSize();
+      map.setMinZoom(Math.max(12, Math.ceil(map.getBoundsZoom(bounds, true) * 2) / 2));
+    };
+    const syncZoom = () => (mapEl.dataset.z = Math.floor(map.getZoom()));
+    map.on("zoomend", syncZoom);
+    addEventListener("resize", fitMinZoom);
+    fitMinZoom(); syncZoom();
+    // Roda do mouse só depois de clicar no mapa, para não prender a rolagem da página.
+    map.on("click", () => map.scrollWheelZoom.enable());
+    map.on("mouseout", () => map.scrollWheelZoom.disable());
+
+    const markers = new Map();
+    const popupHtml = (i) => `
+      <div class="pop">
+        <img src="${i.img}" alt="">
+        <div>
+          <small>${i.bairro} · ${i.tipo}</small>
+          <b>${i.titulo}</b>
+          <p>${i.area} m²${i.quartos ? ` · ${i.quartos} quartos` : ""} · ${i.vagas} ${i.vagas === 1 ? "vaga" : "vagas"}</p>
+          <strong>${brl(i.preco)}${i.mode === "aluguel" ? "/mês" : ""}</strong>
+          <a href="#contato" data-interest="Imóvel ${i.id}: ${i.titulo}">Tenho interesse →</a>
+        </div>
+      </div>`;
+
+    IMOVEIS.forEach((i) => {
+      const icon = L.divIcon({ className: `pin pin--${i.mode}`, html: `<span>${shortPrice(i)}</span>`, iconSize: [0, 0] });
+      const m = L.marker([i.lat, i.lng], { icon, title: i.titulo, riseOnHover: true })
+        .bindPopup(popupHtml(i), { offset: [0, -30], maxWidth: 240, autoPanPadding: [20, 20] });
+      m.on("popupopen", () => setActive(i.id, false));
+      markers.set(i.id, m);
+    });
+    const office = L.marker([ESCRITORIO.lat, ESCRITORIO.lng], {
+      icon: L.divIcon({ className: "pin pin--office", html: `<span>${LOGO}</span>`, iconSize: [0, 0] }),
+      title: ESCRITORIO.titulo, zIndexOffset: 1000,
+    }).bindPopup(`<div class="pop"><div><small>Escritório</small><b>${ESCRITORIO.titulo}</b><p>${ESCRITORIO.sub}</p><a href="#contato">Fale com um corretor →</a></div></div>`, { offset: [0, -34] })
+      .addTo(map);
+    office.on("popupopen", () => setActive("office", false));
+    markers.set("office", office);
+
+    function setActive(id, fly) {
+      mapState.active = id;
+      markers.forEach((m, k) => m.getElement()?.classList.toggle("is-active", k === id));
+      $$("#mapList .mitem").forEach((b) => b.classList.toggle("is-active", b.dataset.id === id));
+      const m = markers.get(id);
+      if (fly && m) {
+        map.flyTo(m.getLatLng(), Math.max(map.getZoom(), 14), { duration: reduced ? 0 : 0.8 });
+        map.once("moveend", () => m.openPopup());
+      }
+      const li = $(`#mapList .mitem[data-id="${id}"]`);
+      if (li && !fly) li.scrollIntoView({ block: "nearest", behavior: reduced ? "auto" : "smooth" });
+    }
+
+    function renderMap() {
+      const list = IMOVEIS.filter((i) => mapState.filter === "todos" || i.mode === mapState.filter);
+      const shown = new Set(list.map((i) => i.id));
+      IMOVEIS.forEach((i) => {
+        const m = markers.get(i.id);
+        if (shown.has(i.id)) m.addTo(map); else m.remove();
+      });
+      $("#mapCount").textContent = `${list.length} ${list.length === 1 ? "imóvel" : "imóveis"} no mapa`;
+      $("#mapList").innerHTML =
+        `<li><button type="button" class="mitem" data-id="office"><span class="mitem__logo">${LOGO}</span><span><small>Escritório</small><b>${ESCRITORIO.titulo}</b><em>${ESCRITORIO.sub}</em></span></button></li>` +
+        list.map((i) => `<li><button type="button" class="mitem" data-id="${i.id}">
+          <img src="${i.img}" alt="" loading="lazy">
+          <span><small>${i.bairro}</small><b>${i.titulo}</b><em>${brl(i.preco)}${i.mode === "aluguel" ? "/mês" : ""}</em></span>
+        </button></li>`).join("");
+      const pts = list.map((i) => [i.lat, i.lng]).concat([[ESCRITORIO.lat, ESCRITORIO.lng]]);
+      map.closePopup();
+      map.flyToBounds(pts, { padding: [50, 50], maxZoom: 14, duration: reduced ? 0 : 0.6 });
+    }
+
+    $("#mapList").addEventListener("click", (e) => {
+      const b = e.target.closest(".mitem");
+      if (b) setActive(b.dataset.id, true);
+    });
+    $$("#mapTabs button").forEach((b) => b.addEventListener("click", () => {
+      mapState.filter = b.dataset.map;
+      $$("#mapTabs button").forEach((x) => {
+        const on = x === b;
+        x.classList.toggle("is-active", on);
+        x.setAttribute("aria-selected", String(on));
+      });
+      renderMap();
+    }));
+
+    renderMap();
+    // O mapa fica fora da tela no carregamento; recalcula o tamanho quando aparece.
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver((entries, obs) => {
+        if (entries[0].isIntersecting) { fitMinZoom(); renderMap(); obs.disconnect(); }
+      }).observe(mapEl);
+    }
+  }
 })();
