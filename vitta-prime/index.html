@@ -211,41 +211,6 @@
   </div>
 </section>
 
-<!-- ============ 4. BAIRROS ============ -->
-<section class="section" id="bairros">
-  <div class="wrap">
-    <div class="section__head">
-      <div>
-        <p class="eyebrow">Explore por região</p>
-        <h2 class="section__title">Bairros onde atuamos</h2>
-      </div>
-      <p class="section__aside">Toque em um bairro para ver os imóveis disponíveis nele.</p>
-    </div>
-    <div class="hoods">
-      <button type="button" class="hood hood--lg" data-bairro="Barra da Tijuca">
-        <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy">
-        <span class="hood__label"><strong>Barra da Tijuca</strong><small>Orla, condomínios e serviços</small></span>
-      </button>
-      <button type="button" class="hood" data-bairro="Jardim Oceânico">
-        <img src="https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
-        <span class="hood__label"><strong>Jardim Oceânico</strong><small>Metrô e vida de rua</small></span>
-      </button>
-      <button type="button" class="hood" data-bairro="Recreio dos Bandeirantes">
-        <img src="https://images.unsplash.com/photo-1544989164-31dc3c645987?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
-        <span class="hood__label"><strong>Recreio</strong><small>Casas e praias tranquilas</small></span>
-      </button>
-      <button type="button" class="hood" data-bairro="Península">
-        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
-        <span class="hood__label"><strong>Península</strong><small>Torres junto à lagoa</small></span>
-      </button>
-      <button type="button" class="hood" data-bairro="Itanhangá">
-        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
-        <span class="hood__label"><strong>Itanhangá &amp; Joá</strong><small>Casas com vista e verde</small></span>
-      </button>
-    </div>
-  </div>
-</section>
-
 <!-- ============ 5. EXPLORE ============ -->
 <section class="section section--tint" id="explore">
   <div class="wrap">
@@ -319,8 +284,14 @@
         </ul>
         <h3 class="sub-title">Regiões</h3>
         <ul class="region-chips">
-          <li>Barra da Tijuca</li><li>Jardim Oceânico</li><li>Península</li><li>Recreio dos Bandeirantes</li><li>Itanhangá</li><li>Joá</li>
+          <li><button type="button" data-region="Barra da Tijuca">Barra da Tijuca</button></li>
+          <li><button type="button" data-region="Jardim Oceânico">Jardim Oceânico</button></li>
+          <li><button type="button" data-region="Península">Península</button></li>
+          <li><button type="button" data-region="Recreio dos Bandeirantes">Recreio dos Bandeirantes</button></li>
+          <li><button type="button" data-region="Itanhangá">Itanhangá</button></li>
+          <li><button type="button" data-region="Joá">Joá</button></li>
         </ul>
+        <p class="region-hint">Toque em uma região para ver os imóveis dela.</p>
       </div>
     </div>
   </div>
@@ -462,7 +433,6 @@
       <a href="#imoveis" data-mode="venda">Comprar</a>
       <a href="#imoveis" data-mode="aluguel">Alugar</a>
       <a href="#imoveis" data-mode="lancamento">Lançamentos</a>
-      <a href="#bairros">Bairros</a>
       <a href="#explore">Explore</a>
       <a href="#mapa">Mapa</a>
     </div>

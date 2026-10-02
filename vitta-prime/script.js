@@ -255,9 +255,16 @@
     state.tipo = b.dataset.quick; state.bairro = "";
     syncSelects(); render(); goList();
   }));
-  $$("[data-quick-bairro], .hood").forEach((b) => b.addEventListener("click", () => {
-    state.bairro = b.dataset.quickBairro || b.dataset.bairro; state.tipo = "";
+  $$("[data-quick-bairro]").forEach((b) => b.addEventListener("click", () => {
+    state.bairro = b.dataset.quickBairro; state.tipo = "";
     syncSelects(); render(); goList();
+  }));
+  // Regiões do "Quem somos": filtram o carrossel pelo bairro, trocando de aba se a atual não tiver imóveis ali
+  $$("[data-region]").forEach((b) => b.addEventListener("click", () => {
+    const bairro = b.dataset.region;
+    const mode = [state.mode, "venda", "aluguel", "lancamento"].find((m) => IMOVEIS.some((i) => i.mode === m && i.bairro === bairro)) || state.mode;
+    Object.assign(state, { bairro, tipo: "", quartos: 0, stage: "" });
+    syncSelects(); setMode(mode); goList();
   }));
 
   document.addEventListener("click", (e) => {

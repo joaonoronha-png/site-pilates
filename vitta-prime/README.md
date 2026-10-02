@@ -4,8 +4,8 @@ Site estático (HTML + CSS + JS, sem build). Abra `index.html` ou publique a pas
 
 ## Estrutura da página
 1. Intro animada → 2. Busca (hero) + atalhos → 3. Imóveis (carrossel horizontal com abas Comprar / Alugar / Lançamentos) →
-4. Lançamento em destaque → 5. Bairros → 6. Explore com a Vitta Prime (guias) → 7. Sobre → 8. Caixa "Para proprietários" →
-9. Contato → 10. Mapa interativo
+4. Explore com a Vitta Prime (guias) → 5. Quem somos (regiões clicáveis filtram o carrossel) → 6. Caixa "Para proprietários" →
+7. Contato → 8. Mapa interativo
 
 Cada imóvel, guia e opção de proprietário abre uma página sobreposta com endereço próprio
 (`#imovel-VP-1024`, `#guia-financiamento`, `#proprietario-avaliar`), que funciona com o botão Voltar do navegador.
