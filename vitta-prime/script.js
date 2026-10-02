@@ -756,6 +756,17 @@
   $$("[data-rail]").forEach(initRail);
   render();
   renderExplore();
+
+  // API usada pelo assistente (chat.js)
+  window.VP = {
+    imoveis: IMOVEIS, brl, openRoute,
+    showListing({ mode, bairro = "", tipo = "", quartos = 0 }) {
+      Object.assign(state, { bairro, tipo, quartos, stage: "" });
+      syncSelects(); setMode(mode || state.mode); goList();
+    },
+    openRoutes() { setRoute(true); },
+    focusMap(id) { $("#mapa").scrollIntoView({ behavior: reduced ? "auto" : "smooth" }); setTimeout(() => mapApi.focus?.(id), 300); },
+  };
   { const r = location.hash.slice(1); if (isRoute(r)) showRoute(r); }
 
   /* ---------- MAPA ---------- */

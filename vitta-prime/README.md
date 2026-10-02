@@ -23,3 +23,11 @@ Cada imóvel, guia e opção de proprietário abre uma página sobreposta com en
 - **Contato**: endereço (Av. das Américas, 8585 · Lojas SS 2201 e 2202) e WhatsApp (21) 99843-3127 tirados do Instagram. Falta o CRECI.
 - **Avaliação**: valores de m² por bairro nos `<option value>` do formulário de avaliação.
 - **Formulários**: hoje só exibem confirmação na tela; ligar a WhatsApp/e-mail/CRM.
+
+## Assistente (chat) e Perguntas frequentes
+- `chat.js`: botão "Tire suas dúvidas" (canto inferior esquerdo) e a seção "Perguntas frequentes" usam a mesma base `KB`.
+- O assistente entende variações e erros de digitação, busca imóveis do site ("tem cobertura na Barra?"), calcula o ITBI ("ITBI de 2 milhões")
+  e passa para o WhatsApp quando não sabe. Não é IA generativa: só responde com os textos revisados da base.
+- Para ligar uma IA generativa no futuro, defina `window.VP_AI = async (pergunta, historico) => "resposta"` chamando um backend próprio
+  (nunca coloque a chave de API no navegador). Ela só é usada quando a base não tem resposta.
+- Revisar com a Vitta Prime: horário de atendimento, política de carta de crédito/consórcio e percentuais de corretagem.
