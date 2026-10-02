@@ -783,15 +783,6 @@ body.sheet-open { overflow: hidden; }
 .lightbox button { position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(245, 248, 252, .4); background: none; color: #f5f8fc; font-size: 1.4rem; cursor: pointer; }
 .card__cta { pointer-events: none; }
 
-/* ============ INSTAGRAM ============ */
-.insta { padding-block: clamp(3.5rem, 2.5rem + 3vw, 5rem) 0; }
-.insta__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 1rem; margin-bottom: 1.75rem; }
-.insta__row { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 2px; }
-.insta__row a { position: relative; display: block; aspect-ratio: 1; overflow: hidden; background: var(--mist); }
-.insta__row img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s, filter .3s; }
-.insta__row a:hover img { transform: scale(1.06); filter: brightness(.85); }
-@media (max-width: 900px) { .insta__row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
-
 /* ============ QUEM SOMOS ============ */
 .about2 { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(2rem, 1rem + 4vw, 5rem); align-items: center; }
 .about2__media { margin: 0; position: relative; }
