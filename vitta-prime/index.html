@@ -45,8 +45,8 @@
       <a href="#imoveis" data-mode="venda">Comprar</a>
       <a href="#imoveis" data-mode="aluguel">Alugar</a>
       <a href="#lancamentos">Lançamentos</a>
+      <a href="#explore">Explore</a>
       <a href="#proprietarios">Proprietários</a>
-      <a href="#sobre">Sobre</a>
       <a href="#mapa">Mapa</a>
       <a href="#contato">Contato</a>
     </nav>
@@ -54,7 +54,7 @@
       <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro">
         <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
       </button>
-      <a href="#contato" class="btn btn--gold btn--sm">Fale com um corretor</a>
+      <a href="#contato" class="btn btn--accent btn--sm">Fale com um corretor</a>
       <button class="icon-btn burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
         <span></span><span></span><span></span>
       </button>
@@ -114,7 +114,7 @@
             <option value="4">4+</option>
           </select>
         </label>
-        <button class="btn btn--gold search__go" type="submit">
+        <button class="btn btn--accent search__go" type="submit">
           <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
           Buscar imóveis
         </button>
@@ -168,6 +168,12 @@
       </div>
     </div>
 
+    <div class="stage-chips" id="stageChips" hidden>
+      <button type="button" data-stage="" class="is-active">Todos</button>
+      <button type="button" data-stage="Pré-lançamento">Pré-lançamento</button>
+      <button type="button" data-stage="Lançamento">Lançamento</button>
+      <button type="button" data-stage="Em obras">Em obras</button>
+    </div>
     <div class="filters" id="filters">
       <label class="chip-select"><span>Bairro</span>
         <select id="fBairro">
@@ -197,9 +203,18 @@
       <p class="filters__count" id="fCount" aria-live="polite"></p>
     </div>
 
-    <div class="cards" id="cards"></div>
+    <div class="rail" data-rail>
+      <div class="rail__track" id="cards"></div>
+      <div class="list-tools">
+        <div class="rail__progress" style="flex:1"><i></i></div>
+        <div class="rail__nav">
+          <button type="button" class="rail__btn" data-dir="-1" aria-label="Anteriores"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+          <button type="button" class="rail__btn" data-dir="1" aria-label="Próximos"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+        </div>
+      </div>
+    </div>
     <p class="empty" id="empty" hidden>Nenhum imóvel com esses filtros. <button type="button" class="link-btn" id="emptyClear">Limpar filtros</button> ou <a href="#contato">fale com um corretor</a>: muitos imóveis chegam antes de serem anunciados.</p>
-    <p class="note">Imóveis ilustrativos para apresentação do layout. Substituir pela carteira real da Vitta Prime.</p>
+    <p class="note">Clique em um imóvel para ver fotos, plantas, características e agendar uma visita. Imóveis ilustrativos.</p>
   </div>
 </section>
 
@@ -219,7 +234,7 @@
       <div><dt>Entrega</dt><dd>Dez/2028</dd></div>
     </dl>
     <div class="launch__cta">
-      <a href="#contato" class="btn btn--gold" data-interest="Lançamento Residencial Orla Prime">Quero receber a tabela</a>
+      <button type="button" class="btn btn--accent" data-open="VP-3001">Ver detalhes e plantas</button>
       <a href="#imoveis" class="btn btn--ghost-light" data-mode="lancamento">Ver todos os lançamentos</a>
     </div>
     <p class="note note--light">Empreendimento ilustrativo. Substituir por lançamento real.</p>
@@ -261,85 +276,30 @@
   </div>
 </section>
 
-<!-- ============ 5. PROPRIETÁRIOS (avaliação + anuncie) ============ -->
-<section class="section section--tint" id="proprietarios">
+<!-- ============ 5. EXPLORE ============ -->
+<section class="section section--tint" id="explore">
   <div class="wrap">
     <div class="section__head">
       <div>
-        <p class="eyebrow">Para proprietários</p>
-        <h2 class="section__title">Avalie, venda ou alugue seu imóvel</h2>
+        <p class="eyebrow">Explore com a Vitta Prime</p>
+        <h2 class="section__title">Conteúdos que simplificam sua jornada</h2>
       </div>
-      <p class="section__aside">Comece pela estimativa de valor e, quando quiser, peça a captação. Fotos profissionais e divulgação nos portais estão incluídas.</p>
+      <div class="segmented explore-tabs" role="tablist" aria-label="Filtrar conteúdos" id="exploreTabs">
+        <button type="button" data-cat="" class="is-active" aria-selected="true">Todos</button>
+        <button type="button" data-cat="Comprar" aria-selected="false">Comprar</button>
+        <button type="button" data-cat="Vender" aria-selected="false">Vender</button>
+        <button type="button" data-cat="Alugar" aria-selected="false">Alugar</button>
+      </div>
     </div>
-
-    <div class="owners">
-      <form class="card-form" id="avaliacao" novalidate>
-        <div class="card-form__head">
-          <span class="step-tag">1</span>
-          <div><h3>Quanto vale o seu imóvel?</h3><p>Faixa estimada pelo preço médio do m² no bairro.</p></div>
+    <div class="rail" data-rail>
+      <div class="rail__track rail__track--explore" id="exploreTrack"></div>
+      <div class="list-tools">
+        <div class="rail__progress" style="flex:1"><i></i></div>
+        <div class="rail__nav">
+          <button type="button" class="rail__btn" data-dir="-1" aria-label="Anteriores"><svg viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></svg></button>
+          <button type="button" class="rail__btn" data-dir="1" aria-label="Próximos"><svg viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
         </div>
-        <div class="grid2">
-          <label class="input"><span>Bairro</span>
-            <select id="eBairro" required>
-              <option value="">Selecione</option>
-              <option value="16500">Barra da Tijuca</option>
-              <option value="17800">Jardim Oceânico</option>
-              <option value="11200">Recreio dos Bandeirantes</option>
-              <option value="12500">Itanhangá</option>
-              <option value="15000">Joá</option>
-              <option value="14200">Península</option>
-            </select>
-          </label>
-          <label class="input"><span>Tipo</span>
-            <select id="eTipo">
-              <option value="1">Apartamento</option>
-              <option value="1.12">Cobertura</option>
-              <option value="1.05">Casa em condomínio</option>
-              <option value="0.85">Sala comercial</option>
-            </select>
-          </label>
-          <label class="input"><span>Área privativa (m²)</span>
-            <input id="eArea" type="number" inputmode="numeric" min="20" max="3000" placeholder="Ex.: 120" required>
-          </label>
-          <label class="input"><span>Estado de conservação</span>
-            <select id="eEstado">
-              <option value="1.08">Reformado</option>
-              <option value="1" selected>Bom</option>
-              <option value="0.9">Precisa de reforma</option>
-            </select>
-          </label>
-        </div>
-        <button type="submit" class="btn btn--navy btn--block">Calcular estimativa</button>
-        <div class="estimate" id="estimate" hidden>
-          <span>Faixa estimada</span>
-          <strong id="estValue"></strong>
-          <small id="estM2"></small>
-        </div>
-        <p class="form-error" id="evalError" hidden>Selecione o bairro e informe a área para calcular.</p>
-        <p class="note">Valores de m² de referência, apenas para demonstração.</p>
-      </form>
-
-      <form class="card-form" id="anuncie" novalidate>
-        <div class="card-form__head">
-          <span class="step-tag">2</span>
-          <div><h3>Anuncie com a Vitta Prime</h3><p>Um corretor dedicado cuida de tudo, da visita à escritura.</p></div>
-        </div>
-        <ul class="checks">
-          <li>Divulgação no site, nas redes e nos principais portais</li>
-          <li>Fotos e descrição profissionais</li>
-          <li>Apoio jurídico e documental</li>
-        </ul>
-        <div class="grid2">
-          <label class="input"><span>Seu nome</span><input id="oNome" type="text" required autocomplete="name"></label>
-          <label class="input"><span>WhatsApp</span><input id="oFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
-          <label class="input"><span>Bairro do imóvel</span><input id="oBairro" type="text" required placeholder="Ex.: Barra da Tijuca"></label>
-          <label class="input"><span>Finalidade</span>
-            <select id="oFin"><option>Vender</option><option>Alugar</option><option>Vender ou alugar</option><option>Administração do aluguel</option></select>
-          </label>
-        </div>
-        <button type="submit" class="btn btn--gold btn--block">Quero anunciar</button>
-        <p class="form-ok" id="ownerOk" hidden></p>
-      </form>
+      </div>
     </div>
   </div>
 </section>
@@ -377,6 +337,37 @@
       <li><span class="avatar">CM</span><b>Carolina Pentagna Mascarenhas</b></li>
       <li><span class="avatar">DF</span><b>Daniel Vital Ferreira</b></li>
     </ul>
+  </div>
+</section>
+
+<!-- ============ 7. PROPRIETÁRIOS (caixa de atalhos) ============ -->
+<section class="section" id="proprietarios">
+  <div class="wrap">
+    <div class="owners-box">
+      <div>
+        <p class="eyebrow">Para proprietários</p>
+        <h2 class="section__title">Tem um imóvel na região?</h2>
+        <p class="lead">Escolha o que você precisa. Cada opção abre uma página própria, com o passo a passo e o formulário.</p>
+      </div>
+      <ul class="topic-list">
+        <li><button type="button" class="topic" data-route="proprietario-avaliar">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+          <span><b>Quanto vale meu imóvel?</b><small>Estimativa na hora e avaliação gratuita</small></span>
+          <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></li>
+        <li><button type="button" class="topic" data-route="proprietario-vender">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+          <span><b>Quero vender meu imóvel</b><small>Fotos profissionais e divulgação nos portais</small></span>
+          <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></li>
+        <li><button type="button" class="topic" data-route="proprietario-alugar">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg>
+          <span><b>Quero alugar meu imóvel</b><small>Análise de inquilino, contrato e vistoria</small></span>
+          <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></li>
+        <li><button type="button" class="topic" data-route="proprietario-administrar">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+          <span><b>Administração de aluguel</b><small>Cobrança, repasses e manutenção por nossa conta</small></span>
+          <svg class="go" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg></button></li>
+      </ul>
+    </div>
   </div>
 </section>
 
@@ -484,13 +475,15 @@
       <a href="#imoveis" data-mode="aluguel">Alugar</a>
       <a href="#lancamentos">Lançamentos</a>
       <a href="#bairros">Bairros</a>
+      <a href="#explore">Explore</a>
       <a href="#mapa">Mapa</a>
     </div>
     <div>
       <h4>Proprietários</h4>
-      <a href="#avaliacao">Avaliar imóvel</a>
-      <a href="#anuncie">Anunciar imóvel</a>
-      <a href="#sobre">Administração</a>
+      <a href="#proprietario-avaliar">Avaliar imóvel</a>
+      <a href="#proprietario-vender">Vender imóvel</a>
+      <a href="#proprietario-alugar">Alugar imóvel</a>
+      <a href="#proprietario-administrar">Administração</a>
     </div>
     <div>
       <h4>Institucional</h4>
@@ -509,6 +502,18 @@
 <a class="wa-float" href="#contato" aria-label="Falar pelo WhatsApp">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.3-1.8-.9-.8.8a4 4 0 0 1-2-2l.8-.8-.9-1.8L9 9.5z"/></svg>
 </a>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet__backdrop" data-close></div>
+  <div class="sheet__panel" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1">
+    <div class="sheet__bar">
+      <button type="button" class="sheet__back" data-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>Voltar</button>
+      <span class="sheet__crumb" id="sheetCrumb"></span>
+    </div>
+    <div class="sheet__body" id="sheetBody"></div>
+  </div>
+</div>
+<div class="lightbox" id="lightbox" hidden><img alt="" id="lightboxImg"><button type="button" aria-label="Fechar foto" id="lightboxClose">×</button></div>
 
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
 
