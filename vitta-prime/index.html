@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vitta Prime Imóveis</title>
+<meta name="description" content="Vitta Prime — compra, venda, locação, avaliação e administração de imóveis na Barra da Tijuca e Zona Oeste do Rio de Janeiro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ============ INTRO ============ -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro__panel intro__panel--top"></div>
+  <div class="intro__panel intro__panel--bottom"></div>
+  <div class="intro__center">
+    <svg class="intro__mark" viewBox="0 0 120 120" aria-hidden="true">
+      <rect class="intro__frame" x="6" y="6" width="108" height="108" />
+      <path class="intro__v" d="M28 34 L48 86 L68 34" />
+      <path class="intro__p" d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" />
+    </svg>
+    <p class="intro__name"><span>V</span><span>I</span><span>T</span><span>T</span><span>A</span><span class="gap"></span><span>P</span><span>R</span><span>I</span><span>M</span><span>E</span></p>
+    <p class="intro__tag">Imóveis · Barra da Tijuca</p>
+    <div class="intro__bar"><i></i></div>
+  </div>
+  <button class="intro__skip" id="introSkip" type="button">Pular intro</button>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="header">
+  <div class="header__inner">
+    <a href="#inicio" class="logo" aria-label="Vitta Prime — início">
+      <svg viewBox="0 0 120 120" class="logo__mark" aria-hidden="true">
+        <rect x="6" y="6" width="108" height="108" />
+        <path d="M28 34 L48 86 L68 34" />
+        <path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" />
+      </svg>
+      <span class="logo__text">Vitta <em>Prime</em></span>
+    </a>
+    <nav class="nav" id="nav" aria-label="Principal">
+      <a href="#imoveis" data-mode="venda">Comprar</a>
+      <a href="#imoveis" data-mode="aluguel">Alugar</a>
+      <a href="#lancamentos">Lançamentos</a>
+      <a href="#anuncie">Anuncie</a>
+      <a href="#avaliacao">Avaliação</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="header__actions">
+      <button class="icon-btn" id="themeToggle" type="button" aria-label="Alternar tema claro/escuro">
+        <svg viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <a href="#contato" class="btn btn--gold btn--sm">Fale com um corretor</a>
+      <button class="icon-btn burger" id="burger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="inicio">
+  <div class="hero__media">
+    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=2000&q=80&auto=format&fit=crop" alt="Residência de alto padrão com piscina ao entardecer">
+  </div>
+  <div class="hero__shade"></div>
+  <div class="hero__content wrap">
+    <p class="eyebrow eyebrow--light">Barra da Tijuca · Rio de Janeiro</p>
+    <h1 class="hero__title">O endereço certo<br>para o seu <em>próximo capítulo</em>.</h1>
+    <p class="hero__lead">Compra, venda, locação e avaliação de imóveis na Barra, Recreio e Zona Oeste, com atendimento de quem conhece cada quadra da região.</p>
+
+    <form class="search" id="heroSearch" autocomplete="off">
+      <div class="search__tabs" role="tablist" aria-label="Tipo de negócio">
+        <button type="button" role="tab" class="is-active" aria-selected="true" data-mode="venda">Comprar</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="aluguel">Alugar</button>
+        <button type="button" role="tab" aria-selected="false" data-mode="lancamento">Lançamentos</button>
+      </div>
+      <div class="search__fields">
+        <label class="field">
+          <span>Localização</span>
+          <select id="sBairro">
+            <option value="">Todos os bairros</option>
+            <option>Barra da Tijuca</option>
+            <option>Jardim Oceânico</option>
+            <option>Recreio dos Bandeirantes</option>
+            <option>Itanhangá</option>
+            <option>Joá</option>
+            <option>Península</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Tipo de imóvel</span>
+          <select id="sTipo">
+            <option value="">Todos</option>
+            <option>Apartamento</option>
+            <option>Cobertura</option>
+            <option>Casa em condomínio</option>
+            <option>Sala comercial</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Quartos</span>
+          <select id="sQuartos">
+            <option value="0">Qualquer</option>
+            <option value="1">1+</option>
+            <option value="2">2+</option>
+            <option value="3">3+</option>
+            <option value="4">4+</option>
+          </select>
+        </label>
+        <button class="btn btn--gold search__go" type="submit">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          Buscar imóveis
+        </button>
+      </div>
+    </form>
+
+    <div class="hero__quick">
+      <span>Buscas frequentes:</span>
+      <button type="button" data-quick="Cobertura">Coberturas</button>
+      <button type="button" data-quick="Casa em condomínio">Casas em condomínio</button>
+      <button type="button" data-quick-bairro="Jardim Oceânico">Jardim Oceânico</button>
+      <button type="button" data-quick-bairro="Península">Península</button>
+    </div>
+  </div>
+  <a href="#numeros" class="hero__scroll" aria-label="Rolar para baixo"><i></i></a>
+</section>
+
+<!-- ============ NÚMEROS / PILARES ============ -->
+<section class="pillars" id="numeros">
+  <div class="wrap pillars__grid">
+    <div class="pillar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21h18M5 21V9l7-5 7 5v12M9 21v-6h6v6"/></svg>
+      <h3>Compra &amp; venda</h3>
+      <p>Curadoria de imóveis residenciais e comerciais, da visita à escritura.</p>
+    </div>
+    <div class="pillar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="8" cy="15" r="4"/><path d="m11 12 9-9M17 6l3 3M15 8l2 2"/></svg>
+      <h3>Locação</h3>
+      <p>Análise de cadastro, contrato e vistoria para inquilinos e proprietários.</p>
+    </div>
+    <div class="pillar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="1"/><path d="M8 7h8M8 11h8M8 15h5"/></svg>
+      <h3>Administração</h3>
+      <p>Gestão de aluguéis, repasses, manutenção e relatórios mensais.</p>
+    </div>
+    <div class="pillar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+      <h3>Avaliação</h3>
+      <p>Laudo de mercado com comparativos reais de preço por m² na região.</p>
+    </div>
+    <div class="pillar">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 21V8l9-5 9 5v13"/><path d="M8 21v-8h8v8M3 13h18"/></svg>
+      <h3>Incorporação &amp; loteamento</h3>
+      <p>Estruturação de empreendimentos e venda de terrenos e lançamentos.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ IMÓVEIS ============ -->
+<section class="section" id="imoveis">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Imóveis em destaque</p>
+        <h2 class="section__title" id="listTitle">Imóveis à venda</h2>
+      </div>
+      <div class="segmented" role="tablist" aria-label="Filtrar por negócio" id="listTabs">
+        <button type="button" data-mode="venda" class="is-active" aria-selected="true">Comprar</button>
+        <button type="button" data-mode="aluguel" aria-selected="false">Alugar</button>
+        <button type="button" data-mode="lancamento" aria-selected="false">Lançamentos</button>
+      </div>
+    </div>
+
+    <div class="filters" id="filters">
+      <label class="chip-select"><span>Bairro</span>
+        <select id="fBairro">
+          <option value="">Todos</option>
+          <option>Barra da Tijuca</option><option>Jardim Oceânico</option><option>Recreio dos Bandeirantes</option>
+          <option>Itanhangá</option><option>Joá</option><option>Península</option>
+        </select>
+      </label>
+      <label class="chip-select"><span>Tipo</span>
+        <select id="fTipo">
+          <option value="">Todos</option><option>Apartamento</option><option>Cobertura</option>
+          <option>Casa em condomínio</option><option>Sala comercial</option>
+        </select>
+      </label>
+      <label class="chip-select"><span>Quartos</span>
+        <select id="fQuartos"><option value="0">Qualquer</option><option value="1">1+</option><option value="2">2+</option><option value="3">3+</option><option value="4">4+</option></select>
+      </label>
+      <label class="chip-select"><span>Ordenar</span>
+        <select id="fOrdem">
+          <option value="destaque">Destaques</option>
+          <option value="menor">Menor preço</option>
+          <option value="maior">Maior preço</option>
+          <option value="area">Maior área</option>
+        </select>
+      </label>
+      <button type="button" class="link-btn" id="fClear">Limpar filtros</button>
+      <p class="filters__count" id="fCount" aria-live="polite"></p>
+    </div>
+
+    <div class="cards" id="cards"></div>
+    <p class="empty" id="empty" hidden>Nenhum imóvel com esses filtros. <button type="button" class="link-btn" id="emptyClear">Limpar filtros</button> ou <a href="#contato">fale com um corretor</a>: muitos imóveis chegam antes de serem anunciados.</p>
+    <p class="note">Imóveis ilustrativos para apresentação do layout. Substituir pela carteira real da Vitta Prime.</p>
+  </div>
+</section>
+
+<!-- ============ LANÇAMENTOS ============ -->
+<section class="launch" id="lancamentos">
+  <div class="launch__media">
+    <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1600&q=80&auto=format&fit=crop" alt="Fachada de edifício residencial contemporâneo" loading="lazy">
+  </div>
+  <div class="launch__body">
+    <p class="eyebrow eyebrow--light">Lançamento · Pré-venda</p>
+    <h2 class="launch__title">Residencial <em>Orla Prime</em></h2>
+    <p class="launch__lead">Apartamentos de 3 e 4 suítes a poucos passos da praia, com lazer completo de clube e plantas flexíveis.</p>
+    <dl class="launch__specs">
+      <div><dt>Suítes</dt><dd>3 e 4</dd></div>
+      <div><dt>Área privativa</dt><dd>142–260 m²</dd></div>
+      <div><dt>Vagas</dt><dd>2 a 4</dd></div>
+      <div><dt>Entrega</dt><dd>Dez/2028</dd></div>
+    </dl>
+    <div class="launch__cta">
+      <a href="#contato" class="btn btn--gold" data-interest="Lançamento Residencial Orla Prime">Quero receber a tabela</a>
+      <a href="#imoveis" class="btn btn--ghost-light" data-mode="lancamento">Ver todos os lançamentos</a>
+    </div>
+    <p class="note note--light">Empreendimento ilustrativo. Substituir por lançamento real.</p>
+  </div>
+</section>
+
+<!-- ============ BAIRROS ============ -->
+<section class="section" id="bairros">
+  <div class="wrap">
+    <div class="section__head">
+      <div>
+        <p class="eyebrow">Explore por região</p>
+        <h2 class="section__title">Bairros onde atuamos</h2>
+      </div>
+      <p class="section__aside">Toque em um bairro para ver os imóveis disponíveis nele.</p>
+    </div>
+    <div class="hoods">
+      <button type="button" class="hood hood--lg" data-bairro="Barra da Tijuca">
+        <img src="https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy">
+        <span class="hood__label"><strong>Barra da Tijuca</strong><small>Orla, condomínios e serviços</small></span>
+      </button>
+      <button type="button" class="hood" data-bairro="Jardim Oceânico">
+        <img src="https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
+        <span class="hood__label"><strong>Jardim Oceânico</strong><small>Metrô e vida de rua</small></span>
+      </button>
+      <button type="button" class="hood" data-bairro="Recreio dos Bandeirantes">
+        <img src="https://images.unsplash.com/photo-1544989164-31dc3c645987?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
+        <span class="hood__label"><strong>Recreio</strong><small>Casas e praias tranquilas</small></span>
+      </button>
+      <button type="button" class="hood" data-bairro="Península">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
+        <span class="hood__label"><strong>Península</strong><small>Torres junto à lagoa</small></span>
+      </button>
+      <button type="button" class="hood" data-bairro="Itanhangá">
+        <img src="https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=900&q=80&auto=format&fit=crop" alt="" loading="lazy">
+        <span class="hood__label"><strong>Itanhangá &amp; Joá</strong><small>Casas com vista e verde</small></span>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AVALIAÇÃO ============ -->
+<section class="section section--tint" id="avaliacao">
+  <div class="wrap split">
+    <div class="split__text">
+      <p class="eyebrow">Avaliação imobiliária</p>
+      <h2 class="section__title">Quanto vale o seu imóvel hoje?</h2>
+      <p class="lead">Uma estimativa rápida para começar a conversa. A avaliação definitiva é feita por um corretor da Vitta Prime, com visita e comparativos de vendas recentes na sua região.</p>
+      <ol class="steps">
+        <li><b>Informe o imóvel</b><span>Bairro, tipo e metragem.</span></li>
+        <li><b>Receba uma faixa de preço</b><span>Calculada pelo preço médio do m² no bairro.</span></li>
+        <li><b>Agende a avaliação completa</b><span>Visita, laudo e estratégia de venda ou locação.</span></li>
+      </ol>
+    </div>
+
+    <form class="card-form" id="evalForm" novalidate>
+      <h3>Estimativa de valor</h3>
+      <div class="grid2">
+        <label class="input"><span>Bairro</span>
+          <select id="eBairro" required>
+            <option value="">Selecione</option>
+            <option value="16500">Barra da Tijuca</option>
+            <option value="17800">Jardim Oceânico</option>
+            <option value="11200">Recreio dos Bandeirantes</option>
+            <option value="12500">Itanhangá</option>
+            <option value="15000">Joá</option>
+            <option value="14200">Península</option>
+          </select>
+        </label>
+        <label class="input"><span>Tipo</span>
+          <select id="eTipo">
+            <option value="1">Apartamento</option>
+            <option value="1.12">Cobertura</option>
+            <option value="1.05">Casa em condomínio</option>
+            <option value="0.85">Sala comercial</option>
+          </select>
+        </label>
+        <label class="input"><span>Área privativa (m²)</span>
+          <input id="eArea" type="number" inputmode="numeric" min="20" max="3000" placeholder="Ex.: 120" required>
+        </label>
+        <label class="input"><span>Estado de conservação</span>
+          <select id="eEstado">
+            <option value="1.08">Reformado</option>
+            <option value="1" selected>Bom</option>
+            <option value="0.9">Precisa de reforma</option>
+          </select>
+        </label>
+      </div>
+      <button type="submit" class="btn btn--navy btn--block">Calcular estimativa</button>
+      <div class="estimate" id="estimate" hidden>
+        <span>Faixa estimada</span>
+        <strong id="estValue"></strong>
+        <small id="estM2"></small>
+        <a href="#contato" class="btn btn--gold btn--block" data-interest="Avaliação completa do meu imóvel">Agendar avaliação completa</a>
+      </div>
+      <p class="form-error" id="evalError" hidden>Selecione o bairro e informe a área para calcular.</p>
+      <p class="note">Valores de m² de referência, apenas para demonstração. Ajustar com dados de mercado da Vitta Prime.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ ANUNCIE ============ -->
+<section class="section" id="anuncie">
+  <div class="wrap split split--reverse">
+    <div class="split__media">
+      <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&q=80&auto=format&fit=crop" alt="Sala de estar ampla e iluminada" loading="lazy">
+      <div class="badge-float">
+        <strong>Fotos profissionais</strong>
+        <span>Incluídas na captação</span>
+      </div>
+    </div>
+    <div class="split__text">
+      <p class="eyebrow">Para proprietários</p>
+      <h2 class="section__title">Anuncie seu imóvel com a Vitta Prime</h2>
+      <ul class="checks">
+        <li>Divulgação no site, nas redes sociais e nos principais portais</li>
+        <li>Fotos e descrição profissionais do imóvel</li>
+        <li>Corretor dedicado acompanhando visitas e propostas</li>
+        <li>Apoio jurídico e documental até a escritura</li>
+      </ul>
+      <form class="card-form card-form--flat" id="ownerForm" novalidate>
+        <div class="grid2">
+          <label class="input"><span>Seu nome</span><input id="oNome" type="text" required autocomplete="name"></label>
+          <label class="input"><span>WhatsApp</span><input id="oFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
+          <label class="input"><span>Bairro do imóvel</span><input id="oBairro" type="text" required placeholder="Ex.: Barra da Tijuca"></label>
+          <label class="input"><span>Finalidade</span>
+            <select id="oFin"><option>Vender</option><option>Alugar</option><option>Vender ou alugar</option></select>
+          </label>
+        </div>
+        <button type="submit" class="btn btn--navy">Quero anunciar</button>
+        <p class="form-ok" id="ownerOk" hidden></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SOBRE ============ -->
+<section class="section section--navy" id="sobre">
+  <div class="wrap">
+    <div class="about">
+      <div class="about__intro">
+        <p class="eyebrow eyebrow--light">Sobre a Vitta Prime</p>
+        <h2 class="section__title section__title--light">Uma imobiliária nova, com experiência de mercado.</h2>
+        <p>Fundada em 2026 na Barra da Tijuca, a Vitta Prime reúne compra, venda, locação, administração, avaliação e incorporação em um só lugar. Cada cliente tem um corretor responsável do primeiro contato até a entrega das chaves.</p>
+      </div>
+      <div class="values">
+        <div><h3>Transparência</h3><p>Preço, documentação e etapas explicados antes de cada decisão.</p></div>
+        <div><h3>Conhecimento local</h3><p>Atuação concentrada na Barra e arredores, onde conhecemos condomínios e valores.</p></div>
+        <div><h3>Atendimento próximo</h3><p>Resposta rápida pelo WhatsApp e acompanhamento pessoal em cada visita.</p></div>
+      </div>
+    </div>
+
+    <div class="team">
+      <h3 class="team__title">Sócios-administradores</h3>
+      <ul class="team__list">
+        <li><span class="avatar">MS</span><b>Maricelo Batista Souza</b></li>
+        <li><span class="avatar">PM</span><b>Patrick Fragoso Mello</b></li>
+        <li><span class="avatar">BS</span><b>Bernardo Martins Braga Saraiva</b></li>
+        <li><span class="avatar">CM</span><b>Carolina Pentagna Mascarenhas</b></li>
+        <li><span class="avatar">DF</span><b>Daniel Vital Ferreira</b></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTATO ============ -->
+<section class="section" id="contato">
+  <div class="wrap split">
+    <div class="split__text">
+      <p class="eyebrow">Contato</p>
+      <h2 class="section__title">Vamos encontrar o seu imóvel</h2>
+      <p class="lead">Conte o que você procura e um corretor responde ainda hoje.</p>
+      <ul class="contact-list">
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/></svg>
+          <div><small>WhatsApp</small><span id="waNumber">(21) 9 0000-0000</span></div>
+          <button type="button" class="link-btn" data-copy="waNumber">Copiar</button>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div><small>Endereço</small><span>Barra da Tijuca · Rio de Janeiro · RJ</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          <div><small>Atendimento</small><span>Seg. a sex. 9h–18h · Sáb. 9h–13h</span></div>
+        </li>
+      </ul>
+      <p class="note">Telefone e endereço completos a confirmar com a empresa.</p>
+    </div>
+
+    <form class="card-form" id="contactForm" novalidate>
+      <h3>Fale com um corretor</h3>
+      <label class="input"><span>Nome</span><input id="cNome" type="text" required autocomplete="name"></label>
+      <div class="grid2">
+        <label class="input"><span>WhatsApp</span><input id="cFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
+        <label class="input"><span>E-mail</span><input id="cEmail" type="email" autocomplete="email"></label>
+      </div>
+      <label class="input"><span>Interesse</span>
+        <select id="cAssunto">
+          <option>Comprar um imóvel</option>
+          <option>Alugar um imóvel</option>
+          <option>Vender ou alugar meu imóvel</option>
+          <option>Avaliação do meu imóvel</option>
+          <option>Administração de aluguel</option>
+          <option>Lançamentos</option>
+        </select>
+      </label>
+      <label class="input"><span>Mensagem</span><textarea id="cMsg" rows="3" placeholder="Ex.: Procuro 3 quartos no Jardim Oceânico até R$ 2 milhões"></textarea></label>
+      <button type="submit" class="btn btn--navy btn--block">Enviar mensagem</button>
+      <p class="form-ok" id="contactOk" hidden></p>
+    </form>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="wrap footer__grid">
+    <div>
+      <a href="#inicio" class="logo logo--light">
+        <svg viewBox="0 0 120 120" class="logo__mark" aria-hidden="true"><rect x="6" y="6" width="108" height="108" /><path d="M28 34 L48 86 L68 34" /><path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" /></svg>
+        <span class="logo__text">Vitta <em>Prime</em></span>
+      </a>
+      <p class="footer__about">Compra, venda, locação, administração, avaliação, incorporação e loteamento de imóveis na Barra da Tijuca e Zona Oeste do Rio.</p>
+    </div>
+    <div>
+      <h4>Imóveis</h4>
+      <a href="#imoveis" data-mode="venda">Comprar</a>
+      <a href="#imoveis" data-mode="aluguel">Alugar</a>
+      <a href="#lancamentos">Lançamentos</a>
+      <a href="#bairros">Bairros</a>
+    </div>
+    <div>
+      <h4>Proprietários</h4>
+      <a href="#anuncie">Anunciar imóvel</a>
+      <a href="#avaliacao">Avaliar imóvel</a>
+      <a href="#sobre">Administração</a>
+    </div>
+    <div>
+      <h4>Institucional</h4>
+      <a href="#sobre">Sobre nós</a>
+      <a href="#contato">Contato</a>
+      <span class="mono">CRECI-RJ J-00000 (a confirmar)</span>
+      <span class="mono">CNPJ 00.000.000/0001-00 (a confirmar)</span>
+    </div>
+  </div>
+  <div class="wrap footer__bottom">
+    <span>© 2026 Vitta Prime Imóveis. Todos os direitos reservados.</span>
+    <span>Fotos ilustrativas.</span>
+  </div>
+</footer>
+
+<a class="wa-float" href="#contato" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.3-1.8-.9-.8.8a4 4 0 0 1-2-2l.8-.8-.9-1.8L9 9.5z"/></svg>
+</a>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script src="script.js"></script>
+</body>
+</html>
