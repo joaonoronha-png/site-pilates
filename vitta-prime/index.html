@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..600&family=Manrope:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<link rel="icon" href="img/logo.svg" type="image/svg+xml">
 <link rel="stylesheet" href="vendor/leaflet.css">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -18,13 +19,9 @@
   <div class="intro__panel intro__panel--top"></div>
   <div class="intro__panel intro__panel--bottom"></div>
   <div class="intro__center">
-    <svg class="intro__mark" viewBox="0 0 120 120" aria-hidden="true">
-      <rect class="intro__frame" x="6" y="6" width="108" height="108" />
-      <path class="intro__v" d="M28 34 L48 86 L68 34" />
-      <path class="intro__p" d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" />
-    </svg>
+    <span class="intro__mark"><svg class="vp-mark" viewBox="120 150 440 375" aria-hidden="true"><defs><linearGradient id="vpLi" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a80c8"/><stop offset="1" stop-color="#21497f"/></linearGradient><linearGradient id="vpRi" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3466ad"/><stop offset="1" stop-color="#16305a"/></linearGradient></defs><polygon class="f1" fill="url(#vpLi)" points="137,163 265,163 338,253 339,512"/><polygon class="f2" fill="url(#vpRi)" points="338,253 402,163 540,163 340,512"/><polygon class="f3" fill="#24508f" points="245,349 338,295 339,512"/><polygon class="f4" fill="#3a6db2" points="338,295 432,350 340,512"/><polygon class="f5" fill="#5d9fe2" points="163,397 338,250 512,397 338,295"/></svg></span>
     <p class="intro__name"><span>V</span><span>I</span><span>T</span><span>T</span><span>A</span><span class="gap"></span><span>P</span><span>R</span><span>I</span><span>M</span><span>E</span></p>
-    <p class="intro__tag">Imóveis · Barra da Tijuca</p>
+    <p class="intro__tag">Imóveis de alto padrão · Barra da Tijuca</p>
     <div class="intro__bar"><i></i></div>
   </div>
   <button class="intro__skip" id="introSkip" type="button">Pular intro</button>
@@ -34,12 +31,8 @@
 <header class="header" id="header">
   <div class="header__inner">
     <a href="#inicio" class="logo" aria-label="Vitta Prime — início">
-      <svg viewBox="0 0 120 120" class="logo__mark" aria-hidden="true">
-        <rect x="6" y="6" width="108" height="108" />
-        <path d="M28 34 L48 86 L68 34" />
-        <path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" />
-      </svg>
-      <span class="logo__text">Vitta <em>Prime</em></span>
+      <span class="logo__mark"><svg class="vp-mark" viewBox="120 150 440 375" aria-hidden="true"><defs><linearGradient id="vpL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a80c8"/><stop offset="1" stop-color="#21497f"/></linearGradient><linearGradient id="vpR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3466ad"/><stop offset="1" stop-color="#16305a"/></linearGradient></defs><polygon class="f1" fill="url(#vpL)" points="137,163 265,163 338,253 339,512"/><polygon class="f2" fill="url(#vpR)" points="338,253 402,163 540,163 340,512"/><polygon class="f3" fill="#24508f" points="245,349 338,295 339,512"/><polygon class="f4" fill="#3a6db2" points="338,295 432,350 340,512"/><polygon class="f5" fill="#5d9fe2" points="163,397 338,250 512,397 338,295"/></svg></span>
+      <span class="logo__text"><b>Vitta Prime</b><small>Imóveis</small></span>
     </a>
     <nav class="nav" id="nav" aria-label="Principal">
       <a href="#imoveis" data-mode="venda">Comprar</a>
@@ -71,9 +64,9 @@
   </div>
   <div class="hero__shade"></div>
   <div class="hero__content wrap">
-    <p class="eyebrow eyebrow--light">Barra da Tijuca · Rio de Janeiro</p>
+    <p class="eyebrow eyebrow--light">Alto padrão · Barra da Tijuca · Rio de Janeiro</p>
     <h1 class="hero__title">O endereço certo<br>para o seu <em>próximo capítulo</em>.</h1>
-    <p class="hero__lead">Compra, venda, locação e avaliação de imóveis na Barra, Recreio e Zona Oeste, com atendimento de quem conhece cada quadra da região.</p>
+    <p class="hero__lead">Imobiliária especializada em alto padrão. Venda, locação e administração de imóveis na Barra, Recreio e Zona Oeste, com atendimento de quem conhece cada condomínio da região.</p>
 
     <form class="search" id="heroSearch" autocomplete="off">
       <div class="search__tabs" role="tablist" aria-label="Tipo de negócio">
@@ -311,7 +304,7 @@
       <div class="about__intro">
         <p class="eyebrow eyebrow--light">Sobre a Vitta Prime</p>
         <h2 class="section__title section__title--light">Uma imobiliária nova, com experiência de mercado.</h2>
-        <p>Fundada em 2026 na Barra da Tijuca, a Vitta Prime reúne compra, venda, locação, administração, avaliação e incorporação em um só lugar. Cada cliente tem um corretor responsável do primeiro contato até a entrega das chaves.</p>
+        <p>Fundada em 2026 na Barra da Tijuca, a Vitta Prime é especializada em imóveis de alto padrão e reúne venda, locação, administração e avaliação em um só lugar. Cada cliente tem um corretor responsável do primeiro contato até a entrega das chaves.</p>
       </div>
       <div class="values">
         <div><h3>Transparência</h3><p>Preço, documentação e etapas explicados antes de cada decisão.</p></div>
@@ -381,27 +374,28 @@
       <ul class="contact-list">
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/></svg>
-          <div><small>WhatsApp</small><span id="waNumber">(21) 9 0000-0000</span></div>
+          <div><small>WhatsApp</small><span id="waNumber">(21) 99843-3127</span></div>
           <button type="button" class="link-btn" data-copy="waNumber">Copiar</button>
         </li>
         <li>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-          <div><small>Endereço</small><span>Barra da Tijuca · Rio de Janeiro · RJ</span></div>
+          <div><small>Endereço</small><span>Av. das Américas, 8585 · Lojas SS 2201 e 2202<br>Barra da Tijuca · Rio de Janeiro – RJ</span></div>
           <a href="#mapa" class="link-btn">Ver no mapa</a>
         </li>
         <li>
-          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-          <div><small>Atendimento</small><span>Seg. a sex. 9h–18h · Sáb. 9h–13h</span></div>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8"/></svg>
+          <div><small>Instagram</small><span>@vittaprimeimoveis</span></div>
+          <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener" class="link-btn">Abrir</a>
         </li>
       </ul>
-      <p class="note">Telefone e endereço completos a confirmar com a empresa.</p>
+      <p class="note"><a href="https://wa.me/5521998433127" target="_blank" rel="noopener" class="link-btn">Abrir conversa no WhatsApp</a></p>
     </div>
 
     <form class="card-form" id="contactForm" novalidate>
       <h3>Fale com um corretor</h3>
       <label class="input"><span>Nome</span><input id="cNome" type="text" required autocomplete="name"></label>
       <div class="grid2">
-        <label class="input"><span>WhatsApp</span><input id="cFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
+        <label class="input"><span>WhatsApp</span><input id="cFone" type="tel" required autocomplete="tel" placeholder="(21) 90000-0000"></label>
         <label class="input"><span>E-mail</span><input id="cEmail" type="email" autocomplete="email"></label>
       </div>
       <label class="input"><span>Interesse</span>
@@ -453,7 +447,28 @@
         <p class="map-fallback" id="mapFallback" hidden>Não foi possível carregar o mapa agora. A lista ao lado continua disponível.</p>
       </div>
     </div>
-    <p class="note">Localizações aproximadas dos imóveis ilustrativos. A posição do escritório é provisória até a confirmação do endereço.</p>
+    <p class="note">Localizações aproximadas dos imóveis ilustrativos.</p>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="insta" aria-label="Instagram">
+  <div class="wrap insta__head">
+    <div>
+      <p class="eyebrow">Instagram</p>
+      <h2 class="section__title">@vittaprimeimoveis</h2>
+    </div>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener" class="btn btn--navy">Seguir no Instagram</a>
+  </div>
+  <div class="insta__row">
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/arquitetura.jpg" alt="Casa contemporânea com piscina" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/living.jpg" alt="Sala integrada à varanda" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/casa-deck.jpg" alt="Casa com deck e piscina" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/deck.jpg" alt="Espreguiçadeiras no deck" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/interior.jpg" alt="Sala com pé-direito duplo" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/piscina.jpg" alt="Área de lazer com piscina" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/fachada.jpg" alt="Fachada de casa moderna" loading="lazy"></a>
+    <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener"><img src="img/insta/aerea.jpg" alt="Vista aérea de casas em condomínio" loading="lazy"></a>
   </div>
 </section>
 
@@ -464,10 +479,11 @@
   <div class="wrap footer__grid">
     <div>
       <a href="#inicio" class="logo logo--light">
-        <svg viewBox="0 0 120 120" class="logo__mark" aria-hidden="true"><rect x="6" y="6" width="108" height="108" /><path d="M28 34 L48 86 L68 34" /><path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62" /></svg>
-        <span class="logo__text">Vitta <em>Prime</em></span>
+        <span class="logo__mark"><svg class="vp-mark" viewBox="120 150 440 375" aria-hidden="true"><defs><linearGradient id="vpL" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a80c8"/><stop offset="1" stop-color="#21497f"/></linearGradient><linearGradient id="vpR" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#3466ad"/><stop offset="1" stop-color="#16305a"/></linearGradient></defs><polygon class="f1" fill="url(#vpL)" points="137,163 265,163 338,253 339,512"/><polygon class="f2" fill="url(#vpR)" points="338,253 402,163 540,163 340,512"/><polygon class="f3" fill="#24508f" points="245,349 338,295 339,512"/><polygon class="f4" fill="#3a6db2" points="338,295 432,350 340,512"/><polygon class="f5" fill="#5d9fe2" points="163,397 338,250 512,397 338,295"/></svg></span>
+      <span class="logo__text"><b>Vitta Prime</b><small>Imóveis</small></span>
       </a>
-      <p class="footer__about">Compra, venda, locação, administração, avaliação, incorporação e loteamento de imóveis na Barra da Tijuca e Zona Oeste do Rio.</p>
+      <p class="footer__about">Imobiliária especializada em alto padrão: venda, locação e administração de imóveis.</p>
+      <p class="footer__about">Av. das Américas, 8585 · Lojas SS 2201 e 2202 · Barra da Tijuca · Rio de Janeiro – RJ<br>WhatsApp (21) 99843-3127</p>
     </div>
     <div>
       <h4>Imóveis</h4>
@@ -489,8 +505,9 @@
       <h4>Institucional</h4>
       <a href="#sobre">Sobre nós</a>
       <a href="#contato">Contato</a>
-      <span class="mono">CRECI-RJ J-00000 (a confirmar)</span>
-      <span class="mono">CNPJ 00.000.000/0001-00 (a confirmar)</span>
+      <a href="https://www.instagram.com/vittaprimeimoveis/" target="_blank" rel="noopener">Instagram</a>
+      <span class="mono">CNPJ 66.200.706/0001-05</span>
+      <span class="mono">CRECI-RJ (a confirmar)</span>
     </div>
   </div>
   <div class="wrap footer__bottom">
@@ -499,7 +516,7 @@
   </div>
 </footer>
 
-<a class="wa-float" href="#contato" aria-label="Falar pelo WhatsApp">
+<a class="wa-float" href="https://wa.me/5521998433127?text=Ol%C3%A1%2C%20vim%20pelo%20site%20da%20Vitta%20Prime." target="_blank" rel="noopener" aria-label="Falar pelo WhatsApp: (21) 99843-3127">
   <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 12a8 8 0 0 1-11.8 7L4 20l1.1-4A8 8 0 1 1 20 12z"/><path d="M9 9.5c0 3 2.5 5.5 5.5 5.5l1-1.3-1.8-.9-.8.8a4 4 0 0 1-2-2l.8-.8-.9-1.8L9 9.5z"/></svg>
 </a>
 

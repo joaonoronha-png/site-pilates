@@ -61,8 +61,9 @@
   });
 
   /* ---------- IMÓVEIS (dados ilustrativos) ---------- */
-  const U = (id) => `https://images.unsplash.com/photo-${id}?w=1200&q=75&auto=format&fit=crop`;
-  const INTERIORES = ["1600607687939-ce8a6c25118c", "1600566753190-17f0baa2a6c3", "1493809842364-78817add7ffb", "1502672260266-1c1ef2d93688", "1522708323590-d24dbb6b0267", "1600607687644-c7171b42498f"];
+  const U = (id) => (id.includes("/") ? id : `https://images.unsplash.com/photo-${id}?w=1200&q=75&auto=format&fit=crop`);
+  const IG = (n) => `img/insta/${n}.jpg`; // fotos do Instagram @vittaprimeimoveis
+  const INTERIORES = [IG("living"), IG("interior"), IG("deck"), "1600607687939-ce8a6c25118c", "1600566753190-17f0baa2a6c3", "1493809842364-78817add7ffb", "1502672260266-1c1ef2d93688", "1522708323590-d24dbb6b0267", "1600607687644-c7171b42498f"];
   const LAZER_CLUBE = ["Piscina adulto e infantil", "Academia", "Salão de festas", "Espaço gourmet", "Playground", "Quadra poliesportiva", "Portaria 24h"];
   const IMOVEIS = [
     { id: "VP-1024", mode: "venda", tipo: "Cobertura", bairro: "Barra da Tijuca", titulo: "Cobertura linear com vista para o mar", area: 310, quartos: 4, suites: 4, vagas: 3, banheiros: 6, preco: 6900000, condo: 4200, iptu: 1350, foto: "1600596542815-ffad4c1539a9", tag: "Exclusivo", destaque: 1,
@@ -71,16 +72,16 @@
     { id: "VP-1031", mode: "venda", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Apartamento a 200 m da praia, próximo ao metrô", area: 128, quartos: 3, suites: 1, vagas: 2, banheiros: 3, preco: 2350000, condo: 1900, iptu: 520, foto: "1502672260266-1c1ef2d93688", destaque: 2,
       desc: "Três quartos com suíte em rua arborizada do Jardim Oceânico, a poucos minutos a pé da estação de metrô e da praia. Varanda, dependência completa e duas vagas.",
       caract: ["Varanda", "Dependência completa", "Armários embutidos", "Andar alto", "Sol da manhã"], lazer: ["Portaria 24h", "Salão de festas", "Playground"] },
-    { id: "VP-1047", mode: "venda", tipo: "Casa em condomínio", bairro: "Barra da Tijuca", titulo: "Casa contemporânea em condomínio fechado", area: 520, quartos: 5, suites: 5, vagas: 4, banheiros: 7, preco: 8500000, condo: 3100, iptu: 2100, foto: "1600585154340-be6161a56a0c", tag: "Novo", destaque: 3,
+    { id: "VP-1047", mode: "venda", tipo: "Casa em condomínio", bairro: "Barra da Tijuca", titulo: "Casa contemporânea em condomínio fechado", area: 520, quartos: 5, suites: 5, vagas: 4, banheiros: 7, preco: 8500000, condo: 3100, iptu: 2100, foto: IG("arquitetura"), tag: "Novo", destaque: 3,
       desc: "Casa de arquitetura contemporânea em condomínio com segurança 24h. Pé-direito duplo, integração total com a área externa, piscina com raia, sauna e cinco suítes.",
       caract: ["Piscina com raia", "Sauna", "Pé-direito duplo", "Automação", "Energia solar", "Jardim"], lazer: ["Segurança 24h", "Quadra de tênis", "Clube", "Ciclovia interna"] },
     { id: "VP-1052", mode: "venda", tipo: "Apartamento", bairro: "Península", titulo: "Andar alto com varanda gourmet e vista para a lagoa", area: 165, quartos: 3, suites: 3, vagas: 2, banheiros: 4, preco: 2980000, condo: 2600, iptu: 640, foto: "1600607687644-c7171b42498f", destaque: 4,
       desc: "Apartamento em andar alto na Península, com varanda gourmet voltada para a lagoa e o verde. Três suítes, lavabo e lazer completo de clube.",
       caract: ["Varanda gourmet", "Vista lagoa", "Lavabo", "Andar alto", "Porcelanato"], lazer: LAZER_CLUBE },
-    { id: "VP-1060", mode: "venda", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Casa com piscina e área gourmet", area: 380, quartos: 4, suites: 3, vagas: 4, banheiros: 5, preco: 3200000, condo: 1500, iptu: 980, foto: "1564013799919-ab600027ffc6", destaque: 5,
+    { id: "VP-1060", mode: "venda", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Casa com piscina e área gourmet", area: 380, quartos: 4, suites: 3, vagas: 4, banheiros: 5, preco: 3200000, condo: 1500, iptu: 980, foto: IG("piscina"), destaque: 5,
       desc: "Casa duplex com quintal amplo, piscina e área gourmet coberta, em condomínio tranquilo a poucos minutos da praia do Recreio.",
       caract: ["Piscina", "Área gourmet", "Quintal", "Escritório", "Placas solares"], lazer: ["Segurança 24h", "Playground", "Quadra"] },
-    { id: "VP-1068", mode: "venda", tipo: "Casa em condomínio", bairro: "Joá", titulo: "Residência com vista panorâmica do mar", area: 640, quartos: 5, suites: 5, vagas: 6, banheiros: 8, preco: 12500000, condo: 3800, iptu: 3200, foto: "1512917774080-9991f1c4c750", tag: "Exclusivo", destaque: 6,
+    { id: "VP-1068", mode: "venda", tipo: "Casa em condomínio", bairro: "Joá", titulo: "Residência com vista panorâmica do mar", area: 640, quartos: 5, suites: 5, vagas: 6, banheiros: 8, preco: 12500000, condo: 3800, iptu: 3200, foto: IG("fachada"), tag: "Exclusivo", destaque: 6,
       desc: "Residência no alto do Joá com vista aberta para o mar e a Barra. Piscina de borda infinita, adega, cinema e suítes com varanda.",
       caract: ["Piscina borda infinita", "Vista mar", "Adega", "Cinema", "Elevador", "Gerador"], lazer: ["Segurança 24h", "Rua fechada"] },
     { id: "VP-2011", mode: "aluguel", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Apartamento mobiliado em condomínio com lazer completo", area: 96, quartos: 2, suites: 1, vagas: 1, banheiros: 2, preco: 6800, condo: 1400, iptu: 280, foto: "1522708323590-d24dbb6b0267", destaque: 1,
@@ -95,7 +96,7 @@
     { id: "VP-2033", mode: "aluguel", tipo: "Apartamento", bairro: "Jardim Oceânico", titulo: "Três quartos reformado, a uma quadra da praia", area: 118, quartos: 3, suites: 1, vagas: 1, banheiros: 2, preco: 9200, condo: 1700, iptu: 390, foto: "1493809842364-78817add7ffb", destaque: 4,
       desc: "Reformado com cozinha americana, iluminação em LED e varanda integrada. Rua tranquila a uma quadra da praia e perto do metrô.",
       caract: ["Reformado", "Cozinha americana", "Varanda integrada", "Armários"], lazer: ["Portaria 24h", "Piscina"] },
-    { id: "VP-2040", mode: "aluguel", tipo: "Casa em condomínio", bairro: "Itanhangá", titulo: "Casa em meio ao verde com quintal amplo", area: 410, quartos: 4, suites: 4, vagas: 4, banheiros: 5, preco: 18000, condo: 1900, iptu: 1100, foto: "1600047509807-ba8f99d2cdde", destaque: 5,
+    { id: "VP-2040", mode: "aluguel", tipo: "Casa em condomínio", bairro: "Itanhangá", titulo: "Casa em meio ao verde com quintal amplo", area: 410, quartos: 4, suites: 4, vagas: 4, banheiros: 5, preco: 18000, condo: 1900, iptu: 1100, foto: IG("casa-deck"), destaque: 5,
       desc: "Casa em condomínio arborizado no Itanhangá, com quintal, piscina, espaço gourmet e vista para a mata.",
       caract: ["Piscina", "Quintal", "Espaço gourmet", "Vista verde", "Home office"], lazer: ["Segurança 24h", "Trilhas", "Quadra"] },
     { id: "VP-3001", mode: "lancamento", stage: "Pré-lançamento", tipo: "Apartamento", bairro: "Barra da Tijuca", titulo: "Residencial Orla Prime", area: 142, quartos: 3, suites: 3, vagas: 2, banheiros: 4, preco: 2890000, foto: "1545324418-cc1a3fa10c00", destaque: 1, entrega: "Dez/2028", obra: 0,
@@ -106,7 +107,7 @@
       desc: "Torre única junto à lagoa, com plantas de 2 a 4 suítes, varanda em todos os apartamentos e lazer integrado ao paisagismo.",
       plantas: [["2 suítes", 98, 2, 2, 1650000], ["3 suítes", 132, 3, 2, 2240000], ["4 suítes", 178, 4, 3, 3100000]],
       caract: ["Varanda", "Fechadura digital", "Tomadas USB", "Vaga para carro elétrico"], lazer: ["Piscina", "Academia", "Salão de festas", "Deck na lagoa"] },
-    { id: "VP-3003", mode: "lancamento", stage: "Em obras", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Vila Recreio", area: 260, quartos: 4, suites: 4, vagas: 3, banheiros: 5, preco: 2750000, foto: "1580587771525-78b9dba3b914", destaque: 3, entrega: "Mar/2027", obra: 62,
+    { id: "VP-3003", mode: "lancamento", stage: "Em obras", tipo: "Casa em condomínio", bairro: "Recreio dos Bandeirantes", titulo: "Vila Recreio", area: 260, quartos: 4, suites: 4, vagas: 3, banheiros: 5, preco: 2750000, foto: IG("aerea"), destaque: 3, entrega: "Mar/2027", obra: 62,
       desc: "Condomínio de casas com quintal privativo e piscina, a cinco minutos da praia do Recreio.",
       plantas: [["Casa 4 suítes", 260, 4, 3, 2750000], ["Casa 4 suítes + terraço", 300, 4, 3, 3150000]],
       caract: ["Quintal privativo", "Piscina", "Terraço", "Espaço gourmet"], lazer: ["Portaria 24h", "Clube", "Quadra", "Playground"] },
@@ -526,7 +527,7 @@
             <div class="days" id="vDays">${nextDays().map((d, n) => `<button type="button" data-day="${d.toISOString().slice(0, 10)}" aria-pressed="${n === 0}"><small>${DIAS[d.getDay()]}</small><b>${String(d.getDate()).padStart(2, "0")}</b></button>`).join("")}</div>
             <div class="slots" id="vSlots"></div>
             <label class="input"><span>Nome</span><input id="vNome" type="text" required autocomplete="name"></label>
-            <label class="input"><span>WhatsApp</span><input id="vFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
+            <label class="input"><span>WhatsApp</span><input id="vFone" type="tel" required autocomplete="tel" placeholder="(21) 90000-0000"></label>
             <button type="submit" class="btn btn--navy btn--block">Agendar visita</button>
             <p class="form-ok" id="visitOk" hidden></p>
           </form>
@@ -600,7 +601,7 @@
       <form class="card-form" id="ownerForm" novalidate>
         <div class="grid2">
           <label class="input"><span>Seu nome</span><input id="oNome" type="text" required autocomplete="name"></label>
-          <label class="input"><span>WhatsApp</span><input id="oFone" type="tel" required autocomplete="tel" placeholder="(21) 9 0000-0000"></label>
+          <label class="input"><span>WhatsApp</span><input id="oFone" type="tel" required autocomplete="tel" placeholder="(21) 90000-0000"></label>
           <label class="input"><span>Bairro do imóvel</span><input id="oBairro" type="text" required placeholder="Ex.: Barra da Tijuca"></label>
           <label class="input"><span>Tipo de imóvel</span>
             <select id="oTipo"><option>Apartamento</option><option>Cobertura</option><option>Casa em condomínio</option><option>Sala comercial</option><option>Terreno</option></select></label>
@@ -738,15 +739,14 @@
   { const r = location.hash.slice(1); if (isRoute(r)) showRoute(r); }
 
   /* ---------- MAPA ---------- */
-  // Escritório: posição provisória na Barra da Tijuca até a confirmação do endereço.
-  const ESCRITORIO = { lat: -23.0003, lng: -43.3560, titulo: "Vitta Prime Imóveis", sub: "Barra da Tijuca · endereço a confirmar" };
+  const ESCRITORIO = { lat: -23.00123, lng: -43.39654, titulo: "Vitta Prime Imóveis", sub: "Av. das Américas, 8585 · Lojas SS 2201 e 2202" };
   const mapEl = $("#map");
   const shortPrice = (i) => {
     if (i.mode === "aluguel") return `R$ ${(i.preco / 1000).toLocaleString("pt-BR", { maximumFractionDigits: 1 })} mil`;
     const mi = i.preco / 1e6;
     return mi >= 1 ? `R$ ${mi.toLocaleString("pt-BR", { maximumFractionDigits: 1 })} mi` : `R$ ${Math.round(i.preco / 1000)} mil`;
   };
-  const LOGO = '<svg viewBox="0 0 120 120"><rect x="6" y="6" width="108" height="108"/><path d="M28 34 L48 86 L68 34"/><path d="M62 86 L62 34 L80 34 Q94 34 94 48 Q94 62 80 62 L62 62"/></svg>';
+  const LOGO = $(".logo__mark svg").outerHTML;
   const mapState = { filter: "todos", active: null };
 
   if (!window.L || !mapEl) {
