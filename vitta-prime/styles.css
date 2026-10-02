@@ -418,28 +418,6 @@ body.intro-on .hero__content > * { opacity: 0; transform: translateY(18px); }
 .card__cta:hover { text-decoration: underline; text-underline-offset: 3px; }
 .empty { padding: 2.5rem; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius); color: var(--muted); }
 
-/* ============ LAUNCH ============ */
-.launch { display: grid; grid-template-columns: 1.1fr 1fr; background: #0c2340; color: var(--on-navy); }
-.launch__media { position: relative; min-height: 420px; }
-.launch__media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.launch__body { padding: clamp(3rem, 2rem + 4vw, 5.5rem) clamp(20px, 5vw, 5rem); display: flex; flex-direction: column; justify-content: center; }
-.launch__title { margin: 0; font: 500 var(--step-3)/1.1 var(--f-display); }
-.launch__title em { color: #9cc6f0; }
-.launch__lead { color: var(--on-navy-muted); max-width: 46ch; margin: 1rem 0 1.75rem; }
-.launch__specs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; margin: 0 0 2rem; border-top: 1px solid rgba(244, 241, 234, .15); border-bottom: 1px solid rgba(244, 241, 234, .15); }
-.launch__specs div { padding: 1rem .75rem 1rem 0; }
-.launch__specs div + div { padding-left: .75rem; border-left: 1px solid rgba(244, 241, 234, .15); }
-.launch__specs dt { font: 400 .6875rem/1.2 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--on-navy-muted); }
-.launch__specs dd { margin: .35rem 0 0; font: 500 1.2rem/1.1 var(--f-display); font-variant-numeric: tabular-nums; }
-.launch__cta { display: flex; flex-wrap: wrap; gap: .75rem; }
-@media (max-width: 900px) {
-  .launch { grid-template-columns: 1fr; }
-  .launch__media { min-height: 280px; }
-  .launch__specs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .launch__specs div:nth-child(3) { padding-left: 0; border-left: 0; }
-  .launch__specs div:nth-child(n+3) { border-top: 1px solid rgba(244, 241, 234, .15); }
-}
-
 /* ============ BAIRROS ============ */
 .hoods { display: grid; grid-template-columns: 1.4fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 1rem; }
 .hood { position: relative; overflow: hidden; border: 0; padding: 0; border-radius: var(--radius); cursor: pointer; text-align: left; background: #0c2340; color: #f5f8fc; }
