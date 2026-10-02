@@ -19,6 +19,7 @@ Cada imóvel, guia e opção de proprietário abre uma página sobreposta com en
 - **Fotos**: `img/insta/` são recortes dos posts do Instagram @vittaprimeimoveis (baixa resolução, ~400 px). Pedir os arquivos originais à empresa. As demais vêm do Unsplash, só para ilustrar.
 - **Imóveis**: lista `IMOVEIS` em `script.js` (dados ilustrativos).
 - **Lançamento "Orla Prime"**: em `index.html`, ilustrativo.
+- **Equipe**: a lista de sócios foi removida. Se a empresa quiser, criar a seção "Nossa equipe" com fotos, cargos, CRECI e bio.
 - **Contato**: endereço (Av. das Américas, 8585 · Lojas SS 2201 e 2202) e WhatsApp (21) 99843-3127 tirados do Instagram. Falta o CRECI.
 - **Avaliação**: valores de m² por bairro nos `<option value>` do formulário de avaliação.
 - **Formulários**: hoje só exibem confirmação na tela; ligar a WhatsApp/e-mail/CRM.

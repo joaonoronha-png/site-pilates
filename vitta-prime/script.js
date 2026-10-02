@@ -865,6 +865,10 @@
       renderMap();
     }));
 
+    $$("[data-showoffice]").forEach((b) => b.addEventListener("click", () => {
+      $("#mapa").scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      setTimeout(() => setActive("office", true), 500);
+    }));
     mapApi.focus = (id) => {
       if (mapState.filter !== "todos" && byId(id)?.mode !== mapState.filter) $('#mapTabs button[data-map="todos"]').click();
       setTimeout(() => setActive(id, true), 400);
