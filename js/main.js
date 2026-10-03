@@ -2,7 +2,7 @@
   const header = document.getElementById('siteHeader');
   const navToggle = document.getElementById('navToggle');
   const mainNav = document.getElementById('mainNav');
-  const whatsappFab = document.getElementById('whatsappFab');
+  const fab = document.getElementById('fab');
   const yearEl = document.getElementById('year');
 
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -37,7 +37,7 @@
   const onScroll = () => {
     const scrolled = window.scrollY > 40;
     header?.classList.toggle('scrolled', scrolled);
-    whatsappFab?.classList.toggle('visible', window.scrollY > 300);
+    fab?.classList.toggle('visible', window.scrollY > 300);
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -143,4 +143,61 @@
   };
 
   document.querySelectorAll('.reviews-marquee').forEach(el => initMarquee(el, 50));
+
+  // botões redondos: o do mapa abre o menu de rotas (Google Maps, Mapas do iPhone, Waze, Uber)
+  const route = document.querySelector('[data-route]');
+  if (route) {
+    const btn = route.querySelector('.fab__btn--map');
+    const opts = [...route.querySelectorAll('.fab__opt')];
+    const setOpen = (open) => {
+      route.classList.toggle('is-open', open);
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Fechar opções de rota' : 'Como chegar: escolher aplicativo');
+      opts.forEach((o) => o.setAttribute('tabindex', open ? '0' : '-1'));
+    };
+    setOpen(false);
+    btn.addEventListener('click', (e) => { e.stopPropagation(); setOpen(!route.classList.contains('is-open')); });
+    opts.forEach((o) => o.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('click', (e) => { if (!route.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && route.classList.contains('is-open')) { setOpen(false); btn.focus(); }
+    });
+  }
+
+  // mapa interativo (Leaflet com tiles OpenStreetMap salvos em assets/map, zoom 13–18)
+  const mapEl = document.getElementById('map');
+  if (mapEl && window.L) {
+    const POS = [-22.9653, -43.3871];
+    const TILES = mapEl.dataset.tiles || 'assets/map/{z}/{x}/{y}.png';
+    const map = L.map(mapEl, {
+      center: POS, zoom: 16, minZoom: 13, maxZoom: 18,
+      scrollWheelZoom: false, attributionControl: true, zoomControl: true,
+    });
+    const bounds = { 13: 0.045, 14: 0.03, 15: 0.018, 16: 0.011, 17: 0.0065, 18: 0.0045 };
+    L.tileLayer(TILES, {
+      tileSize: 256, minZoom: 13, maxZoom: 18,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a>',
+      errorTileUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+    }).addTo(map);
+    // limita o arrasto à área com tiles no zoom atual
+    const clamp = () => {
+      const d = bounds[map.getZoom()] || 0.0045;
+      map.setMaxBounds(L.latLngBounds([POS[0] - d, POS[1] - d], [POS[0] + d, POS[1] + d]));
+    };
+    map.on('zoomend', clamp);
+    clamp();
+    const icon = L.divIcon({
+      className: '',
+      html: '<div class="jb-pin"><span class="jb-pin__pulse"></span><span class="jb-pin__pulse jb-pin__pulse--2"></span><span class="jb-pin__mark">JB</span></div>',
+      iconSize: [44, 44], iconAnchor: [22, 22], popupAnchor: [0, -24],
+    });
+    L.marker(POS, { icon, keyboard: true, title: 'Dra. Julia Batalha · Harmonização Facial' }).addTo(map)
+      .bindPopup('<strong>Dra. Julia Batalha</strong>Av. Vice-Presidente José Alencar, 1405<br>Barra da Tijuca · Rio de Janeiro<br><a href="https://www.google.com/maps/dir/?api=1&destination=Dra.+Julia+Batalha+Harmoniza%C3%A7%C3%A3o+Facial+Barra+da+Tijuca" target="_blank" rel="noopener">Traçar rota →</a>')
+      .openPopup();
+    // zoom pela roda do mouse só depois de clicar no mapa (não sequestra a rolagem da página)
+    map.on('click', () => map.scrollWheelZoom.enable());
+    mapEl.addEventListener('mouseleave', () => map.scrollWheelZoom.disable());
+    // o mapa entra com reveal: recalcula o tamanho quando aparecer
+    setTimeout(() => map.invalidateSize(), 1200);
+  }
 })();
