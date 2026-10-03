@@ -14,7 +14,8 @@ que está preparado no site, mas aguarda validação.
 | Portfólio | **Oculto** (sem fotos reais) | `config.js` → `portfolio` |
 | Cardápio oficial | **Não exibido**; aparece convite para conversar | `config.js` → `cardapio` |
 | FAQ: mínimo de convidados, bebidas, menu infantil, degustação, regiões atendidas, opções vegetarianas/veganas | **Ocultas** até terem resposta | `config.js` → `faqPendentes` |
-| Instagram | Não incluído (perfil não confirmado) | adicionar no rodapé e em `sameAs` no JSON-LD após confirmar |
+| Instagram | **@requinteesaborbuffet**, indicado pelo responsável pelo projeto; incluído no contato, menu móvel, rodapé e `sameAs`. Existe também @requinteesaborbuffetrj (provavelmente antigo): confirmar com o cliente | `index.html` |
+| Fotos do Instagram | Não baixadas: o Instagram exige login. Pedir os arquivos originais ao cliente (melhor resolução) e confirmar a autorização de fotos de convidados/fotógrafos | `docs/IMAGENS.md` |
 | Domínio | Provisório `dominio-a-definir.com.br` | `sh scripts/definir-dominio.sh www.dominio.com.br` |
 | Formas de pagamento | Somente no FAQ (crédito, débito, aproximação) | `index.html` (FAQ + JSON-LD) |
 
