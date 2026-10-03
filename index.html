@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function () {
+    var r = document.documentElement;
+    r.classList.add('js-anim');
+    // a abertura toca uma vez por sessão e nunca para quem prefere menos movimento
+    try {
+      if (sessionStorage.getItem('jb-intro') === '1' || matchMedia('(prefers-reduced-motion: reduce)').matches) r.classList.add('no-intro');
+      else sessionStorage.setItem('jb-intro', '1');
+    } catch (e) {}
+  })();
+</script>
+<title>Dra. Julia Batalha | Harmonização Facial na Barra da Tijuca, RJ</title>
+<meta name="description" content="Dra. Julia Batalha: harmonização facial, rinomodelação e toxina botulínica na Barra da Tijuca, Rio de Janeiro. Resultado natural, segurança e acompanhamento antes, durante e depois. Agende pelo WhatsApp.">
+<meta name="theme-color" content="#f6f0e9">
+
+<meta property="og:title" content="Dra. Julia Batalha | Harmonização Facial">
+<meta property="og:description" content="Harmonização facial com resultado natural na Barra da Tijuca. 5,0 no Google. Agende sua avaliação pelo WhatsApp.">
+<meta property="og:image" content="assets/images/hero-retrato-natural.jpg">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="pt_BR">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='50' fill='%232b211d'/%3E%3Ctext x='50' y='64' font-family='Georgia,serif' font-style='italic' font-size='40' fill='%23e8c9b5' text-anchor='middle'%3EJB%3C/text%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HealthAndBeautyBusiness",
+  "name": "Dra. Julia Batalha - Harmonização Facial",
+  "image": "assets/images/hero-retrato-natural.jpg",
+  "telephone": "+5521973098600",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Av. Vice-Presidente José Alencar, 1405",
+    "addressLocality": "Rio de Janeiro",
+    "addressRegion": "RJ",
+    "postalCode": "22775-033",
+    "addressCountry": "BR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": -22.9653, "longitude": -43.3871 },
+  "openingHoursSpecification": [
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "08:00", "closes": "21:00" },
+    { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "08:00", "closes": "17:00" }
+  ],
+  "paymentAccepted": "Cartão de crédito, cartão de débito, pagamento por aproximação",
+  "sameAs": ["https://www.instagram.com/drajuliabatalha/"],
+  "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "25" }
+}
+</script>
+</head>
+
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2.8l2.76 5.6 6.18.9-4.47 4.36 1.05 6.15L12 16.9l-5.52 2.9 1.05-6.15L3.06 9.3l6.18-.9z"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 32 32"><path fill="currentColor" d="M16.02 3C9.4 3 4 8.4 4 15.02c0 2.27.62 4.4 1.7 6.23L4 29l7.94-1.65a11.98 11.98 0 0 0 4.08.72h.01C22.6 28.07 28 22.67 28 16.05 28 9.42 22.64 3 16.02 3zm7.03 17.05c-.3.83-1.72 1.6-2.38 1.7-.6.1-1.37.14-2.2-.14-.5-.16-1.15-.38-1.98-.74-3.48-1.5-5.75-5-5.93-5.24-.17-.24-1.42-1.9-1.42-3.62 0-1.72.9-2.56 1.22-2.9.32-.35.7-.44.93-.44.23 0 .47 0 .67.01.22.01.5-.08.79.6.3.7 1 2.42 1.09 2.6.09.17.15.38.03.62-.12.24-.18.38-.36.58-.18.2-.38.45-.54.6-.18.18-.37.37-.16.72.21.35.94 1.55 2.02 2.51 1.39 1.24 2.56 1.62 2.92 1.8.36.18.57.15.78-.09.21-.24.9-1.04 1.14-1.4.24-.35.48-.29.79-.17.32.12 2.02.95 2.37 1.12.35.18.58.26.67.4.09.15.09.85-.21 1.68z"/></symbol>
+</svg>
+
+<!-- ============ ABERTURA ============
+     As linhas de proporção do rosto (eixo central e terços faciais) se
+     desenham, o monograma JB aparece sobre elas e a cortina sobe. -->
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-inner">
+    <svg class="intro-face" viewBox="0 0 200 260" width="200" height="260">
+      <ellipse class="intro-oval" cx="100" cy="130" rx="74" ry="104" pathLength="1"/>
+      <line class="intro-axis" x1="100" y1="12" x2="100" y2="248" pathLength="1"/>
+      <line class="intro-third intro-third--1" x1="34" y1="96" x2="166" y2="96" pathLength="1"/>
+      <line class="intro-third intro-third--2" x1="34" y1="164" x2="166" y2="164" pathLength="1"/>
+    </svg>
+    <span class="intro-mark"><span class="intro-j">J</span><span class="intro-b">B</span></span>
+    <span class="intro-name">Julia Batalha</span>
+    <span class="intro-sub">Harmonização facial</span>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="site-header" id="siteHeader">
+  <div class="header-inner">
+    <a href="#topo" class="brand" aria-label="Dra. Julia Batalha, início">
+      <span class="brand-mark" aria-hidden="true">JB</span>
+      <span class="brand-name">Julia Batalha<em>Harmonização facial</em></span>
+    </a>
+
+    <nav class="main-nav" id="mainNav" aria-label="Principal">
+      <a href="#abordagem">Abordagem</a>
+      <a href="#procedimentos">Procedimentos</a>
+      <a href="#cuidado">Cuidado</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#localizacao">Localização</a>
+      <a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-nav">Agendar</a>
+    </nav>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="topo">
+  <div class="hero-inner">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        <span data-reveal>Harmonização</span>
+        <span data-reveal>que <em>respeita</em></span>
+        <span data-reveal>o seu rosto.</span>
+      </h1>
+      <p class="hero-sub" data-reveal>
+        Harmonização facial, rinomodelação e toxina botulínica na Barra da Tijuca,
+        com resultado natural e atenção antes, durante e depois do procedimento.
+      </p>
+      <div class="hero-actions" data-reveal>
+        <a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="18" height="18" aria-hidden="true"><use href="#i-wa"/></svg>
+          Agendar avaliação
+        </a>
+        <a href="#procedimentos" class="btn btn-ghost">Ver procedimentos</a>
+      </div>
+      <a class="hero-rating" href="#avaliacoes" data-reveal>
+        <span class="stars" aria-hidden="true"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+        <span><strong>5,0</strong> no Google · 25 avaliações</span>
+      </a>
+    </div>
+
+    <figure class="hero-media" data-reveal>
+      <div class="hero-arch">
+        <img class="hero-img" src="assets/images/hero-retrato-natural.jpg" width="1200" height="1500" alt="Retrato de uma mulher com pele natural e expressão serena, em fundo rosado" fetchpriority="high">
+      </div>
+      <svg class="hero-lines" viewBox="0 0 200 260" aria-hidden="true" preserveAspectRatio="none">
+        <ellipse cx="100" cy="130" rx="96" ry="126" pathLength="1"/>
+      </svg>
+    </figure>
+  </div>
+</section>
+
+<!-- ============ ABORDAGEM ============ -->
+<section class="approach" id="abordagem">
+  <div class="approach-inner">
+    <p class="approach-statement" data-reveal>
+      O melhor resultado é quando dizem <em>“você está ótima”</em>,
+      e não <em>“o que você fez?”</em>.
+    </p>
+
+    <div class="approach-grid">
+      <div class="approach-media" data-reveal>
+        <div class="monogram-frame">
+          <span class="monogram-frame-mark" aria-hidden="true">JB</span>
+          <span class="monogram-frame-name">Dra. Julia Batalha</span>
+        </div>
+      </div>
+
+      <div class="approach-body">
+        <h2 class="section-title" data-reveal>Naturalidade como assinatura</h2>
+        <p class="section-lead" data-reveal>
+          A Dra. Julia Batalha atende na Barra da Tijuca com um cuidado que as próprias
+          pacientes fazem questão de contar nas avaliações: resultado natural, segurança
+          e atenção em cada etapa.
+        </p>
+
+        <dl class="principles">
+          <div data-reveal>
+            <dt>Naturalidade</dt>
+            <dd>Realçar os seus traços e equilibrar proporções. O rosto continua sendo o seu.</dd>
+          </div>
+          <div data-reveal>
+            <dt>Segurança</dt>
+            <dd>Avaliação e planejamento antes de qualquer aplicação, com indicação feita para você.</dd>
+          </div>
+          <div data-reveal>
+            <dt>Acompanhamento</dt>
+            <dd>Atenção antes, durante e depois: o suporte no pós-procedimento faz parte do tratamento.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PROCEDIMENTOS ============ -->
+<section class="services" id="procedimentos">
+  <div class="services-head">
+    <div>
+      <h2 class="section-title" data-reveal>Procedimentos</h2>
+      <p class="section-lead" data-reveal>
+        Cada tratamento começa por uma avaliação individual. A indicação é sempre feita
+        a partir do seu rosto, da sua história e do que você quer sentir ao se olhar no espelho.
+      </p>
+    </div>
+    <figure class="services-photo" data-reveal>
+      <img src="assets/images/procedimento-harmonizacao.jpg" width="1400" height="930" loading="lazy" alt="Profissional de luvas realizando avaliação no rosto de uma paciente deitada">
+    </figure>
+  </div>
+
+  <ul class="proc-list">
+    <li class="proc" data-reveal>
+      <h3 class="proc-name">Harmonização facial</h3>
+      <p class="proc-desc">Planejamento do rosto como um todo para equilibrar proporções e valorizar o que já é bonito em você, com leveza e sem exageros.</p>
+      <a class="proc-link" href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Gostaria%20de%20saber%20mais%20sobre%20harmoniza%C3%A7%C3%A3o%20facial." target="_blank" rel="noopener">Perguntar sobre harmonização <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </li>
+    <li class="proc" data-reveal>
+      <h3 class="proc-name">Rinomodelação</h3>
+      <p class="proc-desc">Ajustes no contorno do nariz sem cirurgia, para um perfil mais harmônico e alinhado ao restante do rosto.</p>
+      <a class="proc-link" href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Gostaria%20de%20saber%20mais%20sobre%20rinomodela%C3%A7%C3%A3o." target="_blank" rel="noopener">Perguntar sobre rinomodelação <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </li>
+    <li class="proc" data-reveal>
+      <h3 class="proc-name">Toxina botulínica</h3>
+      <p class="proc-desc">O Botox para suavizar linhas de expressão, mantendo a naturalidade do olhar e do sorriso.</p>
+      <a class="proc-link" href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Gostaria%20de%20saber%20mais%20sobre%20toxina%20botul%C3%ADnica." target="_blank" rel="noopener">Perguntar sobre toxina botulínica <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </li>
+  </ul>
+
+  <div class="proc-cta" data-reveal>
+    <p><strong>Não sabe por onde começar?</strong> Conte o que te incomoda. Na avaliação, a Dra. Julia indica o caminho certo para o seu momento.</p>
+    <a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o%20para%20saber%20qual%20procedimento%20%C3%A9%20ideal%20para%20mim." target="_blank" rel="noopener" class="btn btn-primary">
+      Conversar no WhatsApp
+    </a>
+  </div>
+</section>
+
+<!-- ============ CUIDADO: ANTES / DURANTE / DEPOIS ============ -->
+<section class="care" id="cuidado">
+  <div class="care-inner">
+    <figure class="care-photo" data-reveal>
+      <img src="assets/images/cuidado-pos.jpg" width="1400" height="930" loading="lazy" alt="Mãos cuidando do rosto de uma paciente relaxada, de olhos fechados">
+    </figure>
+
+    <div class="care-body">
+      <h2 class="section-title" data-reveal>Você não fica sozinha em nenhuma etapa</h2>
+      <p class="section-lead" data-reveal>
+        É o que mais aparece nas avaliações: a sensação de estar sendo cuidada do primeiro
+        contato até o resultado final.
+      </p>
+
+      <ol class="steps">
+        <li data-reveal>
+          <h3>Antes</h3>
+          <p>Uma conversa sem pressa. Avaliação do rosto, das suas expectativas e um plano feito para você, com hora marcada.</p>
+        </li>
+        <li data-reveal>
+          <h3>Durante</h3>
+          <p>Atendimento atencioso e explicado passo a passo, num ambiente pensado para você se sentir tranquila.</p>
+        </li>
+        <li data-reveal>
+          <h3>Depois</h3>
+          <p>Orientações claras e suporte no pós-procedimento. Ficou alguma dúvida? É só chamar.</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURE / NATURALIDADE ============ -->
+<section class="feature" aria-labelledby="feature-titulo">
+  <div class="feature-media">
+    <img class="feature-img" src="assets/images/naturalidade.jpg" width="1920" height="1245" loading="lazy" alt="Mulher tocando o próprio rosto com delicadeza, com pele natural e luz suave">
+    <div class="feature-scrim"></div>
+  </div>
+  <div class="feature-text" data-reveal>
+    <h2 id="feature-titulo">Mais você.<br><em>Nunca outra pessoa.</em></h2>
+    <p>
+      Harmonização não é sobre mudar de rosto. É sobre se reconhecer no espelho e gostar
+      ainda mais do que vê: descansada, equilibrada, natural.
+    </p>
+  </div>
+</section>
+
+<!-- ============ AVALIACOES ============ -->
+<section class="reviews" id="avaliacoes">
+  <div class="reviews-head">
+    <div>
+      <h2 class="section-title" data-reveal>Experiências de quem já se cuidou com a Dra. Julia</h2>
+      <p class="section-lead" data-reveal>O que as pacientes mais destacam nas avaliações públicas do perfil no Google.</p>
+    </div>
+    <div class="reviews-score" data-reveal>
+      <span class="reviews-number">5,0</span>
+      <span class="stars" role="img" aria-label="5 de 5 estrelas"><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg><svg><use href="#i-star"/></svg></span>
+      <span class="reviews-count">25 avaliações no Google</span>
+    </div>
+  </div>
+
+  <!-- Temas recorrentes nas avaliações reais. Para trocar por trechos literais,
+       substitua o <p> de cada card pelo texto da avaliação e assine "Paciente · Google". -->
+  <div class="reviews-marquee" data-reveal>
+    <div class="reviews-track">
+      <article class="review-card">
+        <h3>Resultado natural</h3>
+        <p>O ponto mais lembrado: harmonização e rinomodelação com resultado que não parece “feito”.</p>
+        <span class="review-tag">Harmonização · Rinomodelação</span>
+      </article>
+      <article class="review-card">
+        <h3>Segurança e confiança</h3>
+        <p>Pacientes contam que se sentiram seguras para fazer o procedimento, inclusive pela primeira vez.</p>
+        <span class="review-tag">Toxina botulínica</span>
+      </article>
+      <article class="review-card">
+        <h3>Suporte no pós</h3>
+        <p>A atenção depois do procedimento aparece com frequência: orientação e acompanhamento de perto.</p>
+        <span class="review-tag">Acompanhamento</span>
+      </article>
+      <article class="review-card">
+        <h3>Cuidado em cada etapa</h3>
+        <p>Atenção antes, durante e depois, com explicações claras e sem pressa.</p>
+        <span class="review-tag">Atendimento</span>
+      </article>
+      <article class="review-card">
+        <h3>Profissionalismo</h3>
+        <p>Técnica, pontualidade e seriedade são destacadas junto com o carinho no atendimento.</p>
+        <span class="review-tag">Atendimento</span>
+      </article>
+      <article class="review-card">
+        <h3>Ambiente acolhedor</h3>
+        <p>Um espaço confortável e tranquilo, que deixa a experiência mais leve.</p>
+        <span class="review-tag">Espaço</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Resultado natural</h3>
+        <p>O ponto mais lembrado: harmonização e rinomodelação com resultado que não parece “feito”.</p>
+        <span class="review-tag">Harmonização · Rinomodelação</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Segurança e confiança</h3>
+        <p>Pacientes contam que se sentiram seguras para fazer o procedimento, inclusive pela primeira vez.</p>
+        <span class="review-tag">Toxina botulínica</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Suporte no pós</h3>
+        <p>A atenção depois do procedimento aparece com frequência: orientação e acompanhamento de perto.</p>
+        <span class="review-tag">Acompanhamento</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Cuidado em cada etapa</h3>
+        <p>Atenção antes, durante e depois, com explicações claras e sem pressa.</p>
+        <span class="review-tag">Atendimento</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Profissionalismo</h3>
+        <p>Técnica, pontualidade e seriedade são destacadas junto com o carinho no atendimento.</p>
+        <span class="review-tag">Atendimento</span>
+      </article>
+      <article class="review-card" aria-hidden="true">
+        <h3>Ambiente acolhedor</h3>
+        <p>Um espaço confortável e tranquilo, que deixa a experiência mais leve.</p>
+        <span class="review-tag">Espaço</span>
+      </article>
+    </div>
+  </div>
+
+  <div class="reviews-cta" data-reveal>
+    <a href="https://www.google.com/maps/search/?api=1&query=Dra.+Julia+Batalha+Harmoniza%C3%A7%C3%A3o+Facial+Barra+da+Tijuca" target="_blank" rel="noopener" class="btn btn-light">
+      Ler as avaliações no Google
+    </a>
+  </div>
+</section>
+
+<!-- ============ ESTRUTURA ============ -->
+<section class="practical" aria-labelledby="estrutura-titulo">
+  <div class="practical-inner">
+    <div class="practical-body">
+      <h2 class="section-title" id="estrutura-titulo" data-reveal>Pensado para facilitar o seu dia</h2>
+      <ul class="practical-list">
+        <li data-reveal>
+          <span class="practical-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="4"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg>
+          </span>
+          <div><h3>Estacionamento no local</h3><p>Chegar de carro na Barra é simples.</p></div>
+        </li>
+        <li data-reveal>
+          <span class="practical-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+          </span>
+          <div><h3>Com hora marcada</h3><p>Seu horário é reservado para você, sem espera.</p></div>
+        </li>
+        <li data-reveal>
+          <span class="practical-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="5" width="19" height="14" rx="3"/><path d="M2.5 10h19M6.5 15h4"/></svg>
+          </span>
+          <div><h3>Crédito, débito e aproximação</h3><p>Formas de pagamento práticas no consultório.</p></div>
+        </li>
+        <li data-reveal>
+          <span class="practical-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.35-7-10a4 4 0 0 1 7-2.65A4 4 0 0 1 19 10c0 5.65-7 10-7 10z"/></svg>
+          </span>
+          <div><h3>Espaço para todas as pessoas</h3><p>Ambiente acolhedor para a comunidade LGBTQIA+ e seguro para pessoas trans.</p></div>
+        </li>
+      </ul>
+    </div>
+    <figure class="practical-photo" data-reveal>
+      <img src="assets/images/detalhe-serum.jpg" width="1000" height="1250" loading="lazy" alt="Frasco de sérum sobre bandeja de madeira, com ramo de eucalipto e tecido branco">
+    </figure>
+  </div>
+</section>
+
+<!-- ============ DUVIDAS ============ -->
+<section class="faq" id="duvidas" aria-labelledby="faq-titulo">
+  <div class="faq-inner">
+    <h2 class="section-title" id="faq-titulo" data-reveal>Dúvidas rápidas</h2>
+    <div class="faq-list" data-reveal>
+      <details>
+        <summary>Como faço para agendar? <svg aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Pelo WhatsApp <a href="https://wa.me/5521973098600" target="_blank" rel="noopener">(21) 97309-8600</a>. O atendimento é sempre com hora marcada.</p>
+      </details>
+      <details>
+        <summary>Quais são os horários? <svg aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Segunda a sexta, das 8h às 21h, e sábado, das 8h às 17h. Aos domingos não há atendimento.</p>
+      </details>
+      <details>
+        <summary>Nunca fiz nenhum procedimento. Posso começar pela avaliação? <svg aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Pode, e é o ideal. Na avaliação você tira suas dúvidas e entende o que faz sentido para o seu rosto antes de decidir qualquer coisa.</p>
+      </details>
+      <details>
+        <summary>Tem estacionamento? <svg aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Sim, há estacionamento no local.</p>
+      </details>
+      <details>
+        <summary>Quais formas de pagamento são aceitas? <svg aria-hidden="true"><use href="#i-plus"/></svg></summary>
+        <p>Cartão de crédito, cartão de débito e pagamento por aproximação.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INSTAGRAM ============ -->
+<section class="insta" aria-labelledby="insta-titulo">
+  <div class="insta-inner" data-reveal>
+    <h2 id="insta-titulo"><a href="https://www.instagram.com/drajuliabatalha/" target="_blank" rel="noopener">@drajuliabatalha</a></h2>
+    <p class="insta-lead">Bastidores, resultados e dicas no Instagram.</p>
+    <a href="https://www.instagram.com/drajuliabatalha/" target="_blank" rel="noopener" class="btn btn-outline">Seguir no Instagram</a>
+  </div>
+</section>
+
+<!-- ============ LOCALIZACAO ============ -->
+<section class="location" id="localizacao">
+  <div class="location-grid">
+    <div class="location-info">
+      <h2 class="section-title" data-reveal>Onde fica o consultório</h2>
+      <div class="info-block" data-reveal>
+        <h3>Endereço</h3>
+        <p>Av. Vice-Presidente José Alencar, 1405<br>Barra da Tijuca (Cidade Jardim), Rio de Janeiro – RJ<br>CEP 22775-033 · Estacionamento no local</p>
+      </div>
+      <div class="info-block" data-reveal>
+        <h3>Horários</h3>
+        <dl class="hours">
+          <div><dt>Segunda a sexta</dt><dd>8h às 21h</dd></div>
+          <div><dt>Sábado</dt><dd>8h às 17h</dd></div>
+          <div><dt>Domingo</dt><dd>Fechado</dd></div>
+        </dl>
+        <p class="hours-note">Sempre com hora marcada.</p>
+      </div>
+      <div class="info-block" data-reveal>
+        <h3>Contato</h3>
+        <p><a href="https://wa.me/5521973098600" target="_blank" rel="noopener">(21) 97309-8600</a><br>
+        <a href="https://www.instagram.com/drajuliabatalha/" target="_blank" rel="noopener">@drajuliabatalha</a></p>
+      </div>
+      <div class="location-actions" data-reveal>
+        <a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-primary">Agendar agora</a>
+        <a href="https://www.google.com/maps/dir/?api=1&destination=Dra.+Julia+Batalha+Harmoniza%C3%A7%C3%A3o+Facial+Barra+da+Tijuca" target="_blank" rel="noopener" class="btn btn-ghost">Google Maps</a>
+        <a href="https://waze.com/ul?ll=-22.9653,-43.3871&navigate=yes" target="_blank" rel="noopener" class="btn btn-ghost">Waze</a>
+      </div>
+    </div>
+
+    <a class="map" href="https://www.google.com/maps/search/?api=1&query=Dra.+Julia+Batalha+Harmoniza%C3%A7%C3%A3o+Facial+Barra+da+Tijuca" target="_blank" rel="noopener" aria-label="Abrir a localização do consultório no Google Maps" data-reveal>
+      <img class="map-img" src="assets/images/mapa-clinica.jpg" width="1000" height="800" loading="lazy" alt="Mapa da região do consultório, na Av. Vice-Presidente José Alencar, Cidade Jardim, Barra da Tijuca">
+      <span class="map-pin" aria-hidden="true">
+        <svg viewBox="0 0 40 52" width="46" height="60"><path d="M20 0C9 0 0 9 0 20c0 14 20 32 20 32s20-18 20-32C40 9 31 0 20 0z" fill="#2b211d"/><circle cx="20" cy="20" r="13" fill="#2b211d" stroke="#e8c9b5" stroke-width="1"/><text x="20" y="24.5" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-style="italic" font-size="12.5" fill="#e8c9b5">JB</text></svg>
+      </span>
+      <span class="map-hint">Abrir no Google Maps <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      <span class="map-credit">© OpenStreetMap</span>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site-footer">
+  <div class="footer-cta">
+    <p class="footer-cta-title">Pronta para se ver ainda mais <em>você</em>?</p>
+    <a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o." target="_blank" rel="noopener" class="btn btn-light">
+      <svg width="18" height="18" aria-hidden="true"><use href="#i-wa"/></svg>
+      Agendar pelo WhatsApp
+    </a>
+  </div>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark" aria-hidden="true">JB</span>
+      <span class="brand-name">Julia Batalha<em>Harmonização facial</em></span>
+    </div>
+
+    <nav class="footer-nav" aria-label="Rodapé">
+      <a href="#abordagem">Abordagem</a>
+      <a href="#procedimentos">Procedimentos</a>
+      <a href="#cuidado">Cuidado</a>
+      <a href="#avaliacoes">Avaliações</a>
+      <a href="#duvidas">Dúvidas</a>
+      <a href="#localizacao">Localização</a>
+    </nav>
+
+    <div class="footer-social">
+      <a href="https://www.instagram.com/drajuliabatalha/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://wa.me/5521973098600" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© <span id="year"></span> Dra. Julia Batalha · Harmonização Facial. Av. Vice-Presidente José Alencar, 1405, Barra da Tijuca, Rio de Janeiro – RJ.</p>
+    <p>Os resultados variam de pessoa para pessoa. A indicação de qualquer procedimento é feita em avaliação individual.</p>
+  </div>
+</footer>
+
+<!-- ============ WHATSAPP FLUTUANTE ============ -->
+<a href="https://wa.me/5521973098600?text=Ol%C3%A1%2C%20Dra.%20Julia!%20Vim%20pelo%20site%20e%20gostaria%20de%20agendar%20uma%20avalia%C3%A7%C3%A3o."
+   target="_blank" rel="noopener" class="whatsapp-fab" id="whatsappFab" aria-label="Agendar no WhatsApp">
+  <svg width="26" height="26" aria-hidden="true"><use href="#i-wa"/></svg>
+</a>
+
+<script src="js/main.js"></script>
+</body>
+</html>
