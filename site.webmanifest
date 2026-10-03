@@ -1,0 +1,13 @@
+{
+  "name": "Requinte & Sabor Buffet",
+  "short_name": "Requinte & Sabor",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F6F1E9",
+  "theme_color": "#5C1A23",
+  "icons": [
+    { "src": "assets/img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "assets/img/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
