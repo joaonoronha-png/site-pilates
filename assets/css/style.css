@@ -1097,5 +1097,5 @@ textarea.q-input { min-height: 130px; resize: vertical; }
 @media (prefers-reduced-motion: reduce) {
   .js .loader { display: none; }
 }
-.concierge__avatar { white-space: nowrap; font-size: .82rem; }
+.concierge__avatar { display: flex; align-items: center; justify-content: center; white-space: nowrap; font-size: .82rem; }
 .faq__help .link-arrow, .quote__alt .link-arrow { white-space: nowrap; font-size: .68rem; }
