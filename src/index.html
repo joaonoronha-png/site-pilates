@@ -52,38 +52,63 @@
         <span class="brand__word">Mapersí</span>
         <span class="brand__sub">Buffet e Estações</span>
       </a>
-      <nav class="nav" aria-label="Principal">
-        <ul class="nav__list">
-          <li><a href="#experiencias">Experiências</a></li>
-          <li><a href="#gastronomia">Gastronomia</a></li>
-          <li><a href="#portfolio">Portfólio</a></li>
-          <li><a href="#avaliacoes">Avaliações</a></li>
-          <li><a href="#contato">Contato</a></li>
-        </ul>
-      </nav>
       <a class="btn btn--primary btn--sm site-header__cta" href="#orcamento" data-track="cta_header">Pedir orçamento</a>
-      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="menu-overlay" data-menu-toggle>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" data-menu-toggle>
         <span class="menu-toggle__label">Menu</span>
         <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
       </button>
     </div>
   </header>
 
-  <div class="menu-overlay" id="menu-overlay" hidden data-menu>
-    <nav class="menu-overlay__nav" aria-label="Menu">
-      <ol>
-        <li><a href="#experiencias" data-menu-link><span>01</span>Experiências</a></li>
-        <li><a href="#gastronomia" data-menu-link><span>02</span>Gastronomia</a></li>
-        <li><a href="#portfolio" data-menu-link><span>03</span>Portfólio</a></li>
-        <li><a href="#avaliacoes" data-menu-link><span>04</span>Avaliações</a></li>
-        <li><a href="#contato" data-menu-link><span>05</span>Contato</a></li>
-      </ol>
-    </nav>
-    <div class="menu-overlay__foot">
-      <a class="btn btn--primary btn--block" href="#orcamento" data-menu-link>Pedir orçamento</a>
-      <div class="menu-overlay__links">
-        <a href="#" data-wa="default" data-wa-context="menu">WhatsApp</a>
-        <a href="https://www.instagram.com/mapersibuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="menu">Instagram</a>
+  <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Menu" data-menu inert>
+    <div class="drawer__scrim" data-menu-close></div>
+    <div class="drawer__peek" aria-hidden="true">
+      <figure class="drawer__ph is-on" data-peek="0">{{pic:copperrice||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="1">{{pic:crabtartlets||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="2">{{pic:p-leticia-casal||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="3">{{pic:serving40||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="4">{{pic:sweetshelf||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="5">{{pic:chefcart||40vw|}}</figure>
+      <figure class="drawer__ph" data-peek="6">{{pic:tartlets||40vw|}}</figure>
+    </div>
+    <div class="drawer__panel" data-lenis-prevent>
+      <div class="drawer__head">
+        <button class="drawer__close" type="button" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>Fechar</span></button>
+        <span class="drawer__brand"><span class="brand__word">Mapersí</span><span class="brand__sub">Buffet e Estações</span></span>
+      </div>
+      <nav aria-label="Principal">
+        <ol class="drawer__nav">
+          <li style="--i:0"><a href="#experiencias" data-menu-link data-peek-to="0"><span class="drawer__n">01</span><span class="drawer__t">Experiências<small>Buffet, estações e open bar</small></span></a></li>
+          <li style="--i:1"><a href="#gastronomia" data-menu-link data-peek-to="1"><span class="drawer__n">02</span><span class="drawer__t">Gastronomia<small>O que já passou pelas nossas mesas</small></span></a></li>
+          <li style="--i:2"><a href="#portfolio" data-menu-link data-peek-to="2"><span class="drawer__n">03</span><span class="drawer__t">Portfólio<small>Casamentos, festas e corporativo</small></span></a></li>
+          <li style="--i:3"><a href="#avaliacoes" data-menu-link data-peek-to="3"><span class="drawer__n">04</span><span class="drawer__t">Avaliações<small>Nota 5,0 no Google</small></span></a></li>
+          <li style="--i:4"><a href="#orcamento" data-menu-link data-peek-to="4"><span class="drawer__n">05</span><span class="drawer__t">Orçamento<small>Conte seu evento em um minuto</small></span></a></li>
+          <li style="--i:5"><a href="#contato" data-menu-link data-peek-to="5"><span class="drawer__n">06</span><span class="drawer__t">Contato<small>Onde estamos e como chegar</small></span></a></li>
+          <li style="--i:6"><a href="#perguntas" data-menu-link data-peek-to="6"><span class="drawer__n">07</span><span class="drawer__t">Perguntas<small>Dúvidas frequentes</small></span></a></li>
+        </ol>
+      </nav>
+      <div class="drawer__groups">
+        <div>
+          <h2>Eventos</h2>
+          <ul>
+            <li><a href="#portfolio" data-menu-link data-go-filter="casamento">Casamentos</a></li>
+            <li><a href="#portfolio" data-menu-link data-go-filter="festa">15 anos e aniversários</a></li>
+            <li><a href="#portfolio" data-menu-link data-go-filter="corporativo">Corporativo</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Atendimento</h2>
+          <ul>
+            <li><a href="#" data-wa="default" data-wa-context="menu">WhatsApp</a></li>
+            <li><a href="mailto:contato@mapersi.com.br" data-track="email_click">E-mail</a></li>
+            <li><a href="#contato" data-menu-link>Como chegar</a></li>
+            <li><a href="https://www.instagram.com/mapersibuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="menu">Instagram</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="drawer__foot">
+        <a class="btn btn--light btn--sm" href="#orcamento" data-menu-link>Pedir orçamento</a>
+        <button class="link-arrow" type="button" data-chat-open data-chat-context="menu">Tire suas dúvidas</button>
       </div>
     </div>
   </div>
@@ -481,7 +506,7 @@
     </section>
 
     <!-- ================= FAQ ================= -->
-    <section class="faq section" aria-labelledby="faq-title">
+    <section class="faq section" id="perguntas" aria-labelledby="faq-title">
       <div class="container faq__grid">
         <header class="section-head">
           <p class="eyebrow" data-reveal>Perguntas frequentes</p>
