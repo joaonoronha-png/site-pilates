@@ -13,16 +13,21 @@
   var countEl = root.querySelector('[data-quote-count]');
   var totalEl = root.querySelector('[data-quote-total]');
 
-  var eventOpts = KB.eventTypes.filter(function (e) { return e.quote; }).map(function (e) { return e.label; });
+  // "Outro" abre um campo para a pessoa escrever qual é
+  var OTHER = '__outro';
+  var eventOpts = KB.eventTypes.filter(function (e) { return e.quote && e.id !== 'social'; }).map(function (e) { return e.label; });
+  eventOpts.push(OTHER);
   var serviceOpts = KB.services.filter(function (s) { return s.quote; }).map(function (s) { return s.label; });
-  serviceOpts.push(KB.quote.unsureOption);
+  serviceOpts.push(OTHER, KB.quote.unsureOption);
 
   var steps = [
-    { key: 'evento', type: 'radio', title: 'Qual é o seu evento?', options: eventOpts, grid: true },
+    { key: 'evento', type: 'radio', title: 'Qual é o seu evento?', options: eventOpts, grid: true,
+      otherLabel: 'Qual evento?', otherPlaceholder: 'Ex.: batizado, formatura', otherError: 'Escreva qual é o seu evento.' },
     { key: 'data', type: 'date', title: 'Quando será?', help: 'Se ainda não tiver a data exata, tudo bem.', unsure: 'Ainda não tenho data definida' },
     { key: 'local', type: 'text', title: 'Onde será?', help: 'Bairro, cidade ou nome do espaço.', placeholder: 'Ex.: Barra da Tijuca, Rio de Janeiro', unsure: 'Ainda não defini o local' },
     { key: 'convidados', type: 'radio', title: 'Quantos convidados?', options: KB.quote.guestRanges, grid: true },
-    { key: 'servicos', type: 'checkbox', title: 'O que você procura?', help: 'Pode escolher mais de uma opção.', options: serviceOpts, grid: true },
+    { key: 'servicos', type: 'checkbox', title: 'O que você procura?', help: 'Pode escolher mais de uma opção.', options: serviceOpts, grid: true,
+      otherLabel: 'O que mais você procura?', otherPlaceholder: 'Ex.: mesa de frios, sobremesas', otherError: 'Escreva o que você procura.' },
     { key: 'observacoes', type: 'textarea', title: 'Alguma observação ou restrição alimentar?', help: 'Opcional. Ex.: convidados vegetarianos, alergias, horário, estilo da festa.', optional: true, placeholder: 'Conte o que for importante para você' },
     { key: 'nome', type: 'name', title: 'Para finalizar, qual é o seu nome?', placeholder: 'Seu nome' }
   ];
@@ -58,16 +63,34 @@
       if (s.type === 'radio' || s.type === 'checkbox') {
         var wrap = el('div', { class: 'q-options' + (s.grid ? ' q-options--grid' : '') });
         var preset = s.key === 'convidados' && val && KB.quote.guestRanges.indexOf(val) === -1 ? rangeFor(val) : val;
+        // valores que não estão na lista (vindos do chat ou digitados antes) vão para o "Outro"
+        var known = s.options.filter(function (o) { return o !== OTHER; });
+        var extra = [];
+        if (s.otherLabel && preset) {
+          extra = (Array.isArray(preset) ? preset : [preset]).filter(function (v) { return known.indexOf(v) === -1; });
+          if (extra.length) preset = (Array.isArray(preset) ? preset.filter(function (v) { return known.indexOf(v) > -1; }) : []).concat([OTHER]);
+        }
         s.options.forEach(function (o) {
-          var id = 'q-' + s.key + '-' + slug(o);
-          var opt = el('div', { class: 'q-opt' });
+          var isOther = o === OTHER;
+          var id = 'q-' + s.key + '-' + (isOther ? 'outro' : slug(o));
+          var opt = el('div', { class: 'q-opt' + (isOther ? ' q-opt--other' : '') });
           var input = el('input', { type: s.type, name: s.key, id: id, value: o });
+          if (isOther) input.setAttribute('aria-controls', 'q-' + s.key + '-outro-txt');
           if ((Array.isArray(preset) && preset.indexOf(o) > -1) || preset === o) input.checked = true;
           opt.appendChild(input);
-          opt.appendChild(el('label', { for: id }, esc(o)));
+          opt.appendChild(el('label', { for: id }, isOther ? 'Outro' : esc(o)));
           wrap.appendChild(opt);
         });
         fs.appendChild(wrap);
+        if (s.otherLabel) {
+          var ow = el('div', { class: 'q-field q-other', 'data-other': '' });
+          ow.appendChild(el('label', { for: 'q-' + s.key + '-outro-txt' }, esc(s.otherLabel)));
+          var ot = el('input', { class: 'q-input', id: 'q-' + s.key + '-outro-txt', type: 'text', maxlength: 80, placeholder: s.otherPlaceholder, autocomplete: 'off' });
+          ot.value = extra.map(function (v) { return String(v).replace(/^Outro: /, ''); }).join(', ');
+          ow.appendChild(ot);
+          ow.hidden = !(Array.isArray(preset) ? preset.indexOf(OTHER) > -1 : preset === OTHER);
+          fs.appendChild(ow);
+        }
       } else {
         var field = el('div', { class: 'q-field' });
         var input2;
@@ -111,12 +134,15 @@
     form.appendChild(el('div', { class: 'q-step q-final', 'data-step': steps.length, tabindex: '-1' }));
   }
 
+  function otherText(fs) { var i = fs.querySelector('[data-other] input'); return i ? i.value.trim() : ''; }
+
   function readStep(i) {
     var s = steps[i];
     var fs = form.querySelector('[data-step="' + i + '"]');
     if (s.type === 'radio') {
       var c = fs.querySelector('input:checked');
       if (!c) return null;
+      if (c.value === OTHER) { var ov = otherText(fs); return ov ? ov : undefined; }
       // preserva o número exato dito no chat se a faixa continuar a mesma
       var prev = Lead.get(s.key);
       if (s.key === 'convidados' && prev && rangeFor(prev) === c.value && /^\d+$/.test(String(prev))) return prev;
@@ -124,7 +150,13 @@
     }
     if (s.type === 'checkbox') {
       var arr = Array.prototype.map.call(fs.querySelectorAll('input:checked'), function (x) { return x.value; });
-      return arr.length ? arr : null;
+      if (!arr.length) return null;
+      if (arr.indexOf(OTHER) > -1) {
+        var t = otherText(fs);
+        if (!t) return undefined;
+        arr[arr.indexOf(OTHER)] = t;
+      }
+      return arr;
     }
     var unsure = fs.querySelector('[data-unsure]');
     if (unsure && unsure.checked) return 'A definir';
@@ -160,6 +192,11 @@
     var s = steps[current];
     var v = readStep(current);
     var err = form.querySelector('[data-step="' + current + '"] .q-error');
+    if (v === undefined) {
+      err.textContent = s.otherError || 'Escreva qual é a outra opção.';
+      var oi = form.querySelector('[data-step="' + current + '"] [data-other] input'); if (oi) oi.focus();
+      return;
+    }
     if (v === null) {
       err.textContent = s.type === 'checkbox' ? 'Escolha pelo menos uma opção.' :
         s.type === 'radio' ? 'Escolha uma opção para continuar.' :
@@ -207,11 +244,19 @@
   form.addEventListener('change', function (e) {
     if (!started) { started = true; track('quote_start'); }
     var t = e.target;
-    if (t.type === 'radio') setTimeout(next, 320); // avança sozinho ao escolher
+    var stepEl = t.closest('.q-step');
+    var otherBox = stepEl && stepEl.querySelector('[data-other]');
+    if (otherBox && (t.type === 'radio' || t.type === 'checkbox') && t.name) {
+      var otherOn = !!stepEl.querySelector('input[value="' + OTHER + '"]:checked');
+      otherBox.hidden = !otherOn;
+      if (otherOn && t.value === OTHER) { setTimeout(function () { otherBox.querySelector('input').focus(); }, 30); }
+    }
+    // avança sozinho ao escolher (menos no "Outro", que pede para escrever)
+    if (t.type === 'radio' && t.value !== OTHER) setTimeout(next, 320);
     if (t.type === 'checkbox' && t.name === 'servicos') {
       // "Ainda não sei" é exclusivo
       var boxes = form.querySelectorAll('input[name="servicos"]');
-      if (t.value === KB.quote.unsureOption && t.checked) Array.prototype.forEach.call(boxes, function (b) { if (b !== t) b.checked = false; });
+      if (t.value === KB.quote.unsureOption && t.checked) { Array.prototype.forEach.call(boxes, function (b) { if (b !== t) b.checked = false; }); if (otherBox) otherBox.hidden = true; }
       else if (t.checked) Array.prototype.forEach.call(boxes, function (b) { if (b.value === KB.quote.unsureOption) b.checked = false; });
     }
   });

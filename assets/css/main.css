@@ -537,6 +537,8 @@ em { font-style: italic; }
 }
 .q-input:focus { outline: none; border-color: var(--olive); box-shadow: 0 0 0 3px rgba(53,60,43,.12); }
 textarea.q-input { min-height: 140px; resize: vertical; }
+.q-other { margin-top: 14px; animation: stepIn .4s var(--ease); }
+.q-other[hidden] { display: none; }
 .q-check { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 15px; color: var(--ink-2); cursor: pointer; min-height: 44px; }
 .q-check input { width: 20px; height: 20px; accent-color: var(--olive); }
 .q-error { color: var(--terra-2); font-size: 14px; margin-top: 10px; min-height: 1.4em; }
