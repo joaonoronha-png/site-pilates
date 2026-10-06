@@ -25,7 +25,7 @@ necessidade de atribuição). Elas servem apenas para mostrar a composição vis
 
 | Arquivo | Onde aparece | ID Unsplash |
 |---|---|---|
-| hero-mesa-posta | Hero (1º quadro) e formulário | photo-1522413452208-996ff3f3e740 |
+| hero-mesa-posta | Hero (1º quadro) e orçamento | photo-1522413452208-996ff3f3e740 |
 | hero-mesa-servida | Hero (2º quadro), "Atendimento", imagem de compartilhamento | photo-1414235077428-338989a2e8c0 |
 | hero-brinde | Hero (3º quadro) | photo-1527529482837-4698179dc6ce |
 | sobre-mesa-longa | Sobre | photo-1511795409834-ef04bbd61622 |

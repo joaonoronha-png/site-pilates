@@ -35,7 +35,13 @@
   <link rel="stylesheet" href="assets/css/style.css">
   <script>document.documentElement.classList.replace('no-js','js');</script>
   <script src="assets/js/config.js" defer></script>
+  <script src="data/knowledge-base.js" defer></script>
+  <script src="assets/js/analytics.js" defer></script>
+  <script src="assets/js/lead.js" defer></script>
+  <script src="assets/vendor/lenis.min.js" defer></script>
   <script src="assets/js/main.js" defer></script>
+  <script src="assets/js/quote.js" defer></script>
+  <script src="assets/js/chat.js" defer></script>
 
   <!--
     DADOS ESTRUTURADOS (SEO local)
@@ -49,7 +55,10 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": ["LocalBusiness", "FoodEstablishment"],
+        "@type": [
+          "LocalBusiness",
+          "FoodEstablishment"
+        ],
         "@id": "https://dominio-a-definir.com.br/#empresa",
         "name": "Requinte & Sabor Buffet",
         "description": "Buffet e gastronomia para eventos no Rio de Janeiro: casamentos, festas de 15 anos, aniversários, eventos corporativos, coffee breaks e celebrações especiais.",
@@ -64,16 +73,28 @@
           "postalCode": "22783-490",
           "addressCountry": "BR"
         },
-        "openingHoursSpecification": [{
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-          "opens": "08:00",
-          "closes": "20:00"
-        }],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "08:00",
+            "closes": "20:00"
+          }
+        ],
         "paymentAccepted": "Cartão de crédito, cartão de débito, pagamento por aproximação",
         "servesCuisine": "Buffet para eventos",
         "hasMap": "https://www.google.com/maps/search/?api=1&query=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490",
-        "sameAs": ["https://www.instagram.com/requinteesaborbuffet/"]
+        "sameAs": [
+          "https://www.instagram.com/requinteesaborbuffet/"
+        ]
       },
       {
         "@type": "WebSite",
@@ -81,7 +102,9 @@
         "url": "https://dominio-a-definir.com.br/",
         "name": "Requinte & Sabor Buffet",
         "inLanguage": "pt-BR",
-        "publisher": { "@id": "https://dominio-a-definir.com.br/#empresa" }
+        "publisher": {
+          "@id": "https://dominio-a-definir.com.br/#empresa"
+        }
       },
       {
         "@type": "FAQPage",
@@ -89,22 +112,42 @@
           {
             "@type": "Question",
             "name": "Quais tipos de eventos vocês atendem?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Casamentos, festas de 15 anos, aniversários, eventos corporativos, coffee breaks e outras celebrações." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A Requinte & Sabor atende casamentos, festas de 15 anos, aniversários, eventos corporativos, coffee breaks e outras celebrações especiais."
+            }
           },
           {
             "@type": "Question",
             "name": "Como solicitar um orçamento?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Entre em contato pelo WhatsApp (21) 97514-3297 ou preencha o formulário do site com as principais informações do evento." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Pelo orçamento interativo aqui do site, pela assistente virtual ou direto no WhatsApp (21) 97514-3297. Você informa tipo de evento, data, local e número de convidados, e a equipe prepara uma proposta."
+            }
           },
           {
             "@type": "Question",
             "name": "Quais informações devo enviar para o orçamento?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Tipo de evento, data, número aproximado de convidados e local. Quanto mais detalhes você compartilhar, mais completa será a conversa sobre a proposta." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tipo de evento, data, número aproximado de convidados e local. Quanto mais detalhes você compartilhar, mais completa será a proposta."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Como verifico se minha data está disponível?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A agenda é confirmada diretamente pela equipe. Informe a data no orçamento do site ou pelo WhatsApp (21) 97514-3297."
+            }
           },
           {
             "@type": "Question",
             "name": "Quais formas de pagamento são aceitas?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Cartão de crédito, cartão de débito e pagamento por aproximação. Para outras condições, fale com a gente pelo WhatsApp." }
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "As formas de pagamento informadas são cartão de crédito, cartão de débito e pagamento por aproximação. Outras condições são combinadas diretamente com a equipe."
+            }
           }
         ]
       }
@@ -114,6 +157,14 @@
 </head>
 
 <body>
+  <!-- Intro de abertura (só na primeira visita da sessão; nunca passa de ~2s) -->
+  <div class="loader" aria-hidden="true">
+    <div class="loader__inner">
+      <span class="loader__word">Requinte <em>&amp;</em> Sabor</span>
+      <span class="loader__sub">Buffet · Rio de Janeiro</span>
+      <span class="loader__line"></span>
+    </div>
+  </div>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
 
   <!-- ============ CABEÇALHO ============ -->
@@ -144,8 +195,13 @@
     </div>
   </header>
 
+  <div class="menu-scrim" data-menu-close aria-hidden="true"></div>
   <div class="mobile-menu" id="menu-mobile" data-mobile-menu hidden>
-    <nav aria-label="Menu móvel">
+    <div class="mobile-menu__head">
+      <span class="mobile-menu__mark">Requinte <em>&amp;</em> Sabor</span>
+      <button class="mobile-menu__close" type="button" data-menu-close>Fechar <span aria-hidden="true">×</span></button>
+    </div>
+    <nav aria-label="Menu">
       <ol>
         <li><a href="#sobre"><span>01</span>Sobre</a></li>
         <li><a href="#eventos"><span>02</span>Eventos</a></li>
@@ -157,6 +213,7 @@
       </ol>
     </nav>
     <div class="mobile-menu__foot">
+      <button class="mobile-menu__ask" type="button" data-chat-open data-chat-context="menu">Tirar dúvidas com a assistente</button>
       <a class="btn btn--light" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">Solicitar orçamento pelo WhatsApp</a>
       <p>(21) 97514-3297 · <a href="https://www.instagram.com/requinteesaborbuffet/" target="_blank" rel="noopener">@requinteesaborbuffet</a></p>
     </div>
@@ -188,7 +245,7 @@
         <p class="hero__sub">Gastronomia, cuidado e experiência para transformar cada celebração em uma memória especial.</p>
         <div class="hero__actions">
           <a class="btn btn--light" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">Solicitar orçamento</a>
-          <a class="link-arrow link-arrow--light" href="#eventos">Conhecer nosso trabalho</a>
+          <a class="link-arrow link-arrow--light" href="#eventos" data-track="hero_secondary">Conhecer nosso trabalho</a>
         </div>
         <a class="rating-chip hero__mobile-rating" href="#avaliacoes">
           <span class="stars" aria-hidden="true">★★★★★</span>
@@ -550,7 +607,10 @@
         </ol>
         <div class="process__cta" data-reveal>
           <p class="process__cta-title">Vamos começar a planejar?</p>
-          <a class="btn btn--primary" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">Solicitar orçamento</a>
+          <div class="process__cta-actions">
+            <a class="btn btn--primary" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa data-wa-context="como_funciona" target="_blank" rel="noopener">Solicitar orçamento</a>
+            <button class="btn btn--ghost" type="button" data-chat-open data-chat-context="como_funciona">Tirar dúvidas com a assistente</button>
+          </div>
         </div>
       </div>
     </section>
@@ -565,55 +625,17 @@
       <div class="quote__body">
         <p class="eyebrow" data-reveal>Orçamento</p>
         <h2 id="orcamento-titulo" class="display" data-split>Conte sobre o <em>seu evento.</em></h2>
-        <p class="quote__intro" data-reveal>Preencha as informações principais. Ao enviar, sua mensagem abre pronta no WhatsApp para falar direto com a Requinte &amp; Sabor.</p>
+        <p class="quote__intro" data-reveal>Uma pergunta por vez, em menos de um minuto. No final, suas respostas viram uma mensagem pronta para a equipe da Requinte &amp; Sabor no WhatsApp.</p>
 
-        <form class="form" data-quote-form novalidate>
-          <div class="field field--full">
-            <label for="f-nome">Nome</label>
-            <input id="f-nome" name="nome" type="text" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="f-whats">WhatsApp</label>
-            <input id="f-whats" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(21) 9 0000-0000" required>
-          </div>
-          <div class="field">
-            <label for="f-email">E-mail <span class="opt">(opcional)</span></label>
-            <input id="f-email" name="email" type="email" autocomplete="email">
-          </div>
-          <div class="field">
-            <label for="f-tipo">Tipo de evento</label>
-            <select id="f-tipo" name="tipo" required>
-              <option value="" selected disabled>Selecione</option>
-              <option>Casamento</option>
-              <option>15 anos</option>
-              <option>Aniversário</option>
-              <option>Corporativo</option>
-              <option>Coffee break</option>
-              <option>Outro</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="f-data">Data do evento</label>
-            <input id="f-data" name="data" type="date">
-          </div>
-          <div class="field">
-            <label for="f-convidados">Nº aproximado de convidados</label>
-            <input id="f-convidados" name="convidados" type="number" inputmode="numeric" min="1" step="1">
-          </div>
-          <div class="field">
-            <label for="f-local">Local do evento</label>
-            <input id="f-local" name="local" type="text" placeholder="Bairro, cidade ou nome do espaço">
-          </div>
-          <div class="field field--full">
-            <label for="f-msg">Mensagem</label>
-            <textarea id="f-msg" name="mensagem" rows="4" placeholder="Conte o que você imagina para o seu evento"></textarea>
-          </div>
-          <div class="form__foot field--full">
-            <button class="btn btn--primary btn--block" type="submit">Quero receber uma proposta</button>
-            <p class="form__note">Seus dados não ficam armazenados no site: eles são usados apenas para montar a mensagem enviada pelo seu WhatsApp.</p>
-            <p class="form__status" role="status" aria-live="polite" data-form-status></p>
-          </div>
-        </form>
+        <div class="quote__card" data-quote>
+          <div class="quote__progress" aria-hidden="true"><span data-quote-bar></span></div>
+          <p class="quote__step-count" aria-live="polite"><span data-quote-count>1</span> de <span data-quote-total>7</span></p>
+          <form class="quote__form" novalidate data-quote-form>
+            <!-- Etapas geradas por assets/js/quote.js a partir de data/knowledge-base.js -->
+            <noscript><p>Para pedir um orçamento, chame no WhatsApp: <a href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento.">(21) 97514-3297</a>.</p></noscript>
+          </form>
+        </div>
+        <p class="quote__alt">Prefere conversar? <button class="link-arrow" type="button" data-chat-open data-chat-context="orcamento">Fale com a assistente</button></p>
       </div>
     </section>
 
@@ -623,27 +645,79 @@
         <header>
           <p class="eyebrow" data-reveal>Perguntas frequentes</p>
           <h2 id="faq-titulo" class="display" data-split>Antes de <em>conversarmos.</em></h2>
-          <p class="faq__help" data-reveal>Não encontrou o que procurava? <a href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">Fale com a gente no WhatsApp.</a></p>
+          <p class="faq__help" data-reveal>Não encontrou sua dúvida? <button class="link-arrow" type="button" data-chat-open data-chat-context="faq">Pergunte à assistente</button></p>
         </header>
-        <div class="faq__list" data-faq>
-          <details>
-            <summary>Quais tipos de eventos vocês atendem?</summary>
-            <p>Casamentos, festas de 15 anos, aniversários, eventos corporativos, coffee breaks e outras celebrações.</p>
-          </details>
-          <details>
-            <summary>Como solicitar um orçamento?</summary>
-            <p>Entre em contato pelo WhatsApp <a href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">(21) 97514-3297</a> ou preencha o <a href="#orcamento">formulário do site</a> com as principais informações do evento.</p>
-          </details>
-          <details>
-            <summary>Quais informações devo enviar para o orçamento?</summary>
-            <p>Tipo de evento, data, número aproximado de convidados e local. Quanto mais detalhes você compartilhar, mais completa será a conversa sobre a proposta.</p>
-          </details>
-          <details>
-            <summary>Quais formas de pagamento são aceitas?</summary>
-            <p>Cartão de crédito, cartão de débito e pagamento por aproximação. Para outras condições, fale com a gente pelo WhatsApp.</p>
-          </details>
-          <!-- Perguntas aguardando resposta oficial ficam em assets/js/config.js ("faqPendentes") e aparecem aqui quando respondidas. -->
+        <div class="faq__body">
+          <form class="faq__search" role="search" data-faq-form data-reveal>
+            <label for="faq-busca">Pesquise sua dúvida</label>
+            <div class="faq__search-row">
+              <input id="faq-busca" type="search" placeholder="Ex.: degustação, pagamento, bebidas" autocomplete="off" data-faq-search>
+              <button class="btn btn--primary btn--sm" type="submit">Perguntar</button>
+            </div>
+          </form>
+          <div class="faq__list" data-faq>
+<!--FAQ:START-->
+            <details>
+              <summary>Quais tipos de eventos vocês atendem?</summary>
+              <p>A Requinte &amp; Sabor atende casamentos, festas de 15 anos, aniversários, eventos corporativos, coffee breaks e outras celebrações especiais.</p>
+            </details>
+            <details>
+              <summary>Como solicitar um orçamento?</summary>
+              <p>Pelo orçamento interativo aqui do site, pela assistente virtual ou direto no WhatsApp (21) 97514-3297. Você informa tipo de evento, data, local e número de convidados, e a equipe prepara uma proposta.</p>
+            </details>
+            <details>
+              <summary>Quais informações devo enviar para o orçamento?</summary>
+              <p>Tipo de evento, data, número aproximado de convidados e local. Quanto mais detalhes você compartilhar, mais completa será a proposta.</p>
+            </details>
+            <details>
+              <summary>Como verifico se minha data está disponível?</summary>
+              <p>A agenda é confirmada diretamente pela equipe. Informe a data no orçamento do site ou pelo WhatsApp (21) 97514-3297.</p>
+            </details>
+            <details>
+              <summary>Quais formas de pagamento são aceitas?</summary>
+              <p>As formas de pagamento informadas são cartão de crédito, cartão de débito e pagamento por aproximação. Outras condições são combinadas diretamente com a equipe.</p>
+            </details>
+            <details data-pending>
+              <summary>Qual o número mínimo de convidados?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Qual o número mínimo de convidados?">Perguntar à equipe</button></p>
+            </details>
+            <details data-pending>
+              <summary>Vocês fornecem bebidas?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Vocês fornecem bebidas?">Perguntar à equipe</button></p>
+            </details>
+            <details data-pending>
+              <summary>Possuem menu infantil?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Possuem menu infantil?">Perguntar à equipe</button></p>
+            </details>
+            <details data-pending>
+              <summary>Fazem degustação?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Fazem degustação?">Perguntar à equipe</button></p>
+            </details>
+            <details data-pending>
+              <summary>Quais regiões vocês atendem?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Quais regiões vocês atendem?">Perguntar à equipe</button></p>
+            </details>
+            <details data-pending>
+              <summary>Há opções vegetarianas ou veganas?</summary>
+              <p>Consulte a equipe para verificar as opções disponíveis para o seu evento. <button class="faq__ask" type="button" data-chat-open data-chat-context="faq_item" data-chat-ask="Há opções vegetarianas ou veganas?">Perguntar à equipe</button></p>
+            </details>
+<!--FAQ:END-->
+          </div>
+          <div class="faq__empty" data-faq-empty hidden>
+            <p>Nenhuma pergunta pronta sobre isso ainda.</p>
+            <button class="btn btn--ghost btn--sm" type="button" data-chat-open data-chat-context="faq_vazio" data-faq-ask>Perguntar à assistente</button>
+          </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============ INSTAGRAM ============ -->
+    <section class="insta" aria-labelledby="insta-titulo">
+      <div class="container insta__inner">
+        <p class="eyebrow" data-reveal>Instagram</p>
+        <h2 class="insta__handle" id="insta-titulo" data-reveal><a href="https://www.instagram.com/requinteesaborbuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="handle">@requinteesaborbuffet</a></h2>
+        <p class="insta__sub" data-reveal>Acompanhe eventos, bastidores e novidades.</p>
+        <a class="btn btn--ghost" href="https://www.instagram.com/requinteesaborbuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="secao" data-reveal>Acompanhar no Instagram</a>
       </div>
     </section>
 
@@ -679,8 +753,9 @@
 
           <div class="contact__actions" data-reveal>
             <a class="btn btn--light" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa target="_blank" rel="noopener">WhatsApp</a>
-            <a class="btn btn--outline-light" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener">Como chegar</a>
-            <a class="btn btn--outline-light" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener">Google Maps</a>
+            <a class="btn btn--outline-light" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener" data-track="directions_click" data-track-label="como_chegar">Como chegar</a>
+            <a class="btn btn--outline-light" href="https://www.google.com/maps/search/?api=1&amp;query=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener" data-track="directions_click" data-track-label="google_maps">Google Maps</a>
+            <button class="btn btn--outline-light" type="button" data-copy-address>Copiar endereço</button>
           </div>
         </div>
 
@@ -718,11 +793,39 @@
     </div>
   </footer>
 
-  <!-- Botão flutuante discreto -->
-  <a class="float-cta" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa data-float target="_blank" rel="noopener" aria-label="Solicite seu orçamento pelo WhatsApp">
-    <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12.04 2a9.9 9.9 0 0 0-8.5 15l-1.4 5 5.15-1.35A9.93 9.93 0 1 0 12.04 2Zm0 18.13c-1.5 0-2.97-.4-4.25-1.16l-.3-.18-3.06.8.82-2.98-.2-.31a8.2 8.2 0 1 1 6.99 3.83Zm4.5-6.14c-.25-.12-1.46-.72-1.69-.8-.22-.08-.39-.12-.55.13-.16.24-.63.8-.77.96-.14.17-.28.19-.53.06a6.72 6.72 0 0 1-3.32-2.9c-.25-.43.25-.4.72-1.33.08-.16.04-.3-.02-.43-.06-.12-.55-1.33-.76-1.82-.2-.48-.4-.41-.55-.42h-.47a.9.9 0 0 0-.65.3 2.74 2.74 0 0 0-.86 2.04c0 1.2.88 2.37 1 2.53.12.17 1.73 2.64 4.2 3.7 1.56.68 2.17.73 2.95.62.48-.07 1.46-.6 1.67-1.18.2-.58.2-1.08.14-1.18-.06-.1-.22-.17-.47-.29Z"/></svg>
-    <span>Solicite seu orçamento</span>
-  </a>
+  <!-- Botões flutuantes: Como chegar · Assistente · WhatsApp -->
+  <div class="fabs" data-fabs>
+    <div class="rfab" data-routes>
+      <div class="rfab__menu" id="rfab-menu" role="menu" aria-label="Como chegar à Requinte &amp; Sabor" hidden>
+        <p class="rfab__title">Como chegar<small>Rua Pecegueiro do Amaral, 280 · Vargem Pequena</small></p>
+        <a role="menuitem" href="https://www.google.com/maps/dir/?api=1&amp;destination=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener" data-track="directions_click" data-track-label="google"><i class="ri"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6-6.5-11a6.5 6.5 0 0 1 13 0c0 5-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.3"/></svg></i>Google Maps</a>
+        <a role="menuitem" href="https://maps.apple.com/?daddr=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490" target="_blank" rel="noopener" data-track="directions_click" data-track-label="apple"><i class="ri"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 16-8-8 16-2-6-6-2z"/></svg></i>Mapas do iPhone</a>
+        <a role="menuitem" href="https://waze.com/ul?q=Rua+Pecegueiro+do+Amaral%2C+280+-+Vargem+Pequena%2C+Rio+de+Janeiro+-+RJ%2C+22783-490&amp;navigate=yes" target="_blank" rel="noopener" data-track="directions_click" data-track-label="waze"><i class="ri"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15a7 7 0 1 1 14 0c0 1.5-1.2 2.5-2.6 2.5H9.5M7 17.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0M14 17.5a1.5 1.5 0 1 0 3 0 1.5 1.5 0 1 0-3 0"/></svg></i>Waze</a>
+      </div>
+      <button type="button" class="fab fab--light" aria-expanded="false" aria-controls="rfab-menu" aria-label="Como chegar: escolher app de mapas" data-routes-btn>
+        <svg class="ic-open" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>
+        <svg class="ic-close" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        <span class="fab__tip" aria-hidden="true">Como chegar</span>
+      </button>
+    </div>
+    <button type="button" class="fab fab--light fab--chat" data-chat-open data-chat-context="fab" aria-label="Abrir a assistente virtual">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/></svg>
+      <span class="fab__tip" aria-hidden="true">Tire suas dúvidas</span>
+    </button>
+    <a class="fab fab--wa" href="https://wa.me/5521975143297?text=Ol%C3%A1!%20Conheci%20a%20Requinte%20%26%20Sabor%20pelo%20site%20e%20gostaria%20de%20solicitar%20um%20or%C3%A7amento%20para%20meu%20evento." data-wa data-wa-context="fab" target="_blank" rel="noopener" aria-label="Solicite seu orçamento pelo WhatsApp">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg>
+      <span class="fab__tip" aria-hidden="true">Solicite seu orçamento</span>
+    </a>
+  </div>
+
+  <!-- Concierge Virtual (montada por assets/js/chat.js) -->
+  <div class="concierge" data-concierge></div>
+
+  <!-- Aviso de cookies: só aparece se GA4/GTM forem configurados em assets/js/config.js -->
+  <div class="consent" hidden data-consent>
+    <p>Usamos cookies de medição para entender quais conteúdos ajudam você a planejar seu evento.</p>
+    <div><button class="btn btn--sm btn--ghost" type="button" data-consent-deny>Recusar</button><button class="btn btn--sm btn--primary" type="button" data-consent-accept>Aceitar</button></div>
+  </div>
 
   <!-- Lightbox -->
   <dialog class="lightbox" data-lightbox-dialog aria-label="Galeria de imagens">

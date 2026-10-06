@@ -63,16 +63,17 @@ window.SITE_CONFIG = {
        observacao: 'Texto opcional confirmado pela empresa.'
      },
   */
-  cardapio: null,
+  cardapio: null
 
-  /* FAQ AGUARDANDO RESPOSTA OFICIAL. Perguntas com resposta vazia NÃO
-     aparecem no site. Preencha a resposta quando a empresa confirmar. */
-  faqPendentes: [
-    { pergunta: 'Qual o número mínimo de convidados?', resposta: '' },
-    { pergunta: 'Vocês fornecem bebidas?', resposta: '' },
-    { pergunta: 'Possuem menu infantil?', resposta: '' },
-    { pergunta: 'Fazem degustação?', resposta: '' },
-    { pergunta: 'Quais regiões atendem?', resposta: '' },
-    { pergunta: 'Há opções vegetarianas ou veganas?', resposta: '' }
-  ]
+  /* As perguntas frequentes e as respostas da assistente virtual ficam em
+     data/knowledge-base.js (uma única fonte para FAQ, assistente e orçamento). */
+};
+
+/* MEDIÇÃO (opcional). Preencha para ativar Google Analytics 4 ou Tag Manager.
+   Vazio = nenhuma ferramenta externa é carregada e não aparece aviso de cookies.
+   Os eventos de conversão sempre vão para window.dataLayer. */
+window.RS_CONFIG = {
+  ga4Id: '',        // ex.: 'G-XXXXXXXXXX'
+  gtmId: '',        // ex.: 'GTM-XXXXXXX'
+  debugAnalytics: false
 };

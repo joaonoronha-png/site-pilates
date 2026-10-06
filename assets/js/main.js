@@ -1,8 +1,11 @@
-/* Requinte & Sabor Buffet — interações (JavaScript puro, sem dependências) */
+/* Requinte & Sabor Buffet — interações (JavaScript puro + Lenis para rolagem suave) */
 (function () {
   'use strict';
 
   var C = window.SITE_CONFIG || {};
+  var KB = window.RS_KB || {};
+  var Lead = window.RSLead;
+  var track = window.rsTrack || function () {};
   var doc = document;
   var root = doc.documentElement;
   var $ = function (s, ctx) { return (ctx || doc).querySelector(s); };
@@ -11,11 +14,75 @@
   var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   var clamp = function (v, a, b) { return Math.min(b, Math.max(a, v)); };
 
+  /* ---------- Intro (abertura) ---------- */
+  var loaded = false;
+  function finishLoading() {
+    if (loaded) return;
+    loaded = true;
+    root.classList.add('is-loaded');
+  }
+  var seen = false;
+  try { seen = sessionStorage.getItem('rs_seen') === '1'; sessionStorage.setItem('rs_seen', '1'); } catch (e) { /* ok */ }
+  if (reduceMotion || seen) finishLoading();
+  else {
+    window.addEventListener('load', function () { setTimeout(finishLoading, 650); });
+    setTimeout(finishLoading, 2200); // nunca segura o visitante
+  }
+
+  /* ---------- Rolagem suave (Lenis, só desktop) ---------- */
+  var lenis = null;
+  if (!reduceMotion && window.Lenis && window.matchMedia('(min-width: 960px)').matches) {
+    lenis = new window.Lenis({ duration: 1.15, smoothWheel: true });
+    var lraf = function (t) { lenis.raf(t); requestAnimationFrame(lraf); };
+    requestAnimationFrame(lraf);
+  }
+  window.RSUI = { lenis: function () { return lenis; } };
+  function scrollToTarget(target) {
+    var offset = -70;
+    if (lenis) lenis.scrollTo(target, { offset: offset });
+    else window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset + offset, behavior: reduceMotion ? 'auto' : 'smooth' });
+  }
+  doc.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    var id = a.getAttribute('href');
+    if (id.length < 2) return;
+    var target = doc.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    scrollToTarget(target);
+    if (history.replaceState) history.replaceState(null, '', id);
+    if (id === '#orcamento') {
+      track('quote_cta_click', { label: a.getAttribute('data-track-label') || a.textContent.trim().slice(0, 40) });
+      setTimeout(function () { var f = $('[data-quote] .q-step.is-active input'); if (f) f.focus({ preventScroll: true }); }, 900);
+    }
+  });
+
   /* ---------- WhatsApp ---------- */
-  var phone = C.whatsapp || '5521975143297';
-  var defaultMsg = C.mensagemPadrao || 'Olá! Conheci a Requinte & Sabor pelo site e gostaria de solicitar um orçamento para meu evento.';
+  var phone = (KB.company && KB.company.whatsapp.e164) || C.whatsapp || '5521975143297';
+  var templates = KB.whatsappTemplates || {};
+  var defaultMsg = templates.default || C.mensagemPadrao;
   function waLink(msg) { return 'https://wa.me/' + phone + '?text=' + encodeURIComponent(msg || defaultMsg); }
-  $$('[data-wa]').forEach(function (a) { a.href = waLink(a.getAttribute('data-wa-msg')); });
+  function waMsg(a) { return a.getAttribute('data-wa-msg') || templates[a.getAttribute('data-wa')] || defaultMsg; }
+  $$('[data-wa]').forEach(function (a) { a.href = waLink(waMsg(a)); });
+  doc.addEventListener('click', function (e) {
+    var a = e.target.closest('[data-wa]');
+    if (!a) return;
+    // se a pessoa já contou algo no orçamento ou na assistente, a mensagem leva junto
+    if (Lead && Lead.filled().length && !a.hasAttribute('data-wa-msg')) a.href = Lead.waUrl(Lead.message(waMsg(a)));
+    track('whatsapp_click', { context: a.getAttribute('data-wa-context') || 'site' });
+  });
+
+  /* ---------- Concierge Virtual ---------- */
+  doc.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-chat-open]');
+    if (!b || !window.RSConcierge) return;
+    e.preventDefault();
+    if (root.classList.contains('menu-open')) setMenu(false);
+    window.RSConcierge.open(b.getAttribute('data-chat-context') || 'botao');
+    var ask = b.getAttribute('data-chat-ask');
+    if (ask) setTimeout(function () { window.RSConcierge.ask(ask); }, 500);
+  });
 
   /* ---------- Conteúdo controlado por config.js ---------- */
   if (C.horario) $$('[data-config="horario"]').forEach(function (el) { el.textContent = C.horario; });
@@ -39,13 +106,39 @@
     });
   }
 
-  // FAQ: só entram perguntas com resposta confirmada
-  var faq = $('[data-faq]');
-  (C.faqPendentes || []).forEach(function (item) {
-    if (!faq || !item.resposta || !String(item.resposta).trim()) return;
-    var d = doc.createElement('details');
-    d.innerHTML = '<summary>' + esc(item.pergunta) + '</summary><p>' + esc(item.resposta) + '</p>';
-    faq.appendChild(d);
+  /* ---------- FAQ: campo de busca ligado à assistente ---------- */
+  var faqSearch = $('[data-faq-search]');
+  if (faqSearch) {
+    var faqItems = $$('[data-faq] details');
+    var faqEmpty = $('[data-faq-empty]');
+    var faqAsk = $('[data-faq-ask]');
+    var normTxt = function (s) { return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); };
+    var faqTimer;
+    faqSearch.addEventListener('input', function () {
+      var q = normTxt(faqSearch.value.trim());
+      var words = q.split(/\s+/).filter(function (w) { return w.length > 2; });
+      var shown = 0;
+      faqItems.forEach(function (d) {
+        var txt = normTxt(d.textContent);
+        var ok = !words.length || words.every(function (w) { return txt.indexOf(w) > -1; });
+        d.hidden = !ok; if (ok) shown++;
+        if (words.length && ok && shown === 1) d.open = true;
+      });
+      faqEmpty.hidden = !(words.length && !shown);
+      faqAsk.setAttribute('data-chat-ask', faqSearch.value.trim());
+      clearTimeout(faqTimer);
+      faqTimer = setTimeout(function () { if (words.length) track('faq_search', { found: shown }); }, 900);
+    });
+    $('[data-faq-form]').addEventListener('submit', function (e) {
+      e.preventDefault();
+      var v = faqSearch.value.trim();
+      if (!v || !window.RSConcierge) return;
+      window.RSConcierge.open('faq_busca');
+      setTimeout(function () { window.RSConcierge.ask(v); }, 500);
+    });
+  }
+  $$('[data-faq] details').forEach(function (d) {
+    d.addEventListener('toggle', function () { if (d.open) track('faq_open', { q: d.querySelector('summary').textContent.slice(0, 60) }); });
   });
 
   // Cardápio oficial
@@ -130,14 +223,18 @@
     if (open) {
       mobile.hidden = false;
       requestAnimationFrame(function () { mobile.classList.add('is-open'); });
-      var first = mobile.querySelector('a'); if (first) first.focus({ preventScroll: true });
+      var first = mobile.querySelector('nav a'); if (first) setTimeout(function () { first.focus({ preventScroll: true }); }, 60);
+      if (lenis) lenis.stop();
+      track('menu_open');
     } else {
       mobile.classList.remove('is-open');
-      setTimeout(function () { if (!mobile.classList.contains('is-open')) mobile.hidden = true; }, 450);
+      if (lenis) lenis.start();
+      setTimeout(function () { if (!mobile.classList.contains('is-open')) mobile.hidden = true; }, 820);
     }
   }
   toggle.addEventListener('click', function () { setMenu(toggle.getAttribute('aria-expanded') !== 'true'); });
   mobile.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  $$('[data-menu-close]').forEach(function (b) { b.addEventListener('click', function () { setMenu(false); toggle.focus({ preventScroll: true }); }); });
   doc.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && root.classList.contains('menu-open')) { setMenu(false); toggle.focus(); }
   });
@@ -207,7 +304,7 @@
   var parallaxEls = $$('[data-speed]');
   var zoomEls = $$('[data-zoom]');
   var story = $('[data-story]');
-  var track = story && $('.story__track', story);
+  var storyTrack = story && $('.story__track', story);
   var stepImgs = story ? $$('[data-step-img]', story) : [];
   var steps = story ? $$('[data-step]', story) : [];
   var bar = story && $('.story__progress', story);
@@ -221,8 +318,8 @@
   }
 
   function updateStory() {
-    if (!track) return;
-    var r = track.getBoundingClientRect();
+    if (!storyTrack) return;
+    var r = storyTrack.getBoundingClientRect();
     var total = r.height - vh;
     if (r.bottom < 0 || r.top > vh) return;
     var p = clamp(-r.top / total, 0, 1);
@@ -379,102 +476,46 @@
     });
   }
 
-  /* ---------- Formulário → WhatsApp ---------- */
-  var form = $('[data-quote-form]');
-  var status = $('[data-form-status]');
-  var typeSelect = $('#f-tipo');
-
-  // Links "Planejar meu casamento" etc. pré-selecionam o tipo de evento
+  /* ---------- Links de evento → orçamento interativo já com o tipo ---------- */
   $$('[data-event]').forEach(function (a) {
     a.addEventListener('click', function () {
-      var v = a.getAttribute('data-event');
-      if (typeSelect) typeSelect.value = v;
-      setTimeout(function () { var n = $('#f-nome'); if (n) n.focus({ preventScroll: true }); }, reduceMotion ? 0 : 900);
+      if (!Lead) return;
+      Lead.set('evento', a.getAttribute('data-event'));
+      if (window.RSQuote) window.RSQuote.rebuild();
+      track('service_interest', { service: a.getAttribute('data-event'), source: 'eventos' });
     });
   });
 
-  function fieldError(input, msg) {
-    var field = input.closest('.field');
-    var err = field.querySelector('.field__error');
-    field.classList.toggle('is-invalid', !!msg);
-    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
-    if (msg) {
-      if (!err) {
-        err = doc.createElement('span'); err.className = 'field__error';
-        err.id = input.id + '-erro'; field.appendChild(err);
-        input.setAttribute('aria-describedby', err.id);
-      }
-      err.textContent = msg;
-    } else if (err) { err.remove(); input.removeAttribute('aria-describedby'); }
+  /* ---------- Botões flutuantes: menu "Como chegar" ---------- */
+  var routes = $('[data-routes]');
+  if (routes) {
+    var rBtn = $('[data-routes-btn]', routes);
+    var rMenu = $('#rfab-menu');
+    var setRoutes = function (open) {
+      routes.classList.toggle('is-open', open);
+      rBtn.setAttribute('aria-expanded', String(open));
+      rMenu.hidden = !open;
+      if (open) track('routes_open');
+    };
+    rBtn.addEventListener('click', function (e) { e.stopPropagation(); setRoutes(rMenu.hidden); });
+    doc.addEventListener('click', function (e) { if (!routes.contains(e.target)) setRoutes(false); });
+    doc.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !rMenu.hidden) { setRoutes(false); rBtn.focus(); } });
   }
-
-  function formatDate(v) {
-    if (!v) return '';
-    var p = v.split('-');
-    return p.length === 3 ? p[2] + '/' + p[1] + '/' + p[0] : v;
-  }
-
-  if (form) {
-    var whats = $('#f-whats');
-    whats.addEventListener('input', function () {
-      var d = whats.value.replace(/\D/g, '').slice(0, 11);
-      var out = d;
-      if (d.length > 2) out = '(' + d.slice(0, 2) + ') ' + d.slice(2);
-      if (d.length > 7) out = '(' + d.slice(0, 2) + ') ' + d.slice(2, d.length - 4) + '-' + d.slice(-4);
-      whats.value = out;
-    });
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var f = form.elements;
-      var ok = true;
-      var nome = f.nome.value.trim();
-      var tel = f.whatsapp.value.replace(/\D/g, '');
-      fieldError(f.nome, nome ? '' : 'Informe seu nome.'); ok = ok && !!nome;
-      var telOk = tel.length >= 10;
-      fieldError(f.whatsapp, telOk ? '' : 'Informe um WhatsApp com DDD.'); ok = ok && telOk;
-      var emailOk = !f.email.value || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email.value);
-      fieldError(f.email, emailOk ? '' : 'Confira o e-mail.'); ok = ok && emailOk;
-      fieldError(f.tipo, f.tipo.value ? '' : 'Selecione o tipo de evento.'); ok = ok && !!f.tipo.value;
-      if (!ok) {
-        var firstBad = form.querySelector('[aria-invalid="true"]');
-        if (firstBad) firstBad.focus();
-        status.textContent = 'Confira os campos destacados.';
-        return;
-      }
-
-      var lines = [
-        'Olá! Conheci a Requinte & Sabor pelo site e gostaria de receber uma proposta para meu evento.',
-        '',
-        '*Nome:* ' + nome,
-        '*WhatsApp:* ' + f.whatsapp.value.trim()
-      ];
-      if (f.email.value.trim()) lines.push('*E-mail:* ' + f.email.value.trim());
-      lines.push('*Tipo de evento:* ' + f.tipo.value);
-      if (f.data.value) lines.push('*Data:* ' + formatDate(f.data.value));
-      if (f.convidados.value) lines.push('*Convidados (aprox.):* ' + f.convidados.value);
-      if (f.local.value.trim()) lines.push('*Local:* ' + f.local.value.trim());
-      if (f.mensagem.value.trim()) lines.push('', '*Mensagem:* ' + f.mensagem.value.trim());
-
-      var url = waLink(lines.join('\n'));
-      status.textContent = 'Abrindo o WhatsApp com a sua mensagem…';
-      var win = window.open(url, '_blank', 'noopener');
-      if (!win) window.location.href = url;
-    });
-  }
-
-  /* ---------- Botão flutuante ---------- */
-  var floatBtn = $('[data-float]');
-  var hideZones = $$('#orcamento, #contato, .site-footer');
+  var fabs = $('[data-fabs]');
   function updateFloat() {
-    if (!floatBtn) return;
-    var pastHero = hero ? hero.getBoundingClientRect().bottom < vh * 0.4 : true;
-    var inZone = hideZones.some(function (z) {
-      var r = z.getBoundingClientRect();
-      return r.top < vh * 0.8 && r.bottom > vh * 0.2;
-    });
-    floatBtn.classList.toggle('is-visible', pastHero && !inZone && !root.classList.contains('menu-open'));
+    if (!fabs) return;
+    var pastHero = hero ? hero.getBoundingClientRect().bottom < vh * 0.55 : true;
+    fabs.classList.toggle('is-visible', pastHero);
   }
+
+  /* ---------- Copiar endereço ---------- */
+  $$('[data-copy-address]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var txt = (KB.company && KB.company.address.full) || '';
+      var done = function () { var o = b.textContent; b.textContent = 'Endereço copiado'; setTimeout(function () { b.textContent = o; }, 2200); track('address_copy'); };
+      if (navigator.clipboard) navigator.clipboard.writeText(txt).then(done, function () {}); else done();
+    });
+  });
 
   /* ---------- Mapa sob demanda (não pesa no carregamento) ---------- */
   var mapBtn = $('[data-map-load]');
@@ -484,6 +525,7 @@
       iframe.title = 'Mapa: Rua Pecegueiro do Amaral, 280 — Vargem Pequena, Rio de Janeiro';
       iframe.loading = 'lazy';
       iframe.referrerPolicy = 'no-referrer-when-downgrade';
+      track('map_load');
       iframe.src = 'https://maps.google.com/maps?q=' + encodeURIComponent('Rua Pecegueiro do Amaral, 280 - Vargem Pequena, Rio de Janeiro - RJ, 22783-490') + '&z=16&output=embed';
       mapBtn.replaceWith(iframe);
     });
