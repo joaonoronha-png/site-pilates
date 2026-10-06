@@ -1,0 +1,10 @@
+{
+  "name": "BCM Dermatologia Especializada",
+  "short_name": "BCM",
+  "lang": "pt-BR",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f5f1ea",
+  "theme_color": "#16211f",
+  "icons": [{ "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
