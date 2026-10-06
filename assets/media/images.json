@@ -1,0 +1,312 @@
+{
+ "bartender": {
+  "w": 692,
+  "h": 1230,
+  "color": "#543b22",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "bluetable": {
+  "w": 692,
+  "h": 1230,
+  "color": "#835737",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "bridegarden": {
+  "w": 720,
+  "h": 1280,
+  "color": "#7d7458",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "candles": {
+  "w": 692,
+  "h": 1230,
+  "color": "#6b6576",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "chefcart": {
+  "w": 720,
+  "h": 1280,
+  "color": "#6b4c3b",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "coffeecrowd": {
+  "w": 688,
+  "h": 1222,
+  "color": "#977867",
+  "widths": [
+   480,
+   688
+  ]
+ },
+ "coffeetable": {
+  "w": 688,
+  "h": 1222,
+  "color": "#8d6d54",
+  "widths": [
+   480,
+   688
+  ]
+ },
+ "cookies": {
+  "w": 688,
+  "h": 1222,
+  "color": "#b88c5c",
+  "widths": [
+   480,
+   688
+  ]
+ },
+ "copper": {
+  "w": 720,
+  "h": 1280,
+  "color": "#8a4820",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "copperrice": {
+  "w": 720,
+  "h": 1280,
+  "color": "#926f47",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "crabtartlets": {
+  "w": 692,
+  "h": 1230,
+  "color": "#817866",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "croquettes": {
+  "w": 720,
+  "h": 1280,
+  "color": "#9b6a4c",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "feedback-poster": {
+  "w": 720,
+  "h": 1280,
+  "color": "#6a4e41",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "hero-poster": {
+  "w": 720,
+  "h": 1280,
+  "color": "#705f5b",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "logo-instagram": {
+  "w": 320,
+  "h": 320,
+  "color": "#f1efeb",
+  "widths": [
+   320
+  ]
+ },
+ "massas-foto-0": {
+  "w": 1080,
+  "h": 719,
+  "color": "#74644e",
+  "widths": [
+   480,
+   800,
+   1080
+  ]
+ },
+ "massas-foto-1": {
+  "w": 1080,
+  "h": 719,
+  "color": "#5e4927",
+  "widths": [
+   480,
+   800,
+   1080
+  ]
+ },
+ "massas-foto-2": {
+  "w": 1080,
+  "h": 719,
+  "color": "#75573a",
+  "widths": [
+   480,
+   800,
+   1080
+  ]
+ },
+ "massas-foto-3": {
+  "w": 1080,
+  "h": 719,
+  "color": "#715c45",
+  "widths": [
+   480,
+   800,
+   1080
+  ]
+ },
+ "massas-foto-4": {
+  "w": 1080,
+  "h": 719,
+  "color": "#674d26",
+  "widths": [
+   480,
+   800,
+   1080
+  ]
+ },
+ "momento-poster": {
+  "w": 720,
+  "h": 1280,
+  "color": "#786147",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "pastelrack": {
+  "w": 720,
+  "h": 1280,
+  "color": "#7e5a40",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "pastryboard": {
+  "w": 720,
+  "h": 1280,
+  "color": "#8e6c6d",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "penne": {
+  "w": 720,
+  "h": 1280,
+  "color": "#7c5e3b",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "renovacao-altar": {
+  "w": 640,
+  "h": 1136,
+  "color": "#959c77",
+  "widths": [
+   480,
+   640
+  ]
+ },
+ "serving40": {
+  "w": 692,
+  "h": 1230,
+  "color": "#876f54",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "slider": {
+  "w": 720,
+  "h": 1280,
+  "color": "#ba8243",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "spoons": {
+  "w": 720,
+  "h": 1280,
+  "color": "#65554e",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "sweetshelf": {
+  "w": 720,
+  "h": 1280,
+  "color": "#777461",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "sweetslilies": {
+  "w": 692,
+  "h": 1230,
+  "color": "#796f56",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "tables40": {
+  "w": 692,
+  "h": 1230,
+  "color": "#6a5a54",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "tartlets": {
+  "w": 720,
+  "h": 1280,
+  "color": "#83816a",
+  "widths": [
+   480,
+   720
+  ]
+ },
+ "team": {
+  "w": 692,
+  "h": 1230,
+  "color": "#6c4c4d",
+  "widths": [
+   480,
+   692
+  ]
+ },
+ "waitress": {
+  "w": 720,
+  "h": 1280,
+  "color": "#745d51",
+  "widths": [
+   480,
+   720
+  ]
+ }
+}
