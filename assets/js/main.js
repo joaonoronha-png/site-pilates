@@ -88,8 +88,6 @@
     menu.removeAttribute('inert');
     doc.classList.add('menu-open');
     toggle.setAttribute('aria-expanded', 'true');
-    document.body.style.overflow = 'hidden';
-    if (lenis) lenis.stop();
     // destaca a seção atual
     setTimeout(function () { var f = $('.drawer__close', menu); if (f) f.focus(); }, 350);
     track('menu_open');
@@ -99,8 +97,6 @@
     doc.classList.remove('menu-open');
     menu.setAttribute('inert', '');
     toggle.setAttribute('aria-expanded', 'false');
-    document.body.style.overflow = '';
-    if (lenis) lenis.start();
     toggle.focus({ preventScroll: true });
   }
   if (toggle) toggle.addEventListener('click', function () { doc.classList.contains('menu-open') ? closeMenu() : openMenu(); });

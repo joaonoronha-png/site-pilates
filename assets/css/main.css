@@ -277,12 +277,14 @@ em { font-style: italic; }
 .btn .arrow { width: 16px; height: 10px; transition: transform .4s var(--ease); }
 .btn:hover .arrow { transform: translateX(4px); }
 /* ---------- menu lateral ---------- */
-.drawer { position: fixed; inset: 0; z-index: 110; visibility: hidden; transition: visibility 0s .8s; }
+.drawer { position: fixed; inset: 0; z-index: 110; visibility: hidden; pointer-events: none; transition: visibility 0s .8s; }
 .menu-open .drawer { visibility: visible; transition: none; }
-.drawer__scrim { position: absolute; inset: 0; background: rgba(20,18,15,.55); -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px); opacity: 0; transition: opacity .6s var(--ease); cursor: pointer; }
-.menu-open .drawer__scrim { opacity: 1; }
+.drawer__panel { pointer-events: auto; }
+.menu-open .drawer__scrim { pointer-events: auto; }
+.drawer__scrim { position: absolute; inset: 0; background: transparent; }
 .drawer__panel {
-  position: absolute; top: 0; bottom: 0; right: 0; width: min(500px, 100%);
+  position: absolute; top: 0; bottom: 0; right: 0; width: min(460px, 86%);
+  box-shadow: -30px 0 80px -30px rgba(0,0,0,.45);
   overflow-y: auto; overscroll-behavior: contain;
   display: flex; flex-direction: column; gap: 28px;
   padding: calc(18px + env(safe-area-inset-top, 0px)) clamp(24px, 3.4vw, 48px) calc(28px + env(safe-area-inset-bottom, 0px));
@@ -317,8 +319,8 @@ em { font-style: italic; }
 .drawer__foot { margin-top: auto; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 26px; opacity: 0; transition: opacity .6s var(--ease); }
 .drawer__ask { padding: 8px 0; border: 0; background: none; color: var(--paper); font: 400 11px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: rgba(244,241,236,.35); }
 .drawer__ask:hover { color: var(--champagne); text-decoration-color: currentColor; }
-.drawer__peek { display: none; }
-.menu-open .site-header { visibility: hidden; }
+.drawer__peek { display: none !important; }
+
 
 /* ---------- hero ---------- */
 .hero {
