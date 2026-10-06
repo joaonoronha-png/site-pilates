@@ -30,6 +30,8 @@ As fotos são frames extraídos dos Reels (por isso ~720 px de largura) e foram 
 | `img/p-isabel-servico` | DdHTk2RxJdu | Portfólio — 15 anos da Isabel |
 | `img/p-thaty-convidados`, `img/p-thaty-servico` | DcJ1H8Hv8L- | Portfólio — 40 anos da Thaty |
 | `img/p-coffee-pessoas` | DcuEvizBV3Y | Portfólio — Coffee break |
+| `img/mp-equipe`, `img/mp-estacao`, `img/mp-ilha`, `img/mp-convidados`, `img/mp-coco`, `img/mp-infantil` | site oficial mapersi.com.br (fotos com máscara recortadas em retângulo) | Experiências, manifesto, orçamento, Instagram |
+| `clients/*.webp` | site oficial — seção Clientes & Parceiros | faixa de clientes nas Avaliações |
 | `ig/*_cover` | capas das publicações | faixas em rotação da seção Instagram |
 | `apple-touch-icon.png`, `icon-192.png`, `favicon-32.png` | foto de perfil (logo) | ícones |
 

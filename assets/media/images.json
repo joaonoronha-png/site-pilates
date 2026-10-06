@@ -371,5 +371,63 @@
    692
   ],
   "color": "#7e6154"
+ },
+ "mp-coco": {
+  "w": 550,
+  "h": 550,
+  "widths": [
+   480,
+   550
+  ],
+  "color": "#d8b193"
+ },
+ "mp-convidados": {
+  "w": 436,
+  "h": 548,
+  "widths": [
+   436
+  ],
+  "color": "#593f2c"
+ },
+ "mp-equipe-w": {
+  "w": 550,
+  "h": 410,
+  "widths": [
+   480,
+   550
+  ],
+  "color": "#8e7763"
+ },
+ "mp-equipe": {
+  "w": 397,
+  "h": 500,
+  "widths": [
+   397
+  ],
+  "color": "#8e7661"
+ },
+ "mp-estacao": {
+  "w": 436,
+  "h": 548,
+  "widths": [
+   436
+  ],
+  "color": "#85704e"
+ },
+ "mp-ilha": {
+  "w": 436,
+  "h": 548,
+  "widths": [
+   436
+  ],
+  "color": "#70523c"
+ },
+ "mp-infantil": {
+  "w": 431,
+  "h": 542,
+  "widths": [
+   431
+  ],
+  "color": "#927a5f"
  }
 }

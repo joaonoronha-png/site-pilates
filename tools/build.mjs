@@ -125,7 +125,7 @@ const reviewsHtml = KB.reviews.map((r, i) => `<figure class="rv__slide${i === 0 
 
 /* ---------- Instagram: duas faixas em rotação, sentidos opostos ---------- */
 const row1 = ['DO6gTxAETTb_cover', 'DdRm5OIxqgj_cover', 'DcJ1H8Hv8L-_cover', 'DLQ9Sfytqw2_cover', 'DcuEvizBV3Y_cover', 'DdHTk2RxJdu_cover', 'DdDC9HZxpAT_cover', 'DdPhZiIvIhF_cover'];
-const row2 = ['spoons', 'pastelrack', 'croquettes', 'slider', 'penne', 'chefcart', 'sweetslilies', 'cookies', 'copperrice', 'bartender'];
+const row2 = ['mp-ilha', 'spoons', 'mp-estacao', 'pastelrack', 'croquettes', 'mp-convidados', 'slider', 'penne', 'chefcart', 'sweetslilies', 'cookies', 'copperrice', 'bartender'];
 const tile = (n, ig) => `<a class="insta__tile" href="https://www.instagram.com/mapersibuffet/" target="_blank" rel="noopener" tabindex="-1" data-track="instagram_click" data-track-label="faixa">${picture(n, { alt: '', sizes: '220px', dir: ig ? 'ig' : 'img', meta: ig ? igImages : images })}</a>`;
 const rowHtml = (list, ig, dir) => `<div class="insta__row insta__row--${dir}" aria-hidden="true"><div class="insta__track">${[...list, ...list].map((n) => tile(n, ig)).join('')}</div></div>`;
 const instaRows = rowHtml(row1, true, 'left') + '\n        ' + rowHtml(row2, false, 'right');

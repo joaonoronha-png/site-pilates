@@ -614,6 +614,15 @@ textarea.q-input { min-height: 140px; resize: vertical; }
 .reviews__feature figcaption { font-size: 13px; color: var(--ink-3); }
 .reviews__feature figcaption a { color: var(--terra); }
 
+/* ---------- clientes ---------- */
+.clients { margin-top: clamp(64px, 8vw, 104px); padding-top: 40px; border-top: 1px solid var(--line); display: grid; gap: 24px; }
+.clients__title { font-size: 12px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-3); text-align: center; }
+.clients__list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.clients__list li { display: grid; place-items: center; height: 84px; padding: 8px 12px; background: #fff; border: 1px solid var(--line); }
+.clients__list img { max-height: 64px; width: auto; object-fit: contain; filter: grayscale(1); opacity: .75; transition: filter .4s, opacity .4s; }
+.clients__list li:hover img { filter: none; opacity: 1; }
+@media (min-width: 960px) { .clients__list { grid-template-columns: repeat(6, 1fr); gap: 16px; } .clients__list li { height: 104px; } .clients__list img { max-height: 80px; } }
+
 /* ---------- instagram ---------- */
 .insta { overflow: hidden; padding-bottom: clamp(64px, 8vw, 112px); }
 .insta__head { display: grid; justify-items: center; text-align: center; gap: 14px; margin-bottom: clamp(40px, 6vw, 72px); }
@@ -956,7 +965,7 @@ textarea.q-input { min-height: 140px; resize: vertical; }
 
   .quote__layout { grid-template-columns: 5fr 7fr; gap: 6vw; align-items: start; }
   .quote__intro { position: sticky; top: calc(var(--header-h) + 40px); }
-  .quote__fig { display: block; margin-top: 48px; aspect-ratio: 4/5; overflow: hidden; max-width: 340px; }
+  .quote__fig { display: block; margin-top: 48px; aspect-ratio: 1/1; overflow: hidden; max-width: 320px; border-radius: 50%; }
   .quote__fig picture, .quote__fig img { width: 100%; height: 100%; object-fit: cover; }
   .quote__card { padding: 56px 56px 40px; min-height: 600px; }
   .q-options--grid { grid-template-columns: 1fr 1fr; }

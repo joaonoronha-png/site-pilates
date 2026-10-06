@@ -28,7 +28,8 @@ window.MAPERSI_KB = {
     researchSources: [
       "Instagram oficial @mapersibuffet (perfil, bio e 12 publicações mais recentes)",
       "Google Maps — ficha 'Mapersi buffet' (endereço, telefone, nota, categoria)",
-      "Link oficial wa.me da bio do Instagram (identifica 'Mapersí buffet')"
+      "Link oficial wa.me da bio do Instagram (identifica 'Mapersí buffet')",
+      "Site oficial mapersi.com.br (lido em 06/10/2026): buffet volante no estado do RJ desde 2018, estações, ilhas gastronômicas, corporativo, festas infantis e take-away, clientes e parceiros"
     ]
   },
 
@@ -86,8 +87,8 @@ window.MAPERSI_KB = {
       evidence: "Bio: 'corporativos'. Post: coffee break para instituição de ensino (330+ pessoas)." },
     { id: "social",      label: "Outro evento social",     status: "confirmado", quote: true,
       evidence: "Bio: 'Social'. Post: renovação de votos." },
-    { id: "infantil",    label: "Festa infantil",          status: "nao_confirmado", quote: false,
-      pending: "Confirmar se a Mapersí atende festas infantis e se há menu infantil." }
+    { id: "infantil",    label: "Festa infantil",          status: "confirmado", quote: true,
+      evidence: "Site oficial: seção 'Festas Infantis' (buffet e estações; opção take-away)." }
   ],
 
   /* ------------------------------------------------------------------
@@ -99,7 +100,7 @@ window.MAPERSI_KB = {
       summary: "Entradas, pratos e serviço pensados para acompanhar a sua celebração do começo ao fim.",
       evidence: "Posts: 'Levamos nosso buffet'; 'Buffet: @mapersibuffet' em diversos casamentos e festas." },
     { id: "estacoes", label: "Estações gastronômicas", status: "confirmado", show: true, quote: true,
-      summary: "Estações montadas no evento — como massas, fast food e cascata de chocolate.",
+      summary: "Estações montadas no evento — como massas, risotos, crepes, fast food e cascata de chocolate.",
       evidence: "Nome do perfil: 'Buffet | Estações | Ilha gastronômica'. Posts: estação de massas, estação fast food, cascata de chocolate." },
     { id: "massas", label: "Estação de massas", status: "confirmado", show: true, quote: true,
       summary: "Massas finalizadas na hora, com molhos e acompanhamentos à escolha do convidado.",
@@ -113,9 +114,12 @@ window.MAPERSI_KB = {
     { id: "coffeebreak", label: "Coffee break corporativo", status: "confirmado", show: true, quote: true,
       summary: "Coffee break para empresas e instituições — já realizado para mais de 330 pessoas.",
       evidence: "Post: coffee break para instituição de ensino, 'mais de 330 pessoas'." },
-    { id: "ilha", label: "Ilha gastronômica", status: "confirmado", show: false, quote: false,
-      summary: "Formato citado no perfil oficial. Detalhes a confirmar com a equipe.",
-      evidence: "Nome do perfil no Instagram." },
+    { id: "ilha", label: "Ilhas gastronômicas", status: "confirmado", show: true, quote: true,
+      summary: "Ilhas montadas para os convidados se servirem — ideais para eventos elegantes e corporativos.",
+      evidence: "Site oficial: 'Ilhas Gastronômicas'; nome do perfil no Instagram." },
+    { id: "takeaway", label: "Take-away", status: "confirmado", show: false, quote: false,
+      summary: "Opção de levar o cardápio para aproveitar em casa (citada para festas infantis).",
+      evidence: "Site oficial, seção Festas Infantis: 'opção em regime de take-away'." },
     { id: "churrasco", label: "Churrasco", status: "nao_confirmado", show: false, quote: false,
       summary: "",
       pending: "Não encontramos publicação recente da Mapersí sobre churrasco. Se o serviço existir, mude status para 'confirmado' e show/quote para true." }
@@ -183,7 +187,7 @@ window.MAPERSI_KB = {
     /* ===== EVENTOS ===== */
     { id: "tipos_evento", category: "Eventos", title: "Tipos de evento", status: "confirmado",
       keywords: ["tipos de evento", "que eventos", "quais eventos", "que tipo de evento", "atendem que", "fazem que tipo", "eventos voces fazem", "eventos atendem"],
-      answer: "A Mapersí atende casamentos, eventos corporativos e eventos sociais. Nas nossas redes você encontra casamentos, renovação de votos, festas de 15 anos, aniversários e coffee break corporativo.",
+      answer: "A Mapersí atende casamentos, festas de 15 anos, aniversários, festas infantis, festas temáticas e eventos corporativos — como happy hour, lançamento de produto, confraternização e coffee break.",
       evidence: "Bio do Instagram + publicações." },
 
     { id: "casamento", category: "Eventos", title: "Casamentos", status: "confirmado",
@@ -199,14 +203,25 @@ window.MAPERSI_KB = {
       evidence: "Posts: 15 anos da Isabel; 40 anos da Thaty." },
 
     { id: "corporativo", category: "Eventos", title: "Eventos corporativos", status: "confirmado",
-      keywords: ["corporativo", "empresa", "coffee break", "coffee", "confraternizacao", "evento da empresa", "palestra", "treinamento", "congresso", "instituicao"],
-      answer: "Sim. A Mapersí atende eventos corporativos — um dos mais recentes foi um coffee break para uma instituição de ensino, com mais de 330 pessoas.",
+      keywords: ["corporativo", "empresa", "coffee break", "coffee", "confraternizacao", "evento da empresa", "palestra", "treinamento", "congresso", "instituicao", "happy hour", "lancamento"],
+      answer: "Sim. A Mapersí atende eventos corporativos — happy hour, lançamento de produto, confraternização e coffee break. Já atendeu instituições como Fiocruz, SENAI e Hospital Carlos Chagas, e um coffee break recente reuniu mais de 330 pessoas.",
       startsLead: true, setsEvent: "Evento corporativo",
       evidence: "Post coffee break 330+ pessoas." },
 
-    { id: "infantil", category: "Eventos", title: "Festa infantil / menu infantil", status: "nao_confirmado",
-      keywords: ["infantil", "festa infantil", "menu infantil", "criancas", "crianca", "kids"],
-      answer: "", pending: "Confirmar se atende festa infantil e se há menu infantil." },
+    { id: "infantil", category: "Eventos", title: "Festas infantis", status: "confirmado",
+      keywords: ["infantil", "festa infantil", "criancas", "crianca", "kids", "aniversario infantil"],
+      answer: "Sim! A Mapersí faz festas infantis com buffet e estações. Também existe a opção de take-away, para aproveitar o cardápio no conforto de casa.",
+      startsLead: true, setsEvent: "Festa infantil",
+      evidence: "Site oficial: seção Festas Infantis." },
+
+    { id: "menu_infantil", category: "Gastronomia", title: "Menu infantil", status: "nao_confirmado",
+      keywords: ["menu infantil", "comida de crianca", "cardapio infantil"],
+      answer: "", pending: "Informar se existe cardápio específico para crianças." },
+
+    { id: "takeaway", category: "Gastronomia", title: "Take-away", status: "confirmado",
+      keywords: ["take away", "takeaway", "levar para casa", "retirar", "retirada", "delivery", "entrega em casa", "encomenda"],
+      answer: "A Mapersí oferece a opção de take-away, para você aproveitar o cardápio em casa. Os detalhes (itens, quantidades e retirada) são combinados com a equipe.",
+      evidence: "Site oficial: 'opção em regime de take-away'." },
 
     { id: "capacidade", category: "Eventos", title: "Quantidade de convidados", status: "depende",
       keywords: ["minimo", "maximo", "quantas pessoas", "quantidade minima", "quantidade de pessoas", "capacidade", "numero minimo", "poucos convidados", "evento pequeno", "evento grande"],
@@ -216,10 +231,10 @@ window.MAPERSI_KB = {
 
     { id: "regiao", category: "Eventos", title: "Região atendida", status: "depende",
       keywords: ["regiao", "regioes", "atendem em", "atende em", "atendem na", "atende na", "atendem no", "fora do rio", "zona sul", "zona oeste", "zona norte", "niteroi", "baixada", "regiao atendida", "bairros", "vem ate", "vao ate", "atendem fora", "atende fora", "longe"],
-      answer: "A Mapersí leva o buffet até o espaço do seu evento. A base fica em Bento Ribeiro, no Rio de Janeiro. A cobertura de cada região é confirmada pela equipe conforme o local.",
+      answer: "A Mapersí é um buffet volante: leva o buffet até o espaço do seu evento e atua em todo o estado do Rio de Janeiro. A base fica em Bento Ribeiro. Taxas e logística de cada local são confirmadas pela equipe.",
       askSlot: "local",
       pending: "Publicar a lista de regiões atendidas e se há taxa de deslocamento.",
-      evidence: "Caption: 'Levamos nosso buffet'; eventos em espaços diferentes." },
+      evidence: "Site oficial: 'buffet volante, atuando no estado do Rio de Janeiro, desde 2018'." },
 
     { id: "espaco", category: "Eventos", title: "Local / salão", status: "nao_confirmado",
       keywords: ["salao", "espaco proprio", "tem espaco", "local da festa", "voces tem local", "tem salao", "onde fazem a festa", "festa no endereco", "alugam espaco"],
@@ -250,8 +265,8 @@ window.MAPERSI_KB = {
       evidence: "Posts do carrinho de massas Mapersí." },
 
     { id: "estacoes", category: "Gastronomia", title: "Estações gastronômicas", status: "confirmado",
-      keywords: ["estacao", "estacoes", "ilha gastronomica", "ilha", "cascata de chocolate", "fondue", "fast food", "hamburguer", "hamburgueres", "mini hamburguer", "milk shake", "milkshake"],
-      answer: "A Mapersí tem diversas estações — já montamos estação de massas, estação fast food (com mini hambúrgueres e milk-shake) e cascata de chocolate. A equipe envia as opções disponíveis no catálogo.",
+      keywords: ["estacao", "estacoes", "ilha gastronomica", "ilhas", "ilha", "cascata de chocolate", "fondue", "fast food", "hamburguer", "hamburgueres", "mini hamburguer", "milk shake", "milkshake", "risoto", "risotos", "crepe", "crepes"],
+      answer: "A Mapersí tem estações de massas, risotos, crepes, fast food (com mini hambúrgueres e milk-shake), cascata de chocolate e muito mais, além de ilhas gastronômicas. A equipe envia as opções disponíveis no catálogo.",
       setsService: "Estações gastronômicas", startsLead: true,
       evidence: "Posts: 'temos diversas estações', estação fast food, cascata de chocolate." },
 

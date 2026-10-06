@@ -9,7 +9,7 @@ Levantamento feito em 06/10/2026. Cada dado do site tem uma fonte abaixo. O que 
 | Instagram oficial **@mapersibuffet** | Nome do perfil “Buffet \| Estações \| Ilha gastronômica”; bio (“Casamento \| corporativos \| Social”, e-mail, site, link de WhatsApp, nome Thaiane Maciel); 12 publicações mais recentes, com legendas, fotos e vídeos | ✅ Acessado |
 | Google Maps — ficha **“Mapersi buffet”** | Endereço R. Caiena, Bento Ribeiro, 21555-140; telefone +55 21 99352-3937; nota **5**; categoria “Buffet de casamento”; site mapersi.com.br; coordenadas | ✅ Acessado |
 | Link **wa.me** da bio | A página do WhatsApp identifica o número 5521993523937 como “Mapersí buffet” | ✅ Confirma o telefone |
-| Site **mapersi.com.br** | Fora do ar durante a pesquisa (erro 522 do Cloudflare) | ⚠️ Não foi possível ler |
+| Site **mapersi.com.br** | Voltou ao ar: buffet volante no estado do RJ desde 2018; estações (massas, risotos, crepes); ilhas gastronômicas; corporativo (happy hour, lançamento, confraternização); festas infantis e take-away; clientes e parceiros (Fiocruz, SENAI, Hospital Carlos Chagas, Estasa, Cartão de Todos, Colégio Sagrado Coração de Maria); fotos profissionais | ✅ Acessado |
 | Textos das avaliações do Google | Não foi possível extrair sem login | ⚠️ Pendente |
 | Facebook, casamentos.com.br, demais plataformas | Buscas não retornaram páginas da Mapersí (bloqueios/sem resultado) | ⚠️ Não encontrado |
 
@@ -33,10 +33,10 @@ O site e a Concierge respondem “precisa ser confirmado com a equipe” para tu
 - [ ] Churrasco (citado no briefing, mas sem publicação recente) — se existir, ativar o serviço
 - [ ] Degustação: existe? valor? como agendar? quantas pessoas?
 - [ ] Restrições alimentares atendidas (vegetariano, vegano, sem glúten, sem lactose, alergias, diabetes, religiosas)
-- [ ] Menu infantil / festa infantil
+- [x] Festa infantil — confirmada no site oficial (menu infantil específico ainda a confirmar)
 - [ ] Bebidas incluídas por formato; taxa de rolha
 - [ ] Equipe por convidado, maître, louças, taças, mobiliário, montagem/desmontagem, necessidade de cozinha no local
-- [ ] Regiões atendidas e taxa de deslocamento
+- [x] Regiões: todo o estado do RJ (site oficial) — taxa de deslocamento ainda a confirmar
 - [ ] Pacotes, formas de pagamento, parcelamento, sinal, contrato, cancelamento, mudança de data
 - [ ] Duração do serviço, hora extra, convidados extras
 - [ ] Antecedência recomendada para contratar
@@ -55,3 +55,7 @@ Decisões adaptadas para a Mapersí (sem copiar layout):
 - Prova social discreta e verificável (nota Google + vídeo real de feedback)
 - Orçamento em etapas, uma pergunta por tela, terminando no WhatsApp (o canal que a Mapersí já usa)
 - Concierge que conduz para o orçamento em vez de só responder
+
+## Observação sobre o site atual
+
+Os depoimentos do site atual (Marta Silva, Rafael Faria, Carlos Passos, Roberto Costa, Elaine Hlatki) aparecem com fotos de banco de imagens e parecem textos de modelo. Por isso **não** foram usados; o novo site usa somente avaliações reais do Google.

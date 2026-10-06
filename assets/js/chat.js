@@ -42,6 +42,7 @@
   var MONTHS_PT = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho', 'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
   var EVENTS = [
+    [/(^| )(festa infantil|aniversario infantil|festa de crianca|infantil)/, 'Festa infantil'],
     [/(^| )(15 anos|quinze anos|debutante|debut)/, 'Festa de 15 anos'],
     [/(^| )(casamento|casar|casando|caso em|vou me casar|noiva|noivo|noivos|matrimonio|renovacao de votos|renovar os votos)/, 'Casamento'],
     [/(^| )(noivado)/, 'Noivado'],
@@ -50,7 +51,6 @@
     [/(^| )(cha de bebe|cha revelacao|cha de panela|cha bar|cha de)/, 'Chá'],
     [/(^| )(batizado)/, 'Batizado'],
     [/(^| )(formatura)/, 'Formatura'],
-    [/(^| )(festa infantil|aniversario infantil)/, 'Festa infantil'],
     [/(^| )bodas/, 'Bodas'],
     [/(^| )(evento social|confraternizacao familiar|festa)( |$)/, 'Outro evento social']
   ];
