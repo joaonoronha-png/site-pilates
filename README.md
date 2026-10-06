@@ -34,8 +34,10 @@ npm run preview    # serve o build
 | Profissional | Registros | Vínculo com a BCM | Fonte |
 |---|---|---|---|
 | Dra. Marina Bittencourt | CRM-RJ 52749591 · CRM-SP 209.114 · RQE 31826 · Medicina UFRJ · Dermatologia Inst. Prof. Azulay · Membro Titular SBD · Membro GBM | **Atende na BCM** (site oficial) + sócia | dramarinabittencourt.com.br |
-| Dra. Bruna Duque Estrada | CRM-RJ 801313 · RQE 24366 | Sócia (CNPJ); o perfil público lista atendimento em outra clínica (Leblon) | Doctoralia |
-| Dra. Carla Tamler | CRM-RJ 777153 · RQE 25014 | Sócia (CNPJ); o perfil público lista atendimento em outra clínica (Leblon) | Doctoralia |
+| Dra. Bruna Duque Estrada | CRM-RJ 801313 · RQE 24366 · Especialista SBD · coordenadora do ambulatório de Tricologia do Inst. Azulay (Santa Casa RJ) · coautora do II Consenso SBD de alopecia areata (2025) | Sócia (CNPJ); o perfil público lista atendimento em outra clínica (Leblon) | Doctoralia; Trichology Club Academy; corpo docente Azulay; Anais Bras. Dermatol. |
+| Dra. Carla Tamler | CRM-RJ 777153 · RQE 25014 · Especialista SBD · corpo docente do Inst. Azulay (ex-preceptora) · estudo sobre vitiligo (2011) | Sócia (CNPJ); o perfil público lista atendimento em outra clínica (Leblon) | Doctoralia; corpo docente Azulay; SciELO |
+
+A Dra. Marina também é **professora de Cosmiatria** do Instituto Azulay e atua em dermatologia clínica e estética (Doctoralia).
 
 ### Não encontrado (o site diz isso abertamente, sem inventar)
 
@@ -61,7 +63,7 @@ npm run preview    # serve o build
 index.html, dermatologia/, equipe/<slug>/, privacidade/   ← "cascas" HTML (preenchidas no build)
 src/
   data/site.js        ← FONTE ÚNICA DE VERDADE (com fontes de cada dado)
-  data/faq.js         ← 33 perguntas em 11 categorias
+  data/faq.js         ← 37 perguntas em 11 categorias
   pages.js            ← composição das páginas + SEO (meta, OG, Schema.org)
   components/         ← Header, Hero, Search, About, Specialties, Services, Doctors,
                         DoctorProfile, SpecialtyPage, Differentials (+Experience), Gallery,

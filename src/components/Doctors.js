@@ -12,6 +12,8 @@ export const renderDoctorCard = (d) => `<article class="doctor-card reveal" data
     <div class="doctor-body">
       <p class="doctor-role">${esc(d.role)}</p>
       <h3 class="h3 doctor-name">${esc(d.name)}</h3>
+      <p class="doctor-focus">${esc(d.focus)}</p>
+      <ul class="doctor-tags" aria-label="Áreas de destaque">${d.highlights.map((h) => `<li>${esc(h)}</li>`).join('')}</ul>
       <p class="doctor-reg">${d.registrations.map(esc).join(' · ')}</p>
       <p class="doctor-summary">${esc(d.summary)}</p>
       <span class="btn btn-link"><span>Conhecer profissional</span>${icon('arrow', 'btn-arrow')}</span>
@@ -27,7 +29,7 @@ export function renderDoctors() {
         <p class="eyebrow reveal">Equipe</p>
         <h2 id="team-title" class="h2 reveal">Conheça nossa <em>equipe.</em></h2>
       </div>
-      <p class="section-intro reveal">Dermatologistas que constam como sócias da BCM no registro público da empresa. Dados profissionais conforme fontes públicas oficiais.</p>
+      <p class="section-intro reveal">Três dermatologistas especialistas pela SBD, sócias da BCM, com atuação docente no Instituto de Dermatologia Prof. Rubem David Azulay, da Santa Casa do Rio. Dados profissionais conforme fontes públicas oficiais.</p>
     </div>
     <div class="finder reveal" data-finder>
       <p class="finder-title">Encontre um especialista</p>

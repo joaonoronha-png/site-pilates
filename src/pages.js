@@ -14,6 +14,7 @@ import { renderServices } from './components/Services.js';
 import { renderDoctors } from './components/Doctors.js';
 import { renderDifferentials, renderExperience } from './components/Differentials.js';
 import { renderGallery } from './components/Gallery.js';
+import { renderSkinGuide } from './components/SkinGuide.js';
 import { renderFAQ } from './components/FAQ.js';
 import { renderLocation, renderInstagram } from './components/Location.js';
 import { renderCTA, renderFooter, renderAssistantLauncher } from './components/Footer.js';
@@ -120,7 +121,7 @@ export function renderPage(page, { siteUrl = '', aiRemote = false } = {}) {
       }),
       body: `${renderIntro()}${renderHeader({ home: true })}
 <main id="conteudo">
-${renderHero()}${renderSearch()}${renderAbout()}${renderSpecialties()}${renderServices()}${renderDoctors()}${renderDifferentials()}${renderExperience()}${renderGallery()}${renderFAQ()}${renderLocation()}${renderInstagram()}${renderCTA()}
+${renderHero()}${renderSearch()}${renderAbout()}${renderSpecialties()}${renderServices()}${renderDoctors()}${renderDifferentials()}${renderExperience()}${renderSkinGuide()}${renderGallery()}${renderFAQ()}${renderLocation()}${renderInstagram()}${renderCTA()}
 </main>
 ${footer(true)}`,
     };

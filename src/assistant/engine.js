@@ -70,7 +70,7 @@ const hoursText = () =>
   `${clinic.hours.map((h) => `${h.day}: ${fmtHour(h.opens)} às ${fmtHour(h.closes)}`).join('\n')}\n\n${clinic.hoursNote}`;
 
 const doctorText = (d) =>
-  `${d.name} (${d.fullName}) — dermatologista, ${d.registrations.join(', ')}.${d.education.length ? `\nFormação: ${d.education.join('; ')}.` : ''}${
+  `${d.name} (${d.fullName}) — dermatologista, ${d.registrations.join(', ')}. Foco: ${d.focus.toLowerCase()}.${d.academic.length ? `\n${d.academic[0]}.` : ''}${d.education.length ? `\nFormação: ${d.education.join('; ')}.` : ''}${
     d.memberships.length ? `\n${d.memberships.join('; ')}.` : ''
   }${d.atBcmConfirmed ? `\nAtende na BCM, na ${clinic.address.street}.` : '\nConsta como sócia da BCM; a agenda na unidade é confirmada pela equipe.'}`;
 
@@ -141,10 +141,13 @@ export function respond(input, state = {}) {
     return out({ ...bookingStart(), note: 'Não consigo avaliar sintomas por aqui, mas a dermatologista avalia tudo em consulta.' });
   }
   if (has(text, ...MEDICAL)) {
+    const hair = has(text, ' cabelo', ' queda', ' calvicie', ' alopecia', ' couro cabeludo', ' caindo');
     return out({
       text: 'Não consigo avaliar sintomas, indicar medicamentos ou doses, nem interpretar exames — isso depende de uma avaliação médica. De forma geral, alterações da pele, dos cabelos, das unhas e das mucosas são avaliadas pelo dermatologista em consulta. Posso ajudar você a agendar?',
       actions: [A.choice('Quero agendar', 'booking:start'), A.team()],
-      note: 'Se os sintomas forem intensos ou piorarem rapidamente, procure atendimento médico imediato.',
+      note: hair
+        ? 'Na equipe, a Dra. Bruna Duque Estrada tem foco em tricologia (cabelos e couro cabeludo). Confirme a agenda dela com a equipe.'
+        : 'Se os sintomas forem intensos ou piorarem rapidamente, procure atendimento médico imediato.',
     });
   }
 
@@ -190,6 +193,10 @@ export function respond(input, state = {}) {
       actions: [A.phone(), A.whatsapp()],
     });
   }
+  if (has(text, ' formacao', ' curriculo', ' experiencia da equipe', ' onde estudaram', ' qualificacao')) {
+    const f = faqs.find((x) => x.id === 'formacao-equipe');
+    return out({ text: f.a, actions: [A.link('Conhecer a equipe', '/#equipe')], source: 'FAQ · Especialidades' });
+  }
   if (has(text, ' medic', ' doutora', ' doutor', ' dra ', ' equipe', ' profissiona', ' dermatologista', ' quem atende')) {
     return out({
       text: `Constam como sócias da BCM as dermatologistas:\n${doctors.map((d) => `• ${d.name} — ${d.registrations.join(', ')}`).join('\n')}\n\nA agenda de cada profissional na unidade é confirmada pela equipe.`,
@@ -217,7 +224,7 @@ export function respond(input, state = {}) {
   }
 
   // 6. Base da FAQ.
-  const [best] = faqSearch(input, { limit: 1, minScore: 2.2 });
+  const [best] = faqSearch(input, { limit: 1, minScore: 2.2, prefixMin: 5 });
   if (best) {
     const f = faqs.find((x) => x.id === best.doc.faqId);
     return out({ text: f.a, actions: actionsFromFaq(f), source: `FAQ · ${f.category}` });

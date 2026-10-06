@@ -3,6 +3,7 @@ import { esc, icon, picture } from '../lib/html.js';
 import { renderDoctorCard } from './Doctors.js';
 import { renderServiceCard } from './Services.js';
 import { renderFAQ } from './FAQ.js';
+import { renderConditions } from './SkinGuide.js';
 
 export function renderSpecialtyPage(spec) {
   return `<main id="conteudo" class="page specialty-page">
@@ -29,6 +30,7 @@ export function renderSpecialtyPage(spec) {
       <div class="areas-grid">
         ${dermatologyAreas.map((a) => `<article class="area-card reveal"><span class="area-n">${a.index}</span><h3 class="h3">${esc(a.label)}</h3><p>${esc(a.text)}</p></article>`).join('')}
       </div>
+      <div class="reveal" style="margin-top:56px">${renderConditions()}</div>
     </div>
   </section>
 

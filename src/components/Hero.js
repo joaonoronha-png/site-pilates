@@ -11,7 +11,7 @@ export function renderHero() {
         <span class="line"><span class="hero-in" style="--d:1">Dermatologia especializada.</span></span>
         <span class="line"><em class="hero-in" style="--d:2">Cuidado em cada detalhe.</em></span>
       </h1>
-      <p class="hero-sub hero-in" style="--d:3">Dermatologistas com Registro de Qualificação de Especialista, em uma clínica dedicada à pele, aos cabelos e às unhas — na Av. das Américas.</p>
+      <p class="hero-sub hero-in" style="--d:3">Dermatologistas especialistas pela SBD, com atuação docente no Instituto de Dermatologia Prof. Azulay, em uma clínica dedicada à pele, aos cabelos e às unhas — na Av. das Américas.</p>
       <div class="hero-ctas hero-in" style="--d:4">
         <a class="btn btn-primary btn-lg magnetic" href="#contato" data-assistant-open="agendar"><span>Agende seu atendimento</span>${icon('arrow', 'btn-arrow')}</a>
         <a class="btn btn-link" href="#a-bcm"><span>Conheça a BCM</span>${icon('arrowDown', 'btn-arrow')}</a>

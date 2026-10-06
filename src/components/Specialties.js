@@ -1,5 +1,6 @@
 import { dermatologyAreas, specialties } from '../data/site.js';
 import { esc, icon, picture } from '../lib/html.js';
+import { renderConditions } from './SkinGuide.js';
 
 /**
  * WOW 02 — explorador da dermatologia. A única especialidade confirmada é
@@ -39,8 +40,9 @@ export function renderSpecialties() {
         <span class="img-note">Imagens ilustrativas</span>
       </div>
     </div>
+    <div class="reveal">${renderConditions({ dark: true })}</div>
     <div class="spec-footer reveal">
-      <p class="note">Conteúdo informativo sobre o escopo da especialidade. Confirme com a equipe os atendimentos disponíveis na BCM.</p>
+      <p class="note">Na equipe: dermatologia clínica e estética, cosmiatria e tricologia.</p>
       <div class="spec-ctas">
         <a class="btn btn-light magnetic" href="#contato" data-assistant-open="agendar"><span>Agendar consulta</span>${icon('arrow', 'btn-arrow')}</a>
         <a class="btn btn-link btn-link-light" href="/${spec.slug}/"><span>Ver a especialidade</span>${icon('arrow', 'btn-arrow')}</a>

@@ -311,3 +311,19 @@ export function mountTimeline() {
   window.addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
   update();
 }
+
+/** Filtro das condições avaliadas pela dermatologia. */
+export function mountConditions() {
+  document.querySelectorAll('[data-conditions]').forEach((root) => {
+    const items = [...root.querySelectorAll('.condition')];
+    root.addEventListener('click', (e) => {
+      const b = e.target.closest('[data-cond]');
+      if (!b) return;
+      root.querySelectorAll('[data-cond]').forEach((x) => {
+        x.classList.toggle('is-active', x === b);
+        x.setAttribute('aria-pressed', String(x === b));
+      });
+      items.forEach((it) => (it.hidden = Boolean(b.dataset.cond) && it.dataset.area !== b.dataset.cond));
+    });
+  });
+}

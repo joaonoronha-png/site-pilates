@@ -69,3 +69,13 @@ test('fallback honesto quando não sabe', () => {
   assert.equal(r.matched, false);
   assert.deepEqual(types(r), ['handoff']);
 });
+
+test('perguntas sobre cabelo indicam a tricologista sem diagnosticar', () => {
+  const r = ask('Meu cabelo está caindo muito, o que pode ser?');
+  assert.match(r.text, /Não consigo avaliar/);
+  assert.match(r.note, /tricologia/);
+});
+
+test('formação da equipe vem da FAQ', () => {
+  assert.match(ask('Qual a formação da equipe?').text, /Instituto de Dermatologia Prof\. Rubem David Azulay/);
+});

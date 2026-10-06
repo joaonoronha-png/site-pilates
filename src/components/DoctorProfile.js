@@ -18,7 +18,7 @@ export function renderDoctorProfile(d) {
       <div class="profile-main">
         <p class="eyebrow reveal">${esc(d.role)}</p>
         <h1 class="h1 reveal">${esc(d.name)}</h1>
-        <p class="profile-fullname reveal">${esc(d.fullName)}</p>
+        <p class="profile-fullname reveal">${esc(d.fullName)} · ${esc(d.focus)}</p>
         <ul class="badges reveal" aria-label="Registros profissionais">${d.registrations.map((r) => `<li class="badge">${esc(r)}</li>`).join('')}</ul>
         <p class="lead reveal">${esc(d.summary)}</p>
         <div class="profile-ctas reveal">
@@ -29,7 +29,8 @@ export function renderDoctorProfile(d) {
     </div>
 
     <div class="profile-sections">
-      <section class="profile-block reveal" aria-labelledby="p-areas"><h2 id="p-areas" class="h4">Especialidade</h2>${list([d.specialty])}</section>
+      <section class="profile-block reveal" aria-labelledby="p-areas"><h2 id="p-areas" class="h4">Especialidade e áreas de destaque</h2>${list([d.specialty, ...d.highlights])}</section>
+      ${d.academic.length ? `<section class="profile-block reveal" aria-labelledby="p-acad"><h2 id="p-acad" class="h4">Ensino e pesquisa</h2>${list(d.academic)}</section>` : ''}
       ${d.education.length ? `<section class="profile-block reveal" aria-labelledby="p-edu"><h2 id="p-edu" class="h4">Formação</h2>${list(d.education)}</section>` : ''}
       ${d.memberships.length ? `<section class="profile-block reveal" aria-labelledby="p-mem"><h2 id="p-mem" class="h4">Associações e credenciais</h2>${list(d.memberships)}</section>` : ''}
       <section class="profile-block reveal" aria-labelledby="p-bcm"><h2 id="p-bcm" class="h4">Atendimento na BCM</h2><p>${bcm}</p>${d.otherLocations.length ? list(d.otherLocations) : ''}</section>

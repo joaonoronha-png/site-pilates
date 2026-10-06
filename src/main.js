@@ -7,7 +7,7 @@ import { mountIntro, mountHeader } from './client/header.js';
 import { mountReveal, mountParallax, mountMagnetic, mountTilt, mountCounters } from './client/motion.js';
 import {
   mountOpenStatus, mountCursorOrb, mountSmartSearch, mountExplorer, mountFinder,
-  mountGallery, mountFAQ, mountMap, mountTimeline,
+  mountGallery, mountFAQ, mountMap, mountTimeline, mountConditions,
 } from './client/sections.js';
 
 /** Assistente BCM: código carregado somente quando alguém o abre. */
@@ -45,3 +45,4 @@ mountGallery();
 mountFAQ(openAssistant);
 mountMap();
 mountTimeline();
+mountConditions();

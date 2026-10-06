@@ -1,4 +1,4 @@
-import { clinic, doctors, services, specialties, dermatologyAreas, differentials, addressLine } from '../data/site.js';
+import { clinic, doctors, services, specialties, dermatologyAreas, differentials, addressLine, conditions, skinGuide } from '../data/site.js';
 import { faqs } from '../data/faq.js';
 import { tokenize, normalize } from './text.js';
 
@@ -39,8 +39,12 @@ export function buildDocuments() {
   for (const d of doctors)
     docs.push({
       type: 'Profissional', title: d.name, href: `/equipe/${d.slug}/`,
-      text: `${d.name} ${d.fullName} ${d.specialty} dermatologista médica ${d.registrations.join(' ')} ${d.education.join(' ')} ${d.memberships.join(' ')}`,
+      text: `${d.name} ${d.fullName} ${d.specialty} ${d.focus} ${d.highlights.join(' ')} dermatologista médica ${d.registrations.join(' ')} ${d.education.join(' ')} ${d.memberships.join(' ')} ${d.academic.join(' ')}`,
     });
+  for (const c of conditions)
+    docs.push({ type: `Dermatologia · ${c.area}`, title: c.name, href: '/#especialidades', text: `${c.name} ${c.text} ${c.area}` });
+  for (const g of skinGuide)
+    docs.push({ type: 'Guia da pele', title: g.title, href: '/#guia', text: `${g.title} ${g.intro} ${g.items.map((i) => i.join(' ')).join(' ')}` });
   for (const d of differentials)
     docs.push({ type: 'Diferencial', title: d.title, href: '/#diferenciais', text: `${d.title} ${d.text}` });
   for (const f of faqs)
@@ -58,7 +62,7 @@ export function createSearch(docs = buildDocuments()) {
   const df = new Map();
   for (const d of docs) for (const t of new Set(d.tokens)) df.set(t, (df.get(t) || 0) + 1);
 
-  return function search(query, { limit = 6, minScore = 0.6 } = {}) {
+  return function search(query, { limit = 6, minScore = 0.6, prefixMin = 3 } = {}) {
     const q = tokenize(query);
     if (!q.length) return [];
     const scored = docs.map((d) => {
@@ -68,7 +72,7 @@ export function createSearch(docs = buildDocuments()) {
         let matched = null;
         for (const t of d.tokens) {
           if (t === term) { tf += 1; matched = t; }
-          else if (term.length >= 3 && t.startsWith(term)) { tf += 0.7; matched = matched || t; }
+          else if (term.length >= prefixMin && t.startsWith(term)) { tf += 0.7; matched = matched || t; }
         }
         if (!tf) continue;
         const idf = Math.log(1 + (N - (df.get(matched) || 1) + 0.5) / ((df.get(matched) || 1) + 0.5));
