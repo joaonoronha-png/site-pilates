@@ -110,10 +110,6 @@
      ------------------------------------------------------------------ */
   var ICON_WA = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2A9.7 9.7 0 0 0 3.6 16.8L2.3 21.7l5-1.3A9.7 9.7 0 1 0 12 2.2zm0 17.7a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 19.9z"/></svg>';
   mount.innerHTML =
-    '<button class="concierge__launcher" type="button" aria-haspopup="dialog" aria-controls="concierge-panel" data-c-open>' +
-      '<span class="concierge__avatar" aria-hidden="true">M</span>' +
-      '<span class="concierge__launch-text"><strong>Concierge Mapersí</strong><small>Dúvidas e orçamento</small></span>' +
-    '</button>' +
     '<section class="concierge__panel" id="concierge-panel" role="dialog" aria-modal="false" aria-label="Concierge Virtual Mapersí">' +
       '<header class="concierge__head">' +
         '<span class="concierge__avatar" aria-hidden="true">M</span>' +
@@ -597,7 +593,6 @@
     if (lastFocus && lastFocus.focus) lastFocus.focus({ preventScroll: true });
   }
 
-  mount.querySelector('[data-c-open]').addEventListener('click', function () { open('launcher'); });
   mount.querySelector('[data-c-close]').addEventListener('click', close);
   mount.querySelector('[data-c-human]').addEventListener('click', function () { addMsg('user', 'Falar com a equipe'); handoff(); });
   panel.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });

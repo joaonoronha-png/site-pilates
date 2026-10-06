@@ -63,10 +63,7 @@
   /* ---------------- header ---------------- */
   var header = $('[data-header]');
   var hero = $('.hero');
-  var dock = $('[data-dock]');
   var lastY = window.pageYOffset;
-  var quoteSection = $('#orcamento');
-  var quoteInView = false;
   function onScrollHeader() {
     var y = window.pageYOffset;
     var heroH = hero ? hero.offsetHeight : 600;
@@ -77,14 +74,10 @@
       if (goingDown && y > heroH * .9) header.classList.add('is-hidden');
       else if (goingUp || y < heroH * .5) header.classList.remove('is-hidden');
     }
-    if (dock) dock.classList.toggle('is-visible', y > heroH * .6 && !quoteInView && !doc.classList.contains('chat-open'));
     lastY = y;
   }
   window.addEventListener('scroll', onScrollHeader, { passive: true });
   onScrollHeader();
-  if (quoteSection && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function (en) { quoteInView = en[0].isIntersecting; onScrollHeader(); }, { threshold: .25 }).observe(quoteSection);
-  }
 
   // item de menu atual
   var navLinks = $$('.nav__list a');
@@ -433,6 +426,22 @@
       if (key === 'catalogo') track('catalog_request');
     });
   });
+
+  /* ---------------- botão "Como chegar" (menu de apps) ---------------- */
+  var routes = $('[data-routes]');
+  if (routes) {
+    var rBtn = $('[data-routes-btn]', routes), rMenu = $('.rfab__menu', routes);
+    var setRoutes = function (open) {
+      rMenu.hidden = !open;
+      routes.classList.toggle('is-open', open);
+      rBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      rBtn.setAttribute('aria-label', open ? 'Fechar opções de rota' : 'Como chegar: escolher app de mapas');
+      if (open) { track('routes_open'); var f = rMenu.querySelector('a'); if (f) f.focus(); }
+    };
+    rBtn.addEventListener('click', function () { setRoutes(rMenu.hidden); });
+    document.addEventListener('click', function (e) { if (!rMenu.hidden && !routes.contains(e.target)) setRoutes(false); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !rMenu.hidden) { setRoutes(false); rBtn.focus(); } });
+  }
 
   /* ---------------- abrir concierge ---------------- */
   document.addEventListener('click', function (e) {
