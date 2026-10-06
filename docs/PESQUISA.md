@@ -42,7 +42,7 @@ O site e a Concierge respondem “precisa ser confirmado com a equipe” para tu
 - [ ] Antecedência recomendada para contratar
 - [ ] Horário de atendimento (Google só mostrava terça 08h–18h)
 - [ ] Cargo de Thaiane Maciel (aparece na bio) — para eventual seção “quem faz”
-- [ ] 3 a 6 avaliações do Google autorizadas para o slider (`reviews` na base)
+- [x] 6 avaliações reais do Google no carrossel (`reviews` na base) — confirmar com a Mapersí se pode exibir os nomes abreviados
 - [ ] Logo vetorial oficial (SVG) — hoje o site usa um wordmark tipográfico inspirado no logo
 - [ ] Fotos em alta resolução dos eventos (as atuais vêm de frames dos Reels, ~720 px)
 

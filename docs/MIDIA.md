@@ -25,7 +25,12 @@ As fotos são frames extraídos dos Reels (por isso ~720 px de largura) e foram 
 | `img/slider` | [DdPhZiIvIhF](https://www.instagram.com/reel/DdPhZiIvIhF/) | Estação fast food |
 | `img/chefcart`, `img/penne` | [DdRm5OIxqgj](https://www.instagram.com/reel/DdRm5OIxqgj/) | Estações |
 | `img/massas-foto-0…4`, `og-mapersi.jpg` | [Dc0wLhSERLl](https://www.instagram.com/p/Dc0wLhSERLl/) | Carrossel da estação de massas (foto profissional) |
-| `ig/*_cover` | capas das 12 publicações | seção “Acompanhe nossos eventos” |
+| `img/p-leticia-casal` | DLQ9Sfytqw2 | Portfólio — Letícia & Bruno |
+| `img/p-renov-estacao`, `img/p-renov-coxinhas` | DO6gTxAETTb | Portfólio — Renovação de votos |
+| `img/p-isabel-servico` | DdHTk2RxJdu | Portfólio — 15 anos da Isabel |
+| `img/p-thaty-convidados`, `img/p-thaty-servico` | DcJ1H8Hv8L- | Portfólio — 40 anos da Thaty |
+| `img/p-coffee-pessoas` | DcuEvizBV3Y | Portfólio — Coffee break |
+| `ig/*_cover` | capas das publicações | faixas em rotação da seção Instagram |
 | `apple-touch-icon.png`, `icon-192.png`, `favicon-32.png` | foto de perfil (logo) | ícones |
 
 ## Para trocar ou adicionar fotos

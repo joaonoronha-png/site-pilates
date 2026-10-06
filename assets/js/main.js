@@ -290,40 +290,34 @@
     rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
   }
 
-  /* ---------------- galeria + lightbox ---------------- */
+  /* ---------------- portfólio + lightbox ---------------- */
   var dlg = $('[data-lightbox-dialog]');
-  var tiles = $$('[data-lightbox]');
-  var lbIndex = 0, lastFocus = null;
   var stage = $('[data-lightbox-stage]');
   var caption = $('[data-lightbox-caption]');
+  var lbItems = [], lbIndex = 0, lastFocus = null;
   function renderLb() {
-    var t = tiles[lbIndex];
-    var src = t.getAttribute('href');
+    var it = lbItems[lbIndex];
     stage.innerHTML = '';
     var media;
-    if (t.getAttribute('data-type') === 'video') {
+    if (it.type === 'video') {
       media = document.createElement('video');
-      media.src = src; media.controls = true; media.autoplay = true; media.loop = true; media.playsInline = true; media.muted = true;
+      media.src = it.src; media.controls = true; media.autoplay = true; media.loop = true; media.playsInline = true; media.muted = true;
     } else {
       media = document.createElement('img');
-      media.src = src;
-      var inner = t.querySelector('img');
-      media.alt = inner ? inner.alt : '';
+      media.src = it.src; media.alt = it.alt || '';
     }
     stage.appendChild(media);
-    caption.textContent = t.getAttribute('data-caption') || '';
+    caption.textContent = it.cap + (lbItems.length > 1 ? '  ·  ' + (lbIndex + 1) + '/' + lbItems.length : '');
   }
-  function openLb(i) {
-    lbIndex = i; lastFocus = document.activeElement;
+  function openLb(items, i) {
+    lbItems = items; lbIndex = i || 0; lastFocus = document.activeElement;
     renderLb();
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute('open', '');
     if (lenis) lenis.stop();
-    track('gallery_open', { index: i });
   }
   function closeLb() { stage.innerHTML = ''; if (dlg.close) dlg.close(); else dlg.removeAttribute('open'); }
-  function moveLb(d) { lbIndex = (lbIndex + d + tiles.length) % tiles.length; renderLb(); }
+  function moveLb(d) { lbIndex = (lbIndex + d + lbItems.length) % lbItems.length; renderLb(); }
   if (dlg) {
-    tiles.forEach(function (t, i) { t.addEventListener('click', function (e) { e.preventDefault(); openLb(i); }); });
     $('[data-lightbox-close]').addEventListener('click', closeLb);
     $('[data-lightbox-prev]').addEventListener('click', function () { moveLb(-1); });
     $('[data-lightbox-next]').addEventListener('click', function () { moveLb(1); });
@@ -342,35 +336,83 @@
       sx = null;
     });
   }
-  var gallery = $('#galeria');
-  if (gallery && 'IntersectionObserver' in window) {
-    var go = new IntersectionObserver(function (en) {
-      if (en[0].isIntersecting) { track('gallery_view'); go.disconnect(); }
+  $$('[data-case]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var items = []; try { items = JSON.parse(b.getAttribute('data-case')); } catch (e) { return; }
+      openLb(items, 0);
+      track('portfolio_open', { evento: b.closest('.case').querySelector('.case__title').textContent });
+    });
+  });
+  // filtros
+  var filters = $$('[data-filter]');
+  var caseCards = $$('.case[data-cat]');
+  filters.forEach(function (f) {
+    f.addEventListener('click', function () {
+      var cat = f.getAttribute('data-filter');
+      filters.forEach(function (x) { var on = x === f; x.classList.toggle('is-on', on); x.setAttribute('aria-pressed', on ? 'true' : 'false'); });
+      caseCards.forEach(function (c) {
+        var show = cat === 'todos' || c.getAttribute('data-cat') === cat;
+        c.hidden = !show;
+        if (show) c.classList.add('is-in');
+      });
+      track('portfolio_filter', { filtro: cat });
+    });
+  });
+  var portfolio = $('#portfolio');
+  if (portfolio && 'IntersectionObserver' in window) {
+    var po = new IntersectionObserver(function (en) {
+      if (en[0].isIntersecting) { track('portfolio_view'); po.disconnect(); }
     }, { threshold: .2 });
-    go.observe(gallery);
+    po.observe(portfolio);
   }
 
-  /* ---------------- avaliações (da base de conhecimento) ---------------- */
-  var reviewsBox = $('[data-reviews]');
-  if (reviewsBox && KB.reviews && KB.reviews.length) {
-    var esc = function (s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
-    reviewsBox.innerHTML =
-      '<div class="slider__viewport"><div class="slider__track">' +
-      KB.reviews.map(function (r, i) {
-        return '<div class="slider__slide" role="group" aria-roledescription="slide" aria-label="' + (i + 1) + ' de ' + KB.reviews.length + '"><blockquote>“' + esc(r.text) + '”</blockquote><cite>' + esc(r.author) + ' · ' + esc(r.source || 'Google') + '</cite></div>';
-      }).join('') +
-      '</div></div><div class="slider__controls"><button class="icon-btn" type="button" aria-label="Avaliação anterior" data-s-prev><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="icon-btn" type="button" aria-label="Próxima avaliação" data-s-next><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button></div>';
-    var track_ = $('.slider__track', reviewsBox), si = 0, n = KB.reviews.length, timer;
-    var go_ = function (d) { si = (si + d + n) % n; track_.style.transform = 'translateX(' + (-si * 100) + '%)'; };
-    $('[data-s-prev]', reviewsBox).addEventListener('click', function () { go_(-1); });
-    $('[data-s-next]', reviewsBox).addEventListener('click', function () { go_(1); });
-    if (!reduceMotion && n > 1) {
-      var start = function () { timer = setInterval(function () { go_(1); }, 7000); };
-      var stop = function () { clearInterval(timer); };
-      reviewsBox.addEventListener('mouseenter', stop); reviewsBox.addEventListener('mouseleave', start);
-      reviewsBox.addEventListener('focusin', stop);
-      start();
+  /* ---------------- avaliações em rotação ---------------- */
+  var rv = $('[data-rv]');
+  if (rv) {
+    var slides = $$('.rv__slide', rv);
+    var dotsBox = $('[data-rv-dots]', rv);
+    var RV_TIME = 7000, ri = 0, rvTimer = null, paused = false;
+    rv.style.setProperty('--rv-time', RV_TIME / 1000 + 's');
+    var dots = slides.map(function (_, i) {
+      var d = document.createElement('button');
+      d.type = 'button'; d.className = 'rv__dot';
+      d.setAttribute('aria-label', 'Avaliação ' + (i + 1));
+      d.addEventListener('click', function () { goRv(i, true); });
+      dotsBox.appendChild(d);
+      return d;
+    });
+    function goRv(i, user) {
+      ri = (i + slides.length) % slides.length;
+      slides.forEach(function (s, k) { var on = k === ri; s.classList.toggle('is-active', on); s.setAttribute('aria-hidden', on ? 'false' : 'true'); });
+      dots.forEach(function (d, k) {
+        d.classList.remove('is-active');
+        d.classList.toggle('is-done', k < ri);
+        if (k === ri) { void d.offsetWidth; d.classList.add('is-active'); d.setAttribute('aria-current', 'true'); } else d.removeAttribute('aria-current');
+      });
+      schedule();
+      if (user) track('review_nav');
     }
+    function schedule() {
+      clearTimeout(rvTimer);
+      if (reduceMotion || paused) return;
+      rvTimer = setTimeout(function () { goRv(ri + 1); }, RV_TIME);
+    }
+    function setPaused(v) { paused = v; rv.classList.toggle('is-paused', v); if (!v) schedule(); else clearTimeout(rvTimer); }
+    $('[data-rv-prev]', rv).addEventListener('click', function () { goRv(ri - 1, true); });
+    $('[data-rv-next]', rv).addEventListener('click', function () { goRv(ri + 1, true); });
+    rv.addEventListener('mouseenter', function () { setPaused(true); });
+    rv.addEventListener('mouseleave', function () { setPaused(false); });
+    rv.addEventListener('focusin', function () { setPaused(true); });
+    rv.addEventListener('focusout', function () { setPaused(false); });
+    var rsx = null;
+    rv.addEventListener('touchstart', function (e) { rsx = e.touches[0].clientX; }, { passive: true });
+    rv.addEventListener('touchend', function (e) {
+      if (rsx == null) return;
+      var dx = e.changedTouches[0].clientX - rsx;
+      if (Math.abs(dx) > 40) goRv(ri + (dx < 0 ? 1 : -1), true);
+      rsx = null;
+    });
+    goRv(0);
   }
 
   /* ---------------- mapa (carrega só no clique) ---------------- */

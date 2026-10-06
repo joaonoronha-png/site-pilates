@@ -308,5 +308,68 @@
    480,
    720
   ]
+ },
+ "p-coffee-pessoas": {
+  "w": 688,
+  "h": 1222,
+  "widths": [
+   480,
+   688
+  ],
+  "color": "#7a645a"
+ },
+ "p-isabel-servico": {
+  "w": 692,
+  "h": 1230,
+  "widths": [
+   480,
+   692
+  ],
+  "color": "#6b5349"
+ },
+ "p-leticia-casal": {
+  "w": 720,
+  "h": 1280,
+  "widths": [
+   480,
+   720
+  ],
+  "color": "#69725c"
+ },
+ "p-renov-coxinhas": {
+  "w": 720,
+  "h": 1280,
+  "widths": [
+   480,
+   720
+  ],
+  "color": "#b48557"
+ },
+ "p-renov-estacao": {
+  "w": 720,
+  "h": 1280,
+  "widths": [
+   480,
+   720
+  ],
+  "color": "#806e61"
+ },
+ "p-thaty-convidados": {
+  "w": 692,
+  "h": 1230,
+  "widths": [
+   480,
+   692
+  ],
+  "color": "#8a444c"
+ },
+ "p-thaty-servico": {
+  "w": 692,
+  "h": 1230,
+  "widths": [
+   480,
+   692
+  ],
+  "color": "#7e6154"
  }
 }

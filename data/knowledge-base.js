@@ -59,6 +59,9 @@ window.MAPERSI_KB = {
       embedUrl: "https://www.google.com/maps?q=-22.8579875,-43.3620758&z=15&output=embed"
     },
     googleRating: { value: "5,0", numeric: 5.0, checkedAt: "2026-10-06" },
+    // Descrição da própria empresa na ficha do Google: "Atua no Rio de Janeiro,
+    // desde 2018, com eventos de médio a porte grande."
+    since: 2018,
     people: [
       // A bio do Instagram exibe o nome abaixo com o emoji de cozinheira.
       // O cargo exato não foi publicado — confirmar antes de exibir no site.
@@ -153,8 +156,24 @@ window.MAPERSI_KB = {
      REVIEWS — avaliações reais (Google). Copie somente com atribuição.
      Formato: { author: "Nome S.", text: "…", source: "Google", date: "2026-08" }
      Quando houver itens, o site exibe automaticamente o slider.
+     Fonte: ficha "Mapersi buffet" no Google Maps (avaliações 5★, coletadas
+     em 06/10/2026). Trechos fiéis, com abreviações de escrita expandidas
+     ("tb" → "também"); nomes abreviados por privacidade.
      ------------------------------------------------------------------ */
-  reviews: [],
+  reviews: [
+    { author: "Juliana B.", source: "Google", rating: 5,
+      text: "Não teve uma pessoa que não comentou sobre a estação: o quanto a equipe trabalhou, atendeu bem e como tudo estava delicioso e fresco. Mesmo com a alta demanda, deram conta com muito profissionalismo." },
+    { author: "Vandresa C.", source: "Google", rating: 5,
+      text: "Nós AMAMOS o trabalho de vocês. Tudo muito gostoso e super bem apresentado. Todos os convidados elogiaram o buffet e muitos pediram o contato de vocês." },
+    { author: "Robertha W.", source: "Google", rating: 5,
+      text: "Participei de uns 4 eventos em que foi o buffet Mapersi, e eu só tenho elogios. Tudo muito bem servido, garçons educação e apresentação linda. Eu amei o cuidado deles." },
+    { author: "Roberta A.", source: "Google", rating: 5,
+      text: "Tudo maravilhoso, desde o atendimento inicial, comida, organização, o pós evento também! Tudo de muita qualidade, saboroso e bom gosto!" },
+    { author: "Marcia R.", source: "Google", rating: 5,
+      text: "A equipe é maravilhosa. Presta serviços de qualidade. E o que falar das comidinhas, petiscos? São bons demais. Os convidados ficam muito satisfeitos." },
+    { author: "Marcela B.", source: "Google", rating: 5,
+      text: "É com certeza o melhor buffet da região, qualidade, organização, amor… Tudo que uma boa festa precisa." }
+  ],
 
   /* ------------------------------------------------------------------
      TÓPICOS DO CONCIERGE
@@ -344,7 +363,12 @@ window.MAPERSI_KB = {
 
     { id: "avaliacoes", category: "Contato", title: "Avaliações", status: "confirmado",
       keywords: ["avaliacao", "avaliacoes", "nota", "google", "recomendam", "e bom", "sao bons", "confiavel", "depoimento", "depoimentos"],
-      answer: "A Mapersí tem nota 5,0 no Google. Você também encontra feedbacks de clientes e registros dos eventos no Instagram @mapersibuffet." }
+      answer: "A Mapersí tem nota 5,0 no Google. Clientes destacam a comida, a apresentação e a equipe — uma delas escreveu: “Todos os convidados elogiaram o buffet e muitos pediram o contato de vocês.”" },
+
+    { id: "historia", category: "Contato", title: "Tempo de mercado", status: "confirmado",
+      keywords: ["desde quando", "quanto tempo", "ha quanto tempo", "anos de mercado", "experiencia", "historia", "fundada", "quando comecou"],
+      answer: "Segundo a própria ficha da Mapersí no Google, a empresa atua no Rio de Janeiro desde 2018, com eventos de médio a grande porte — e os casamentos são o carro-chefe.",
+      evidence: "Descrição da empresa na ficha do Google." }
   ],
 
   /* ------------------------------------------------------------------
