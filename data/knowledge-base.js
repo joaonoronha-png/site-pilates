@@ -56,7 +56,7 @@ window.MAPERSI_KB = {
     maps: {
       placeUrl: "https://maps.google.com/?cid=7569367235839115147",
       directionsUrl: "https://www.google.com/maps/dir/?api=1&destination=-22.8579875,-43.3620758",
-      embedUrl: "https://www.google.com/maps?q=-22.8579875,-43.3620758&z=15&output=embed"
+      wazeUrl: "https://waze.com/ul?ll=-22.8579875,-43.3620758&navigate=yes"
     },
     googleRating: { value: "5,0", numeric: 5.0, checkedAt: "2026-10-06" },
     // Descrição da própria empresa na ficha do Google: "Atua no Rio de Janeiro,

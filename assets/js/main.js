@@ -415,20 +415,6 @@
     goRv(0);
   }
 
-  /* ---------------- mapa (carrega só no clique) ---------------- */
-  var mapBtn = $('[data-map-load]');
-  if (mapBtn) mapBtn.addEventListener('click', function () {
-    var box = $('[data-map]');
-    var f = document.createElement('iframe');
-    f.src = KB.company.maps.embedUrl;
-    f.title = 'Mapa: Mapersí Buffet, Rua Caiena, Bento Ribeiro, Rio de Janeiro';
-    f.loading = 'lazy';
-    f.referrerPolicy = 'no-referrer-when-downgrade';
-    box.appendChild(f);
-    $('.map__facade', box).remove();
-    track('map_load');
-  });
-
   /* ---------------- WhatsApp contextual ---------------- */
   function waText(key) {
     var tpl = (KB.whatsappTemplates && KB.whatsappTemplates[key]) || KB.whatsappTemplates.default;

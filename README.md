@@ -26,6 +26,8 @@ assets/js/quote.js       ← orçamento interativo
 assets/js/chat.js        ← Concierge Virtual
 assets/js/lead.js        ← memória compartilhada orçamento ↔ chat
 assets/js/analytics.js   ← eventos de conversão (dataLayer)
+assets/js/map.js         ← mapa interativo "Onde estamos" (Leaflet + dados OSM locais)
+data/map-data.js         ← ruas, trilhos, praças e estações do entorno (OpenStreetMap, ODbL)
 assets/media/            ← fotos e vídeos reais do Instagram @mapersibuffet
 docs/PESQUISA.md         ← o que foi confirmado, fontes e pendências
 docs/MIDIA.md            ← origem de cada foto/vídeo
@@ -65,7 +67,7 @@ Avaliações do Google entram em `reviews` e ativam o slider automaticamente.
 
 Nenhuma ferramenta de terceiros carrega por padrão. Os eventos vão para `window.dataLayer`:
 
-`whatsapp_click` (com `context`), `quote_cta_click`, `quote_start`, `quote_step`, `quote_complete`, `quote_whatsapp`, `chat_open`, `chat_lead_start`, `chat_lead_complete`, `chat_handoff`, `chat_to_whatsapp`, `chat_unconfirmed` (mostra quais dúvidas a base ainda não cobre), `service_view`, `service_interest`, `portfolio_view`, `portfolio_open`, `portfolio_filter`, `review_nav`, `instagram_click`, `directions_click`, `map_load`, `catalog_request`, `feedback_video_play`, `google_rating_click`.
+`whatsapp_click` (com `context`), `quote_cta_click`, `quote_start`, `quote_step`, `quote_complete`, `quote_whatsapp`, `chat_open`, `chat_lead_start`, `chat_lead_complete`, `chat_handoff`, `chat_to_whatsapp`, `chat_unconfirmed` (mostra quais dúvidas a base ainda não cobre), `service_view`, `service_interest`, `portfolio_view`, `portfolio_open`, `portfolio_filter`, `review_nav`, `instagram_click`, `directions_click`, `map_load`, `map_pin_click`, `map_unlock`, `address_copy`, `catalog_request`, `feedback_video_play`, `google_rating_click`.
 
 Para ativar GA4 ou GTM, preencha `data/config.js`; o site passa a mostrar um aviso de cookies e só carrega a ferramenta após o aceite.
 
@@ -73,7 +75,7 @@ Para ativar GA4 ou GTM, preencha `data/config.js`; o site passa a mostrar um avi
 
 - Imagens AVIF + WebP responsivas com `srcset`, `loading="lazy"` e cor de fundo enquanto carregam
 - Vídeos H.264 comprimidos, sem áudio, `preload` mínimo; tocam só quando visíveis; pausados com “economia de dados” ou movimento reduzido
-- Mapa do Google carregado somente após o clique
+- Mapa interativo próprio: Leaflet com dados do OpenStreetMap salvos no site, carregado só quando a seção se aproxima; sem cookies nem chamadas a terceiros
 - `prefers-reduced-motion` desativa animações, parallax e vídeo automático
 - Navegação por teclado, foco visível, `skip link`, rótulos em todos os controles, alvos de toque ≥ 44 px
 

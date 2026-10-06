@@ -428,40 +428,6 @@
       </div>
     </section>
 
-    <!-- ================= LOCALIZAÇÃO ================= -->
-    <section class="location section" id="contato" aria-labelledby="location-title">
-      <div class="container location__grid">
-        <div class="location__info">
-          <p class="eyebrow" data-reveal>Contato</p>
-          <h2 class="display display--sm" id="location-title" data-split>Onde <em>estamos.</em></h2>
-          <address class="location__address" data-reveal>
-            <strong>Mapersí Buffet</strong><br>
-            Rua Caiena<br>
-            Bento Ribeiro<br>
-            Rio de Janeiro – RJ<br>
-            CEP 21555-140
-          </address>
-          <p class="location__note" data-reveal>Endereço da empresa. Os eventos acontecem no espaço escolhido por você — a Mapersí leva o buffet até lá.</p>
-          <ul class="location__contacts" data-reveal>
-            <li><span>WhatsApp</span><a href="#" data-wa="default" data-wa-context="contato">(21) 99352-3937</a></li>
-            <li><span>E-mail</span><a href="mailto:contato@mapersi.com.br" data-track="email_click">contato@mapersi.com.br</a></li>
-            <li><span>Instagram</span><a href="https://www.instagram.com/mapersibuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="contato">@mapersibuffet</a></li>
-          </ul>
-          <div class="location__actions" data-reveal>
-            <a class="btn btn--primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=-22.8579875,-43.3620758" target="_blank" rel="noopener" data-track="directions_click">Como chegar</a>
-          </div>
-        </div>
-        <div class="map" data-map data-reveal>
-          <div class="map__facade">
-            <svg class="map__pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z"/></svg>
-            <p>Bento Ribeiro · Rio de Janeiro</p>
-            <button class="btn btn--ghost btn--sm" type="button" data-map-load>Mostrar mapa</button>
-            <small>O mapa é carregado do Google Maps somente após o clique.</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- ================= FAQ ================= -->
     <section class="faq section section--cream" aria-labelledby="faq-title">
       <div class="container faq__grid">
@@ -487,6 +453,43 @@
         <div class="final__actions" data-reveal>
           <a class="btn btn--light" href="#orcamento" data-track="cta_final">Solicitar orçamento</a>
           <button class="btn btn--ghost-light" type="button" data-chat-open data-chat-context="cta_final">Conversar com a assistente</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ONDE ESTAMOS (MAPA INTERATIVO) ================= -->
+    <section class="where" id="contato" aria-labelledby="where-title">
+      <div class="where__map" data-map>
+        <div class="where__canvas" data-map-canvas role="region" aria-label="Mapa interativo de Bento Ribeiro com a localização da Mapersí Buffet na Rua Caiena"></div>
+        <div class="where__controls">
+          <button class="where__ctrl" type="button" aria-label="Aproximar" data-map-zoom="1">+</button>
+          <button class="where__ctrl" type="button" aria-label="Afastar" data-map-zoom="-1">−</button>
+          <button class="where__ctrl" type="button" aria-label="Centralizar na Mapersí" data-map-center><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/></svg></button>
+        </div>
+        <button class="where__unlock" type="button" data-map-unlock>Toque para explorar o mapa</button>
+        <small class="where__credit">Dados do mapa © colaboradores do <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a></small>
+      </div>
+
+      <div class="container where__layer">
+        <div class="where__card" data-reveal>
+          <p class="eyebrow">Contato</p>
+          <h2 class="display display--sm" id="where-title">Onde <em>estamos.</em></h2>
+          <address class="where__address">
+            <strong>Mapersí Buffet</strong><br>
+            Rua Caiena · Bento Ribeiro<br>
+            Rio de Janeiro – RJ · CEP 21555-140
+          </address>
+          <p class="where__note">Endereço da empresa. Os eventos acontecem no espaço escolhido por você — a Mapersí leva o buffet até lá.</p>
+          <ul class="where__contacts">
+            <li><span>WhatsApp</span><a href="#" data-wa="default" data-wa-context="contato">(21) 99352-3937</a></li>
+            <li><span>E-mail</span><a href="mailto:contato@mapersi.com.br" data-track="email_click">contato@mapersi.com.br</a></li>
+            <li><span>Instagram</span><a href="https://www.instagram.com/mapersibuffet/" target="_blank" rel="noopener" data-track="instagram_click" data-track-label="contato">@mapersibuffet</a></li>
+          </ul>
+          <div class="where__actions">
+            <a class="btn btn--primary btn--sm" href="https://www.google.com/maps/dir/?api=1&amp;destination=-22.8579875,-43.3620758" target="_blank" rel="noopener" data-track="directions_click" data-track-label="google">Como chegar</a>
+            <a class="btn btn--ghost btn--sm" href="https://waze.com/ul?ll=-22.8579875,-43.3620758&amp;navigate=yes" target="_blank" rel="noopener" data-track="directions_click" data-track-label="waze">Waze</a>
+            <button class="btn btn--ghost btn--sm" type="button" data-copy-address>Copiar endereço</button>
+          </div>
         </div>
       </div>
     </section>
@@ -558,5 +561,6 @@
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/quote.js" defer></script>
   <script src="assets/js/chat.js" defer></script>
+  <script src="assets/js/map.js" defer></script>
 </body>
 </html>
