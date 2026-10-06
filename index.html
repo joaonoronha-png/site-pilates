@@ -27,7 +27,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Jost:wght@300..600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..500&family=Jost:wght@300..600&family=IBM+Plex+Mono:wght@400;500&display=swap">
   <link rel="preload" as="image" href="assets/media/img/hero-poster-720.webp" type="image/webp" fetchpriority="high">
   <link rel="stylesheet" href="assets/css/main.css">
 
@@ -52,10 +52,10 @@
         <span class="brand__word">Mapersí</span>
         <span class="brand__sub">Buffet e Estações</span>
       </a>
-      <a class="btn btn--primary btn--sm site-header__cta" href="#orcamento" data-track="cta_header">Pedir orçamento</a>
+      <a class="btn btn--primary btn--sm site-header__cta" href="#orcamento" data-track="cta_header">Pedir orçamento <svg class="arrow" viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h15M11 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></a>
       <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="drawer" data-menu-toggle>
         <span class="menu-toggle__label">Menu</span>
-        <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i></span>
+        <span class="menu-toggle__icon" aria-hidden="true"><i></i><i></i><i></i></span>
       </button>
     </div>
   </header>
@@ -74,7 +74,7 @@
     <div class="drawer__panel" data-lenis-prevent>
       <div class="drawer__head">
         <button class="drawer__close" type="button" data-menu-close><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg><span>Fechar</span></button>
-        <span class="drawer__brand"><span class="brand__word">Mapersí</span><span class="brand__sub">Buffet e Estações</span></span>
+        <span class="drawer__mark" aria-hidden="true">M</span>
       </div>
       <nav aria-label="Principal">
         <ol class="drawer__nav">
@@ -107,8 +107,8 @@
         </div>
       </div>
       <div class="drawer__foot">
-        <a class="btn btn--light btn--sm" href="#orcamento" data-menu-link>Pedir orçamento</a>
-        <button class="link-arrow" type="button" data-chat-open data-chat-context="menu">Tire suas dúvidas</button>
+        <a class="btn btn--light" href="#orcamento" data-menu-link>Pedir orçamento <svg class="arrow" viewBox="0 0 16 10" aria-hidden="true"><path d="M0 5h15M11 1l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></a>
+        <button class="drawer__ask" type="button" data-chat-open data-chat-context="menu">Tire suas dúvidas</button>
       </div>
     </div>
   </div>
