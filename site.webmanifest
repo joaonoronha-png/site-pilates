@@ -1,0 +1,9 @@
+{
+  "name": "Aluguel Temporada RJ",
+  "short_name": "Temporada RJ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#f8f6f1",
+  "theme_color": "#0b2c3d",
+  "icons": [{ "src": "assets/img/marca/favicon.svg", "sizes": "any", "type": "image/svg+xml" }]
+}
