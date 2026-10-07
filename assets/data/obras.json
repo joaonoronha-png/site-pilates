@@ -1,0 +1,16 @@
+{
+  "_instrucoes": "Adicione obras reais da ARGENTO em 'obras'. Enquanto a lista estiver vazia, o site exibe a estrutura preparada para receber os cases. Nunca inclua cliente sem autorização ou informação não confirmada.",
+  "_modelo": {
+    "nome": "Nome da obra",
+    "local": "Bairro — Cidade/UF",
+    "cliente": "Somente se for público e autorizado",
+    "ano": "2025",
+    "imagem": "assets/img/obras/nome-da-obra-960.webp",
+    "imagemAlt": "Descrição objetiva da fotografia",
+    "sistemas": ["Escoramento", "Fôrma metálica"],
+    "desafio": "Qual era a condição ou dificuldade da obra.",
+    "solucao": "Como a ARGENTO atendeu: sistemas, logística, orientação.",
+    "resultado": "O que foi obtido, sem números não comprovados."
+  },
+  "obras": []
+}
