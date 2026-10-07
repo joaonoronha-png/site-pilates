@@ -25,7 +25,7 @@
   var pendingQuestion = "";
 
   function norm(s) {
-    return String(s).toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9@.\s]/g, " ").replace(/\s+/g, " ").trim();
+    return String(s).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9@.\s]/g, " ").replace(/\s+/g, " ").trim();
   }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function has(t, words) { return words.some(function (w) { return t.indexOf(" " + w) !== -1; }); }
