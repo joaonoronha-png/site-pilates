@@ -10,6 +10,11 @@
 
   /* ---------- utilidades ---------- */
   function waLink(msg) { return 'https://wa.me/' + E.whatsapp + '?text=' + encodeURIComponent(msg); }
+  // abre o WhatsApp; se o navegador bloquear a janela, mostra um link para tocar
+  function openWa(url, link) {
+    if (link) { link.href = url; link.hidden = false; }
+    try { window.open(url, '_blank', 'noopener'); } catch (e) {}
+  }
   function track(name, data) { (window.dataLayer = window.dataLayer || []).push(Object.assign({ event: name }, data || {})); }
   function fmtDate(iso) { if (!iso) return ''; var p = iso.split('-'); return p[2] + '/' + p[1] + '/' + p[0]; }
   function nights(a, b) { if (!a || !b) return 0; var n = Math.round((new Date(b) - new Date(a)) / 864e5); return n > 0 ? n : 0; }
@@ -298,7 +303,8 @@
           '<label>Hóspedes<input type="number" name="g" min="1" max="' + i.hospedes + '" value="' + Math.min(state.guests, i.hospedes) + '" inputmode="numeric"></label>' +
         '</div>' +
         '<p class="book__sum" id="book-sum" aria-live="polite"></p><p class="book__warn" id="book-warn" hidden></p>' +
-        '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></form>' +
+        '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
+        '<a class="wa-open" id="book-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a></form>' +
         '<p class="book__alt">ou reserve pelo <a href="' + i.airbnb + '" target="_blank" rel="noopener">Airbnb</a></p>' +
         '<button class="btn btn--ghost btn--sm" type="button" data-fav-sheet aria-pressed="' + isFav(i.slug) + '"><svg aria-hidden="true"><use href="#i-heart"/></svg> <span>' + (isFav(i.slug) ? 'Salvo nos favoritos' : 'Salvar nos favoritos') + '</span></button>' +
       '</aside></div>' +
@@ -326,7 +332,7 @@
       warn.hidden = true;
       state.checkin = f.ci.value; state.checkout = f.co.value;
       track('booking_whatsapp', { slug: slug });
-      window.open(waLink(bookingMsg(i, f.ci.value, f.co.value, g)), '_blank', 'noopener');
+      openWa(waLink(bookingMsg(i, f.ci.value, f.co.value, g)), $('#book-open'));
     });
     var fb = $('[data-fav-sheet]');
     fb.addEventListener('click', function () { toggleFav(i.slug); fb.setAttribute('aria-pressed', String(isFav(i.slug))); $('span', fb).textContent = isFav(i.slug) ? 'Salvo nos favoritos' : 'Salvar nos favoritos'; render(); });
@@ -409,7 +415,7 @@
     if (f.msg.value.trim()) m += '\n' + f.msg.value.trim();
     m += '\nPode me indicar as opções disponíveis?';
     track('lead_whatsapp');
-    window.open(waLink(m), '_blank', 'noopener');
+    openWa(waLink(m), $('#lead-open'));
   });
 
   /* ---------- revelar ao rolar ---------- */

@@ -605,7 +605,7 @@ html:not(.js) .intro{ display:none; }
 .chat__form input:focus{ outline:none; border-color: var(--oceano); }
 .chat__form button{ width:46px; height:46px; border-radius:50%; border:0; background: var(--mar); color: var(--espuma); display:grid; place-items:center; }
 .chat__form button svg{ width:20px; height:20px; }
-.chat__handoff{ border:0; padding: 10px; background: #e9f9ef; color: #146c3a; font-weight:600; font-size: .86rem; display:flex; align-items:center; justify-content:center; gap: 8px; }
+.chat__handoff{ text-decoration:none; border:0; padding: 10px; background: #e9f9ef; color: #146c3a; font-weight:600; font-size: .86rem; display:flex; align-items:center; justify-content:center; gap: 8px; }
 .chat__handoff svg{ width:18px; height:18px; }
 @media (max-width: 520px){ .chat{ right: 0; bottom: 0; width: 100vw; height: 100svh; border-radius: 0; } }
 
@@ -689,6 +689,8 @@ html:not(.js) .intro{ display:none; }
 .toast.show{ opacity:1; transform: translate(-50%, 0); }
 
 body.no-scroll{ overflow:hidden; }
+.wa-open{ display:block; text-align:center; padding: 12px 14px; border-radius: 12px; background: #e9f9ef; color: #146c3a; font-weight:600; font-size: .92rem; text-decoration:none; }
+.wa-open[hidden]{ display:none; }
 
 @media (prefers-reduced-motion: reduce){
   *, *::before, *::after{ animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }

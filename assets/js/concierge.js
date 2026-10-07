@@ -328,7 +328,7 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-close-chat]'), function (b) { b.addEventListener('click', close); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !chat.hidden && document.getElementById('sheet').hidden) close(); });
   form.addEventListener('submit', function (e) { e.preventDefault(); var v = input.value; input.value = ''; send(v); });
-  $('[data-handoff]').addEventListener('click', function () { APP().track('chat_handoff'); window.open(APP().waLink(handoffText()), '_blank', 'noopener'); });
+  $('[data-handoff]').addEventListener('click', function (e) { e.currentTarget.href = APP().waLink(handoffText()); APP().track('chat_handoff'); });
 
   window.CONCIERGE = { open: open, close: close, ask: function (q) { open(false); send(q); }, _reply: localReply, _parse: parse, _mem: function () { return mem; }, _reset: function () { mem = { dest: '', guests: 0, kids: 0, pet: false, am: [], checkin: '', checkout: '', ocasiao: '', duvidas: [], lang: 'pt', sugeridos: [] }; history = []; save(); } };
 })();
