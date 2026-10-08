@@ -45,7 +45,11 @@
         anosHospedando: 5,
         taxaResposta: '100%',
         tempoResposta: 'até 1 hora',
-        verificadoDesde: 'outubro de 2020'
+        verificadoDesde: 'outubro de 2020',
+        // média dos anúncios com nota, ponderada pelo número de avaliações de cada um
+        notas: {"limpeza": 4.7, "exatidao": 4.8, "checkin": 4.8, "comunicacao": 4.8, "localizacao": 5.0, "custoBeneficio": 4.7},
+        distribuicao: [85, 11, 3, 1, 1],
+        avaliacoesComNota: 192
       },
       // Serviços ao proprietário (post do Instagram de 11/05/2026)
       gestao: [
@@ -114,6 +118,9 @@
     imoveis: [
       {
         slug: 'pe-na-areia-posto-7',
+        notas: {"limpeza": 4.8, "exatidao": 4.9, "checkin": 5.0, "comunicacao": 4.9, "localizacao": 4.9, "custoBeneficio": 4.8},
+        distribuicao: [88, 6, 6, 0, 0],
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Aproveite para dar um mergulho", "texto": "Um dos poucos lugares da região com piscina."}, {"titulo": "Região bonita", "texto": "Os hóspedes adoram o lugar onde o imóvel fica."}],
         nome: 'Pé na Areia · Vista Mar',
         tituloAnuncio: 'Pé na Areia Barra da Tijuca Vista Mar!',
         destino: 'barra',
@@ -154,6 +161,9 @@
       },
       {
         slug: 'posto-4-varanda',
+        notas: {"limpeza": 4.7, "exatidao": 4.8, "checkin": 4.7, "comunicacao": 4.8, "localizacao": 5.0, "custoBeneficio": 4.6},
+        distribuicao: [85, 10, 4, 0, 1],
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Região bonita", "texto": "Os hóspedes adoram o lugar onde o imóvel fica."}, {"titulo": "Espaço de trabalho exclusivo", "texto": "Um canto com mesa, ideal para trabalhar."}],
         nome: 'Posto 4 · Varanda envidraçada',
         tituloAnuncio: 'Pé na Areia | Vista Mar | Barra da Tijuca',
         destino: 'barra',
@@ -182,6 +192,9 @@
       },
       {
         slug: 'posto-4-vista-frontal',
+        notas: {"limpeza": 4.7, "exatidao": 4.8, "checkin": 4.9, "comunicacao": 4.8, "localizacao": 5.0, "custoBeneficio": 4.7},
+        distribuicao: [85, 11, 2, 2, 0],
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Região bonita", "texto": "Os hóspedes adoram o lugar onde o imóvel fica."}, {"titulo": "Espaço de trabalho exclusivo", "texto": "Um canto com mesa, ideal para trabalhar."}],
         nome: 'Posto 4 · Vista frontal',
         tituloAnuncio: 'Pé na Areia | Vista Mar | Barra da Tijuca',
         destino: 'barra',
@@ -209,6 +222,9 @@
       },
       {
         slug: 'flat-vista-mar',
+        notas: {"limpeza": 5.0, "exatidao": 5.0, "checkin": 5.0, "comunicacao": 5.0, "localizacao": 4.7, "custoBeneficio": 4.7},
+        distribuicao: [67, 33, 0, 0, 0],
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Aproveite para dar um mergulho", "texto": "Um dos poucos lugares da região com piscina."}, {"titulo": "Espaço de trabalho exclusivo", "texto": "Um canto com mesa, ideal para trabalhar."}],
         nome: 'Flat Vista Mar',
         tituloAnuncio: 'Flat Funcional e Seguro com Vista para o Mar',
         destino: 'barra',
@@ -236,6 +252,9 @@
       },
       {
         slug: 'leme-copacabana',
+        notas: {"limpeza": 5.0, "exatidao": 4.9, "checkin": 4.9, "comunicacao": 5.0, "localizacao": 5.0, "custoBeneficio": 5.0},
+        distribuicao: [94, 6, 0, 0, 0],
+        destaquesAirbnb: [{"titulo": "Região bonita", "texto": "Os hóspedes adoram o lugar onde o imóvel fica."}, {"titulo": "Espaço de trabalho exclusivo", "texto": "Um canto com mesa, ideal para trabalhar."}],
         nome: 'Leme · Copacabana',
         tituloAnuncio: 'Praia, lazer e charme Copacabana/Leme',
         destino: 'copacabana',
@@ -263,6 +282,9 @@
       },
       {
         slug: 'angra-ponta-da-cruz',
+        notas: {"limpeza": 4.7, "exatidao": 4.7, "checkin": 4.7, "comunicacao": 4.8, "localizacao": 4.8, "custoBeneficio": 4.6},
+        distribuicao: [79, 14, 3, 0, 3],
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Aproveite para dar um mergulho", "texto": "Um dos poucos lugares da região com piscina."}, {"titulo": "Localização nota máxima", "texto": "100% dos hóspedes nos últimos 12 meses deram 5 estrelas para a localização."}],
         nome: 'Casa Ponta da Cruz',
         tituloAnuncio: 'Casa Angra dos Reis Ponta da Cruz',
         destino: 'angra',
@@ -291,6 +313,9 @@
       },
       {
         slug: 'angra-paraiso',
+        notas: null,
+        distribuicao: null,
+        destaquesAirbnb: [{"titulo": "Self check-in", "texto": "Você faz o check-in com a equipe do prédio."}, {"titulo": "Aproveite para dar um mergulho", "texto": "Um dos poucos lugares da região com piscina."}, {"titulo": "Espaço de trabalho exclusivo", "texto": "Um canto com mesa, ideal para trabalhar."}],
         nome: 'Paraíso em Angra',
         tituloAnuncio: 'Paraiso em Angra Casa na Praia com Vista Incrível',
         destino: 'angra',

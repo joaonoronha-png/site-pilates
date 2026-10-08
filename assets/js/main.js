@@ -234,13 +234,27 @@
   });
 
   var star = '<svg aria-hidden="true"><use href="#i-star"/></svg>';
+  // notas por categoria, no formato da página de avaliações do Airbnb
+  var CATS = [['limpeza', 'Limpeza', 'i-clean'], ['exatidao', 'Exatidão', 'i-check'], ['checkin', 'Check-in', 'i-key'],
+    ['comunicacao', 'Comunicação', 'i-chat'], ['localizacao', 'Localização', 'i-map'], ['custoBeneficio', 'Custo-benefício', 'i-tag']];
+  var nf = function (v) { return v.toFixed(1).replace('.', ','); };
+  function ratingCats(notas, dist) {
+    if (!notas) return '';
+    var bars = dist ? '<div class="rcat rcat--dist"><span class="rcat__label">Classificação geral</span><ol class="rdist">' +
+      dist.map(function (p, k) { return '<li><span>' + (5 - k) + '</span><i><b style="width:' + p + '%"></b></i></li>'; }).join('') + '</ol></div>' : '';
+    return bars + CATS.map(function (c) {
+      return '<div class="rcat"><span class="rcat__label">' + c[1] + '</span><strong>' + nf(notas[c[0]]) + '</strong><svg aria-hidden="true"><use href="#' + c[2] + '"/></svg></div>';
+    }).join('');
+  }
+  $('#rcats').innerHTML = ratingCats(E.airbnb.notas, E.airbnb.distribuicao);
+
   function reviewCard(r, dup) {
     return '<article class="review-card"' + (dup ? ' aria-hidden="true"' : '') + '>' +
-      '<div class="review-card__stars" role="img" aria-label="Nota ' + r.nota + ' de 5">' + new Array(r.nota + 1).join(star) + '</div>' +
-      '<p class="review-card__text">“' + esc(r.texto) + '”</p>' +
-      '<footer><span class="review-card__av" aria-hidden="true">' + esc(r.nome[0]) + '</span><span><strong>' + esc(r.nome) + '</strong>' +
-      '<small>' + esc(r.origem) + ' · ' + esc(r.data) + '</small></span></footer>' +
-      '<span class="review-tag">Airbnb' + (r.traduzido ? ' · traduzido do ' + esc(r.traduzido) : '') + '</span></article>';
+      '<header><span class="review-card__av" aria-hidden="true">' + esc(r.nome[0]) + '</span><span><strong>' + esc(r.nome) + '</strong>' +
+      '<small>' + esc(r.origem) + '</small></span></header>' +
+      '<p class="review-card__meta"><span class="review-card__stars" role="img" aria-label="Nota ' + r.nota + ' de 5">' + new Array(r.nota + 1).join(star) + '</span> · ' + esc(r.data) + '</p>' +
+      '<p class="review-card__text">' + esc(r.texto) + '</p>' +
+      (r.traduzido ? '<span class="review-tag">Traduzido do ' + esc(r.traduzido) + '</span>' : '') + '</article>';
   }
   var rTrack = $('#reviews .reviews-track');
   rTrack.innerHTML = D.avaliacoes.map(function (r) { return reviewCard(r, false); }).join('') +
@@ -339,9 +353,20 @@
         '<p class="pdp__ref">' + esc(i.referencia) + '</p></header>' +
         '<ul class="pdp__specs"><li>Até ' + i.hospedes + ' hóspedes</li><li>' + (i.quartos > 1 ? i.quartos + ' suítes' : '1 quarto') + '</li><li>' + esc(i.camas) + '</li><li>' + esc(i.banheiros) + '</li>' +
         (i.nota ? '<li>★ ' + i.nota + ' · ' + i.avaliacoes + ' avaliações</li>' : '<li>Anúncio novo</li>') + '</ul>' +
+        (i.nota ? '<div class="pdp-fav"><span class="pdp-fav__l"><svg class="laurel" aria-hidden="true"><use href="#i-laurel"/></svg><b>Avaliado por hóspedes</b><svg class="laurel laurel--r" aria-hidden="true"><use href="#i-laurel"/></svg></span>' +
+          '<span class="pdp-fav__t">Nota média dada pelos hóspedes no Airbnb</span>' +
+          '<span class="pdp-fav__n"><strong>' + i.nota + '</strong><span class="pdp-fav__s" aria-hidden="true">' + new Array(6).join(star) + '</span></span><span class="pdp-fav__c"><strong>' + i.avaliacoes + '</strong>avaliações</span></div>'
+          : '<div class="pdp-fav pdp-fav--new"><strong>Novo no Airbnb</strong><span>Ainda com poucas avaliações. Pergunte à equipe sobre o imóvel.</span></div>') +
+        '<div class="pdp-host"><span class="pdp-host__av" aria-hidden="true">D</span><div><strong>Anfitrião: ' + esc(E.anfitriao) + '</strong><small>Superhost · ' + E.airbnb.anosHospedando + ' anos hospedando</small></div></div>' +
+        (i.destaquesAirbnb && i.destaquesAirbnb.length ? '<ul class="pdp-hl">' + i.destaquesAirbnb.map(function (h) {
+          var ic = /check-in/i.test(h.titulo) ? 'i-door' : /mergulho/.test(h.titulo) ? 'i-pool' : /trabalho/.test(h.titulo) ? 'i-desk' : 'i-map';
+          return '<li><svg aria-hidden="true"><use href="#' + ic + '"/></svg><div><strong>' + esc(h.titulo) + '</strong><span>' + esc(h.texto) + '</span></div></li>';
+        }).join('') + '</ul>' : '') +
         '<p>' + esc(i.resumo) + '</p>' +
         '<h3>O espaço</h3><ul class="pdp__desc">' + i.descricao.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul>' +
         '<h3>Comodidades</h3><ul class="pdp__am">' + am + '</ul>' +
+        (i.notas ? '<h3 class="pdp-rev__h"><svg aria-hidden="true"><use href="#i-star"/></svg> ' + i.nota + ' · ' + i.avaliacoes + ' avaliações</h3><div class="rcats rcats--pdp">' + ratingCats(i.notas, i.distribuicao) + '</div>' +
+          '<p class="pdp__ref"><a href="' + i.airbnb + '#reviews" target="_blank" rel="noopener">Ler as avaliações deste imóvel no Airbnb →</a></p>' : '') +
         '<h3>Regras e horários</h3><dl class="pdp__rules">' +
           '<div><dt>Check-in</dt><dd>' + esc(r.checkin) + '</dd></div><div><dt>Check-out</dt><dd>' + esc(r.checkout) + '</dd></div>' +
           '<div><dt>Pets</dt><dd>' + yn(r.pet, 'Permitidos', 'Não permitidos') + '</dd></div><div><dt>Fumar</dt><dd>' + yn(r.fumar, 'Permitido', 'Proibido') + '</dd></div>' +
