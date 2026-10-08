@@ -9,7 +9,39 @@
   var STYLE = 'https://tiles.openfreemap.org/styles/positron';
   var COR = { barra: '#145f7a', copacabana: '#0b2c3d', angra: '#1c9a8f' };
   var el = document.getElementById('map'), listEl = document.getElementById('maplist');
-  var map = null, markers = {}, buttons = {}, visible = null;
+  var map = null, markers = {}, buttons = {}, visible = null, officeMarker = null;
+
+  /* Pinos que ficariam um em cima do outro (mesmo prédio, casas vizinhas)
+     se abrem em leque em volta do ponto, para cada um ficar visível e clicável. */
+  function spread(pts, w, h) {
+    var groups = [];
+    pts.forEach(function (p) {
+      var g = groups.filter(function (g) { return g.some(function (q) { return Math.abs(q.x - p.x) < (w || 64) && Math.abs(q.y - p.y) < (h || 30); }); })[0];
+      if (g) g.push(p); else groups.push([p]);
+    });
+    var out = {};
+    groups.forEach(function (g) {
+      if (g.length === 1) { out[g[0].k] = [0, 0]; return; }
+      var cx = 0, cy = 0; g.forEach(function (p) { cx += p.x; cy += p.y; }); cx /= g.length; cy /= g.length;
+      var R = g.length === 2 ? 36 : 30 + 12 * g.length;
+      g.forEach(function (p, n) {
+        var a = (g.length === 2 ? Math.PI : -Math.PI / 2) + (2 * Math.PI * n) / g.length;
+        out[p.k] = [Math.round(cx + R * Math.cos(a) - p.x), Math.round(cy + R * Math.sin(a) * 0.75 - p.y)];
+      });
+    });
+    return out;
+  }
+  window.MAP_SPREAD = spread;
+  var dq = null;
+  function declutterSoon() { if (dq) return; dq = requestAnimationFrame(function () { dq = null; declutter(); }); }
+  function declutter() {
+    if (!map) return;
+    var all = Object.keys(markers).map(function (k) { var ll = markers[k].getLngLat(), p = map.project(ll); return { k: k, x: p.x, y: p.y }; });
+    if (officeMarker) { var op = map.project(officeMarker.getLngLat()); all.push({ k: '__office', x: op.x, y: op.y }); }
+    var off = spread(all);
+    Object.keys(markers).forEach(function (k) { var o = off[k] || [0, 0]; markers[k].setOffset(o); markers[k].getPopup().setOffset([o[0], o[1] - 20]); });
+    if (officeMarker) officeMarker.setOffset(off.__office || [0, 0]);
+  }
   var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
   var track = function (n, d) { if (window.APP) APP.track(n, d); };
   var LOCALE = {
@@ -87,11 +119,14 @@
     if (map || !window.maplibregl || !el) return;
     map = new maplibregl.Map({
       container: el, style: STYLE, bounds: bounds('todos'), fitBoundsOptions: { padding: 60, maxZoom: 15 },
-      cooperativeGestures: true, attributionControl: false, dragRotate: false, pitchWithRotate: false, locale: LOCALE
+      cooperativeGestures: true, attributionControl: false, dragRotate: false, pitchWithRotate: false, locale: LOCALE, maxZoom: 19
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
+    map.on('zoom', declutterSoon);
+    map.on('moveend', declutterSoon);
     map.on('load', function () {
+      declutter();
       tint(map); addAreas(map, D.imoveis);
       if (visible) MAPA.highlight(visible);
       track('map_load');
@@ -110,7 +145,7 @@
     var off = document.createElement('div');
     off.className = 'mk mk--office';
     off.innerHTML = '<span class="mk__pulse"></span><span class="mk__pulse mk__pulse--2"></span><span class="mk__dot">3D</span>';
-    new maplibregl.Marker({ element: off }).setLngLat([E.escritorio.lng, E.escritorio.lat])
+    officeMarker = new maplibregl.Marker({ element: off }).setLngLat([E.escritorio.lng, E.escritorio.lat])
       .setPopup(new maplibregl.Popup({ offset: 22, maxWidth: '260px' }).setHTML('<div class="pop"><div class="pop__b"><strong>Escritório · Grupo 3D</strong><span>' + esc(E.escritorio.nome) + '<br>' + esc(E.escritorio.endereco) + '</span>' +
         '<a href="https://www.google.com/maps/dir/?api=1&destination=Shopping+Citt%C3%A0+America+Barra+da+Tijuca" target="_blank" rel="noopener">Traçar rota</a></div></div>'))
       .addTo(map);
@@ -134,7 +169,7 @@
         var pts = D.imoveis.filter(function (i) { return slugs.indexOf(i.slug) > -1; });
         var b = new maplibregl.LngLatBounds([pts[0].lng, pts[0].lat], [pts[0].lng, pts[0].lat]);
         pts.forEach(function (i) { b.extend([i.lng, i.lat]); });
-        map.fitBounds(b, { padding: 70, maxZoom: 13.5, duration: reduce ? 0 : 900 });
+        map.fitBounds(b, { padding: 120, maxZoom: 13.5, duration: reduce ? 0 : 900 });
       }
     },
     // pino aceso quando o mouse passa no card (como no Airbnb)
