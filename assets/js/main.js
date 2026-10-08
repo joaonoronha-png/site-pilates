@@ -110,18 +110,6 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && route.classList.contains('is-open')) { setOpen(false); rbtn.focus(); } });
   }
 
-  /* ---------- favoritos ---------- */
-  var favs = store.get('atrj-favs', []);
-  function isFav(slug) { return favs.indexOf(slug) > -1; }
-  function toggleFav(slug) {
-    favs = isFav(slug) ? favs.filter(function (s) { return s !== slug; }) : favs.concat(slug);
-    store.set('atrj-favs', favs); updateFavCount();
-    toast(isFav(slug) ? 'Salvo nos favoritos' : 'Removido dos favoritos');
-    track('favorite_toggle', { slug: slug, on: isFav(slug) });
-  }
-  function updateFavCount() { $$('[data-fav-count]').forEach(function (e) { e.textContent = favs.length; }); }
-  updateFavCount();
-
   /* ---------- vitrine (organização inspirada no Airbnb) ---------- */
   var state = { dest: '', cat: '', am: [], guests: 0, pets: 0, onlyFavs: false, checkin: '', checkout: '' };
   var G = { adultos: 0, criancas: 0, bebes: 0, pets: 0 };
@@ -136,7 +124,6 @@
     f = f || state; var x = filtersOf(f);
     if (x.dest && i.destino !== x.dest) return false;
     if (f.guests && i.hospedes < f.guests) return false;
-    if (f.onlyFavs && !isFav(i.slug)) return false;
     for (var k = 0; k < x.am.length; k++) if (i.comodidades.indexOf(x.am[k]) < 0) return false;
     return true;
   }
@@ -157,7 +144,6 @@
           '<span class="card__dots" aria-hidden="true">' + fotos.map(function (f, k) { return '<i' + (k ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') +
         '<span class="card__badge">' + esc(i.destaque) + '</span>' +
         (fotos[0].own ? '' : '<span class="no-photo-note">Foto da região</span>') +
-        '<button class="fav" type="button" data-fav="' + i.slug + '" aria-pressed="' + isFav(i.slug) + '" aria-label="Salvar ' + esc(i.nome) + ' nos favoritos"><svg aria-hidden="true"><use href="#i-heart"/></svg></button>' +
       '</div>' +
       '<a class="card__body" href="#imovel/' + i.slug + '" tabindex="-1">' +
         '<span class="card__l1"><strong>' + tipoCurto(i) + ' em ' + esc(bairro(i)) + '</strong>' +
@@ -224,13 +210,6 @@
     if (window.MAPA && window.MAPA.highlight) window.MAPA.highlight(list.map(function (i) { return i.slug; }));
   }
   function bindCards() {
-    $$('[data-fav]', grid).forEach(function (b) {
-      b.addEventListener('click', function (e) {
-        e.preventDefault(); toggleFav(b.dataset.fav);
-        $$('[data-fav="' + b.dataset.fav + '"]', grid).forEach(function (x) { x.setAttribute('aria-pressed', String(isFav(b.dataset.fav))); });
-        if (state.onlyFavs) render();
-      });
-    });
     $$('.card', grid).forEach(function (c) {
       var sl = $('.card__slides', c), dots = $$('.card__dots i', c);
       $$('[data-slide]', c).forEach(function (b) {
@@ -253,7 +232,6 @@
   });
   $('[data-clear]').addEventListener('click', function () { clearAll(); render(); });
   function clearAll() { state.dest = ''; state.cat = ''; state.am = []; state.onlyFavs = false; state.guests = 0; G.adultos = G.criancas = G.bebes = G.pets = 0; syncGuests(); }
-  $('[data-show-favs]').addEventListener('click', function () { state.onlyFavs = true; render(); document.getElementById('imoveis').scrollIntoView(); });
 
   /* busca em pílula: Onde · Check-in · Check-out · Quem */
   var form = $('#search'), sIn = $('#s-in'), sOut = $('#s-out');
@@ -318,12 +296,10 @@
     $('#f-am').innerHTML = AMS.map(function (k) {
       return '<label class="fcheck"><input type="checkbox" value="' + k + '"' + (fState.am.indexOf(k) > -1 ? ' checked' : '') + '><span>' + esc(D.comodidades[k]) + '</span></label>';
     }).join('');
-    $('#f-favs').checked = fState.onlyFavs;
     var n = fCount(); $('#f-apply').textContent = n ? 'Mostrar ' + n + (n === 1 ? ' acomodação' : ' acomodações') : 'Nenhuma acomodação';
     $$('[data-fdest]', fdlg).forEach(function (b) { b.addEventListener('click', function () { fState.dest = b.dataset.fdest; fRender(); }); });
     $$('#f-am input', fdlg).forEach(function (c) { c.addEventListener('change', function () { var at = fState.am.indexOf(c.value); if (c.checked && at < 0) fState.am.push(c.value); if (!c.checked && at > -1) fState.am.splice(at, 1); fRender(); }); });
   }
-  $('#f-favs').addEventListener('change', function (e) { fState.onlyFavs = e.target.checked; fRender(); });
   $$('[data-fstep]').forEach(function (b) { b.addEventListener('click', function () { fState.guests = Math.max(0, Math.min(14, fState.guests + Number(b.dataset.fstep))); fRender(); }); });
   $('#open-filters').addEventListener('click', function () {
     fState = { dest: state.dest, cat: state.cat, am: state.am.slice(), guests: state.guests, onlyFavs: state.onlyFavs };
@@ -533,7 +509,6 @@
         '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
         '<a class="wa-open" id="book-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a></form>' +
         '<p class="book__alt">ou reserve pelo <a href="' + i.airbnb + '" target="_blank" rel="noopener">Airbnb</a></p>' +
-        '<button class="btn btn--ghost btn--sm" type="button" data-fav-sheet aria-pressed="' + isFav(i.slug) + '"><svg aria-hidden="true"><use href="#i-heart"/></svg> <span>' + (isFav(i.slug) ? 'Salvo nos favoritos' : 'Salvar nos favoritos') + '</span></button>' +
       '</aside></div>' +
       '<div class="sheet__cta"><button class="btn btn--sun" type="button" data-go-book><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></div>';
 
@@ -561,8 +536,6 @@
       track('booking_whatsapp', { slug: slug });
       openWa(waLink(bookingMsg(i, f.ci.value, f.co.value, g)), $('#book-open'));
     });
-    var fb = $('[data-fav-sheet]');
-    fb.addEventListener('click', function () { toggleFav(i.slug); fb.setAttribute('aria-pressed', String(isFav(i.slug))); $('span', fb).textContent = isFav(i.slug) ? 'Salvo nos favoritos' : 'Salvar nos favoritos'; render(); });
 
     $('[data-go-book]').addEventListener('click', function () { $('#book-form').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function () { $('#book-form').ci.focus(); }, 500); });
     // galeria

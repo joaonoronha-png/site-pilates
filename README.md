@@ -15,14 +15,14 @@ python3 -m http.server 8080   # abrir http://localhost:8080
 | **Intro animada** | Ondas do calçadão de Copacabana desenhadas na tela + logotipo. Aparece 1× por sessão, tem botão "Pular" e versão curta com movimento reduzido. |
 | **Busca estilo Airbnb** | Destino, check-in, check-out e hóspedes no hero. |
 | **Busca inteligente** | Campo "descreva o que procura" (ex.: "6 pessoas em Angra com piscina") que vai para o assistente. |
-| **Vitrine com filtros** | 7 imóveis reais; filtros por destino, comodidades (frente para a praia, piscina, pet, garagem, famílias, home office, churrasqueira, kit praia), nº de hóspedes e favoritos (❤ salvo no navegador). |
+| **Vitrine com filtros** | 7 imóveis reais; filtros por destino, comodidades (frente para a praia, piscina, pet, garagem, famílias, home office, churrasqueira, kit praia), e nº de hóspedes. |
 | **Página de cada imóvel** | Abre em `#imovel/<slug>` (link compartilhável): galeria com lightbox, descrição, comodidades, regras, mapa da região e consulta de datas que abre o WhatsApp com a mensagem pronta. Link para o anúncio no Airbnb. |
 | **Mapa interativo** | MapLibre + OpenFreeMap (sem chave): os 7 imóveis (área aproximada) + escritório "3D" pulsante, abas Tudo/Barra/Leme/Angra, lista sincronizada, destaca o que passa nos filtros. |
 | **Botões redondos fixos** | Mesmo padrão dos sites anteriores: **Assistente (IA)**, **Mapa/rotas** (menu Google Maps, Mapas do iPhone, Waze e Uber até o escritório) e **WhatsApp** com anel pulsante. |
 | **Concierge virtual (bot/agente de IA)** | Entende linguagem natural em português, espanhol e inglês, guarda o contexto (destino, pessoas, datas, comodidades, Réveillon/Carnaval), recomenda imóveis reais, responde dúvidas do FAQ e entrega tudo resumido no WhatsApp. Nunca inventa preço/disponibilidade. |
 | Destinos, avaliações reais, passeios, proprietários, FAQ com busca, contato → WhatsApp | Tudo alimentado por `data/site-data.js`. |
 
-Referências de mercado usadas: Airbnb (barra de busca, mapa + lista, favoritos, página do imóvel com galeria 1+4 e caixa de reserva fixa), Booking/Vrbo (filtros por comodidade e regras claras), Housi/Charlie e Plum Guide (curadoria e tom de hospitalidade), onefinestay (serviços além das chaves).
+Referências de mercado usadas: Airbnb (barra de busca, mapa + lista, página do imóvel com galeria 1+4 e caixa de reserva fixa), Booking/Vrbo (filtros por comodidade e regras claras), Housi/Charlie e Plum Guide (curadoria e tom de hospitalidade), onefinestay (serviços além das chaves).
 
 ## Estrutura
 
@@ -32,7 +32,7 @@ privacidade.html           política de privacidade
 data/site-data.js          ← BASE ÚNICA: empresa, imóveis, destinos, avaliações, FAQ
 data/config.js             ← liga a IA (aiEndpoint)
 assets/css/main.css
-assets/js/main.js          intro, vitrine, filtros, favoritos, página do imóvel, FAQ, formulário
+assets/js/main.js          intro, vitrine, filtros, página do imóvel, FAQ, formulário
 assets/js/map.js           mapa interativo (MapLibre + OpenFreeMap)
 assets/js/concierge.js     assistente virtual (motor local + IA opcional)
 assets/vendor/maplibre/    MapLibre GL 4.7.1 (licença BSD-3, LICENSE.txt)
@@ -63,7 +63,7 @@ O backend só recebe a base oficial do site, responde em JSON estruturado, nunca
 
 ## Medição
 
-Eventos vão para `window.dataLayer` (prontos para GA4/GTM, nenhum script de terceiros carregado): `whatsapp_click`, `booking_whatsapp`, `lead_whatsapp`, `property_view`, `favorite_toggle`, `search`, `smart_search`, `filter`, `chat_open`, `chat_recommend`, `chat_faq`, `chat_owner`, `chat_unconfirmed`, `chat_to_whatsapp`, `chat_handoff`, `routes_open`, `directions_click`, `map_load`, `map_pin_click`.
+Eventos vão para `window.dataLayer` (prontos para GA4/GTM, nenhum script de terceiros carregado): `whatsapp_click`, `booking_whatsapp`, `lead_whatsapp`, `property_view`, `search`, `smart_search`, `filter`, `chat_open`, `chat_recommend`, `chat_faq`, `chat_owner`, `chat_unconfirmed`, `chat_to_whatsapp`, `chat_handoff`, `routes_open`, `directions_click`, `map_load`, `map_pin_click`.
 
 ## Acessibilidade e desempenho
 

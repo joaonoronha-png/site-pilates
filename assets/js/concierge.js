@@ -158,7 +158,7 @@
       out.actions.push(handoffAction()); return out;
     }
     if (/^(ainda )?nao sei|^tanto faz|^qualquer/.test(n)) {
-      out.text = 'Sem problema. Quando tiver as datas, é só me dizer. Enquanto isso, salve os favoritos no coração de cada imóvel para comparar depois.';
+      out.text = 'Sem problema. Quando tiver as datas, é só me dizer. Enquanto isso, veja os imóveis e me pergunte o que quiser sobre eles.';
       out.chips = ['Ver imóveis', 'Aceita pet?', 'Horário de check-in']; return out;
     }
     if (/^(obrigad|valeu|gracias|thanks|thank you|perfeito|show|otimo|top)/.test(n)) {
