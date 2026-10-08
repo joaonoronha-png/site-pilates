@@ -328,7 +328,9 @@
       { nome: 'Cristian', origem: 'Santiago, Chile', data: 'setembro de 2026', nota: 5, traduzido: 'espanhol',
         texto: 'O apartamento corresponde totalmente ao que está descrito no anúncio. A localização é muito boa, a uma curta caminhada da praia, e a piscina é ótima, especialmente para quem vai com crianças. Tudo funcionando perfeitamente. Altamente recomendado.' },
       { nome: 'Oussama', origem: 'Nova York, EUA', data: 'setembro de 2026', nota: 5, traduzido: 'inglês',
-        texto: 'Airbnb limpo e aconchegante. Recomendo muito se você quiser ter uma estadia agradável no Rio.' }
+        texto: 'Airbnb limpo e aconchegante. Recomendo muito se você quiser ter uma estadia agradável no Rio.' },
+      { nome: 'Alexandre', origem: 'Florianópolis, Brasil', data: 'outubro de 2026', nota: 5, traduzido: null,
+        texto: 'Bem legal, bem atenciosos.' }
     ],
 
     /*

@@ -234,12 +234,66 @@
   });
 
   var star = '<svg aria-hidden="true"><use href="#i-star"/></svg>';
-  $('#reviews').innerHTML = D.avaliacoes.map(function (r) {
-    return '<article class="review" data-reveal><div class="review__stars" aria-label="Nota ' + r.nota + ' de 5">' + new Array(r.nota + 1).join(star) + '</div>' +
-      '<blockquote>' + esc(r.texto) + '</blockquote>' +
-      '<footer><span class="review__av" aria-hidden="true">' + esc(r.nome[0]) + '</span><div><strong>' + esc(r.nome) + '</strong><small>' + esc(r.origem) + ' · ' + esc(r.data) + '</small>' +
-      (r.traduzido ? '<div class="review__tr">Traduzido do ' + esc(r.traduzido) + '</div>' : '') + '</div></footer></article>';
-  }).join('');
+  function reviewCard(r, dup) {
+    return '<article class="review-card"' + (dup ? ' aria-hidden="true"' : '') + '>' +
+      '<div class="review-card__stars" role="img" aria-label="Nota ' + r.nota + ' de 5">' + new Array(r.nota + 1).join(star) + '</div>' +
+      '<p class="review-card__text">“' + esc(r.texto) + '”</p>' +
+      '<footer><span class="review-card__av" aria-hidden="true">' + esc(r.nome[0]) + '</span><span><strong>' + esc(r.nome) + '</strong>' +
+      '<small>' + esc(r.origem) + ' · ' + esc(r.data) + '</small></span></footer>' +
+      '<span class="review-tag">Airbnb' + (r.traduzido ? ' · traduzido do ' + esc(r.traduzido) : '') + '</span></article>';
+  }
+  var rTrack = $('#reviews .reviews-track');
+  rTrack.innerHTML = D.avaliacoes.map(function (r) { return reviewCard(r, false); }).join('') +
+    D.avaliacoes.map(function (r) { return reviewCard(r, true); }).join('');
+
+  // carrossel infinito das avaliações (mesmo comportamento dos sites anteriores):
+  // roda sozinho, pausa com o mouse em cima e pode ser arrastado com o dedo ou o mouse
+  function initMarquee(container, durationSec) {
+    var track = container.querySelector('.reviews-track');
+    if (!track || reduce) { container.classList.add('is-static'); return; }
+    var dragging = false, moved = false, startX = 0, startOffset = 0, shift = 0;
+    var measure = function () {
+      var firstDup = track.querySelector('.review-card[aria-hidden="true"]');
+      shift = firstDup ? firstDup.offsetLeft - track.firstElementChild.offsetLeft : track.scrollWidth / 2;
+      track.style.setProperty('--shift', '-' + shift + 'px');
+    };
+    measure();
+    if (!shift) return;
+    track.style.animation = 'none'; void track.offsetHeight;
+    track.style.animation = 'marquee-scroll ' + durationSec + 's linear infinite';
+    var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 200); });
+    var currentX = function () { return new DOMMatrixReadOnly(getComputedStyle(track).transform).m41; };
+    var wrapX = function (x) { var v = x % shift; if (v > 0) v -= shift; return v; };
+    container.addEventListener('pointerdown', function (e) {
+      if (e.button !== undefined && e.button !== 0) return;
+      dragging = true; moved = false; startX = e.clientX; startOffset = currentX();
+      track.style.animation = 'none'; track.style.transform = 'translateX(' + startOffset + 'px)';
+      if (container.setPointerCapture) container.setPointerCapture(e.pointerId);
+      container.classList.add('is-dragging');
+    });
+    container.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      if (Math.abs(e.clientX - startX) > 4) moved = true;
+      track.style.transform = 'translateX(' + wrapX(startOffset + (e.clientX - startX)) + 'px)';
+    });
+    var endDrag = function () {
+      if (!dragging) return;
+      dragging = false; container.classList.remove('is-dragging');
+      var elapsed = (-currentX() / shift) * durationSec;
+      track.style.transform = '';
+      track.style.animation = 'marquee-scroll ' + durationSec + 's linear infinite';
+      track.style.animationDelay = '-' + elapsed + 's';
+    };
+    container.addEventListener('pointerup', endDrag);
+    container.addEventListener('pointercancel', endDrag);
+    // pausa só com mouse de verdade (no toque o :hover fica preso e parecia travado)
+    container.addEventListener('mouseenter', function () { if (!dragging) track.style.animationPlayState = 'paused'; });
+    container.addEventListener('mouseleave', function () { if (!dragging) track.style.animationPlayState = 'running'; });
+    // teclado: foco dentro do carrossel também pausa
+    container.addEventListener('focusin', function () { track.style.animationPlayState = 'paused'; });
+    container.addEventListener('focusout', function () { track.style.animationPlayState = 'running'; });
+  }
+  initMarquee($('#reviews'), 45);
 
   $('#owners-list').innerHTML = E.gestao.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
 

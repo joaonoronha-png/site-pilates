@@ -391,17 +391,41 @@ html:not(.js) .intro{ display:none; }
 .why__pillars p{ margin:0; color: rgba(248,246,241,.8); font-size: .97rem; }
 @media (max-width: 900px){ .why__grid{ grid-template-columns: 1fr; } .why__pillars{ grid-template-columns: 1fr; } }
 
-/* ---------- avaliações ---------- */
-.reviews__track{ display:grid; grid-template-columns: repeat(4, minmax(260px, 1fr)); gap: 18px; overflow-x:auto; scroll-snap-type: x mandatory; padding-bottom: 8px; scrollbar-width: thin; }
-.review{ scroll-snap-align: start; display:flex; flex-direction:column; gap: 14px; padding: 26px; border-radius: var(--r); background:#fff; border: 1px solid var(--linha); }
-.review__stars{ display:flex; gap: 2px; color: var(--sol); }
-.review__stars svg{ width:17px; height:17px; }
-.review blockquote{ margin:0; font-size: 1rem; line-height: 1.6; flex:1; }
-.review footer{ display:flex; align-items:center; gap: 12px; }
-.review__av{ width:42px; height:42px; border-radius:50%; display:grid; place-items:center; background: var(--areia-2); font-family: var(--serif); font-size: 1.2rem; color: var(--mar); flex:none; }
-.review footer strong{ display:block; font-size: .95rem; }
-.review footer small{ color: var(--texto-2); font-size: .8rem; }
-.review__tr{ font-family: var(--mono); font-size: .7rem; color: var(--texto-2); letter-spacing: .04em; }
+/* ---------- avaliações (carrossel infinito, padrão dos sites anteriores) ---------- */
+.reviews{ background: var(--mar); color: var(--espuma); overflow:hidden; }
+.reviews h2{ color: var(--espuma); }
+.reviews-head{ display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap: 32px; margin-bottom: 52px; }
+.reviews-lead{ color: rgba(248,246,241,.75); max-width: 50ch; margin: 18px 0 0; }
+.reviews-score{ display:grid; grid-template-columns: auto auto; column-gap: 18px; align-items:center; }
+.reviews-number{ grid-row: span 2; font-family: var(--serif); font-size: clamp(3.8rem, 8vw, 5.6rem); line-height:.9; color: var(--sol); }
+.reviews-stars{ display:flex; gap: 3px; color: var(--sol); }
+.reviews-stars svg{ width:18px; height:18px; }
+.reviews-count{ font-size: .92rem; color: rgba(248,246,241,.75); }
+.reviews-marquee{ position:relative; overflow:hidden; cursor: grab; user-select:none; -webkit-user-select:none; }
+.reviews-marquee.is-dragging{ cursor: grabbing; }
+.reviews-marquee::before, .reviews-marquee::after{ content:''; position:absolute; top:0; bottom:0; width: min(120px, 8vw); z-index:1; pointer-events:none; }
+.reviews-marquee::before{ left:0; background: linear-gradient(90deg, var(--mar), transparent); }
+.reviews-marquee::after{ right:0; background: linear-gradient(270deg, var(--mar), transparent); }
+.reviews-track{ display:flex; gap: 20px; width: max-content; padding: 0 var(--gutter); touch-action: pan-y; animation: marquee-scroll 45s linear infinite; }
+.reviews-marquee.is-static{ overflow-x:auto; cursor: auto; }
+.reviews-marquee.is-static .reviews-track{ animation: none; }
+.reviews-marquee.is-static .review-card[aria-hidden="true"]{ display:none; }
+.review-card{
+  flex: 0 0 360px; display:flex; flex-direction:column; gap: 16px;
+  background: rgba(248,246,241,.05); border: 1px solid rgba(242,162,78,.22);
+  border-radius: 18px; padding: 28px 26px;
+}
+.review-card__stars{ display:flex; gap: 2px; color: var(--sol); }
+.review-card__stars svg{ width:16px; height:16px; }
+.review-card__text{ margin:0; flex:1; font-family: var(--serif); font-size: 1.18rem; line-height: 1.45; color: var(--espuma); }
+.review-card footer{ display:flex; align-items:center; gap: 12px; }
+.review-card__av{ width:42px; height:42px; flex:none; border-radius:50%; display:grid; place-items:center; background: var(--sol); color: var(--mar); font-family: var(--serif); font-size: 1.2rem; }
+.review-card strong{ display:block; font-size: .96rem; }
+.review-card small{ display:block; font-size: .8rem; color: rgba(248,246,241,.7); }
+.review-tag{ font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: rgba(248,246,241,.6); }
+.reviews-cta{ margin-top: 44px; padding: 0 var(--gutter); text-align:center; }
+@media (max-width: 640px){ .review-card{ flex-basis: 285px; padding: 24px 22px; } .review-card__text{ font-size: 1.08rem; } }
+@keyframes marquee-scroll{ from{ transform: translateX(0); } to{ transform: translateX(var(--shift, -50%)); } }
 
 /* ---------- experiências ---------- */
 .exp{ background: var(--areia); }

@@ -282,16 +282,28 @@
 </section>
 
 <!-- ============ AVALIAÇÕES ============ -->
+<div class="calcadao calcadao--light" aria-hidden="true"></div>
 <section class="section reviews" id="avaliacoes" aria-labelledby="reviews-title">
-  <div class="wrap">
-    <header class="section__head">
-      <div>
-        <p class="eyebrow">Avaliações reais do Airbnb</p>
-        <h2 id="reviews-title">Quem ficou, conta</h2>
-      </div>
-      <a class="link-arrow" href="https://www.airbnb.com.br/users/show/231257327" target="_blank" rel="noopener">Ver todas as 224 avaliações <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-    </header>
-    <div class="reviews__track" id="reviews"></div>
+  <div class="wrap reviews-head">
+    <div>
+      <p class="eyebrow eyebrow--light">Avaliações reais do Airbnb</p>
+      <h2 id="reviews-title">Quem ficou, conta</h2>
+      <p class="reviews-lead">Hóspedes do Brasil, da Argentina, do Chile e dos Estados Unidos. Trechos publicados no perfil do anfitrião, com a tradução do próprio Airbnb.</p>
+    </div>
+    <div class="reviews-score">
+      <span class="reviews-number">4,79</span>
+      <span class="reviews-stars" role="img" aria-label="Nota 4,79 de 5"><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg><svg aria-hidden="true"><use href="#i-star"/></svg></span>
+      <span class="reviews-count">224 avaliações · Superhost</span>
+    </div>
+  </div>
+
+  <!-- Cards gerados de data/site-data.js (avaliacoes); o segundo conjunto é cópia para o loop infinito -->
+  <div class="reviews-marquee" id="reviews" aria-label="Avaliações de hóspedes (arraste para os lados)">
+    <div class="reviews-track"></div>
+  </div>
+
+  <div class="reviews-cta">
+    <a href="https://www.airbnb.com.br/users/show/231257327" target="_blank" rel="noopener" class="btn btn--light">Ler as 224 avaliações no Airbnb</a>
   </div>
 </section>
 
