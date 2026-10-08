@@ -286,13 +286,12 @@ button.row__title:hover{ text-decoration: underline; text-underline-offset: 3px;
 .row__nav button{ width: 32px; height: 32px; border-radius:50%; border: 1px solid var(--linha); background:#fff; display:grid; place-items:center; transition: opacity .2s, box-shadow .2s; }
 .row__nav button:hover:not(:disabled){ box-shadow: 0 4px 12px -6px rgba(11,44,61,.5); }
 .row__nav button:disabled{ opacity:.35; cursor: default; }
+.row--fits .row__nav{ visibility:hidden; }
 .row__nav button:first-child svg{ transform: rotate(180deg); }
 .row__nav svg{ width: 13px; height: 13px; }
 .row__track{ display:flex; gap: 16px; overflow-x:auto; scroll-snap-type: x mandatory; scrollbar-width:none; padding-bottom: 4px; }
 .row__track::-webkit-scrollbar{ display:none; }
-.row__track .card{ flex: 0 0 calc((100% - 5 * 16px) / 6); min-width:0; scroll-snap-align: start; }
-@media (max-width: 1440px){ .row__track .card{ flex-basis: calc((100% - 4 * 16px) / 5); } }
-@media (max-width: 1180px){ .row__track .card{ flex-basis: calc((100% - 3 * 16px) / 4); } }
+.row__track .card{ flex: 0 0 calc((100% - 3 * 16px) / 4); min-width:0; scroll-snap-align: start; }
 @media (max-width: 900px){ .row__track .card{ flex-basis: calc((100% - 2 * 16px) / 3); } }
 @media (max-width: 640px){
   .row__nav{ display:none; }

@@ -177,11 +177,9 @@
   }
   // fileiras lado a lado, como a página inicial do Airbnb (quando não há filtro)
   var notaN = function (i) { return i.nota ? parseFloat(i.nota.replace(',', '.')) : 0; };
+  // cada imóvel aparece uma vez só: as fileiras dividem por destino
   var ROWS = [
-    { t: 'Mais bem avaliadas pelos hóspedes', cat: '', list: function () { return D.imoveis.slice().sort(function (a, b) { return notaN(b) - notaN(a); }); } },
-    { t: 'Pé na areia na Barra da Tijuca', cat: 'dest:barra', list: function () { return D.imoveis.filter(function (i) { return i.destino === 'barra'; }); } },
-    { t: 'Com piscina', cat: 'piscina', list: function () { return D.imoveis.filter(function (i) { return i.comodidades.indexOf('piscina') > -1; }); } },
-    { t: 'Para viajar com a família', cat: 'familia', list: function () { return D.imoveis.filter(function (i) { return i.comodidades.indexOf('familia') > -1; }); } },
+    { t: 'Pé na areia na Barra da Tijuca', cat: 'dest:barra', list: function () { return D.imoveis.filter(function (i) { return i.destino === 'barra'; }).sort(function (a, b) { return notaN(b) - notaN(a); }); } },
     { t: 'Copacabana, Leme e Angra dos Reis', cat: '', list: function () { return D.imoveis.filter(function (i) { return i.destino !== 'barra'; }); } }
   ];
   function rowsHTML() {
@@ -203,7 +201,7 @@
     if (rows) {
       $$('.row', grid).forEach(function (r) {
         var tr = $('.row__track', r), prev = $('[data-row="-1"]', r), next = $('[data-row="1"]', r);
-        var upd = function () { prev.disabled = tr.scrollLeft < 8; next.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 8; };
+        var upd = function () { prev.disabled = tr.scrollLeft < 8; next.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 8; r.classList.toggle('row--fits', prev.disabled && next.disabled); };
         [prev, next].forEach(function (b) { b.addEventListener('click', function () { tr.scrollBy({ left: Number(b.dataset.row) * tr.clientWidth * 0.9, behavior: reduce ? 'auto' : 'smooth' }); }); });
         tr.addEventListener('scroll', upd, { passive: true }); upd(); setTimeout(upd, 300);
       });
