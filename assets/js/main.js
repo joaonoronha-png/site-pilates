@@ -145,7 +145,7 @@
   function card(i, n) {
     var fotos = i.fotos.length ? i.fotos.slice(0, 5).map(function (f, k) { return img(i, k); }) : [img(i)];
     var slides = fotos.map(function (p, k) {
-      return '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 560px) 100vw, (max-width: 950px) 50vw, 25vw" width="720" height="684" loading="' + (n < 4 && k === 0 ? 'eager' : 'lazy') + '" alt="' + esc(p.alt) + '">';
+      return '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 560px) 50vw, (max-width: 950px) 33vw, 20vw" width="720" height="684" loading="' + (n < 4 && k === 0 ? 'eager' : 'lazy') + '" alt="' + esc(p.alt) + '">';
     }).join('');
     var multi = fotos.length > 1;
     return '<article class="card" style="--i:' + n + '" data-card="' + i.slug + '">' +
@@ -164,7 +164,7 @@
           (i.nota ? '<span class="card__rating"><svg aria-hidden="true"><use href="#i-star"/></svg>' + i.nota + ' (' + i.avaliacoes + ')</span>' : '<span class="card__rating">Novo <svg aria-hidden="true"><use href="#i-star"/></svg></span>') + '</span>' +
         '<span class="card__l2">' + esc(i.nome) + '</span>' +
         '<span class="card__l2">' + i.hospedes + ' hóspedes · ' + (i.quartos > 1 ? i.quartos + ' suítes' : '1 quarto') + ' · ' + esc(i.banheiros) + '</span>' +
-        '<span class="card__l3">' + (i.diariaAPartir ? '<b>R$ ' + i.diariaAPartir + '</b> noite' : '<b>Valor sob consulta</b> · resposta em até 1 h') + '</span>' +
+        '<span class="card__l3">' + (i.diariaAPartir ? '<b>R$ ' + i.diariaAPartir + '</b> noite' : '<b>Valor sob consulta</b><span> · resposta em até 1 h</span>') + '</span>' +
       '</a>' +
     '</article>';
   }
@@ -175,9 +175,40 @@
     if (G.pets) p.push(G.pets + (G.pets === 1 ? ' pet' : ' pets'));
     return p.join(', ');
   }
+  // fileiras lado a lado, como a página inicial do Airbnb (quando não há filtro)
+  var notaN = function (i) { return i.nota ? parseFloat(i.nota.replace(',', '.')) : 0; };
+  var ROWS = [
+    { t: 'Mais bem avaliadas pelos hóspedes', cat: '', list: function () { return D.imoveis.slice().sort(function (a, b) { return notaN(b) - notaN(a); }); } },
+    { t: 'Pé na areia na Barra da Tijuca', cat: 'dest:barra', list: function () { return D.imoveis.filter(function (i) { return i.destino === 'barra'; }); } },
+    { t: 'Com piscina', cat: 'piscina', list: function () { return D.imoveis.filter(function (i) { return i.comodidades.indexOf('piscina') > -1; }); } },
+    { t: 'Para viajar com a família', cat: 'familia', list: function () { return D.imoveis.filter(function (i) { return i.comodidades.indexOf('familia') > -1; }); } },
+    { t: 'Copacabana, Leme e Angra dos Reis', cat: '', list: function () { return D.imoveis.filter(function (i) { return i.destino !== 'barra'; }); } }
+  ];
+  function rowsHTML() {
+    var n = 0;
+    return ROWS.map(function (r, k) {
+      var items = r.list();
+      var head = r.cat ? '<button type="button" class="row__title" data-row-cat="' + r.cat + '">' + esc(r.t) + ' <svg aria-hidden="true"><use href="#i-chev"/></svg></button>' : '<span class="row__title">' + esc(r.t) + '</span>';
+      return '<section class="row" aria-label="' + esc(r.t) + '"><header class="row__head"><h3>' + head + '</h3>' +
+        '<div class="row__nav"><button type="button" data-row="-1" aria-label="Voltar"><svg aria-hidden="true"><use href="#i-chev"/></svg></button><button type="button" data-row="1" aria-label="Avançar"><svg aria-hidden="true"><use href="#i-chev"/></svg></button></div></header>' +
+        '<div class="row__track">' + items.map(function (i) { return card(i, k === 0 ? n++ : 9); }).join('') + '</div></section>';
+    }).join('');
+  }
+  function isFiltered() { return !!(state.dest || state.cat || state.am.length || state.onlyFavs || state.guests); }
   function render() {
     var list = D.imoveis.filter(function (i) { return match(i); });
-    grid.innerHTML = list.map(card).join('');
+    var rows = !isFiltered() && !document.body.classList.contains('show-map');
+    grid.classList.toggle('grid--rows', rows);
+    grid.innerHTML = rows ? rowsHTML() : list.map(card).join('');
+    if (rows) {
+      $$('.row', grid).forEach(function (r) {
+        var tr = $('.row__track', r), prev = $('[data-row="-1"]', r), next = $('[data-row="1"]', r);
+        var upd = function () { prev.disabled = tr.scrollLeft < 8; next.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 8; };
+        [prev, next].forEach(function (b) { b.addEventListener('click', function () { tr.scrollBy({ left: Number(b.dataset.row) * tr.clientWidth * 0.9, behavior: reduce ? 'auto' : 'smooth' }); }); });
+        tr.addEventListener('scroll', upd, { passive: true }); upd(); setTimeout(upd, 300);
+      });
+      $$('[data-row-cat]', grid).forEach(function (b) { b.addEventListener('click', function () { state.cat = b.dataset.rowCat; render(); document.getElementById('imoveis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }); });
+    }
     emptyEl.hidden = list.length > 0;
     var x = filtersOf(state);
     countEl.textContent = list.length + (list.length === 1 ? ' acomodação' : ' acomodações') +
@@ -196,7 +227,11 @@
   }
   function bindCards() {
     $$('[data-fav]', grid).forEach(function (b) {
-      b.addEventListener('click', function (e) { e.preventDefault(); toggleFav(b.dataset.fav); b.setAttribute('aria-pressed', String(isFav(b.dataset.fav))); if (state.onlyFavs) render(); });
+      b.addEventListener('click', function (e) {
+        e.preventDefault(); toggleFav(b.dataset.fav);
+        $$('[data-fav="' + b.dataset.fav + '"]', grid).forEach(function (x) { x.setAttribute('aria-pressed', String(isFav(b.dataset.fav))); });
+        if (state.onlyFavs) render();
+      });
     });
     $$('.card', grid).forEach(function (c) {
       var sl = $('.card__slides', c), dots = $$('.card__dots i', c);
@@ -308,7 +343,7 @@
   /* lista ⇄ mapa (botão flutuante, como no Airbnb) */
   var mtog = $('#map-toggle');
   function showMap(on) {
-    document.body.classList.toggle('show-map', on);
+    document.body.classList.toggle('show-map', on); render();
     mtog.setAttribute('aria-pressed', String(on));
     mtog.innerHTML = on ? '<span>Mostrar lista</span><svg aria-hidden="true"><use href="#i-list"/></svg>' : '<span>Mostrar mapa</span><svg aria-hidden="true"><use href="#i-map"/></svg>';
     setTimeout(function () { if (window.MAPA && MAPA.resize) MAPA.resize(); }, 60);
