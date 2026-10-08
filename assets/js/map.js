@@ -136,7 +136,7 @@
     D.imoveis.forEach(function (i, n) {
       var node = document.createElement('button');
       node.type = 'button'; node.className = 'mkp'; node.setAttribute('aria-label', i.nome + ', ' + i.bairro);
-      node.innerHTML = '<span class="mkp__in">' + (i.nota ? '★ ' + i.nota : 'Novo') + '</span>';
+      node.innerHTML = '<span class="mkp__in"><span class="mkp__ico" aria-hidden="true"><svg><use href="#i-house-fill"/></svg></span>' + (i.nota ? '★ ' + i.nota : 'Novo') + '</span>';
       var pop = new maplibregl.Popup({ offset: 22, maxWidth: '260px', closeButton: true, focusAfterOpen: false }).setHTML(popupHTML(i));
       markers[i.slug] = new maplibregl.Marker({ element: node }).setLngLat([i.lng, i.lat]).setPopup(pop).addTo(map);
       node.addEventListener('click', function () { active(i.slug); track('map_pin_click', { slug: i.slug }); });

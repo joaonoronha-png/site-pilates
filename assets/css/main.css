@@ -415,6 +415,13 @@ body.show-map .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
 .map-fallback{ position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding: 24px; color: var(--texto-2); }
 .mkp{ padding:0; border:0; background:none; cursor:pointer; transition: opacity .3s; }
 .mkp__in{ display:block; padding: 6px 10px; border-radius: 999px; background:#fff; color: var(--texto); font: 700 13px/1 var(--sans); white-space:nowrap; box-shadow: 0 0 0 1px rgba(11,44,61,.12), 0 6px 16px -6px rgba(11,44,61,.5); transition: transform .25s var(--ease), background-color .2s, color .2s; }
+.mkp__in{ display:inline-flex !important; align-items:center; gap: 4px; }
+.mkp__in{ padding: 4px 10px 4px 4px !important; }
+.mkp__ico{ width: 22px; height: 22px; flex:none; border-radius:50%; display:grid; place-items:center; background: var(--mar); color:#fff; }
+.mkp__ico svg{ width: 13px; height: 13px; }
+.mkp:hover .mkp__ico, .mkp.is-active .mkp__ico, .lmk.is-active .mkp__ico{ background:#fff; color: var(--mar); }
+.lcl{ padding-left: 5px !important; }
+.lcl .mkp__ico{ background:#fff; color: var(--mar); }
 .mkp:hover .mkp__in, .mkp.is-active .mkp__in{ background: var(--mar); color:#fff; transform: scale(1.08); }
 
 /* ---------- destinos ---------- */
