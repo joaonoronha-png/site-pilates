@@ -89,7 +89,7 @@
       container: el, style: STYLE, bounds: bounds('todos'), fitBoundsOptions: { padding: 60, maxZoom: 15 },
       cooperativeGestures: true, attributionControl: false, dragRotate: false, pitchWithRotate: false, locale: LOCALE
     });
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-left');
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
     map.on('load', function () {
       tint(map); addAreas(map, D.imoveis);
@@ -100,8 +100,8 @@
 
     D.imoveis.forEach(function (i, n) {
       var node = document.createElement('button');
-      node.type = 'button'; node.className = 'mk'; node.setAttribute('aria-label', i.nome + ', ' + i.bairro);
-      node.innerHTML = '<span class="mk__dot" style="background:' + COR[i.destino] + '">' + (n + 1) + '</span>';
+      node.type = 'button'; node.className = 'mkp'; node.setAttribute('aria-label', i.nome + ', ' + i.bairro);
+      node.innerHTML = '<span class="mkp__in">' + (i.nota ? '★ ' + i.nota : 'Novo') + '</span>';
       var pop = new maplibregl.Popup({ offset: 22, maxWidth: '260px', closeButton: true, focusAfterOpen: false }).setHTML(popupHTML(i));
       markers[i.slug] = new maplibregl.Marker({ element: node }).setLngLat([i.lng, i.lat]).setPopup(pop).addTo(map);
       node.addEventListener('click', function () { active(i.slug); track('map_pin_click', { slug: i.slug }); });
@@ -129,7 +129,20 @@
       visible = slugs;
       Object.keys(buttons).forEach(function (k) { buttons[k].parentNode.style.opacity = slugs.indexOf(k) > -1 ? '' : '.45'; });
       Object.keys(markers).forEach(function (k) { markers[k].getElement().style.opacity = slugs.indexOf(k) > -1 ? '1' : '.35'; });
+      // enquadra só o que passou nos filtros, como o Airbnb faz ao filtrar
+      if (map && slugs.length) {
+        var pts = D.imoveis.filter(function (i) { return slugs.indexOf(i.slug) > -1; });
+        var b = new maplibregl.LngLatBounds([pts[0].lng, pts[0].lat], [pts[0].lng, pts[0].lat]);
+        pts.forEach(function (i) { b.extend([i.lng, i.lat]); });
+        map.fitBounds(b, { padding: 70, maxZoom: 13.5, duration: reduce ? 0 : 900 });
+      }
     },
+    // pino aceso quando o mouse passa no card (como no Airbnb)
+    active: function (slug) {
+      Object.keys(markers).forEach(function (k) { var e = markers[k].getElement(); e.classList.toggle('is-active', k === slug); e.style.zIndex = k === slug ? '5' : ''; });
+    },
+    // chamado quando o painel do mapa aparece
+    resize: function () { if (!map) init(); else map.resize(); },
     // mapa pequeno da página do imóvel
     mini: function (container, i) {
       if (!window.maplibregl) return null;

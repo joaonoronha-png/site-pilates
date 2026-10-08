@@ -87,7 +87,9 @@
     burger.setAttribute('aria-expanded', String(open)); nav.classList.toggle('open', open);
     burger.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
   });
-  $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { burger.setAttribute('aria-expanded', 'false'); nav.classList.remove('open'); }); });
+  var closeMenu = function () { burger.setAttribute('aria-expanded', 'false'); nav.classList.remove('open'); burger.setAttribute('aria-label', 'Abrir menu'); };
+  $$('a', nav).forEach(function (a) { a.addEventListener('click', closeMenu); });
+  document.addEventListener('click', function (e) { if (!nav.contains(e.target) && !burger.contains(e.target)) closeMenu(); });
 
   // botão redondo do mapa: menu de rotas (Google Maps, Mapas do iPhone, Waze, Uber)
   var route = $('[data-route]');
@@ -120,98 +122,211 @@
   function updateFavCount() { $$('[data-fav-count]').forEach(function (e) { e.textContent = favs.length; }); }
   updateFavCount();
 
-  /* ---------- vitrine e filtros ---------- */
-  var state = { dest: '', am: [], guests: 2, onlyFavs: false, checkin: '', checkout: '' };
-  var grid = $('#grid'), countEl = $('#results-count'), emptyEl = $('#empty'), guestsOut = $('#guests-out');
+  /* ---------- vitrine (organização inspirada no Airbnb) ---------- */
+  var state = { dest: '', cat: '', am: [], guests: 0, pets: 0, onlyFavs: false, checkin: '', checkout: '' };
+  var G = { adultos: 0, criancas: 0, bebes: 0, pets: 0 };
+  var grid = $('#grid'), countEl = $('#results-count'), emptyEl = $('#empty');
 
-  function match(i) {
-    if (state.dest && i.destino !== state.dest) return false;
-    if (i.hospedes < state.guests) return false;
-    if (state.onlyFavs && !isFav(i.slug)) return false;
-    for (var k = 0; k < state.am.length; k++) if (i.comodidades.indexOf(state.am[k]) < 0) return false;
+  function filtersOf(f) {
+    var am = f.am.slice();
+    if (f.cat && f.cat.indexOf('dest:') !== 0 && am.indexOf(f.cat) < 0) am.push(f.cat);
+    return { dest: f.cat.indexOf('dest:') === 0 ? f.cat.slice(5) : f.dest, am: am };
+  }
+  function match(i, f) {
+    f = f || state; var x = filtersOf(f);
+    if (x.dest && i.destino !== x.dest) return false;
+    if (f.guests && i.hospedes < f.guests) return false;
+    if (f.onlyFavs && !isFav(i.slug)) return false;
+    for (var k = 0; k < x.am.length; k++) if (i.comodidades.indexOf(x.am[k]) < 0) return false;
     return true;
   }
-  function specs(i) {
-    return '<ul class="card__specs">' +
-      '<li><svg aria-hidden="true"><use href="#i-users"/></svg> até ' + i.hospedes + '</li>' +
-      '<li><svg aria-hidden="true"><use href="#i-bed"/></svg> ' + (i.quartos > 1 ? i.quartos + ' suítes' : '1 quarto') + '</li>' +
-      '</ul>';
-  }
-  function rating(i) {
-    return i.nota
-      ? '<span class="card__rating"><svg aria-hidden="true"><use href="#i-star"/></svg>' + i.nota + ' <small>(' + i.avaliacoes + ')</small></span>'
-      : '<span class="card__rating"><small>Novo</small></span>';
-  }
+  var bairro = function (i) { return i.destino === 'angra' ? 'Angra dos Reis' : i.bairro; };
+  function tipoCurto(i) { return /^Casa/.test(i.tipo) ? 'Casa' : /^Flat/.test(i.tipo) ? 'Flat' : 'Apartamento'; }
   function card(i, n) {
-    var p = img(i);
-    return '<article class="card" style="--i:' + n + '">' +
+    var fotos = i.fotos.length ? i.fotos.slice(0, 5).map(function (f, k) { return img(i, k); }) : [img(i)];
+    var slides = fotos.map(function (p, k) {
+      return '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 560px) 100vw, (max-width: 950px) 50vw, 25vw" width="720" height="684" loading="' + (n < 4 && k === 0 ? 'eager' : 'lazy') + '" alt="' + esc(p.alt) + '">';
+    }).join('');
+    var multi = fotos.length > 1;
+    return '<article class="card" style="--i:' + n + '" data-card="' + i.slug + '">' +
       '<div class="card__media">' +
-        '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw" width="720" height="610" loading="lazy" alt="' + esc(p.alt) + '">' +
+        '<div class="card__slides" tabindex="-1">' + slides + '</div>' +
+        '<a class="card__link" href="#imovel/' + i.slug + '" aria-label="' + esc(i.nome) + ', ' + esc(bairro(i)) + '"></a>' +
+        (multi ? '<button class="card__nav card__nav--prev" type="button" data-slide="-1" aria-label="Foto anterior"><svg aria-hidden="true"><use href="#i-chev"/></svg></button>' +
+          '<button class="card__nav card__nav--next" type="button" data-slide="1" aria-label="Próxima foto"><svg aria-hidden="true"><use href="#i-chev"/></svg></button>' +
+          '<span class="card__dots" aria-hidden="true">' + fotos.map(function (f, k) { return '<i' + (k ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') +
         '<span class="card__badge">' + esc(i.destaque) + '</span>' +
-        (p.own ? '' : '<span class="no-photo-note">Foto da região</span>') +
-        '<span class="card__badge card__badge--region">' + esc(destName[i.destino]) + '</span>' +
+        (fotos[0].own ? '' : '<span class="no-photo-note">Foto da região</span>') +
         '<button class="fav" type="button" data-fav="' + i.slug + '" aria-pressed="' + isFav(i.slug) + '" aria-label="Salvar ' + esc(i.nome) + ' nos favoritos"><svg aria-hidden="true"><use href="#i-heart"/></svg></button>' +
-        '<a class="card__link" href="#imovel/' + i.slug + '" aria-label="Ver detalhes de ' + esc(i.nome) + '"></a>' +
       '</div>' +
-      '<div class="card__top"><h3>' + esc(i.nome) + '</h3>' + rating(i) + '</div>' +
-      '<p class="card__ref">' + esc(i.referencia) + '</p>' +
-      specs(i) +
-      '<div class="card__cta"><a class="btn btn--mar btn--sm" href="#imovel/' + i.slug + '">Ver imóvel</a>' +
-      '<a class="btn btn--ghost btn--sm" href="' + waLink(bookingMsg(i)) + '" target="_blank" rel="noopener" data-wa="card">Consultar</a></div>' +
+      '<a class="card__body" href="#imovel/' + i.slug + '" tabindex="-1">' +
+        '<span class="card__l1"><strong>' + tipoCurto(i) + ' em ' + esc(bairro(i)) + '</strong>' +
+          (i.nota ? '<span class="card__rating"><svg aria-hidden="true"><use href="#i-star"/></svg>' + i.nota + ' (' + i.avaliacoes + ')</span>' : '<span class="card__rating">Novo <svg aria-hidden="true"><use href="#i-star"/></svg></span>') + '</span>' +
+        '<span class="card__l2">' + esc(i.nome) + '</span>' +
+        '<span class="card__l2">' + i.hospedes + ' hóspedes · ' + (i.quartos > 1 ? i.quartos + ' suítes' : '1 quarto') + ' · ' + esc(i.banheiros) + '</span>' +
+        '<span class="card__l3">' + (i.diariaAPartir ? '<b>R$ ' + i.diariaAPartir + '</b> noite' : '<b>Valor sob consulta</b> · resposta em até 1 h') + '</span>' +
+      '</a>' +
     '</article>';
   }
+  function guestLabel() {
+    var g = G.adultos + G.criancas, p = [];
+    if (g) p.push(g + (g === 1 ? ' hóspede' : ' hóspedes'));
+    if (G.bebes) p.push(G.bebes + (G.bebes === 1 ? ' bebê' : ' bebês'));
+    if (G.pets) p.push(G.pets + (G.pets === 1 ? ' pet' : ' pets'));
+    return p.join(', ');
+  }
   function render() {
-    var list = D.imoveis.filter(match);
+    var list = D.imoveis.filter(function (i) { return match(i); });
     grid.innerHTML = list.map(card).join('');
     emptyEl.hidden = list.length > 0;
-    countEl.textContent = list.length + (list.length === 1 ? ' imóvel encontrado' : ' imóveis encontrados') + (state.guests > 1 ? ' para ' + state.guests + ' hóspedes' : '');
-    guestsOut.textContent = state.guests + (state.guests === 1 ? ' hóspede' : ' hóspedes');
-    $$('[data-dest]').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.dest === state.dest)); });
-    $$('[data-am]').forEach(function (b) { b.setAttribute('aria-pressed', String(state.am.indexOf(b.dataset.am) > -1)); });
-    $('[data-only-favs]').setAttribute('aria-pressed', String(state.onlyFavs));
-    $('[data-clear]').hidden = !(state.dest || state.am.length || state.onlyFavs || state.guests > 2);
+    var x = filtersOf(state);
+    countEl.textContent = list.length + (list.length === 1 ? ' acomodação' : ' acomodações') +
+      (x.dest ? ' em ' + destName[x.dest] : ' no Rio e em Angra') + (state.guests ? ' para ' + state.guests + (state.guests === 1 ? ' hóspede' : ' hóspedes') : '');
+    $$('[data-cat]').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.cat === state.cat)); });
+    var nf = state.am.length + (state.dest ? 1 : 0) + (state.onlyFavs ? 1 : 0) + (state.guests ? 1 : 0);
+    var badge = $('#filters-n'); badge.hidden = !nf; badge.textContent = nf;
+    $('[data-clear]').hidden = !(nf || state.cat);
+    // pílula de busca
+    $('#sv-where').textContent = state.dest ? destName[state.dest] : 'Buscar destinos';
+    $('#sv-who').textContent = guestLabel() || 'Hóspedes?';
+    $('#msearch-sub').textContent = (state.dest ? destName[state.dest] : 'Qualquer destino') + ' · ' +
+      (state.checkin && state.checkout ? fmtDate(state.checkin).slice(0, 5) + '–' + fmtDate(state.checkout).slice(0, 5) : 'Qualquer data') + ' · ' + (guestLabel() || 'Hóspedes');
+    bindCards();
+    if (window.MAPA && window.MAPA.highlight) window.MAPA.highlight(list.map(function (i) { return i.slug; }));
+  }
+  function bindCards() {
     $$('[data-fav]', grid).forEach(function (b) {
       b.addEventListener('click', function (e) { e.preventDefault(); toggleFav(b.dataset.fav); b.setAttribute('aria-pressed', String(isFav(b.dataset.fav))); if (state.onlyFavs) render(); });
     });
-    if (window.MAPA && window.MAPA.highlight) window.MAPA.highlight(list.map(function (i) { return i.slug; }));
+    $$('.card', grid).forEach(function (c) {
+      var sl = $('.card__slides', c), dots = $$('.card__dots i', c);
+      $$('[data-slide]', c).forEach(function (b) {
+        b.addEventListener('click', function (e) { e.preventDefault(); sl.scrollBy({ left: Number(b.dataset.slide) * sl.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); });
+      });
+      if (dots.length) sl.addEventListener('scroll', function () {
+        var k = Math.round(sl.scrollLeft / sl.clientWidth);
+        dots.forEach(function (d, j) { d.classList.toggle('on', j === k); });
+        c.classList.toggle('at-start', k === 0); c.classList.toggle('at-end', k === dots.length - 1);
+      }, { passive: true });
+      c.classList.add('at-start');
+      c.addEventListener('mouseenter', function () { if (window.MAPA && MAPA.active) MAPA.active(c.dataset.card); });
+      c.addEventListener('mouseleave', function () { if (window.MAPA && MAPA.active) MAPA.active(null); });
+    });
   }
-  $$('[data-dest]').forEach(function (b) { b.addEventListener('click', function () { state.dest = b.dataset.dest; track('filter', { dest: state.dest }); render(); }); });
-  $$('[data-am]').forEach(function (b) {
+
+  // categorias
+  $$('[data-cat]').forEach(function (b) {
+    b.addEventListener('click', function () { state.cat = b.dataset.cat; track('category', { cat: state.cat }); render(); });
+  });
+  $('[data-clear]').addEventListener('click', function () { clearAll(); render(); });
+  function clearAll() { state.dest = ''; state.cat = ''; state.am = []; state.onlyFavs = false; state.guests = 0; G.adultos = G.criancas = G.bebes = G.pets = 0; syncGuests(); }
+  $('[data-show-favs]').addEventListener('click', function () { state.onlyFavs = true; render(); document.getElementById('imoveis').scrollIntoView(); });
+
+  /* busca em pílula: Onde · Check-in · Check-out · Quem */
+  var form = $('#search'), sIn = $('#s-in'), sOut = $('#s-out');
+  sIn.min = todayISO(0); sOut.min = todayISO(1);
+  sIn.addEventListener('change', function () { if (sIn.value) { sOut.min = sIn.value; if (sOut.value && sOut.value <= sIn.value) sOut.value = ''; try { sOut.showPicker && sOut.showPicker(); } catch (e) {} } });
+  $('#dest-pick').innerHTML = '<button type="button" class="dest-opt" data-pick=""><span class="dest-opt__ico"><svg aria-hidden="true"><use href="#i-map"/></svg></span><span><b>Qualquer destino</b><small>Rio de Janeiro e Angra dos Reis</small></span></button>' +
+    D.destinos.map(function (d) {
+      var n = D.imoveis.filter(function (i) { return i.destino === d.id; }).length;
+      return '<button type="button" class="dest-opt" data-pick="' + d.id + '"><img src="' + d.foto + '-800.webp" alt="" loading="lazy"><span><b>' + esc(d.nome) + '</b><small>' + n + (n === 1 ? ' imóvel · ' : ' imóveis · ') + esc(d.chamada) + '</small></span></button>';
+    }).join('');
+  function pop(name, open) {
+    $$('[data-pop]').forEach(function (b) {
+      var on = b.dataset.pop === name && open;
+      b.setAttribute('aria-expanded', String(on)); b.parentNode.classList.toggle('is-active', on);
+      $('#pop-' + b.dataset.pop).hidden = !on;
+    });
+    form.classList.toggle('has-pop', !!open);
+  }
+  $$('[data-pop]').forEach(function (b) {
+    b.addEventListener('click', function (e) { e.stopPropagation(); pop(b.dataset.pop, b.getAttribute('aria-expanded') !== 'true'); });
+  });
+  $$('.sbar__pop').forEach(function (p) { p.addEventListener('click', function (e) { e.stopPropagation(); }); });
+  document.addEventListener('click', function () { pop(null, false); });
+  $$('[data-pick]').forEach(function (b) {
+    b.addEventListener('click', function () { state.dest = b.dataset.pick; render(); pop(null, false); try { sIn.focus(); sIn.showPicker && sIn.showPicker(); } catch (e) {} });
+  });
+  function syncGuests() {
+    $$('[data-gv]').forEach(function (o) { o.textContent = G[o.dataset.gv]; });
+    $$('[data-g]').forEach(function (b) { b.disabled = Number(b.dataset.d) < 0 && G[b.dataset.g] === 0; });
+    state.guests = G.adultos + G.criancas; state.pets = G.pets;
+  }
+  $$('[data-g]').forEach(function (b) {
     b.addEventListener('click', function () {
-      var k = b.dataset.am, at = state.am.indexOf(k);
-      if (at > -1) state.am.splice(at, 1); else state.am.push(k);
-      track('filter', { am: k }); render();
+      var k = b.dataset.g, d = Number(b.dataset.d);
+      G[k] = Math.max(0, Math.min(k === 'pets' ? 3 : 14, G[k] + d));
+      if (d > 0 && (k === 'criancas' || k === 'bebes' || k === 'pets') && !G.adultos) G.adultos = 1;
+      syncGuests(); render();
     });
   });
-  $$('[data-step]').forEach(function (b) {
-    b.addEventListener('click', function () { state.guests = Math.min(14, Math.max(1, state.guests + Number(b.dataset.step))); render(); });
-  });
-  $('[data-only-favs]').addEventListener('click', function () { state.onlyFavs = !state.onlyFavs; render(); });
-  $('[data-show-favs]').addEventListener('click', function () { state.onlyFavs = true; render(); document.getElementById('imoveis').scrollIntoView(); });
-  $('[data-clear]').addEventListener('click', function () { state.dest = ''; state.am = []; state.onlyFavs = false; state.guests = 2; render(); });
-
-  // busca do hero
-  var sIn = $('#s-in'), sOut = $('#s-out');
-  sIn.min = todayISO(0); sOut.min = todayISO(1);
-  sIn.addEventListener('change', function () { if (sIn.value) { sOut.min = sIn.value; if (sOut.value && sOut.value <= sIn.value) sOut.value = ''; } });
-  $('#search').addEventListener('submit', function (e) {
-    e.preventDefault();
-    state.dest = $('#s-dest').value; state.guests = Math.min(14, Math.max(1, parseInt($('#s-guests').value, 10) || 2));
-    state.checkin = sIn.value; state.checkout = sOut.value; state.am = []; state.onlyFavs = false;
+  syncGuests();
+  var mbtn = $('#msearch');
+  function sheetSearch(open) { form.classList.toggle('is-open', open); form.parentNode.classList.toggle('is-open', open); mbtn.setAttribute('aria-expanded', String(open)); document.body.classList.toggle('no-scroll', open); }
+  mbtn.addEventListener('click', function () { sheetSearch(true); });
+  $('[data-close-search]').addEventListener('click', function () { sheetSearch(false); });
+  form.addEventListener('submit', function (e) {
+    e.preventDefault(); pop(null, false); sheetSearch(false);
+    state.checkin = sIn.value; state.checkout = sOut.value; state.cat = ''; state.onlyFavs = false;
     track('search', { dest: state.dest, guests: state.guests }); render();
     document.getElementById('imoveis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
   });
-  // busca inteligente: vai para o assistente
-  $('#smart').addEventListener('submit', function (e) {
-    e.preventDefault();
-    var q = $('#smart-q').value.trim(); if (!q) { $('#smart-q').focus(); return; }
-    $('#smart-q').value = ''; track('smart_search');
-    if (window.CONCIERGE) window.CONCIERGE.ask(q);
+  $('[data-ask-concierge]').addEventListener('click', function () { pop(null, false); sheetSearch(false); if (window.CONCIERGE) window.CONCIERGE.open(); });
+
+  /* janela de filtros */
+  var fdlg = $('#filters'), fState = null;
+  var AMS = Object.keys(D.comodidades).filter(function (k) { return D.imoveis.some(function (i) { return i.comodidades.indexOf(k) > -1; }); });
+  function fCount() { return D.imoveis.filter(function (i) { return match(i, fState); }).length; }
+  function fRender() {
+    $('#f-dest').innerHTML = [['', 'Todos']].concat(D.destinos.map(function (d) { return [d.id, d.nome]; })).map(function (d) {
+      return '<button type="button" aria-pressed="' + (fState.dest === d[0]) + '" data-fdest="' + d[0] + '">' + esc(d[1]) + '</button>';
+    }).join('');
+    $('#f-guests').textContent = fState.guests || 'Qualquer';
+    $('#f-am').innerHTML = AMS.map(function (k) {
+      return '<label class="fcheck"><input type="checkbox" value="' + k + '"' + (fState.am.indexOf(k) > -1 ? ' checked' : '') + '><span>' + esc(D.comodidades[k]) + '</span></label>';
+    }).join('');
+    $('#f-favs').checked = fState.onlyFavs;
+    var n = fCount(); $('#f-apply').textContent = n ? 'Mostrar ' + n + (n === 1 ? ' acomodação' : ' acomodações') : 'Nenhuma acomodação';
+    $$('[data-fdest]', fdlg).forEach(function (b) { b.addEventListener('click', function () { fState.dest = b.dataset.fdest; fRender(); }); });
+    $$('#f-am input', fdlg).forEach(function (c) { c.addEventListener('change', function () { var at = fState.am.indexOf(c.value); if (c.checked && at < 0) fState.am.push(c.value); if (!c.checked && at > -1) fState.am.splice(at, 1); fRender(); }); });
+  }
+  $('#f-favs').addEventListener('change', function (e) { fState.onlyFavs = e.target.checked; fRender(); });
+  $$('[data-fstep]').forEach(function (b) { b.addEventListener('click', function () { fState.guests = Math.max(0, Math.min(14, fState.guests + Number(b.dataset.fstep))); fRender(); }); });
+  $('#open-filters').addEventListener('click', function () {
+    fState = { dest: state.dest, cat: state.cat, am: state.am.slice(), guests: state.guests, onlyFavs: state.onlyFavs };
+    fRender(); fdlg.hidden = false; document.body.classList.add('no-scroll'); $('.filters-dlg__panel button', fdlg).focus(); track('filters_open');
   });
+  function closeFilters(apply) {
+    if (fdlg.hidden) return;
+    if (apply && fState) { state.dest = fState.dest; state.am = fState.am; state.onlyFavs = fState.onlyFavs; if (fState.guests !== state.guests) { G.adultos = fState.guests; G.criancas = 0; syncGuests(); } render(); }
+    fdlg.hidden = true; document.body.classList.remove('no-scroll'); $('#open-filters').focus();
+  }
+  $$('[data-close-filters]', fdlg).forEach(function (b) { b.addEventListener('click', function () { closeFilters(b.id === 'f-apply'); }); });
+  $('[data-filters-clear]').addEventListener('click', function () { fState = { dest: '', cat: state.cat, am: [], guests: 0, onlyFavs: false }; fRender(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeFilters(false); pop(null, false); if (form.classList.contains('is-open')) sheetSearch(false); } });
+
+  /* lista ⇄ mapa (botão flutuante, como no Airbnb) */
+  var mtog = $('#map-toggle');
+  function showMap(on) {
+    document.body.classList.toggle('show-map', on);
+    mtog.setAttribute('aria-pressed', String(on));
+    mtog.innerHTML = on ? '<span>Mostrar lista</span><svg aria-hidden="true"><use href="#i-list"/></svg>' : '<span>Mostrar mapa</span><svg aria-hidden="true"><use href="#i-map"/></svg>';
+    setTimeout(function () { if (window.MAPA && MAPA.resize) MAPA.resize(); }, 60);
+    track('map_toggle', { on: on });
+  }
+  mtog.addEventListener('click', function () {
+    var on = !document.body.classList.contains('show-map'); showMap(on);
+    if (on && window.innerWidth < 950) window.scrollTo(0, document.getElementById('imoveis').offsetTop - 120);
+  });
+  $$('[data-show-map]').forEach(function (a) { a.addEventListener('click', function () { showMap(true); }); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (es) { mtog.classList.toggle('is-on', es[0].isIntersecting); }, { rootMargin: '-30% 0px -20% 0px' }).observe(document.getElementById('imoveis'));
+  } else mtog.classList.add('is-on');
+
 
   /* ---------- mensagem de reserva ---------- */
   function bookingMsg(i, ci, co, g) {
-    ci = ci || state.checkin; co = co || state.checkout; g = g || state.guests;
+    ci = ci || state.checkin; co = co || state.checkout; g = g || state.guests || 2;
     var m = 'Olá! Vim pelo site e tenho interesse no imóvel "' + i.nome + '" (' + destName[i.destino] + ').';
     if (ci && co) m += '\nDatas: ' + fmtDate(ci) + ' a ' + fmtDate(co) + ' (' + nights(ci, co) + ' noites).';
     else m += '\nAinda vou definir as datas.';
@@ -379,7 +494,7 @@
         '<form id="book-form" novalidate><div class="book__grid">' +
           '<label>Check-in<input type="date" name="ci" min="' + todayISO(0) + '" value="' + (state.checkin || '') + '"></label>' +
           '<label>Check-out<input type="date" name="co" min="' + todayISO(1) + '" value="' + (state.checkout || '') + '"></label>' +
-          '<label>Hóspedes<input type="number" name="g" min="1" max="' + i.hospedes + '" value="' + Math.min(state.guests, i.hospedes) + '" inputmode="numeric"></label>' +
+          '<label>Hóspedes<input type="number" name="g" min="1" max="' + i.hospedes + '" value="' + Math.min(state.guests || 2, i.hospedes) + '" inputmode="numeric"></label>' +
         '</div>' +
         '<p class="book__sum" id="book-sum" aria-live="polite"></p><p class="book__warn" id="book-warn" hidden></p>' +
         '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
@@ -514,7 +629,8 @@
     state: state, render: render, openImovel: function (slug) { location.hash = 'imovel/' + slug; },
     img: img, waLink: waLink, bookingMsg: bookingMsg, destName: destName, track: track, fmtDate: fmtDate, nights: nights, toast: toast,
     applyFilters: function (f) {
-      state.dest = f.dest || ''; state.am = f.am || []; state.guests = f.guests || 2; state.onlyFavs = false;
+      state.dest = f.dest || ''; state.cat = ''; state.am = f.am || []; state.onlyFavs = false;
+      if (f.guests) { G.adultos = f.guests; G.criancas = 0; syncGuests(); }
       if (f.checkin) state.checkin = f.checkin; if (f.checkout) state.checkout = f.checkout;
       render();
     }
