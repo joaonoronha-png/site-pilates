@@ -119,7 +119,7 @@
     if (map || !window.maplibregl || !el) return;
     map = new maplibregl.Map({
       container: el, style: STYLE, bounds: bounds('todos'), fitBoundsOptions: { padding: 60, maxZoom: 15 },
-      cooperativeGestures: true, attributionControl: false, dragRotate: false, pitchWithRotate: false, locale: LOCALE, maxZoom: 19
+      cooperativeGestures: false, scrollZoom: true, attributionControl: false, dragRotate: false, pitchWithRotate: false, touchPitch: false, locale: LOCALE, maxZoom: 19
     });
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
     map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
