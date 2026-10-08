@@ -41,7 +41,7 @@ Quatro avaliações 5★ públicas no perfil do anfitrião (Matías, Michelle, C
 
 ## Pendências (pedir ao cliente)
 1. **Tabela de preços** (diária, fim de semana, feriados, Réveillon, Carnaval, mínimo de noites, taxa de limpeza, caução, formas de pagamento, cancelamento para reserva direta).
-2. **Fotos próprias dos 6 imóveis** que hoje usam foto da região (o download automático das fotos do Airbnb não foi feito) + autorização de uso das fotos do Instagram.
+2. **Autorização de uso das fotos** (Instagram e anúncios do Airbnb) e, se possível, os arquivos originais em alta resolução.
 3. Horário de atendimento, CNPJ/razão social, logo em vetor.
 4. Passeios que de fato oferecem (o site cita só barco em Angra e a agência de turismo/câmbio, ambos publicados).
 5. Domínio definitivo (o site usa `alugueltemporadarj.com.br` como provisório em canonical/sitemap).

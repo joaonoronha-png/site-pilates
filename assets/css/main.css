@@ -511,7 +511,7 @@ body.show-map .grid{ grid-template-columns: repeat(3, minmax(0,1fr)); }
 .pdp-fav__s svg{ width:9px; height:9px; }
 .pdp-fav--new{ grid-template-columns: 1fr; gap: 2px; }
 .pdp-fav--new span{ color: var(--texto-2); font-size: .92rem; }
-@media (max-width: 640px){ .pdp-fav{ grid-template-columns: 1fr auto auto; } .pdp-fav__t{ display:none; } }
+@media (max-width: 640px){ .pdp-fav{ grid-template-columns: 1fr auto auto; } .pdp-fav__t{ display:none; } .pdp-fav.pdp-fav--new{ grid-template-columns: 1fr; } }
 .pdp-host{ display:flex; align-items:center; gap: 14px; padding: 18px 0; border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); margin-bottom: 18px; }
 .pdp-host__av{ width:44px; height:44px; border-radius:50%; display:grid; place-items:center; background: var(--mar); color: var(--espuma); font-weight:600; flex:none; }
 .pdp-host strong{ display:block; }

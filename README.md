@@ -47,7 +47,7 @@ docs/MIDIA.md              origem e licença de cada foto
 Tudo está em **`data/site-data.js`** (vitrine, mapa, página do imóvel, FAQ e assistente leem o mesmo arquivo):
 
 - **Preço:** preencha `diariaAPartir` (ex.: `'450'`) no imóvel → aparece "A partir de R$ 450 por noite".
-- **Fotos de um imóvel:** salve `nome-720.webp` e `nome-1080.webp` em `assets/img/imoveis/<pasta>/` e liste em `fotos: [{ src: 'assets/img/imoveis/<pasta>/nome', alt: '...' }]`. Enquanto a lista estiver vazia, o site usa uma foto da região com o selo "Foto da região" e o link "Ver fotos do imóvel no Airbnb".
+- **Fotos de um imóvel:** salve `nome-720.webp` e `nome-1080.webp` em `assets/img/imoveis/<pasta>/` e liste em `fotos: [{ src: 'assets/img/imoveis/<pasta>/nome', alt: '...' }]`. Se a lista ficar vazia, o site usa uma foto da região com o selo "Foto da região".
 - **Novo imóvel:** copie um bloco de `imoveis`, troque `slug`, dados e coordenadas aproximadas.
 - **FAQ:** cada item tem `status` (`confirmado`, `depende`, `pendente`). Itens `pendente` mostram o selo "confirmado no atendimento" e o assistente anota a dúvida para a equipe.
 

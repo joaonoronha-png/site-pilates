@@ -463,7 +463,7 @@
     var show = i.fotos.slice(0, 5);
     return '<div class="gal">' + show.map(function (f, n) {
       return '<button type="button" data-lb="' + n + '" aria-label="Ampliar foto ' + (n + 1) + '"><img src="' + f.src + (n === 0 ? '-1080' : '-720') + '.webp" alt="' + esc(f.alt) + '" loading="' + (n ? 'lazy' : 'eager') + '">' +
-        (n === show.length - 1 && i.fotos.length > 5 ? '<span class="gal__more">+' + (i.fotos.length - 5) + ' fotos</span>' : '') + '</button>';
+        (n === show.length - 1 && i.fotos.length > 5 ? '<span class="gal__more">+' + (i.fotos.length - 5) + (i.fotos.length - 5 === 1 ? ' foto' : ' fotos') + '</span>' : '') + '</button>';
     }).join('') + '</div>';
   }
   function openImovel(slug) {

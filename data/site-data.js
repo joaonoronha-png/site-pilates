@@ -185,8 +185,14 @@
         ],
         comodidades: ['vistaMar', 'peNaAreia', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha'],
         regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/posto-4-varanda/varanda', alt: 'Varanda envidraçada com mesa posta e vista para o mar' },
+          { src: 'assets/img/imoveis/posto-4-varanda/banheiro', alt: 'Banheiro com bancada iluminada e box de vidro' },
+          { src: 'assets/img/imoveis/posto-4-varanda/box', alt: 'Box com chuveiro e iluminação embutida' },
+          { src: 'assets/img/imoveis/posto-4-varanda/hidro', alt: 'Banheira de hidromassagem' },
+          { src: 'assets/img/imoveis/posto-4-varanda/lavabo', alt: 'Bancada do banheiro com espelho' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/817955217293854228',
         diariaAPartir: null
       },
@@ -215,8 +221,14 @@
         ],
         comodidades: ['vistaMar', 'peNaAreia', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha', 'lavaSeca'],
         regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/posto-4-vista-frontal/varanda', alt: 'Varanda envidraçada com mesa e vista para o mar da Barra' },
+          { src: 'assets/img/imoveis/posto-4-vista-frontal/quarto', alt: 'Quarto com cama king, roupa de cama azul e quadros coloridos do Rio' },
+          { src: 'assets/img/imoveis/posto-4-vista-frontal/quarto-cortina', alt: 'Quarto com cortinas e acesso à sala' },
+          { src: 'assets/img/imoveis/posto-4-vista-frontal/closet', alt: 'Arara aberta e porta para o banheiro' },
+          { src: 'assets/img/imoveis/posto-4-vista-frontal/quadros', alt: 'Quadros coloridos com o Cristo e o bondinho na cabeceira' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/1039367415458649056',
         diariaAPartir: null
       },
@@ -245,8 +257,14 @@
         ],
         comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'academia', 'sauna', 'kitPraia', 'portaria24h', 'cozinha'],
         regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/flat-vista-mar/varanda', alt: 'Varanda com mesa e cadeiras de frente para o mar e coqueiros' },
+          { src: 'assets/img/imoveis/flat-vista-mar/quarto', alt: 'Cama king com cabideiro e espelho' },
+          { src: 'assets/img/imoveis/flat-vista-mar/integrado', alt: 'Ambiente integrado com cama, sala e Smart TV' },
+          { src: 'assets/img/imoveis/flat-vista-mar/sala', alt: 'Mesa de jantar e sala com TV giratória' },
+          { src: 'assets/img/imoveis/flat-vista-mar/ar', alt: 'Cama king com ar-condicionado central' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/1652909773468714822',
         diariaAPartir: null
       },
@@ -275,8 +293,14 @@
         ],
         comodidades: ['pet', 'homeOffice', 'arCondicionado', 'wifi', 'lavaSeca', 'portaria24h', 'cozinha'],
         regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: null, pet: true, fumar: false, festas: false },
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/leme-copacabana/quarto-janela', alt: 'Quarto com cama de casal, toalhas e janela para o bairro' },
+          { src: 'assets/img/imoveis/leme-copacabana/quarto', alt: 'Quarto com cama de casal e piso de madeira' },
+          { src: 'assets/img/imoveis/leme-copacabana/cama', alt: 'Cama de casal com toalhas dobradas e quadros' },
+          { src: 'assets/img/imoveis/leme-copacabana/armario', alt: 'Quarto com armário embutido' },
+          { src: 'assets/img/imoveis/leme-copacabana/copacabana-palace', alt: 'Fachada do Copacabana Palace, no bairro' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/1498554057277095747',
         diariaAPartir: null
       },
@@ -306,8 +330,14 @@
         comodidades: ['vistaMar', 'piscina', 'garagem', 'pet', 'familia', 'arCondicionado', 'sauna', 'churrasqueira', 'cozinha', 'kitPraia', 'lavaSeca'],
         regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: true, festas: null },
         extras: ['Embarcações para locação', 'Empregada (à parte)'],
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/angra-ponta-da-cruz/deck', alt: 'Deck com guarda-sol e espreguiçadeiras de frente para a piscina e o mar' },
+          { src: 'assets/img/imoveis/angra-ponta-da-cruz/suite-beliche', alt: 'Suíte com cama de casal e beliche' },
+          { src: 'assets/img/imoveis/angra-ponta-da-cruz/suite-solteiro', alt: 'Suíte com duas camas e ar-condicionado' },
+          { src: 'assets/img/imoveis/angra-ponta-da-cruz/suite-varanda', alt: 'Suíte com cama de casal e porta para a varanda' },
+          { src: 'assets/img/imoveis/angra-ponta-da-cruz/banheiro', alt: 'Banheiro com box de vidro' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/1048001493329016828',
         diariaAPartir: null
       },
@@ -337,8 +367,15 @@
         comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'garagem', 'pet', 'familia', 'arCondicionado', 'sauna', 'churrasqueira', 'cozinha', 'lavaSeca'],
         regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: true, festas: null },
         extras: ['Embarcações para locação', 'Empregada (à parte)'],
-        fotos: [],
-        fotosProprias: false,
+        fotos: [
+          { src: 'assets/img/imoveis/angra-paraiso/varanda', alt: 'Varanda com vista para a baía de Angra e as montanhas' },
+          { src: 'assets/img/imoveis/angra-paraiso/sala', alt: 'Sala ampla integrada à cozinha com vista para o mar' },
+          { src: 'assets/img/imoveis/angra-paraiso/jantar', alt: 'Mesa de jantar e sala de estar com piso de mármore' },
+          { src: 'assets/img/imoveis/angra-paraiso/varanda-gourmet', alt: 'Varanda gourmet com poltronas e mata ao redor' },
+          { src: 'assets/img/imoveis/angra-paraiso/estar', alt: 'Sala de estar com sofá grande e janelas para a baía' },
+          { src: 'assets/img/imoveis/angra-paraiso/banheiro', alt: 'Banheiro com cuba de apoio e iluminação' }
+        ],
+        fotosProprias: true,
         airbnb: 'https://www.airbnb.com.br/rooms/1619235972857807274',
         diariaAPartir: null
       }
