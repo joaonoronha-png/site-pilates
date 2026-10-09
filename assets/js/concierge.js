@@ -169,6 +169,7 @@
       var own = D.faq.filter(function (f) { return f.id === 'proprietario'; })[0];
       out.text = lead + own.resposta + ' Fale com a equipe para uma avaliação do seu imóvel.';
       out.actions = [waAction('Falar sobre gestão', 'Olá! Tenho um imóvel e quero saber sobre a gestão para temporada do Grupo 3D.\n' + text.slice(0, 200))];
+      out.chips = ['Anunciar meu imóvel'];
       APP().track('chat_owner'); return out;
     }
     var faq = faqMatch(n);
@@ -280,7 +281,8 @@
   var busy = false;
   function send(text) {
     text = String(text || '').trim(); if (!text || busy) return;
-    if (text === 'Ver imóveis') { close(); document.getElementById('imoveis').scrollIntoView(); return; }
+    if (text === 'Ver imóveis') { if (window.innerWidth < 950) close(); APP().showResults(); return; }
+    if (text === 'Anunciar meu imóvel') { close(); location.hash = 'anuncie'; return; }
     bubble('msg--user', esc(text));
     history.push({ role: 'user', content: text });
     busy = true;

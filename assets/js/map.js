@@ -116,6 +116,8 @@
   }
 
   function init() {
+    // a página do destino pode ter sido aberta antes de o mapa carregar
+    if (!visible && window.APP && APP.state.visible) visible = APP.state.visible;
     if (map || !window.maplibregl || !el) return;
     map = new maplibregl.Map({
       container: el, style: STYLE, bounds: bounds('todos'), fitBoundsOptions: { padding: 60, maxZoom: 15 },
@@ -158,26 +160,30 @@
     });
   });
 
+  function fitVisible(instant) {
+    if (!map || !visible || !visible.length || !el.offsetWidth) return;
+    var pts = D.imoveis.filter(function (i) { return visible.indexOf(i.slug) > -1; });
+    var b = new maplibregl.LngLatBounds([pts[0].lng, pts[0].lat], [pts[0].lng, pts[0].lat]);
+    pts.forEach(function (i) { b.extend([i.lng, i.lat]); });
+    var pad = Math.min(110, el.offsetWidth / 5);
+    map.fitBounds(b, { padding: pad, maxZoom: 14.5, duration: instant || reduce ? 0 : 900 });
+  }
   var MAPA = window.MAPA = {
     // destaca os imóveis que passam nos filtros da vitrine
     highlight: function (slugs) {
       visible = slugs;
       Object.keys(buttons).forEach(function (k) { buttons[k].parentNode.style.opacity = slugs.indexOf(k) > -1 ? '' : '.45'; });
-      Object.keys(markers).forEach(function (k) { markers[k].getElement().style.opacity = slugs.indexOf(k) > -1 ? '1' : '.35'; });
+      // na página de um destino, só os imóveis dele aparecem no mapa
+      Object.keys(markers).forEach(function (k) { var e = markers[k].getElement(), on = slugs.indexOf(k) > -1; e.style.opacity = on ? '1' : '0'; e.style.pointerEvents = on ? '' : 'none'; });
       // enquadra só o que passou nos filtros, como o Airbnb faz ao filtrar
-      if (map && slugs.length) {
-        var pts = D.imoveis.filter(function (i) { return slugs.indexOf(i.slug) > -1; });
-        var b = new maplibregl.LngLatBounds([pts[0].lng, pts[0].lat], [pts[0].lng, pts[0].lat]);
-        pts.forEach(function (i) { b.extend([i.lng, i.lat]); });
-        map.fitBounds(b, { padding: 120, maxZoom: 13.5, duration: reduce ? 0 : 900 });
-      }
+      fitVisible(false);
     },
     // pino aceso quando o mouse passa no card (como no Airbnb)
     active: function (slug) {
       Object.keys(markers).forEach(function (k) { var e = markers[k].getElement(); e.classList.toggle('is-active', k === slug); e.style.zIndex = k === slug ? '5' : ''; });
     },
     // chamado quando o painel do mapa aparece
-    resize: function () { if (!map) init(); else map.resize(); },
+    resize: function () { if (!map) init(); else { map.resize(); fitVisible(true); } },
     // mapa pequeno da página do imóvel
     mini: function (container, i) {
       if (!window.maplibregl) return null;

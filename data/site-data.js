@@ -381,6 +381,35 @@
       }
     ],
 
+    /*
+     * "Além das chaves": o que o hóspede tem em cada destino.
+     * Só itens confirmados nos anúncios e no perfil do anfitrião.
+     * imoveis = slugs onde vale; wa = mensagem pronta para pedir pelo WhatsApp.
+     */
+    alem: {
+      todos: [
+        { titulo: 'Turismo e câmbio', icone: 'i-sparkle', texto: 'O anfitrião tem uma agência de turismo e câmbio na Barra da Tijuca. Peça indicações de passeios pelo Rio e cotação de moedas.', wa: 'Olá! Quero indicações de passeios no Rio e uma cotação de câmbio.' },
+        { titulo: 'Atendimento direto', icone: 'i-chat', texto: 'Você fala com quem cuida do imóvel, pelo WhatsApp, com resposta em até 1 hora, do primeiro contato à entrega das chaves.', wa: 'Olá! Quero tirar uma dúvida sobre a hospedagem.' }
+      ],
+      barra: [
+        { titulo: 'Kit praia incluído', icone: 'i-umbrella', etiqueta: 'Posto 4', texto: '2 cadeiras, guarda-sol e toalhas, conforme o número de hóspedes, retirados com o cartão do apartamento.', imoveis: ['posto-4-varanda', 'posto-4-vista-frontal'] },
+        { titulo: 'Limpeza diária básica', icone: 'i-clean', etiqueta: 'Posto 4', texto: 'Incluída nos apartamentos dentro do complexo do Wyndham Rio Barra.', imoveis: ['posto-4-varanda', 'posto-4-vista-frontal'] },
+        { titulo: 'Restaurante e academia no prédio', icone: 'i-tag', etiqueta: 'Posto 4', texto: 'Restaurante Paris 6, pizzaria e cafeteria no complexo, e academia com professor.', imoveis: ['posto-4-varanda', 'posto-4-vista-frontal'] },
+        { titulo: 'Piscina, sauna e academia', icone: 'i-pool', etiqueta: 'Posto 7 e Flat', texto: 'Lazer completo de condomínio. O Flat Vista Mar ainda tem área kids e espaço pet.', imoveis: ['pe-na-areia-posto-7', 'flat-vista-mar'] }
+      ],
+      copacabana: [
+        { titulo: 'Tudo a pé', icone: 'i-map', texto: 'Padarias, mercados, farmácia, lavanderia, bares e restaurantes na vizinhança. As praias do Leme e de Copacabana ficam a poucos passos.', imoveis: ['leme-copacabana'] },
+        { titulo: 'Táxi e bicicletas', icone: 'i-car', texto: 'Ponto de táxi e bicicletas compartilhadas perto do apartamento.', imoveis: ['leme-copacabana'] },
+        { titulo: 'Portaria 24 horas', icone: 'i-door', texto: 'Porteiro o dia todo para chegar a qualquer hora com tranquilidade.', imoveis: ['leme-copacabana'] }
+      ],
+      angra: [
+        { titulo: 'Barco pelas ilhas', icone: 'i-wave', etiqueta: 'à parte', texto: 'Embarcações para passeio podem ser contratadas com a equipe para conhecer as ilhas da baía.', wa: 'Olá! Quero saber sobre passeio de barco em Angra dos Reis.' },
+        { titulo: 'Apoio de empregada', icone: 'i-house', etiqueta: 'à parte', texto: 'Serviço de empregada durante a estadia nas casas de Angra.', wa: 'Olá! Quero saber sobre o serviço de empregada nas casas de Angra.' },
+        { titulo: 'Piscina, sauna e churrasqueira', icone: 'i-pool', texto: 'Lazer do condomínio fechado, com acesso por terra e por mar.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] },
+        { titulo: 'Casas para o grupo todo', icone: 'i-users', texto: '4 suítes com ar-condicionado e Smart TV. A Casa Ponta da Cruz recebe até 14 pessoas.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] }
+      ]
+    },
+
     // Avaliações reais (perfil público do anfitrião no Airbnb, set/2026)
     avaliacoes: [
       { nome: 'Matías', origem: 'Buenos Aires, Argentina', data: 'setembro de 2026', nota: 5, traduzido: 'espanhol',

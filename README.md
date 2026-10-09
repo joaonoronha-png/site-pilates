@@ -13,14 +13,13 @@ python3 -m http.server 8080   # abrir http://localhost:8080
 | Recurso | Como funciona |
 |---|---|
 | **Intro animada** | Ondas do calçadão de Copacabana desenhadas na tela + logotipo. Aparece 1× por sessão, tem botão "Pular" e versão curta com movimento reduzido. |
-| **Busca estilo Airbnb** | Destino, check-in, check-out e hóspedes no hero. |
-| **Busca inteligente** | Campo "descreva o que procura" (ex.: "6 pessoas em Angra com piscina") que vai para o assistente. |
-| **Vitrine com filtros** | 7 imóveis reais; filtros por destino, comodidades (frente para a praia, piscina, pet, garagem, famílias, home office, churrasqueira, kit praia), e nº de hóspedes. |
+| **Página inicial enxuta** | Destinos primeiro (3 blocos com foto e "Ver imóveis"), Quem somos, avaliações reais em carrossel, chamada para o Além das chaves, faixa para proprietários e dúvidas só com busca (sem resultado → assistente). |
+| **Páginas por endereço** | `#destino/barra`, `#destino/copacabana`, `#destino/angra` (imóveis + mapa), `#alem-das-chaves/<regiao>` (serviços por região, de `alem` em `data/site-data.js`) e `#anuncie` (formulário do proprietário → WhatsApp ou e-mail). Funciona sem servidor. |
 | **Página de cada imóvel** | Abre em `#imovel/<slug>` (link compartilhável): galeria com lightbox, descrição, comodidades, regras, mapa da região e consulta de datas que abre o WhatsApp com a mensagem pronta. Link para o anúncio no Airbnb. |
-| **Mapa interativo** | MapLibre + OpenFreeMap (sem chave): os 7 imóveis (área aproximada) + escritório "3D" pulsante, abas Tudo/Barra/Leme/Angra, lista sincronizada, destaca o que passa nos filtros. |
+| **Mapa interativo** | MapLibre + OpenFreeMap (sem chave): os 7 imóveis (área aproximada) + escritório "3D" pulsante, mostra só os imóveis do destino aberto, pinos com casinha e nota. |
 | **Botões redondos fixos** | Mesmo padrão dos sites anteriores: **Assistente (IA)**, **Mapa/rotas** (menu Google Maps, Mapas do iPhone, Waze e Uber até o escritório) e **WhatsApp** com anel pulsante. |
 | **Concierge virtual (bot/agente de IA)** | Entende linguagem natural em português, espanhol e inglês, guarda o contexto (destino, pessoas, datas, comodidades, Réveillon/Carnaval), recomenda imóveis reais, responde dúvidas do FAQ e entrega tudo resumido no WhatsApp. Nunca inventa preço/disponibilidade. |
-| Destinos, avaliações reais, passeios, proprietários, FAQ com busca, contato → WhatsApp | Tudo alimentado por `data/site-data.js`. |
+| Conteúdo | Tudo alimentado por `data/site-data.js`. |
 
 Referências de mercado usadas: Airbnb (barra de busca, mapa + lista, página do imóvel com galeria 1+4 e caixa de reserva fixa), Booking/Vrbo (filtros por comodidade e regras claras), Housi/Charlie e Plum Guide (curadoria e tom de hospitalidade), onefinestay (serviços além das chaves).
 
@@ -32,7 +31,7 @@ privacidade.html           política de privacidade
 data/site-data.js          ← BASE ÚNICA: empresa, imóveis, destinos, avaliações, FAQ
 data/config.js             ← liga a IA (aiEndpoint)
 assets/css/main.css
-assets/js/main.js          intro, vitrine, filtros, página do imóvel, FAQ, formulário
+assets/js/main.js          intro, páginas (#destino, #alem-das-chaves, #anuncie), página do imóvel, busca de dúvidas, formulário do proprietário
 assets/js/map.js           mapa interativo (MapLibre + OpenFreeMap)
 assets/js/concierge.js     assistente virtual (motor local + IA opcional)
 assets/vendor/maplibre/    MapLibre GL 4.7.1 (licença BSD-3, LICENSE.txt)

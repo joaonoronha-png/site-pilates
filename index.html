@@ -98,33 +98,35 @@
   <button class="intro__skip" type="button" data-intro-skip>Pular</button>
 </div>
 
-<a class="skip-link" href="#imoveis">Pular para os imóveis</a>
+<a class="skip-link" href="#destinos">Pular para os destinos</a>
 
-<!-- ============ HEADER (organização inspirada no Airbnb) ============ -->
+<!-- ============ HEADER ============ -->
 <header class="header" id="header">
   <div class="header__in">
-    <a class="logo" href="#topo" aria-label="Aluguel Temporada RJ, início">
+    <a class="logo" href="#inicio" aria-label="Aluguel Temporada RJ, início">
       <svg class="logo__mark" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M10 22.5 18 15.5l8 7M12 21v8h12v-8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path d="M27 29V17.5M27 17.5c-1.6-2.4-3.8-3-5.6-2.6M27 17.5c.6-2.6 2.7-3.8 4.8-3.4M27 17.5c1.9-1.4 4-1.1 5.2.4M27 17.5c-1.8-.6-3.6.2-4.4 1.6" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/><path d="M6.5 31.5c3 0 3-1.6 6-1.6s3 1.6 6 1.6 3-1.6 6-1.6 3 1.6 6 1.6 3-1.6 3-1.6" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
       <span class="logo__txt"><b>Aluguel</b> <i>Temporada</i> <small>RJ</small></span>
     </a>
     <nav class="tabs" aria-label="Seções">
-      <a href="#imoveis" aria-current="true"><svg aria-hidden="true"><use href="#i-house"/></svg>Acomodações</a>
-      <a href="#experiencias"><svg aria-hidden="true"><use href="#i-umbrella"/></svg>Passeios</a>
-      <a href="#proprietarios"><svg aria-hidden="true"><use href="#i-key"/></svg>Proprietários</a>
+      <a href="#destinos" data-nav="home">Destinos</a>
+      <a href="#alem-das-chaves" data-nav="alem">Além das chaves</a>
+      <a href="#anuncie" data-nav="anuncie">Anuncie seu imóvel</a>
+      <a href="#duvidas" data-nav="duvidas">Dúvidas</a>
     </nav>
     <div class="header__actions">
-      <a class="host-link" href="#proprietarios">Anuncie seu imóvel</a>
-      <button class="usermenu" type="button" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span class="usermenu__bars"><span></span><span></span><span></span></span><span class="usermenu__av" aria-hidden="true"><svg><use href="#i-users"/></svg></span></button>
+      <a class="btn btn--mar btn--sm header__cta" href="#" data-wa-msg="Olá! Vim pelo site e quero reservar um imóvel." data-wa="header" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg><span>Reservar</span></a>
+      <button class="usermenu" type="button" id="burger" aria-expanded="false" aria-controls="nav" aria-label="Abrir menu"><span class="usermenu__bars"><span></span><span></span><span></span></span></button>
       <nav class="menu" id="nav" aria-label="Menu">
-        <a href="#imoveis">Imóveis</a>
-        <a href="#imoveis" data-show-map>Ver no mapa</a>
         <a href="#destinos">Destinos</a>
-        <a href="#avaliacoes">Avaliações</a>
-        <a href="#experiencias">Passeios e serviços</a>
-        <a href="#duvidas">Dúvidas</a>
-        <a href="#contato">Contato</a>
+        <a href="#destino/barra">Barra da Tijuca</a>
+        <a href="#destino/copacabana">Copacabana &amp; Leme</a>
+        <a href="#destino/angra">Angra dos Reis</a>
         <hr>
-        <a href="#proprietarios">Anuncie seu imóvel</a>
+        <a href="#quem-somos">Quem somos</a>
+        <a href="#alem-das-chaves">Além das chaves</a>
+        <a href="#duvidas">Dúvidas</a>
+        <hr>
+        <a href="#anuncie">Anuncie seu imóvel</a>
         <a href="#" data-wa-msg="Olá! Vim pelo site e quero reservar um imóvel." data-wa="menu" target="_blank" rel="noopener">Falar no WhatsApp</a>
       </nav>
     </div>
@@ -133,306 +135,196 @@
 
 <main id="topo">
 
-<!-- ============ BUSCA ============ -->
-<section class="top" aria-labelledby="top-title">
-  <h1 id="top-title" class="top__title">Acorde com o mar na janela. <em>A gente cuida do resto.</em></h1>
+<!-- ================= PÁGINA INICIAL ================= -->
+<div class="view" data-view="home">
 
-  <button class="msearch" type="button" id="msearch" aria-controls="search" aria-expanded="false">
-    <svg aria-hidden="true"><use href="#i-search"/></svg>
-    <span><b>Para onde?</b><small id="msearch-sub">Qualquer destino · Qualquer data · Hóspedes</small></span>
-  </button>
-
-  <form class="sbar" id="search" role="search" aria-label="Buscar acomodação" novalidate>
-    <div class="sbar__head">
-      <button class="sbar__close" type="button" data-close-search aria-label="Fechar busca"><svg aria-hidden="true"><use href="#i-close"/></svg></button>
-      <strong>Sua busca</strong>
+  <!-- destinos primeiro -->
+  <section class="hero" id="destinos" aria-labelledby="hero-title">
+    <div class="hero__head">
+      <p class="eyebrow">Aluguel por temporada · Rio de Janeiro e Angra dos Reis</p>
+      <h1 id="hero-title">Onde você quer <em>acordar?</em></h1>
     </div>
-    <div class="sbar__seg sbar__seg--where">
-      <button class="sbar__btn" type="button" data-pop="where" aria-expanded="false" aria-controls="pop-where">
-        <span class="sbar__lab">Onde</span><span class="sbar__val" id="sv-where">Buscar destinos</span>
-      </button>
-      <div class="sbar__pop sbar__pop--where" id="pop-where" hidden>
-        <p class="sbar__poph">Destinos</p>
-        <div class="dests" id="dest-pick"></div>
-        <button class="sbar__ai" type="button" data-ask-concierge><svg aria-hidden="true"><use href="#i-sparkle"/></svg><span><b>Prefere descrever?</b> Conte ao concierge virtual: “6 pessoas em Angra com piscina”</span></button>
+    <div class="dpick" id="dest-list"></div>
+    <p class="hero__trust">
+      <span><svg aria-hidden="true"><use href="#i-star"/></svg> <b>4,79</b> em 224 avaliações</span>
+      <span><b>Superhost</b> no Airbnb há 5 anos</span>
+      <span>Resposta em até <b>1 hora</b></span>
+      <span>Todos aceitam <b>pet</b></span>
+    </p>
+  </section>
+
+  <!-- quem somos -->
+  <section class="about" id="quem-somos" aria-labelledby="about-title">
+    <div class="wrap about__grid">
+      <div class="about__txt" data-reveal>
+        <p class="eyebrow">Quem somos</p>
+        <h2 id="about-title">Hospedagem com dono. <em>E com responsabilidade.</em></h2>
+        <p>A Aluguel Temporada RJ é uma operação do Grupo 3D, com escritório no Shopping Città America, na Barra. Cada imóvel é preparado e acompanhado pela nossa equipe, e você fala direto com quem cuida dele, do primeiro contato à entrega das chaves.</p>
       </div>
+      <dl class="about__facts" data-reveal>
+        <div><dt>5 anos</dt><dd>recebendo hóspedes, com selo Superhost no Airbnb</dd></div>
+        <div><dt>4,79<small>/5</small></dt><dd>nota média em 224 avaliações reais</dd></div>
+        <div><dt>1 hora</dt><dd>para responder, com 100% de taxa de resposta</dd></div>
+        <div><dt>Città America</dt><dd>escritório físico na Av. das Américas, 700</dd></div>
+      </dl>
     </div>
-    <label class="sbar__seg sbar__seg--date"><span class="sbar__lab">Check-in</span><input id="s-in" name="checkin" type="date" aria-label="Data de check-in"></label>
-    <label class="sbar__seg sbar__seg--date"><span class="sbar__lab">Check-out</span><input id="s-out" name="checkout" type="date" aria-label="Data de check-out"></label>
-    <div class="sbar__seg sbar__seg--who">
-      <button class="sbar__btn" type="button" data-pop="who" aria-expanded="false" aria-controls="pop-who">
-        <span class="sbar__lab">Quem</span><span class="sbar__val" id="sv-who">Hóspedes?</span>
-      </button>
-      <div class="sbar__pop sbar__pop--who" id="pop-who" hidden>
-        <div class="gstep"><div><strong>Adultos</strong><small>13 anos ou mais</small></div><div class="gstep__ctl"><button type="button" data-g="adultos" data-d="-1" aria-label="Menos adultos">−</button><output data-gv="adultos">0</output><button type="button" data-g="adultos" data-d="1" aria-label="Mais adultos">+</button></div></div>
-        <div class="gstep"><div><strong>Crianças</strong><small>De 2 a 12 anos</small></div><div class="gstep__ctl"><button type="button" data-g="criancas" data-d="-1" aria-label="Menos crianças">−</button><output data-gv="criancas">0</output><button type="button" data-g="criancas" data-d="1" aria-label="Mais crianças">+</button></div></div>
-        <div class="gstep"><div><strong>Bebês</strong><small>Menor de 2</small></div><div class="gstep__ctl"><button type="button" data-g="bebes" data-d="-1" aria-label="Menos bebês">−</button><output data-gv="bebes">0</output><button type="button" data-g="bebes" data-d="1" aria-label="Mais bebês">+</button></div></div>
-        <div class="gstep"><div><strong>Pets</strong><small>Todos os imóveis aceitam</small></div><div class="gstep__ctl"><button type="button" data-g="pets" data-d="-1" aria-label="Menos pets">−</button><output data-gv="pets">0</output><button type="button" data-g="pets" data-d="1" aria-label="Mais pets">+</button></div></div>
-      </div>
-    </div>
-    <button class="sbar__go" type="submit"><svg aria-hidden="true"><use href="#i-search"/></svg><span>Buscar</span></button>
-  </form>
-</section>
+  </section>
 
-<!-- ============ CATEGORIAS ============ -->
-<div class="cats" id="cats">
-  <div class="cats__in">
-    <div class="cats__scroll" role="tablist" aria-label="Categorias">
-      <button type="button" role="tab" aria-selected="true" data-cat=""><svg aria-hidden="true"><use href="#i-grid"/></svg>Todos</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="peNaAreia"><svg aria-hidden="true"><use href="#i-wave"/></svg>Frente para a praia</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="vistaMar"><svg aria-hidden="true"><use href="#i-sun"/></svg>Vista mar</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="piscina"><svg aria-hidden="true"><use href="#i-pool"/></svg>Piscinas</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="dest:angra"><svg aria-hidden="true"><use href="#i-palm"/></svg>Casas em Angra</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="dest:copacabana"><svg aria-hidden="true"><use href="#i-umbrella"/></svg>Copacabana</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="familia"><svg aria-hidden="true"><use href="#i-users"/></svg>Famílias</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="pet"><svg aria-hidden="true"><use href="#i-paw"/></svg>Aceita pet</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="homeOffice"><svg aria-hidden="true"><use href="#i-desk"/></svg>Home office</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="kitPraia"><svg aria-hidden="true"><use href="#i-umbrella"/></svg>Kit praia</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="churrasqueira"><svg aria-hidden="true"><use href="#i-flame"/></svg>Churrasqueira</button>
-      <button type="button" role="tab" aria-selected="false" data-cat="garagem"><svg aria-hidden="true"><use href="#i-car"/></svg>Garagem</button>
-    </div>
-    <button class="cats__filters" type="button" id="open-filters" aria-controls="filters"><svg aria-hidden="true"><use href="#i-filter"/></svg>Filtros<span class="cats__badge" id="filters-n" hidden></span></button>
-  </div>
-</div>
-
-<!-- ============ IMÓVEIS (lista + mapa) ============ -->
-<section class="explore" id="imoveis" aria-labelledby="imoveis-title">
-  <div class="explore__in">
-    <div class="explore__list">
-      <div class="explore__meta">
-        <h2 id="imoveis-title" class="explore__title"><span id="results-count">7 acomodações</span></h2>
-        <button class="filters__clear" type="button" data-clear hidden>Limpar filtros</button>
-      </div>
-      <div class="grid" id="grid">
-        <noscript>
-          <ul class="noscript-list">
-            <li><a href="https://www.airbnb.com.br/rooms/1557376732602645344">Pé na Areia · Vista Mar — Barra da Tijuca, até 4 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/817955217293854228">Posto 4 · Varanda envidraçada — Barra da Tijuca, até 4 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/1039367415458649056">Posto 4 · Vista frontal — Barra da Tijuca, até 4 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/1652909773468714822">Flat Vista Mar — Barra da Tijuca, até 4 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/1498554057277095747">Leme · Copacabana — até 4 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/1048001493329016828">Casa Ponta da Cruz — Angra dos Reis, até 14 hóspedes</a></li>
-            <li><a href="https://www.airbnb.com.br/rooms/1619235972857807274">Paraíso em Angra — Angra dos Reis, até 10 hóspedes</a></li>
-          </ul>
-        </noscript>
-      </div>
-      <div class="empty" id="empty" hidden>
-        <p><strong>Nenhuma acomodação com todos esses filtros.</strong> Tire um filtro ou conte ao concierge o que você procura: ele sugere a opção mais próxima.</p>
-        <button class="btn btn--ghost" type="button" data-open-chat>Perguntar ao concierge</button>
-      </div>
-      <ul class="trust" aria-label="Indicadores públicos do anfitrião no Airbnb">
-        <li><strong><svg aria-hidden="true"><use href="#i-star"/></svg> 4,79</strong><span>média em 224 avaliações</span></li>
-        <li><strong>Superhost</strong><span>no Airbnb há 5 anos</span></li>
-        <li><strong>1 hora</strong><span>tempo de resposta</span></li>
-        <li><strong>Pets</strong><span>aceitos em todos os imóveis</span></li>
-      </ul>
-    </div>
-    <div class="explore__map" id="mapa" aria-label="Mapa das acomodações">
-      <div class="map" id="map" role="region" aria-label="Mapa com a localização aproximada dos imóveis e do escritório"></div>
-      <p class="map-note">Área aproximada · <b>3D</b> = escritório</p>
-    </div>
-  </div>
-  <button class="maptoggle" type="button" id="map-toggle" aria-controls="mapa" aria-pressed="false"><span>Mostrar mapa</span><svg aria-hidden="true"><use href="#i-map"/></svg></button>
-</section>
-
-<!-- ============ FILTROS (janela) ============ -->
-<div class="filters-dlg" id="filters" role="dialog" aria-modal="true" aria-labelledby="filters-title" hidden>
-  <div class="filters-dlg__bg" data-close-filters></div>
-  <div class="filters-dlg__panel">
-    <header><button type="button" data-close-filters aria-label="Fechar filtros"><svg aria-hidden="true"><use href="#i-close"/></svg></button><h2 id="filters-title">Filtros</h2></header>
-    <div class="filters-dlg__body">
-      <section><h3>Destino</h3><div class="fpills" id="f-dest"></div></section>
-      <section><h3>Hóspedes</h3>
-        <div class="gstep"><div><strong>Quantas pessoas?</strong><small>Adultos e crianças</small></div><div class="gstep__ctl"><button type="button" data-fstep="-1" aria-label="Menos hóspedes">−</button><output id="f-guests">1</output><button type="button" data-fstep="1" aria-label="Mais hóspedes">+</button></div></div>
-      </section>
-      <section><h3>Comodidades</h3><div class="fchecks" id="f-am"></div></section>
-    </div>
-    <footer><button type="button" class="linklike" data-filters-clear>Limpar tudo</button><button type="button" class="btn btn--mar" data-close-filters id="f-apply">Mostrar acomodações</button></footer>
-  </div>
-</div>
-
-<div class="calcadao" aria-hidden="true"></div>
-
-<!-- ============ DESTINOS ============ -->
-<section class="section destinos" id="destinos" aria-labelledby="destinos-title">
-  <div class="wrap">
-    <header class="section__head">
-      <div>
-        <p class="eyebrow">Destinos</p>
-        <h2 id="destinos-title">Três jeitos de viver o Rio</h2>
-      </div>
-    </header>
-    <div class="dest" id="dest-list"></div>
-    <p class="credit-note">Fotos dos destinos: Wikimedia Commons (licenças livres; créditos no <a href="#creditos">rodapé</a>).</p>
-  </div>
-</section>
-
-<!-- ============ POR QUE ============ -->
-<section class="section why" aria-labelledby="why-title">
-  <div class="wrap why__grid">
-    <div class="why__lead">
-      <p class="eyebrow">Por que reservar com a gente</p>
-      <h2 id="why-title">Hospedagem com dono, não com central de atendimento</h2>
-      <p>Você fala direto com quem prepara o imóvel. Os números abaixo são públicos, do perfil de anfitrião no Airbnb.</p>
-    </div>
-    <dl class="why__stats">
-      <div><dt>4,79</dt><dd>nota média em 224 avaliações</dd></div>
-      <div><dt>100%</dt><dd>taxa de resposta, em até 1 hora</dd></div>
-      <div><dt>5 anos</dt><dd>recebendo hóspedes, com selo Superhost</dd></div>
-      <div><dt>14h · 11h</dt><dd>check-in e check-out, com a equipe do prédio</dd></div>
-    </dl>
-    <ul class="why__pillars">
-      <li><h3>Conforto</h3><p>Apartamentos renovados, cama king ou queen, ar-condicionado, cozinha equipada e Wi-Fi.</p></li>
-      <li><h3>Localização</h3><p>Pé na areia na Lúcio Costa, no Leme a poucos passos da praia e casas entre a mata e o mar em Angra.</p></li>
-      <li><h3>Praticidade</h3><p>Reserva pelo WhatsApp ou Airbnb, self check-in com a portaria e kit praia nos apartamentos do Posto 4.</p></li>
-    </ul>
-  </div>
-</section>
-
-<!-- ============ AVALIAÇÕES ============ -->
-<div class="calcadao calcadao--light" aria-hidden="true"></div>
-<section class="section reviews" id="avaliacoes" aria-labelledby="reviews-title">
-  <div class="wrap">
-    <p class="eyebrow">Avaliações reais do Airbnb</p>
-    <h2 id="reviews-title" class="sr-only">Avaliações dos hóspedes</h2>
-    <div class="fav-hero">
-      <div class="fav-hero__score">
+  <!-- avaliações -->
+  <section class="reviews" id="avaliacoes" aria-labelledby="reviews-title">
+    <div class="wrap reviews__head">
+      <h2 id="reviews-title">Quem já ficou, <em>recomenda</em></h2>
+      <a class="reviews__score" href="https://www.airbnb.com.br/users/show/231257327" target="_blank" rel="noopener">
         <svg class="laurel" aria-hidden="true"><use href="#i-laurel"/></svg>
-        <span class="fav-hero__num">4,79</span>
+        <span><b>4,79</b><small>224 avaliações no Airbnb</small></span>
         <svg class="laurel laurel--r" aria-hidden="true"><use href="#i-laurel"/></svg>
-      </div>
-      <p class="fav-hero__title">Anfitrião Superhost</p>
-      <p class="fav-hero__sub">Média de 224 avaliações de hóspedes no Airbnb, em 5 anos recebendo no Rio e em Angra.</p>
+      </a>
     </div>
-    <div class="rcats" id="rcats"></div>
-    <p class="rcats__note">Notas por categoria: média dos anúncios com nota, ponderada pelo número de avaliações de cada um (192 avaliações).</p>
-  </div>
-
-  <!-- Cards gerados de data/site-data.js (avaliacoes); o segundo conjunto é cópia para o loop infinito -->
-  <div class="reviews-marquee" id="reviews" aria-label="Avaliações de hóspedes (arraste para os lados)">
-    <div class="reviews-track"></div>
-  </div>
-
-  <div class="reviews-cta">
-    <a href="https://www.airbnb.com.br/users/show/231257327" target="_blank" rel="noopener" class="btn btn--ghost">Mostrar as 224 avaliações no Airbnb</a>
-  </div>
-</section>
-
-<!-- ============ EXPERIÊNCIAS ============ -->
-<section class="section exp" id="experiencias" aria-labelledby="exp-title">
-  <div class="wrap">
-    <header class="section__head">
-      <div>
-        <p class="eyebrow">Passeios e serviços</p>
-        <h2 id="exp-title">Além das chaves</h2>
-      </div>
-      <p class="section__intro">O anfitrião também tem agência de turismo e câmbio na Barra. Peça indicações quando reservar.</p>
-    </header>
-    <div class="exp__grid">
-      <article class="exp__card exp__card--big">
-        <picture><img src="assets/img/destinos/angra-costao-800.webp" srcset="assets/img/destinos/angra-costao-800.webp 800w, assets/img/destinos/angra-costao-1600.webp 1600w" sizes="(max-width: 800px) 100vw, 50vw" width="800" height="534" loading="lazy" alt="Costão rochoso coberto de mata e mar turquesa na baía de Angra dos Reis"></picture>
-        <div class="exp__body">
-          <span class="tag">Angra dos Reis</span>
-          <h3>Barco pelas ilhas</h3>
-          <p>Hóspedes das casas de Angra podem contratar embarcações para passeio. Valor à parte, combinado direto com a equipe.</p>
-          <a class="btn btn--light btn--sm" href="#" data-wa-msg="Olá! Quero saber sobre passeio de barco em Angra dos Reis." target="_blank" rel="noopener">Pedir opções</a>
-        </div>
-      </article>
-      <article class="exp__card">
-        <picture><img src="assets/img/destinos/copacabana-noite-800.webp" width="800" height="533" loading="lazy" alt="Orla de Copacabana iluminada à noite, vista do alto"></picture>
-        <div class="exp__body">
-          <span class="tag">Rio de Janeiro</span>
-          <h3>Turismo e câmbio</h3>
-          <p>Agência própria na Barra para indicar passeios pelo Rio e cotar câmbio para quem vem de fora.</p>
-          <a class="btn btn--light btn--sm" href="#" data-wa-msg="Olá! Queria indicações de passeios no Rio e uma cotação de câmbio." target="_blank" rel="noopener">Falar com a agência</a>
-        </div>
-      </article>
-      <article class="exp__card">
-        <picture><img src="assets/img/destinos/barra-por-do-sol-800.webp" width="800" height="530" loading="lazy" alt="Pôr do sol sobre o mar na Praia da Barra da Tijuca, com pessoas na areia"></picture>
-        <div class="exp__body">
-          <span class="tag">Barra da Tijuca</span>
-          <h3>Kit praia incluído</h3>
-          <p>Nos apartamentos do Posto 4: 2 cadeiras, guarda-sol e toalhas, conforme o número de hóspedes.</p>
-          <a class="btn btn--light btn--sm" href="#imovel/posto-4-varanda">Ver o apartamento</a>
-        </div>
-      </article>
+    <!-- o segundo conjunto de cards é cópia para o loop infinito -->
+    <div class="reviews-marquee" id="reviews" aria-label="Avaliações de hóspedes (arraste para os lados)">
+      <div class="reviews-track"></div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ============ PROPRIETÁRIOS ============ -->
-<section class="section owners" id="proprietarios" aria-labelledby="owners-title">
-  <div class="wrap owners__grid">
-    <div>
-      <p class="eyebrow eyebrow--light">Para proprietários · Grupo 3D</p>
-      <h2 id="owners-title">Tem um imóvel parado no Rio? <em>A gente transforma em temporada.</em></h2>
-      <p>O Grupo 3D prepara e administra imóveis para locação por temporada, com o mesmo cuidado dos apartamentos que você vê aqui. Escritório no Shopping Città America, na Barra.</p>
-      <a class="btn btn--sun" href="#" data-wa-msg="Olá! Tenho um imóvel no Rio e quero saber sobre a gestão para temporada do Grupo 3D." target="_blank" rel="noopener">Quero avaliar meu imóvel</a>
+  <!-- além das chaves: chamada interativa -->
+  <section class="alemcta" aria-labelledby="alemcta-title">
+    <div class="wrap">
+      <a class="alemcta__box" href="#alem-das-chaves" data-reveal>
+        <span class="alemcta__txt">
+          <span class="eyebrow eyebrow--light">Além das chaves</span>
+          <span class="alemcta__title" id="alemcta-title">Sua estadia vai além do apartamento. <em>Venha conhecer.</em></span>
+          <span class="alemcta__go"><span>Conhecer o Além das chaves</span><svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+        </span>
+        <span class="alemcta__panels" aria-hidden="true">
+          <span class="alemcta__p"><img src="assets/img/destinos/barra-por-do-sol-800.webp" alt="" loading="lazy" width="800" height="530"><span><b>Barra</b><small>Kit praia incluído</small></span></span>
+          <span class="alemcta__p"><img src="assets/img/destinos/copacabana-noite-800.webp" alt="" loading="lazy" width="800" height="533"><span><b>Leme</b><small>Tudo a pé</small></span></span>
+          <span class="alemcta__p"><img src="assets/img/destinos/angra-costao-800.webp" alt="" loading="lazy" width="800" height="534"><span><b>Angra</b><small>Barco pelas ilhas</small></span></span>
+        </span>
+        <span class="alemcta__orb" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><path id="orb-c" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#orb-c" textLength="236" lengthAdjust="spacing">clique e conheça · clique e conheça ·</textPath></text></svg><svg class="alemcta__key"><use href="#i-key"/></svg></span>
+      </a>
     </div>
-    <ol class="owners__steps" id="owners-list"></ol>
-  </div>
-</section>
+  </section>
 
-<!-- ============ FAQ ============ -->
-<section class="section faq" id="duvidas" aria-labelledby="faq-title">
-  <div class="wrap faq__grid">
-    <div class="faq__side">
-      <p class="eyebrow">Dúvidas frequentes</p>
-      <h2 id="faq-title">Antes de reservar</h2>
-      <label class="faq__search">
+  <!-- proprietários: faixa pequena -->
+  <section class="ownstrip" aria-labelledby="own-title">
+    <div class="wrap">
+      <a class="ownstrip__in" href="#anuncie">
+        <span class="ownstrip__ico" aria-hidden="true"><svg><use href="#i-key"/></svg></span>
+        <span class="ownstrip__txt"><b id="own-title">Tem um imóvel no Rio?</b> A gente cuida da temporada para você.</span>
+        <span class="ownstrip__go">Anunciar meu imóvel <svg aria-hidden="true"><use href="#i-arrow"/></svg></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- dúvidas: só a busca -->
+  <section class="ask" id="duvidas" aria-labelledby="ask-title">
+    <div class="wrap ask__in">
+      <h2 id="ask-title">Ficou alguma dúvida?</h2>
+      <label class="ask__field">
         <svg aria-hidden="true"><use href="#i-search"/></svg>
-        <span class="sr-only">Buscar nas dúvidas</span>
-        <input type="search" id="faq-q" placeholder="Buscar: pet, garagem, check-in…">
+        <span class="sr-only">Pesquisar nas dúvidas frequentes</span>
+        <input type="search" id="faq-q" placeholder="Pesquise: pet, garagem, check-in…" autocomplete="off">
       </label>
-      <p class="faq__hint">Não achou? <button type="button" class="linklike" data-open-chat>Pergunte ao assistente</button> ou chame no WhatsApp.</p>
+      <div class="ask__res" id="faq-list" aria-live="polite"></div>
+      <p class="ask__hint" id="faq-hint">Ou <button type="button" class="linklike" data-open-chat>pergunte ao assistente virtual</button>, que responde na hora.</p>
     </div>
-    <div class="faq__list" id="faq-list"></div>
-  </div>
-</section>
+  </section>
+</div>
 
-<!-- ============ CONTATO ============ -->
-<section class="section contact" id="contato" aria-labelledby="contact-title">
-  <div class="wrap contact__grid">
-    <div class="contact__info">
-      <p class="eyebrow">Contato</p>
-      <h2 id="contact-title">Conte sua viagem. A gente indica o imóvel.</h2>
-      <ul class="contact__list">
-        <li><span>WhatsApp</span><a href="#" data-wa-msg="Olá! Vim pelo site." target="_blank" rel="noopener">(21) 97633-1432</a></li>
-        <li><span>Instagram</span><a href="https://www.instagram.com/_alugueltemporadarj/" target="_blank" rel="noopener">@_alugueltemporadarj</a></li>
-        <li><span>E-mail</span><a href="mailto:diogo@grupo3d.app.br">diogo@grupo3d.app.br</a></li>
-        <li><span>Escritório</span><address>Shopping Città America · Av. das Américas, 700 · Barra da Tijuca</address></li>
-      </ul>
+<!-- ================= PÁGINA DO DESTINO (#destino/barra) ================= -->
+<div class="view" data-view="destino" hidden>
+  <section class="dhero" id="dhero"></section>
+  <section class="explore" id="imoveis" aria-label="Imóveis do destino">
+    <div class="explore__in">
+      <div class="explore__list">
+        <div class="explore__meta"><h2 class="explore__title" id="results-count"></h2></div>
+        <div class="grid" id="grid"></div>
+        <div class="dhelp">
+          <p><b>Na dúvida entre um e outro?</b> Conte ao assistente quantas pessoas vão e o que é importante: ele indica o imóvel certo.</p>
+          <button class="btn btn--ghost btn--sm" type="button" data-open-chat>Perguntar ao assistente</button>
+        </div>
+      </div>
+      <div class="explore__map" id="mapa" aria-label="Mapa dos imóveis">
+        <div class="map" id="map" role="region" aria-label="Mapa com a localização aproximada dos imóveis e do escritório"></div>
+        <p class="map-note">Área aproximada · <b>3D</b> = escritório</p>
+      </div>
     </div>
-    <form class="lead" id="lead" novalidate>
-      <div class="lead__row">
-        <label>Nome<input name="nome" required autocomplete="name"></label>
-        <label>Destino
-          <select name="destino">
-            <option value="">Ainda não sei</option>
-            <option>Barra da Tijuca</option>
-            <option>Copacabana/Leme</option>
-            <option>Angra dos Reis</option>
-          </select>
-        </label>
+    <button class="maptoggle" type="button" id="map-toggle" aria-controls="mapa" aria-pressed="false"><span>Mostrar mapa</span><svg aria-hidden="true"><use href="#i-map"/></svg></button>
+  </section>
+</div>
+
+<!-- ================= ALÉM DAS CHAVES (#alem-das-chaves/angra) ================= -->
+<div class="view" data-view="alem" hidden>
+  <section class="phead">
+    <div class="wrap">
+      <a class="back" href="#inicio"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Início</a>
+      <p class="eyebrow">Além das chaves</p>
+      <h1>O que vem junto <em>com a sua estadia</em></h1>
+      <p class="phead__lead">Serviços e comodidades confirmados em cada destino. Escolha a região.</p>
+      <div class="rtabs" role="tablist" aria-label="Regiões" id="alem-tabs"></div>
+    </div>
+  </section>
+  <section class="alem" aria-live="polite">
+    <div class="wrap" id="alem-body"></div>
+  </section>
+</div>
+
+<!-- ================= ANUNCIE SEU IMÓVEL (#anuncie) ================= -->
+<div class="view" data-view="anuncie" hidden>
+  <section class="owner">
+    <div class="wrap owner__grid">
+      <div class="owner__side">
+        <a class="back" href="#inicio"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Início</a>
+        <p class="eyebrow">Para proprietários · Grupo 3D</p>
+        <h1>Anuncie seu imóvel <em>com quem já é Superhost</em></h1>
+        <p>O Grupo 3D prepara e administra imóveis para temporada com o mesmo cuidado dos apartamentos deste site. Mande os dados do seu imóvel: a equipe avalia e retorna pelo WhatsApp.</p>
+        <ul class="owner__list" id="owners-list"></ul>
       </div>
-      <div class="lead__row lead__row--3">
-        <label>Entrada<input name="checkin" type="date"></label>
-        <label>Saída<input name="checkout" type="date"></label>
-        <label>Hóspedes<input name="hospedes" type="number" min="1" max="14" value="2" inputmode="numeric"></label>
-      </div>
-      <label>Mensagem (opcional)<textarea name="msg" rows="3" placeholder="Ex.: vamos com 2 crianças e um cachorro pequeno"></textarea></label>
-      <p class="lead__err" id="lead-err" role="alert" hidden></p>
-      <button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Enviar pelo WhatsApp</button>
-      <a class="wa-open" id="lead-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a>
-      <p class="lead__note">A mensagem abre no seu WhatsApp, já preenchida. Nada é guardado no site.</p>
-    </form>
-  </div>
-</section>
+      <form class="oform" id="owner-form" novalidate>
+        <fieldset>
+          <legend>Seus dados</legend>
+          <div class="oform__row">
+            <label>Nome *<input name="nome" required autocomplete="name"></label>
+            <label>WhatsApp *<input name="tel" type="tel" required autocomplete="tel" inputmode="tel" placeholder="(21) 9…"></label>
+          </div>
+          <label>E-mail<input name="email" type="email" autocomplete="email"></label>
+        </fieldset>
+        <fieldset>
+          <legend>O imóvel</legend>
+          <div class="oform__row">
+            <label>Bairro / cidade *<input name="local" required placeholder="Ex.: Barra da Tijuca"></label>
+            <label>Tipo
+              <select name="tipo"><option>Apartamento</option><option>Casa</option><option>Flat</option><option>Cobertura</option><option>Outro</option></select>
+            </label>
+          </div>
+          <div class="oform__row oform__row--4">
+            <label>Quartos<input name="quartos" type="number" min="0" max="20" inputmode="numeric"></label>
+            <label>Banheiros<input name="banheiros" type="number" min="0" max="20" inputmode="numeric"></label>
+            <label>Hóspedes<input name="hospedes" type="number" min="1" max="30" inputmode="numeric"></label>
+            <label>Vagas<input name="vagas" type="number" min="0" max="10" inputmode="numeric"></label>
+          </div>
+          <div class="oform__chips" role="group" aria-label="Situação do imóvel">
+            <label class="ochip"><input type="checkbox" name="mobiliado"><span>Mobiliado</span></label>
+            <label class="ochip"><input type="checkbox" name="vista"><span>Vista para o mar</span></label>
+            <label class="ochip"><input type="checkbox" name="lazer"><span>Prédio com lazer</span></label>
+            <label class="ochip"><input type="checkbox" name="anuncia"><span>Já anuncia em temporada</span></label>
+          </div>
+          <label>Link do anúncio ou das fotos<input name="link" type="url" inputmode="url" placeholder="https://"></label>
+          <label>Observações<textarea name="obs" rows="3" placeholder="Ex.: disponível a partir de dezembro, precisa de pequenos reparos…"></textarea></label>
+        </fieldset>
+        <p class="oform__err" id="owner-err" role="alert" hidden></p>
+        <button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Enviar para a equipe</button>
+        <a class="wa-open" id="owner-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a>
+        <p class="oform__note">Os dados vão numa mensagem pronta no WhatsApp da empresa, nada fica guardado no site. Prefere e-mail? <a id="owner-mail" href="mailto:diogo@grupo3d.app.br">diogo@grupo3d.app.br</a></p>
+      </form>
+    </div>
+  </section>
+</div>
 
 </main>
 
 <!-- ============ RODAPÉ ============ -->
-<footer class="footer">
+<footer class="footer" id="contato">
   <div class="calcadao calcadao--light" aria-hidden="true"></div>
   <div class="wrap footer__grid">
     <div>
@@ -440,11 +332,12 @@
       <p>Aluguel por temporada na Barra da Tijuca, Copacabana/Leme e Angra dos Reis. Uma operação Grupo 3D.</p>
     </div>
     <nav aria-label="Rodapé">
-      <a href="#imoveis">Imóveis</a><a href="#mapa">Mapa</a><a href="#destinos">Destinos</a><a href="#proprietarios">Proprietários</a><a href="#duvidas">Dúvidas</a><a href="privacidade.html">Privacidade</a>
+      <a href="#destino/barra">Barra da Tijuca</a><a href="#destino/copacabana">Copacabana &amp; Leme</a><a href="#destino/angra">Angra dos Reis</a><a href="#alem-das-chaves">Além das chaves</a><a href="#anuncie">Anuncie seu imóvel</a><a href="privacidade.html">Privacidade</a>
     </nav>
     <div>
       <a class="footer__ig" href="https://www.instagram.com/_alugueltemporadarj/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg> @_alugueltemporadarj</a>
-      <p>(21) 97633-1432 · diogo@grupo3d.app.br</p>
+      <p><a href="#" data-wa-msg="Olá! Vim pelo site." target="_blank" rel="noopener">(21) 97633-1432</a> · <a href="mailto:diogo@grupo3d.app.br">diogo@grupo3d.app.br</a></p>
+      <p>Shopping Città America · Av. das Américas, 700 · Barra da Tijuca</p>
     </div>
   </div>
   <div class="wrap footer__bottom" id="creditos">

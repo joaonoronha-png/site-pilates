@@ -110,29 +110,19 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && route.classList.contains('is-open')) { setOpen(false); rbtn.focus(); } });
   }
 
-  /* ---------- vitrine (organização inspirada no Airbnb) ---------- */
-  var state = { dest: '', cat: '', am: [], guests: 0, pets: 0, onlyFavs: false, checkin: '', checkout: '' };
-  var G = { adultos: 0, criancas: 0, bebes: 0, pets: 0 };
-  var grid = $('#grid'), countEl = $('#results-count'), emptyEl = $('#empty');
-
-  function filtersOf(f) {
-    var am = f.am.slice();
-    if (f.cat && f.cat.indexOf('dest:') !== 0 && am.indexOf(f.cat) < 0) am.push(f.cat);
-    return { dest: f.cat.indexOf('dest:') === 0 ? f.cat.slice(5) : f.dest, am: am };
-  }
-  function match(i, f) {
-    f = f || state; var x = filtersOf(f);
-    if (x.dest && i.destino !== x.dest) return false;
-    if (f.guests && i.hospedes < f.guests) return false;
-    for (var k = 0; k < x.am.length; k++) if (i.comodidades.indexOf(x.am[k]) < 0) return false;
-    return true;
-  }
+  /* ---------- vitrine ---------- */
+  var state = { dest: '', am: [], guests: 0, checkin: '', checkout: '' };
+  var DEST = {}; D.destinos.forEach(function (d) { DEST[d.id] = d; });
+  var grid = $('#grid'), countEl = $('#results-count');
+  var notaN = function (i) { return i.nota ? parseFloat(i.nota.replace(',', '.')) : 0; };
+  var doDestino = function (id) { return D.imoveis.filter(function (i) { return i.destino === id; }).sort(function (a, b) { return notaN(b) - notaN(a); }); };
+  var plural = function (n, um, varios) { return n + ' ' + (n === 1 ? um : varios); };
   var bairro = function (i) { return i.destino === 'angra' ? 'Angra dos Reis' : i.bairro; };
   function tipoCurto(i) { return /^Casa/.test(i.tipo) ? 'Casa' : /^Flat/.test(i.tipo) ? 'Flat' : 'Apartamento'; }
   function card(i, n) {
     var fotos = i.fotos.length ? i.fotos.slice(0, 5).map(function (f, k) { return img(i, k); }) : [img(i)];
     var slides = fotos.map(function (p, k) {
-      return '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 560px) 50vw, (max-width: 950px) 33vw, 20vw" width="720" height="684" loading="' + (n < 4 && k === 0 ? 'eager' : 'lazy') + '" alt="' + esc(p.alt) + '">';
+      return '<img src="' + p.src + '" srcset="' + p.srcset + '" sizes="(max-width: 640px) 92vw, (max-width: 1280px) 45vw, 25vw" width="720" height="684" loading="' + (n < 2 && k === 0 ? 'eager' : 'lazy') + '" alt="' + esc(p.alt) + '">';
     }).join('');
     var multi = fotos.length > 1;
     return '<article class="card" style="--i:' + n + '" data-card="' + i.slug + '">' +
@@ -143,7 +133,6 @@
           '<button class="card__nav card__nav--next" type="button" data-slide="1" aria-label="Próxima foto"><svg aria-hidden="true"><use href="#i-chev"/></svg></button>' +
           '<span class="card__dots" aria-hidden="true">' + fotos.map(function (f, k) { return '<i' + (k ? '' : ' class="on"') + '></i>'; }).join('') + '</span>' : '') +
         '<span class="card__badge">' + esc(i.destaque) + '</span>' +
-        (fotos[0].own ? '' : '<span class="no-photo-note">Foto da região</span>') +
       '</div>' +
       '<a class="card__body" href="#imovel/' + i.slug + '" tabindex="-1">' +
         '<span class="card__l1"><strong>' + tipoCurto(i) + ' em ' + esc(bairro(i)) + '</strong>' +
@@ -153,61 +142,6 @@
         '<span class="card__l3">' + (i.diariaAPartir ? '<b>R$ ' + i.diariaAPartir + '</b> noite' : '<b>Valor sob consulta</b><span> · resposta em até 1 h</span>') + '</span>' +
       '</a>' +
     '</article>';
-  }
-  function guestLabel() {
-    var g = G.adultos + G.criancas, p = [];
-    if (g) p.push(g + (g === 1 ? ' hóspede' : ' hóspedes'));
-    if (G.bebes) p.push(G.bebes + (G.bebes === 1 ? ' bebê' : ' bebês'));
-    if (G.pets) p.push(G.pets + (G.pets === 1 ? ' pet' : ' pets'));
-    return p.join(', ');
-  }
-  // fileiras lado a lado, como a página inicial do Airbnb (quando não há filtro)
-  var notaN = function (i) { return i.nota ? parseFloat(i.nota.replace(',', '.')) : 0; };
-  // cada imóvel aparece uma vez só: as fileiras dividem por destino
-  var ROWS = [
-    { t: 'Pé na areia na Barra da Tijuca', cat: 'dest:barra', list: function () { return D.imoveis.filter(function (i) { return i.destino === 'barra'; }).sort(function (a, b) { return notaN(b) - notaN(a); }); } },
-    { t: 'Copacabana, Leme e Angra dos Reis', cat: '', list: function () { return D.imoveis.filter(function (i) { return i.destino !== 'barra'; }); } }
-  ];
-  function rowsHTML() {
-    var n = 0;
-    return ROWS.map(function (r, k) {
-      var items = r.list();
-      var head = r.cat ? '<button type="button" class="row__title" data-row-cat="' + r.cat + '">' + esc(r.t) + ' <svg aria-hidden="true"><use href="#i-chev"/></svg></button>' : '<span class="row__title">' + esc(r.t) + '</span>';
-      return '<section class="row" aria-label="' + esc(r.t) + '"><header class="row__head"><h3>' + head + '</h3>' +
-        '<div class="row__nav"><button type="button" data-row="-1" aria-label="Voltar"><svg aria-hidden="true"><use href="#i-chev"/></svg></button><button type="button" data-row="1" aria-label="Avançar"><svg aria-hidden="true"><use href="#i-chev"/></svg></button></div></header>' +
-        '<div class="row__track">' + items.map(function (i) { return card(i, k === 0 ? n++ : 9); }).join('') + '</div></section>';
-    }).join('');
-  }
-  function isFiltered() { return !!(state.dest || state.cat || state.am.length || state.onlyFavs || state.guests); }
-  function render() {
-    var list = D.imoveis.filter(function (i) { return match(i); });
-    var rows = !isFiltered() && !document.body.classList.contains('show-map');
-    grid.classList.toggle('grid--rows', rows);
-    grid.innerHTML = rows ? rowsHTML() : list.map(card).join('');
-    if (rows) {
-      $$('.row', grid).forEach(function (r) {
-        var tr = $('.row__track', r), prev = $('[data-row="-1"]', r), next = $('[data-row="1"]', r);
-        var upd = function () { prev.disabled = tr.scrollLeft < 8; next.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 8; r.classList.toggle('row--fits', prev.disabled && next.disabled); };
-        [prev, next].forEach(function (b) { b.addEventListener('click', function () { tr.scrollBy({ left: Number(b.dataset.row) * tr.clientWidth * 0.9, behavior: reduce ? 'auto' : 'smooth' }); }); });
-        tr.addEventListener('scroll', upd, { passive: true }); upd(); setTimeout(upd, 300);
-      });
-      $$('[data-row-cat]', grid).forEach(function (b) { b.addEventListener('click', function () { state.cat = b.dataset.rowCat; render(); document.getElementById('imoveis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); }); });
-    }
-    emptyEl.hidden = list.length > 0;
-    var x = filtersOf(state);
-    countEl.textContent = list.length + (list.length === 1 ? ' acomodação' : ' acomodações') +
-      (x.dest ? ' em ' + destName[x.dest] : ' no Rio e em Angra') + (state.guests ? ' para ' + state.guests + (state.guests === 1 ? ' hóspede' : ' hóspedes') : '');
-    $$('[data-cat]').forEach(function (b) { b.setAttribute('aria-selected', String(b.dataset.cat === state.cat)); });
-    var nf = state.am.length + (state.dest ? 1 : 0) + (state.onlyFavs ? 1 : 0) + (state.guests ? 1 : 0);
-    var badge = $('#filters-n'); badge.hidden = !nf; badge.textContent = nf;
-    $('[data-clear]').hidden = !(nf || state.cat);
-    // pílula de busca
-    $('#sv-where').textContent = state.dest ? destName[state.dest] : 'Buscar destinos';
-    $('#sv-who').textContent = guestLabel() || 'Hóspedes?';
-    $('#msearch-sub').textContent = (state.dest ? destName[state.dest] : 'Qualquer destino') + ' · ' +
-      (state.checkin && state.checkout ? fmtDate(state.checkin).slice(0, 5) + '–' + fmtDate(state.checkout).slice(0, 5) : 'Qualquer data') + ' · ' + (guestLabel() || 'Hóspedes');
-    bindCards();
-    if (window.MAPA && window.MAPA.highlight) window.MAPA.highlight(list.map(function (i) { return i.slug; }));
   }
   function bindCards() {
     $$('.card', grid).forEach(function (c) {
@@ -226,112 +160,56 @@
     });
   }
 
-  // categorias
-  $$('[data-cat]').forEach(function (b) {
-    b.addEventListener('click', function () { state.cat = b.dataset.cat; track('category', { cat: state.cat }); render(); });
-  });
-  $('[data-clear]').addEventListener('click', function () { clearAll(); render(); });
-  function clearAll() { state.dest = ''; state.cat = ''; state.am = []; state.onlyFavs = false; state.guests = 0; G.adultos = G.criancas = G.bebes = G.pets = 0; syncGuests(); }
+  /* ---------- página inicial: os destinos primeiro ---------- */
+  $('#dest-list').innerHTML = D.destinos.map(function (d, k) {
+    var n = doDestino(d.id).length;
+    return '<a class="dpick__card" href="#destino/' + d.id + '" style="--k:' + k + '">' +
+      '<img src="' + d.foto + '-800.webp" srcset="' + d.foto + '-800.webp 800w, ' + d.foto + '-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 40vw" width="800" height="533" alt="' + esc(d.fotoAlt) + '"' + (k ? ' loading="lazy"' : ' fetchpriority="high"') + '>' +
+      '<span class="dpick__body"><span class="dpick__count">' + plural(n, 'imóvel', 'imóveis') + '</span>' +
+      '<span class="dpick__name">' + esc(d.nome) + '</span>' +
+      '<span class="dpick__sub">' + esc(d.chamada) + '</span>' +
+      '<span class="dpick__go">Ver imóveis <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span></a>';
+  }).join('');
 
-  /* busca em pílula: Onde · Check-in · Check-out · Quem */
-  var form = $('#search'), sIn = $('#s-in'), sOut = $('#s-out');
-  sIn.min = todayISO(0); sOut.min = todayISO(1);
-  sIn.addEventListener('change', function () { if (sIn.value) { sOut.min = sIn.value; if (sOut.value && sOut.value <= sIn.value) sOut.value = ''; try { sOut.showPicker && sOut.showPicker(); } catch (e) {} } });
-  $('#dest-pick').innerHTML = '<button type="button" class="dest-opt" data-pick=""><span class="dest-opt__ico"><svg aria-hidden="true"><use href="#i-map"/></svg></span><span><b>Qualquer destino</b><small>Rio de Janeiro e Angra dos Reis</small></span></button>' +
-    D.destinos.map(function (d) {
-      var n = D.imoveis.filter(function (i) { return i.destino === d.id; }).length;
-      return '<button type="button" class="dest-opt" data-pick="' + d.id + '"><img src="' + d.foto + '-800.webp" alt="" loading="lazy"><span><b>' + esc(d.nome) + '</b><small>' + n + (n === 1 ? ' imóvel · ' : ' imóveis · ') + esc(d.chamada) + '</small></span></button>';
-    }).join('');
-  function pop(name, open) {
-    $$('[data-pop]').forEach(function (b) {
-      var on = b.dataset.pop === name && open;
-      b.setAttribute('aria-expanded', String(on)); b.parentNode.classList.toggle('is-active', on);
-      $('#pop-' + b.dataset.pop).hidden = !on;
-    });
-    form.classList.toggle('has-pop', !!open);
+  /* ---------- página do destino (#destino/barra) ---------- */
+  function renderDestino(id) {
+    var d = DEST[id], list = doDestino(id);
+    state.dest = id;
+    $('#dhero').innerHTML =
+      '<img class="dhero__bg" src="' + d.foto + '-1600.webp" srcset="' + d.foto + '-800.webp 800w, ' + d.foto + '-1600.webp 1600w" sizes="100vw" width="1600" height="1066" alt="' + esc(d.fotoAlt) + '">' +
+      '<div class="dhero__in">' +
+        '<a class="back back--light" href="#destinos"><svg aria-hidden="true"><use href="#i-arrow"/></svg>Todos os destinos</a>' +
+        '<div class="dhero__txt"><p class="dhero__count">' + plural(list.length, 'imóvel', 'imóveis') + '</p>' +
+        '<h1>' + esc(d.nome) + '</h1><p class="dhero__sub">' + esc(d.texto) + '</p>' +
+        '<a class="dhero__alem" href="#alem-das-chaves/' + id + '"><svg aria-hidden="true"><use href="#i-key"/></svg>O que vem junto em ' + esc(d.nome.split(' &')[0]) + ' <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></div>' +
+        '<nav class="dtabs" aria-label="Destinos">' + D.destinos.map(function (x) {
+          return '<a href="#destino/' + x.id + '"' + (x.id === id ? ' aria-current="page"' : '') + '>' + esc(x.nome) + '</a>';
+        }).join('') + '</nav>' +
+      '</div>';
+    countEl.textContent = plural(list.length, 'acomodação', 'acomodações') + ' em ' + d.nome;
+    grid.innerHTML = list.map(card).join('');
+    bindCards();
+    state.visible = list.map(function (i) { return i.slug; });
+    if (window.MAPA && MAPA.highlight) MAPA.highlight(state.visible);
   }
-  $$('[data-pop]').forEach(function (b) {
-    b.addEventListener('click', function (e) { e.stopPropagation(); pop(b.dataset.pop, b.getAttribute('aria-expanded') !== 'true'); });
-  });
-  $$('.sbar__pop').forEach(function (p) { p.addEventListener('click', function (e) { e.stopPropagation(); }); });
-  document.addEventListener('click', function () { pop(null, false); });
-  $$('[data-pick]').forEach(function (b) {
-    b.addEventListener('click', function () { state.dest = b.dataset.pick; render(); pop(null, false); try { sIn.focus(); sIn.showPicker && sIn.showPicker(); } catch (e) {} });
-  });
-  function syncGuests() {
-    $$('[data-gv]').forEach(function (o) { o.textContent = G[o.dataset.gv]; });
-    $$('[data-g]').forEach(function (b) { b.disabled = Number(b.dataset.d) < 0 && G[b.dataset.g] === 0; });
-    state.guests = G.adultos + G.criancas; state.pets = G.pets;
-  }
-  $$('[data-g]').forEach(function (b) {
-    b.addEventListener('click', function () {
-      var k = b.dataset.g, d = Number(b.dataset.d);
-      G[k] = Math.max(0, Math.min(k === 'pets' ? 3 : 14, G[k] + d));
-      if (d > 0 && (k === 'criancas' || k === 'bebes' || k === 'pets') && !G.adultos) G.adultos = 1;
-      syncGuests(); render();
-    });
-  });
-  syncGuests();
-  var mbtn = $('#msearch');
-  function sheetSearch(open) { form.classList.toggle('is-open', open); form.parentNode.classList.toggle('is-open', open); mbtn.setAttribute('aria-expanded', String(open)); document.body.classList.toggle('no-scroll', open); }
-  mbtn.addEventListener('click', function () { sheetSearch(true); });
-  $('[data-close-search]').addEventListener('click', function () { sheetSearch(false); });
-  form.addEventListener('submit', function (e) {
-    e.preventDefault(); pop(null, false); sheetSearch(false);
-    state.checkin = sIn.value; state.checkout = sOut.value; state.cat = ''; state.onlyFavs = false;
-    track('search', { dest: state.dest, guests: state.guests }); render();
-    document.getElementById('imoveis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
-  });
-  $('[data-ask-concierge]').addEventListener('click', function () { pop(null, false); sheetSearch(false); if (window.CONCIERGE) window.CONCIERGE.open(); });
 
-  /* janela de filtros */
-  var fdlg = $('#filters'), fState = null;
-  var AMS = Object.keys(D.comodidades).filter(function (k) { return D.imoveis.some(function (i) { return i.comodidades.indexOf(k) > -1; }); });
-  function fCount() { return D.imoveis.filter(function (i) { return match(i, fState); }).length; }
-  function fRender() {
-    $('#f-dest').innerHTML = [['', 'Todos']].concat(D.destinos.map(function (d) { return [d.id, d.nome]; })).map(function (d) {
-      return '<button type="button" aria-pressed="' + (fState.dest === d[0]) + '" data-fdest="' + d[0] + '">' + esc(d[1]) + '</button>';
-    }).join('');
-    $('#f-guests').textContent = fState.guests || 'Qualquer';
-    $('#f-am').innerHTML = AMS.map(function (k) {
-      return '<label class="fcheck"><input type="checkbox" value="' + k + '"' + (fState.am.indexOf(k) > -1 ? ' checked' : '') + '><span>' + esc(D.comodidades[k]) + '</span></label>';
-    }).join('');
-    var n = fCount(); $('#f-apply').textContent = n ? 'Mostrar ' + n + (n === 1 ? ' acomodação' : ' acomodações') : 'Nenhuma acomodação';
-    $$('[data-fdest]', fdlg).forEach(function (b) { b.addEventListener('click', function () { fState.dest = b.dataset.fdest; fRender(); }); });
-    $$('#f-am input', fdlg).forEach(function (c) { c.addEventListener('change', function () { var at = fState.am.indexOf(c.value); if (c.checked && at < 0) fState.am.push(c.value); if (!c.checked && at > -1) fState.am.splice(at, 1); fRender(); }); });
-  }
-  $$('[data-fstep]').forEach(function (b) { b.addEventListener('click', function () { fState.guests = Math.max(0, Math.min(14, fState.guests + Number(b.dataset.fstep))); fRender(); }); });
-  $('#open-filters').addEventListener('click', function () {
-    fState = { dest: state.dest, cat: state.cat, am: state.am.slice(), guests: state.guests, onlyFavs: state.onlyFavs };
-    fRender(); fdlg.hidden = false; document.body.classList.add('no-scroll'); $('.filters-dlg__panel button', fdlg).focus(); track('filters_open');
-  });
-  function closeFilters(apply) {
-    if (fdlg.hidden) return;
-    if (apply && fState) { state.dest = fState.dest; state.am = fState.am; state.onlyFavs = fState.onlyFavs; if (fState.guests !== state.guests) { G.adultos = fState.guests; G.criancas = 0; syncGuests(); } render(); }
-    fdlg.hidden = true; document.body.classList.remove('no-scroll'); $('#open-filters').focus();
-  }
-  $$('[data-close-filters]', fdlg).forEach(function (b) { b.addEventListener('click', function () { closeFilters(b.id === 'f-apply'); }); });
-  $('[data-filters-clear]').addEventListener('click', function () { fState = { dest: '', cat: state.cat, am: [], guests: 0, onlyFavs: false }; fRender(); });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { closeFilters(false); pop(null, false); if (form.classList.contains('is-open')) sheetSearch(false); } });
-
-  /* lista ⇄ mapa (botão flutuante, como no Airbnb) */
+  /* lista ⇄ mapa: no computador ficam lado a lado; no celular, botão flutuante como no Airbnb */
   var mtog = $('#map-toggle');
-  function showMap(on) {
-    document.body.classList.toggle('show-map', on); render();
+  var wide = function () { return window.innerWidth >= 950; };
+  function showMap(on, silent) {
+    document.body.classList.toggle('show-map', on);
     mtog.setAttribute('aria-pressed', String(on));
     mtog.innerHTML = on ? '<span>Mostrar lista</span><svg aria-hidden="true"><use href="#i-list"/></svg>' : '<span>Mostrar mapa</span><svg aria-hidden="true"><use href="#i-map"/></svg>';
     setTimeout(function () { if (window.MAPA && MAPA.resize) MAPA.resize(); }, 60);
-    track('map_toggle', { on: on });
+    if (!silent) track('map_toggle', { on: on });
   }
   mtog.addEventListener('click', function () {
     var on = !document.body.classList.contains('show-map'); showMap(on);
-    if (on && window.innerWidth < 950) window.scrollTo(0, document.getElementById('imoveis').offsetTop - 120);
+    if (!wide()) window.scrollTo(0, document.getElementById('imoveis').offsetTop - 70);
   });
-  $$('[data-show-map]').forEach(function (a) { a.addEventListener('click', function () { showMap(true); }); });
   if ('IntersectionObserver' in window) {
     new IntersectionObserver(function (es) { mtog.classList.toggle('is-on', es[0].isIntersecting); }, { rootMargin: '-30% 0px -20% 0px' }).observe(document.getElementById('imoveis'));
   } else mtog.classList.add('is-on');
-
 
   /* ---------- mensagem de reserva ---------- */
   function bookingMsg(i, ci, co, g) {
@@ -344,21 +222,9 @@
     return m;
   }
 
-  /* ---------- destinos, avaliações, proprietários ---------- */
-  $('#dest-list').innerHTML = D.destinos.map(function (d) {
-    var n = D.imoveis.filter(function (i) { return i.destino === d.id; }).length;
-    return '<article class="dest__card" data-reveal>' +
-      '<img src="' + d.foto + '-800.webp" srcset="' + d.foto + '-800.webp 800w, ' + d.foto + '-1600.webp 1600w" sizes="(max-width: 1000px) 100vw, 40vw" width="800" height="533" loading="lazy" alt="' + esc(d.fotoAlt) + '">' +
-      '<div class="dest__body"><span class="dest__count">' + n + (n === 1 ? ' imóvel' : ' imóveis') + '</span>' +
-      '<h3>' + esc(d.nome) + '</h3><p>' + esc(d.texto) + '</p>' +
-      '<button class="btn btn--light btn--sm" type="button" data-go-dest="' + d.id + '">Ver imóveis</button></div></article>';
-  }).join('');
-  $$('[data-go-dest]').forEach(function (b) {
-    b.addEventListener('click', function () { state.dest = b.dataset.goDest; state.am = []; state.onlyFavs = false; render(); document.getElementById('imoveis').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); });
-  });
-
+  /* ---------- avaliações ---------- */
   var star = '<svg aria-hidden="true"><use href="#i-star"/></svg>';
-  // notas por categoria, no formato da página de avaliações do Airbnb
+  // notas por categoria, no formato da página de avaliações do Airbnb (usadas na página do imóvel)
   var CATS = [['limpeza', 'Limpeza', 'i-clean'], ['exatidao', 'Exatidão', 'i-check'], ['checkin', 'Check-in', 'i-key'],
     ['comunicacao', 'Comunicação', 'i-chat'], ['localizacao', 'Localização', 'i-map'], ['custoBeneficio', 'Custo-benefício', 'i-tag']];
   var nf = function (v) { return v.toFixed(1).replace('.', ','); };
@@ -370,7 +236,6 @@
       return '<div class="rcat"><span class="rcat__label">' + c[1] + '</span><strong>' + nf(notas[c[0]]) + '</strong><svg aria-hidden="true"><use href="#' + c[2] + '"/></svg></div>';
     }).join('');
   }
-  $('#rcats').innerHTML = ratingCats(E.airbnb.notas, E.airbnb.distribuicao);
 
   function reviewCard(r, dup) {
     return '<article class="review-card"' + (dup ? ' aria-hidden="true"' : '') + '>' +
@@ -380,8 +245,7 @@
       '<p class="review-card__text">' + esc(r.texto) + '</p>' +
       (r.traduzido ? '<span class="review-tag">Traduzido do ' + esc(r.traduzido) + '</span>' : '') + '</article>';
   }
-  var rTrack = $('#reviews .reviews-track');
-  rTrack.innerHTML = D.avaliacoes.map(function (r) { return reviewCard(r, false); }).join('') +
+  $('#reviews .reviews-track').innerHTML = D.avaliacoes.map(function (r) { return reviewCard(r, false); }).join('') +
     D.avaliacoes.map(function (r) { return reviewCard(r, true); }).join('');
 
   // carrossel infinito das avaliações (mesmo comportamento dos sites anteriores):
@@ -389,7 +253,7 @@
   function initMarquee(container, durationSec) {
     var track = container.querySelector('.reviews-track');
     if (!track || reduce) { container.classList.add('is-static'); return; }
-    var dragging = false, moved = false, startX = 0, startOffset = 0, shift = 0;
+    var dragging = false, startX = 0, startOffset = 0, shift = 0;
     var measure = function () {
       var firstDup = track.querySelector('.review-card[aria-hidden="true"]');
       shift = firstDup ? firstDup.offsetLeft - track.firstElementChild.offsetLeft : track.scrollWidth / 2;
@@ -404,14 +268,13 @@
     var wrapX = function (x) { var v = x % shift; if (v > 0) v -= shift; return v; };
     container.addEventListener('pointerdown', function (e) {
       if (e.button !== undefined && e.button !== 0) return;
-      dragging = true; moved = false; startX = e.clientX; startOffset = currentX();
+      dragging = true; startX = e.clientX; startOffset = currentX();
       track.style.animation = 'none'; track.style.transform = 'translateX(' + startOffset + 'px)';
       if (container.setPointerCapture) container.setPointerCapture(e.pointerId);
       container.classList.add('is-dragging');
     });
     container.addEventListener('pointermove', function (e) {
       if (!dragging) return;
-      if (Math.abs(e.clientX - startX) > 4) moved = true;
       track.style.transform = 'translateX(' + wrapX(startOffset + (e.clientX - startX)) + 'px)';
     });
     var endDrag = function () {
@@ -431,26 +294,116 @@
     container.addEventListener('focusin', function () { track.style.animationPlayState = 'paused'; });
     container.addEventListener('focusout', function () { track.style.animationPlayState = 'running'; });
   }
-  initMarquee($('#reviews'), 45);
 
-  $('#owners-list').innerHTML = E.gestao.map(function (g) { return '<li>' + esc(g) + '</li>'; }).join('');
-
-  /* ---------- FAQ com busca ---------- */
-  var faqList = $('#faq-list');
+  /* ---------- dúvidas: só a busca; sem resultado, vai para o assistente ---------- */
+  var faqList = $('#faq-list'), faqHint = $('#faq-hint'), faqQ = $('#faq-q');
   function norm(s) { return String(s).toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, ''); }
-  function renderFaq(q) {
-    var nq = norm(q || '').trim();
-    var items = D.faq.filter(function (f) {
-      if (!nq) return true;
-      return norm(f.pergunta + ' ' + f.resposta + ' ' + f.palavras.join(' ')).indexOf(nq) > -1;
-    });
-    faqList.innerHTML = items.length ? items.map(function (f, n) {
-      return '<details class="faq__item"' + (n === 0 && !nq ? ' open' : '') + '><summary><span><span class="faq__cat">' + esc(f.categoria) + '</span>' + esc(f.pergunta) + '</span></summary>' +
-        '<p>' + esc(f.resposta) + (f.status === 'pendente' ? ' <span class="faq__pend">confirmado no atendimento</span>' : '') + '</p></details>';
-    }).join('') : '<p class="faq__none">Nada encontrado para "' + esc(q) + '". <button type="button" class="linklike" data-open-chat>Pergunte ao assistente</button>.</p>';
+  var STOP = ' de da do das dos e o a os as um uma no na nos nas em com para pra por que qual quais tem ter vcs voces eu meu minha posso pode como e sao ser ou se ja '.split(' ');
+  function faqSearch(q) {
+    var nq = norm(q).replace(/[?!.,;:]/g, ' ').trim();
+    var words = nq.split(/\s+/).filter(function (w) { return w.length > 1 && STOP.indexOf(w) < 0; });
+    if (!words.length) return [];
+    return D.faq.map(function (f) {
+      var kw = norm(f.palavras.join(' | ')), pq = norm(f.pergunta), rs = norm(f.resposta), s = 0;
+      f.palavras.forEach(function (p) { if (nq.indexOf(norm(p)) > -1) s += 6; });
+      words.forEach(function (w) {
+        var root = w.length > 4 ? w.slice(0, -1) : w;   // pet/pets, garagem/garagens
+        if (kw.indexOf(root) > -1) s += 3; else if (pq.indexOf(root) > -1) s += 2; else if (rs.indexOf(root) > -1) s += 0.5;
+      });
+      return { f: f, s: s };
+    }).filter(function (x) { return x.s >= 2; }).sort(function (a, b) { return b.s - a.s; })
+      .filter(function (x, k, all) { return x.s >= all[0].s * 0.6; }).slice(0, 3).map(function (x) { return x.f; });
   }
-  renderFaq('');
-  $('#faq-q').addEventListener('input', function (e) { renderFaq(e.target.value); });
+  function renderFaq(q) {
+    var t = q.trim();
+    if (t.length < 2) { faqList.innerHTML = ''; faqHint.hidden = false; return; }
+    var items = faqSearch(t);
+    faqHint.hidden = true;
+    var askBtn = function (label, cls) { return '<button type="button" class="' + cls + '" data-ask-q>' + '<svg aria-hidden="true"><use href="#i-bot"/></svg>' + label + '</button>'; };
+    faqList.innerHTML = items.length
+      ? items.map(function (f, n) {
+          return '<article class="ask__item" style="--k:' + n + '"><span class="ask__cat">' + esc(f.categoria) + '</span><h3>' + esc(f.pergunta) + '</h3>' +
+            '<p>' + esc(f.resposta) + (f.status === 'pendente' ? ' <span class="faq__pend">confirmado no atendimento</span>' : '') + '</p></article>';
+        }).join('') + '<p class="ask__more">Não era isso? ' + askBtn('Perguntar ao assistente', 'linklike') + '</p>'
+      : '<div class="ask__none"><p>Não encontrei <b>“' + esc(t) + '”</b> nas dúvidas frequentes. O assistente virtual responde na hora, e se ele não souber, passa para a equipe.</p>' + askBtn('Perguntar ao assistente', 'btn btn--mar btn--sm') + '</div>';
+    $$('[data-ask-q]', faqList).forEach(function (b) {
+      b.addEventListener('click', function () { track('faq_to_chat', { q: t }); if (window.CONCIERGE) CONCIERGE.ask(t); });
+    });
+  }
+  var fqt; faqQ.addEventListener('input', function () { clearTimeout(fqt); fqt = setTimeout(function () { renderFaq(faqQ.value); }, 120); });
+  faqQ.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    e.preventDefault(); renderFaq(faqQ.value);
+    if (faqQ.value.trim().length > 1 && !faqSearch(faqQ.value).length && window.CONCIERGE) CONCIERGE.ask(faqQ.value.trim());
+  });
+
+  /* ---------- além das chaves (#alem-das-chaves/regiao) ---------- */
+  var REG = [
+    { id: 'barra', nome: 'Barra da Tijuca', foto: 'assets/img/destinos/barra-por-do-sol', alt: 'Pôr do sol sobre o mar na Praia da Barra da Tijuca' },
+    { id: 'copacabana', nome: 'Copacabana & Leme', foto: 'assets/img/destinos/copacabana-noite', alt: 'Orla de Copacabana iluminada à noite, vista do alto' },
+    { id: 'angra', nome: 'Angra dos Reis', foto: 'assets/img/destinos/angra-costao', alt: 'Costão coberto de mata e mar turquesa na baía de Angra dos Reis' }
+  ];
+  function alemItem(x, k) {
+    var act = '';
+    if (x.wa) act = '<a class="alem__act" href="#" data-wa-msg="' + esc(x.wa) + '" data-wa="alem" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>';
+    else if (x.imoveis) act = '<span class="alem__where">' + x.imoveis.map(function (s) { return bySlug[s] ? '<a href="#imovel/' + s + '">' + esc(bySlug[s].nome) + '</a>' : ''; }).join('') + '</span>';
+    return '<li class="alem__item" style="--k:' + k + '"><span class="alem__ico" aria-hidden="true"><svg><use href="#' + x.icone + '"/></svg></span>' +
+      '<div><h3>' + esc(x.titulo) + (x.etiqueta ? ' <span class="alem__tag">' + esc(x.etiqueta) + '</span>' : '') + '</h3><p>' + esc(x.texto) + '</p>' + act + '</div></li>';
+  }
+  function renderAlem(reg) {
+    var r = REG.filter(function (x) { return x.id === reg; })[0] || REG[0], n = doDestino(r.id).length;
+    $('#alem-tabs').innerHTML = REG.map(function (x) {
+      return '<a role="tab" href="#alem-das-chaves/' + x.id + '" aria-selected="' + (x.id === r.id) + '"><img src="' + x.foto + '-800.webp" alt="" loading="lazy"><span>' + esc(x.nome) + '</span></a>';
+    }).join('');
+    $('#alem-body').innerHTML =
+      '<div class="alem__grid">' +
+        '<figure class="alem__photo"><img src="' + r.foto + '-1600.webp" srcset="' + r.foto + '-800.webp 800w, ' + r.foto + '-1600.webp 1600w" sizes="(max-width: 900px) 100vw, 40vw" alt="' + esc(r.alt) + '">' +
+          '<figcaption><b>' + esc(r.nome) + '</b><span>' + plural(n, 'imóvel', 'imóveis') + '</span><a class="btn btn--light btn--sm" href="#destino/' + r.id + '">Ver imóveis</a></figcaption></figure>' +
+        '<ul class="alem__list">' + D.alem[r.id].map(alemItem).join('') + '</ul>' +
+      '</div>' +
+      '<div class="alem__all"><h2>Em todos os destinos</h2><ul class="alem__list alem__list--row">' + D.alem.todos.map(alemItem).join('') + '</ul></div>' +
+      '<div class="alem__ask"><p><b>Procura outra coisa?</b> Transfer, mercado antes da chegada, horário diferente: pergunte. A equipe diz o que é possível.</p>' +
+        '<button class="btn btn--ghost btn--sm" type="button" data-open-chat>Perguntar ao assistente</button></div>';
+    bindWa($('#alem-body'));
+  }
+
+  /* ---------- anuncie seu imóvel (#anuncie) ---------- */
+  $('#owners-list').innerHTML = E.gestao.map(function (g) { return '<li><svg aria-hidden="true"><use href="#i-check"/></svg>' + esc(g) + '</li>'; }).join('');
+  var oform = $('#owner-form'), oerr = $('#owner-err');
+  function ownerMsg() {
+    var f = oform, v = function (k) { return (f[k].value || '').trim(); }, m = [];
+    m.push('Olá! Quero anunciar meu imóvel com a Aluguel Temporada RJ (Grupo 3D).', '', '*Proprietário*');
+    m.push('Nome: ' + v('nome'), 'WhatsApp: ' + v('tel'));
+    if (v('email')) m.push('E-mail: ' + v('email'));
+    m.push('', '*Imóvel*', v('tipo') + ' em ' + v('local'));
+    var nums = [['quartos', 'quarto(s)'], ['banheiros', 'banheiro(s)'], ['hospedes', 'hóspedes'], ['vagas', 'vaga(s)']]
+      .filter(function (x) { return v(x[0]) !== ''; }).map(function (x) { return v(x[0]) + ' ' + x[1]; });
+    if (nums.length) m.push(nums.join(' · '));
+    var ck = [['mobiliado', 'Mobiliado'], ['vista', 'Vista para o mar'], ['lazer', 'Prédio com lazer'], ['anuncia', 'Já anuncia em temporada']]
+      .filter(function (x) { return f[x[0]].checked; }).map(function (x) { return x[1]; });
+    if (ck.length) m.push(ck.join(' · '));
+    if (v('link')) m.push('Anúncio/fotos: ' + v('link'));
+    if (v('obs')) m.push('Observações: ' + v('obs'));
+    m.push('', 'Podem avaliar?');
+    return m.join('\n');
+  }
+  oform.addEventListener('input', function () {
+    $('#owner-mail').href = 'mailto:' + E.email + '?subject=' + encodeURIComponent('Quero anunciar meu imóvel') + '&body=' + encodeURIComponent(ownerMsg().replace(/\*/g, ''));
+  });
+  oform.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var bad = ['nome', 'tel', 'local'].filter(function (k) { var x = oform[k]; x.removeAttribute('aria-invalid'); return !x.value.trim(); });
+    if (!bad.length && oform.tel.value.replace(/\D/g, '').length < 8) bad = ['tel'];
+    if (bad.length) {
+      bad.forEach(function (k) { oform[k].setAttribute('aria-invalid', 'true'); });
+      oerr.hidden = false; oerr.textContent = bad[0] === 'tel' && oform.tel.value.trim() ? 'Confira o número de WhatsApp.' : 'Preencha nome, WhatsApp e bairro/cidade para a equipe retornar.';
+      oform[bad[0]].focus(); return;
+    }
+    oerr.hidden = true;
+    track('owner_form');
+    openWa(waLink(ownerMsg()), $('#owner-open'));
+    toast('Mensagem pronta no WhatsApp da empresa');
+  });
 
   /* ---------- página do imóvel (#imovel/slug) ---------- */
   var sheet = $('#sheet'), sheetBody = $('#sheet-body'), lastFocus = null, miniMap = null;
@@ -512,7 +465,7 @@
       '</aside></div>' +
       '<div class="sheet__cta"><button class="btn btn--sun" type="button" data-go-book><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></div>';
 
-    lastFocus = document.activeElement;
+    if (sheet.hidden) lastFocus = document.activeElement;
     sheet.hidden = false; document.body.classList.add('no-scroll');
     $('.sheet__panel', sheet).scrollTop = 0; $('.sheet__panel', sheet).focus();
     document.title = i.nome + ' — Aluguel Temporada RJ';
@@ -549,13 +502,14 @@
       }, 350);
     }
   }
-  function closeSheet() {
+  // fromRoute: o endereço já mudou (voltar do navegador); senão volta à página de onde o imóvel foi aberto
+  function closeSheet(fromRoute) {
     if (sheet.hidden) return;
     sheet.hidden = true; document.body.classList.remove('no-scroll');
-    document.title = 'Aluguel Temporada RJ — Barra da Tijuca, Copacabana e Angra dos Reis';
+    document.title = TITLES[cur.view] ? TITLES[cur.view](cur.arg) : TITLES.home();
     if (miniMap) { miniMap.remove(); miniMap = null; }
-    if (location.hash.indexOf('#imovel/') === 0) history.replaceState(null, '', location.pathname + location.search + '#imoveis');
-    if (lastFocus && lastFocus.focus) lastFocus.focus();
+    if (fromRoute !== true && location.hash.indexOf('#imovel/') === 0) history.replaceState(null, '', location.pathname + location.search + lastBase);
+    if (lastFocus && lastFocus.focus && document.contains(lastFocus)) lastFocus.focus({ preventScroll: true });
   }
   $$('[data-close-sheet]').forEach(function (b) { b.addEventListener('click', closeSheet); });
   document.addEventListener('keydown', function (e) {
@@ -568,11 +522,6 @@
       else if (!e.shiftKey && document.activeElement === f[f.length - 1]) { e.preventDefault(); f[0].focus(); }
     }
   });
-  function route_() {
-    var m = location.hash.match(/^#imovel\/([\w-]+)/);
-    if (m && bySlug[m[1]]) openImovel(m[1]); else closeSheet();
-  }
-  window.addEventListener('hashchange', route_);
 
   /* lightbox */
   function lightbox(i, start) {
@@ -599,48 +548,83 @@
     document.addEventListener('keydown', key);
   }
 
-  /* ---------- formulário de contato -> WhatsApp ---------- */
-  var lead = $('#lead');
-  lead.addEventListener('submit', function (e) {
-    e.preventDefault();
-    var err = $('#lead-err'), f = lead;
-    f.nome.removeAttribute('aria-invalid');
-    if (!f.nome.value.trim()) { err.hidden = false; err.textContent = 'Informe seu nome para a equipe saber com quem fala.'; f.nome.setAttribute('aria-invalid', 'true'); f.nome.focus(); return; }
-    if (f.checkin.value && f.checkout.value && nights(f.checkin.value, f.checkout.value) < 1) { err.hidden = false; err.textContent = 'A data de saída precisa ser depois da entrada.'; f.checkout.focus(); return; }
-    err.hidden = true;
-    var m = 'Olá! Meu nome é ' + f.nome.value.trim() + '.';
-    m += '\nDestino: ' + (f.destino.value || 'ainda não decidi') + '.';
-    if (f.checkin.value && f.checkout.value) m += '\nDatas: ' + fmtDate(f.checkin.value) + ' a ' + fmtDate(f.checkout.value) + '.';
-    m += '\nHóspedes: ' + (f.hospedes.value || 'a definir') + '.';
-    if (f.msg.value.trim()) m += '\n' + f.msg.value.trim();
-    m += '\nPode me indicar as opções disponíveis?';
-    track('lead_whatsapp');
-    openWa(waLink(m), $('#lead-open'));
-  });
+  /* ---------- páginas pelo endereço (funciona no site e no artefato, sem servidor) ---------- */
+  var BASE_TITLE = 'Aluguel Temporada RJ';
+  var TITLES = {
+    home: function () { return BASE_TITLE + ' — Barra da Tijuca, Copacabana e Angra dos Reis'; },
+    destino: function (id) { return 'Imóveis em ' + DEST[id].nome + ' — ' + BASE_TITLE; },
+    alem: function () { return 'Além das chaves — ' + BASE_TITLE; },
+    anuncie: function () { return 'Anuncie seu imóvel — ' + BASE_TITLE; }
+  };
+  var views = $$('.view'), cur = { view: null, arg: null }, lastBase = '#inicio', marqueeOn = false;
+  var LEGACY = { imoveis: ['home', null, 'destinos'], mapa: ['home', null, 'destinos'], proprietarios: ['anuncie'], experiencias: ['alem', 'barra'], contato: ['home', null, 'contato'] };
+  function parseHash() {
+    var h = location.hash.slice(1), m;
+    try { h = decodeURIComponent(h); } catch (e) {}
+    if ((m = h.match(/^imovel\/([\w-]+)/)) && bySlug[m[1]]) return { imovel: m[1] };
+    if ((m = h.match(/^destino\/([\w-]+)/)) && DEST[m[1]]) return { view: 'destino', arg: m[1] };
+    if ((m = h.match(/^alem-das-chaves(?:\/([\w-]+))?$/))) return { view: 'alem', arg: m[1] && D.alem[m[1]] && m[1] !== 'todos' ? m[1] : 'barra' };
+    if (h === 'anuncie') return { view: 'anuncie' };
+    if (LEGACY[h]) return { view: LEGACY[h][0], arg: LEGACY[h][1] || null, anchor: LEGACY[h][2] };
+    return { view: 'home', anchor: h && document.getElementById(h) ? h : null };
+  }
+  function showView(v, arg) {
+    var res = { view: cur.view !== v, arg: cur.view !== v || cur.arg !== arg };
+    if (!res.arg) return res;
+    views.forEach(function (el) { el.hidden = el.dataset.view !== v; });
+    document.body.setAttribute('data-page', v);
+    if (v === 'destino') { renderDestino(arg); if (res.view) showMap(wide(), true); }
+    if (v === 'alem') renderAlem(arg);
+    if (v === 'home' && !marqueeOn) { marqueeOn = true; initMarquee($('#reviews'), 45); }
+    $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', String(a.dataset.nav === v)); });
+    document.title = TITLES[v](arg);
+    cur = { view: v, arg: arg };
+    if (v === 'destino') setTimeout(function () { if (window.MAPA && MAPA.resize) MAPA.resize(); }, 80);
+    if (window.revealSweep) setTimeout(window.revealSweep, 50);
+    return res;
+  }
+  function route_() {
+    var r = parseHash();
+    if (r.imovel) {
+      // link direto para um imóvel: abre por cima da página do destino dele
+      if (!cur.view) { showView('destino', bySlug[r.imovel].destino); lastBase = '#destino/' + bySlug[r.imovel].destino; }
+      openImovel(r.imovel); return;
+    }
+    closeSheet(true);
+    var changed = showView(r.view, r.arg);
+    lastBase = location.hash || '#inicio';
+    var smooth = reduce || changed.view ? 'auto' : 'smooth';
+    if (r.anchor && r.anchor !== 'inicio' && r.anchor !== 'topo') {
+      var el = document.getElementById(r.anchor);
+      requestAnimationFrame(function () { el.scrollIntoView({ behavior: smooth }); });
+    } else if (r.view === 'home' && r.anchor) window.scrollTo({ top: 0, behavior: smooth });
+    else if (changed.view || (changed.arg && r.view === 'destino')) window.scrollTo(0, 0);
+  }
+  window.addEventListener('hashchange', route_);
 
   /* ---------- revelar ao rolar ---------- */
   if ('IntersectionObserver' in window && !reduce) {
     var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } }); }, { rootMargin: '0px 0px -8% 0px' });
     $$('[data-reveal]').forEach(function (el) { io.observe(el); });
     // reforço: se o observador atrasar (aba em segundo plano, máquina lenta), revela o que já passou pela tela
-    var sweep = function () {
+    var sweep = window.revealSweep = function () {
       var vh = window.innerHeight;
-      $$('[data-reveal]:not(.in-view)').forEach(function (el) { if (el.getBoundingClientRect().top < vh) { el.classList.add('in-view'); io.unobserve(el); } });
+      $$('[data-reveal]:not(.in-view)').forEach(function (el) { var t = el.getBoundingClientRect().top; if (t && t < vh) { el.classList.add('in-view'); io.unobserve(el); } });
     };
     var st; window.addEventListener('scroll', function () { clearTimeout(st); st = setTimeout(sweep, 150); }, { passive: true });
   } else { $$('[data-reveal]').forEach(function (el) { el.classList.add('in-view'); }); }
 
   /* ---------- API pública para o mapa e o assistente ---------- */
   window.APP = {
-    state: state, render: render, openImovel: function (slug) { location.hash = 'imovel/' + slug; },
+    state: state, openImovel: function (slug) { location.hash = 'imovel/' + slug; },
     img: img, waLink: waLink, bookingMsg: bookingMsg, destName: destName, track: track, fmtDate: fmtDate, nights: nights, toast: toast,
+    // o assistente guarda a busca; "Ver imóveis" leva à página do destino
     applyFilters: function (f) {
-      state.dest = f.dest || ''; state.cat = ''; state.am = f.am || []; state.onlyFavs = false;
-      if (f.guests) { G.adultos = f.guests; G.criancas = 0; syncGuests(); }
+      state.dest = f.dest || ''; state.am = f.am || [];
+      if (f.guests) state.guests = f.guests;
       if (f.checkin) state.checkin = f.checkin; if (f.checkout) state.checkout = f.checkout;
-      render();
-    }
+    },
+    showResults: function () { location.hash = state.dest ? 'destino/' + state.dest : 'destinos'; }
   };
-  render();
   route_();
 })();
