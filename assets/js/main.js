@@ -161,6 +161,7 @@
   }
 
   /* ---------- página inicial: os destinos primeiro ---------- */
+  var B = D.lancha;
   $('#dest-list').innerHTML = D.destinos.map(function (d, k) {
     var n = doDestino(d.id).length;
     return '<a class="dpick__card" href="#destino/' + d.id + '" style="--k:' + k + '">' +
@@ -169,7 +170,13 @@
       '<span class="dpick__name">' + esc(d.nome) + '</span>' +
       '<span class="dpick__sub">' + esc(d.chamada) + '</span>' +
       '<span class="dpick__go">Ver imóveis <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span></a>';
-  }).join('');
+  }).join('') +
+    '<a class="dpick__card dpick__card--boat" href="#lancha" style="--k:' + D.destinos.length + '">' +
+      '<img src="' + B.foto + '-720.webp" srcset="' + B.foto + '-480.webp 480w, ' + B.foto + '-720.webp 720w" sizes="(max-width: 900px) 100vw, 25vw" width="720" height="1040" alt="' + esc(B.fotoAlt) + '" loading="lazy">' +
+      '<span class="dpick__body"><span class="dpick__count"><svg aria-hidden="true"><use href="#i-boat"/></svg>' + plural(B.frota.length, 'lancha', 'lanchas') + ' · ' + esc(B.local) + '</span>' +
+      '<span class="dpick__name">' + esc(B.nome) + '</span>' +
+      '<span class="dpick__sub">' + esc(B.chamada) + '</span>' +
+      '<span class="dpick__go">Conhecer o passeio <svg aria-hidden="true"><use href="#i-arrow"/></svg></span></span></a>';
 
   /* ---------- página do destino (#destino/barra) ---------- */
   function renderDestino(id) {
@@ -187,6 +194,7 @@
         }).join('') + '</nav>' +
       '</div>';
     countEl.textContent = plural(list.length, 'acomodação', 'acomodações') + ' em ' + d.nome;
+    $('#dboat').hidden = id !== 'angra';
     grid.innerHTML = list.map(card).join('');
     bindCards();
     state.visible = list.map(function (i) { return i.slug; });
@@ -345,7 +353,8 @@
   ];
   function alemItem(x, k) {
     var act = '';
-    if (x.wa) act = '<a class="alem__act" href="#" data-wa-msg="' + esc(x.wa) + '" data-wa="alem" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>';
+    if (x.link) act = '<a class="alem__act alem__act--in" href="' + x.link + '"><svg aria-hidden="true"><use href="#i-boat"/></svg>' + esc(x.linkTexto) + '</a>';
+    else if (x.wa) act = '<a class="alem__act" href="#" data-wa-msg="' + esc(x.wa) + '" data-wa="alem" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>';
     else if (x.imoveis) act = '<span class="alem__where">' + x.imoveis.map(function (s) { return bySlug[s] ? '<a href="#imovel/' + s + '">' + esc(bySlug[s].nome) + '</a>' : ''; }).join('') + '</span>';
     return '<li class="alem__item" style="--k:' + k + '"><span class="alem__ico" aria-hidden="true"><svg><use href="#' + x.icone + '"/></svg></span>' +
       '<div><h3>' + esc(x.titulo) + (x.etiqueta ? ' <span class="alem__tag">' + esc(x.etiqueta) + '</span>' : '') + '</h3><p>' + esc(x.texto) + '</p>' + act + '</div></li>';
@@ -366,6 +375,42 @@
         '<button class="btn btn--ghost btn--sm" type="button" data-open-chat>Perguntar ao assistente</button></div>';
     bindWa($('#alem-body'));
   }
+
+  /* ---------- passeio de lancha (#lancha) ---------- */
+  $('#boat-lead').textContent = B.texto;
+  var bph = $('#boat-photo'); bph.src = B.foto + '-720.webp'; bph.alt = B.fotoAlt;
+  $('#boat-facts').innerHTML = B.destaques.map(function (x) {
+    return '<li><span class="alem__ico" aria-hidden="true"><svg><use href="#' + x.icone + '"/></svg></span><span><b>' + esc(x.titulo) + '</b>' + esc(x.texto) + '</span></li>';
+  }).join('');
+  var spec = function (v, suf) { return v ? esc(v) + suf : '<i>a confirmar</i>'; };
+  $('#boat-fleet').innerHTML = B.frota.map(function (l, k) {
+    var media = l.fotos.length
+      ? '<img src="' + l.fotos[0].src + '" alt="' + esc(l.fotos[0].alt) + '" loading="lazy">'
+      : '<span class="fleet__ph" aria-hidden="true"><svg><use href="#i-boat"/></svg><small>Fotos em breve</small></span>';
+    return '<article class="fleet__card"><div class="fleet__media">' + media + '<span class="fleet__n">0' + (k + 1) + '</span></div>' +
+      '<div class="fleet__body"><h3>' + esc(l.nome) + '</h3>' + (l.texto ? '<p>' + esc(l.texto) + '</p>' : '') +
+      '<dl><div><dt>Pessoas</dt><dd>' + spec(l.pessoas, '') + '</dd></div><div><dt>Tamanho</dt><dd>' + spec(l.tamanho, '') + '</dd></div><div><dt>Embarque</dt><dd>Pier 99</dd></div></dl>' +
+      '<a class="alem__act" href="#" data-wa-msg="' + esc('Olá! Quero saber sobre a ' + l.nome.toLowerCase() + ' para passeio em Angra dos Reis: capacidade, duração e valor.') + '" data-wa="lancha" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Perguntar sobre esta lancha</a></div></article>';
+  }).join('');
+  $('#boat-pick').innerHTML += B.frota.map(function (l) { return '<option>' + esc(l.nome) + '</option>'; }).join('');
+  $('#boat-gal').innerHTML = [{ src: B.foto + '-720.webp', alt: B.fotoAlt }].concat(B.galeria).map(function (g, k) {
+    return '<figure style="--k:' + k + '"><img src="' + g.src + '" alt="' + esc(g.alt) + '" loading="lazy"></figure>';
+  }).join('');
+  bindWa($('#boat-fleet'));
+  var bform = $('#boat-form');
+  bform.data.min = todayISO(0);
+  bform.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var m = 'Olá! Vim pelo site e quero fazer um passeio de lancha em Angra dos Reis.';
+    m += '\nData: ' + (bform.data.value ? fmtDate(bform.data.value) : 'a definir') + '.';
+    m += '\nPessoas: ' + (bform.pessoas.value || 'a definir') + '.';
+    if (bform.lancha.value) m += '\nLancha: ' + bform.lancha.value + '.';
+    m += '\nHospedagem: ' + bform.hosp.value + '.';
+    if (bform.msg.value.trim()) m += '\n' + bform.msg.value.trim();
+    m += '\nPode me passar disponibilidade e valor?';
+    track('boat_whatsapp');
+    openWa(waLink(m), $('#boat-open'));
+  });
 
   /* ---------- anuncie seu imóvel (#anuncie) ---------- */
   $('#owners-list').innerHTML = E.gestao.map(function (g) { return '<li><svg aria-hidden="true"><use href="#i-check"/></svg>' + esc(g) + '</li>'; }).join('');
@@ -554,7 +599,8 @@
     home: function () { return BASE_TITLE + ' — Barra da Tijuca, Copacabana e Angra dos Reis'; },
     destino: function (id) { return 'Imóveis em ' + DEST[id].nome + ' — ' + BASE_TITLE; },
     alem: function () { return 'Além das chaves — ' + BASE_TITLE; },
-    anuncie: function () { return 'Anuncie seu imóvel — ' + BASE_TITLE; }
+    anuncie: function () { return 'Anuncie seu imóvel — ' + BASE_TITLE; },
+    lancha: function () { return 'Passeio de lancha em Angra dos Reis — ' + BASE_TITLE; }
   };
   var views = $$('.view'), cur = { view: null, arg: null }, lastBase = '#inicio', marqueeOn = false;
   var LEGACY = { imoveis: ['home', null, 'destinos'], mapa: ['home', null, 'destinos'], proprietarios: ['anuncie'], experiencias: ['alem', 'barra'], contato: ['home', null, 'contato'] };
@@ -565,6 +611,7 @@
     if ((m = h.match(/^destino\/([\w-]+)/)) && DEST[m[1]]) return { view: 'destino', arg: m[1] };
     if ((m = h.match(/^alem-das-chaves(?:\/([\w-]+))?$/))) return { view: 'alem', arg: m[1] && D.alem[m[1]] && m[1] !== 'todos' ? m[1] : 'barra' };
     if (h === 'anuncie') return { view: 'anuncie' };
+    if (h === 'lancha' || h === 'barco') return { view: 'lancha' };
     if (LEGACY[h]) return { view: LEGACY[h][0], arg: LEGACY[h][1] || null, anchor: LEGACY[h][2] };
     return { view: 'home', anchor: h && document.getElementById(h) ? h : null };
   }

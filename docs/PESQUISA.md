@@ -46,3 +46,4 @@ Quatro avaliações 5★ públicas no perfil do anfitrião (Matías, Michelle, C
 4. Passeios que de fato oferecem (o site cita só barco em Angra e a agência de turismo/câmbio, ambos publicados).
 5. Domínio definitivo (o site usa `alugueltemporadarj.com.br` como provisório em canonical/sitemap).
 6. **Público principal** (ainda não definido pelo cliente). Pista pelas avaliações públicas: muitos hóspedes da Argentina, do Chile e dos EUA, além de brasileiros. Se o público estrangeiro for grande, vale ter o site em espanhol/inglês (o assistente já responde nos três idiomas) e destacar a agência de câmbio.
+7. **Lanchas (Angra):** fotos reais das 2 lanchas (no Instagram estão só nos destaques "Real 36"/"Real 22", que exigem login), nome/modelo, capacidade, duração e valores do passeio. Do perfil @barco_angra_dos_reis foram usados: embarque no Pier 99, saídas personalizadas, tripulação especializada, roteiros sob medida e o WhatsApp (21) 97633-1432.

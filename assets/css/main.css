@@ -168,8 +168,8 @@ html:not(.js) .intro{ display:none; }
 .tabs a[aria-current="true"]::after{ content:''; position:absolute; left: 14px; right: 14px; bottom: 4px; height: 2px; border-radius: 2px; background: var(--sol); }
 .header__cta svg{ width: 18px; height: 18px; }
 .usermenu{ padding: 0 14px; }
-@media (min-width: 1001px){ .usermenu, .menu{ display:none; } }
-@media (max-width: 1000px){ .tabs{ display:none; } .header__in{ grid-template-columns: 1fr auto; } }
+@media (min-width: 1181px){ .usermenu, .menu{ display:none; } }
+@media (max-width: 1180px){ .tabs{ display:none; } .header__in{ grid-template-columns: 1fr auto; } }
 @media (max-width: 420px){ .header__cta{ padding: 0; width: 42px; } .header__cta span{ display:none; } }
 @media (max-width: 520px){ .logo__txt{ font-size: 1.05rem; } .logo__mark{ width:32px; height:32px; } }
 
@@ -354,6 +354,7 @@ html:not(.js) .intro{ display:none; }
   .dpick{ flex-direction: column; height:auto; gap: 12px; }
   .dpick__card{ flex: none; height: 300px; }
   .dpick__card:first-child{ height: 360px; }
+  .dpick__card::after{ background: linear-gradient(180deg, rgba(11,44,61,0) 10%, rgba(11,44,61,.6) 42%, rgba(11,44,61,.94) 100%); }
   .hero__trust{ justify-content:flex-start; gap: 6px 18px; font-size: .88rem; }
 }
 @media (hover: none){ .dpick:hover .dpick__card, .dpick .dpick__card:hover{ flex-grow: 1; } }
@@ -553,6 +554,7 @@ body[data-page="destino"] .maptoggle.is-on{ transform: translate(-50%, 0); }
 .alem__item p:last-child{ margin-bottom: 0; }
 .alem__act{ display:inline-flex; align-items:center; gap: 8px; color: #146c3a; font-weight:700; font-size: .94rem; text-decoration:none; }
 .alem__act svg{ width: 18px; height: 18px; }
+.alem__act--in{ color: var(--oceano); }
 .alem__act:hover{ text-decoration: underline; text-underline-offset: 3px; }
 .alem__where{ display:flex; flex-wrap:wrap; gap: 6px; }
 .alem__where a{ padding: 5px 12px; border-radius: 999px; border: 1px solid var(--linha); background: var(--espuma); font-size: .84rem; font-weight:600; text-decoration:none; transition: border-color .2s, background-color .2s; }
@@ -602,6 +604,85 @@ body[data-page="destino"] .maptoggle.is-on{ transform: translate(-50%, 0); }
 .oform__note{ margin: 14px 0 0; font-size: .82rem; color: var(--texto-2); }
 @media (max-width: 900px){ .owner__grid{ grid-template-columns: 1fr; } .owner__side{ position: static; } }
 @media (max-width: 560px){ .oform__row{ grid-template-columns: 1fr; } .oform__row--4{ grid-template-columns: 1fr 1fr; } }
+
+
+/* passeio de lancha: bloco da home, chamada no destino Angra e página própria */
+.dpick__count{ display:inline-flex; align-items:center; gap: 6px; }
+.dpick__count svg{ width: 15px; height: 15px; }
+.dpick__card--boat::after{ background: linear-gradient(180deg, rgba(11,44,61,0) 30%, rgba(11,44,61,.45) 58%, rgba(11,44,61,.94) 100%); }
+.dboat{ display:flex; align-items:center; gap: 18px; margin-top: 36px; padding: 12px 22px 12px 12px; border-radius: 22px; background: var(--mar); color: var(--espuma); text-decoration:none; transition: box-shadow .3s; }
+.dboat[hidden]{ display:none; }
+.dboat:hover{ box-shadow: 0 24px 40px -26px rgba(11,44,61,.8); }
+.dboat img{ width: 92px; height: 92px; border-radius: 14px; object-fit:cover; flex:none; }
+.dboat span{ flex:1; color: rgba(248,246,241,.8); font-size: .94rem; }
+.dboat small{ display:block; font-family: var(--mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--sol); }
+.dboat b{ display:block; font-family: var(--serif); font-weight:400; font-size: 1.45rem; color: var(--espuma); line-height: 1.2; }
+.dboat > svg{ width: 22px; height: 22px; flex:none; transition: transform .3s var(--ease); }
+.dboat:hover > svg{ transform: translateX(5px); }
+
+.boat{ padding: clamp(28px, 4vw, 52px) 0 96px; }
+.boat__top{ display:grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(28px, 5vw, 72px); align-items:center; }
+.boat h1{ font-size: clamp(2.6rem, 1.5rem + 4vw, 5rem); line-height: 1; }
+.boat h1 em{ color: var(--oceano); }
+.boat__lead{ margin: 20px 0 22px; max-width: 50ch; font-size: 1.08rem; color: var(--texto-2); }
+.boat__open{ display:flex; gap: 12px; align-items:flex-start; margin: 0 0 26px; padding: 16px 18px; border-radius: 18px; background: var(--areia); max-width: 56ch; font-size: .97rem; color: var(--texto-2); }
+.boat__open svg{ width: 24px; height: 24px; flex:none; color: var(--angra); }
+.boat__open b{ color: var(--texto); }
+.boat__cta{ display:flex; flex-wrap:wrap; gap: 10px; }
+.boat__photo{ position:relative; margin:0; border-radius: var(--r-lg); overflow:hidden; aspect-ratio: 720 / 900; max-height: 72vh; justify-self:end; width: 100%; box-shadow: 0 40px 70px -40px rgba(11,44,61,.7); }
+.boat__photo img{ width:100%; height:100%; object-fit:cover; animation: dhero-zoom 1.6s var(--ease) both; }
+.boat__photo figcaption{ position:absolute; left: 16px; bottom: 16px; display:inline-flex; align-items:center; gap: 8px; padding: 9px 16px; border-radius: 999px; background: rgba(11,44,61,.55); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color:#fff; font-weight:600; font-size: .9rem; }
+.boat__photo figcaption svg{ width: 16px; height: 16px; color: var(--sol); }
+.boat__facts{ list-style:none; margin: clamp(36px, 5vw, 56px) 0 0; padding:0; display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 12px; }
+.boat__facts li{ display:flex; gap: 14px; align-items:center; padding: 18px; border-radius: 20px; background:#fff; border: 1px solid var(--linha); color: var(--texto-2); font-size: .9rem; line-height: 1.4; }
+.boat__facts b{ display:block; color: var(--texto); font-size: 1rem; margin-bottom: 2px; }
+.boat__sec{ margin-top: clamp(56px, 7vw, 88px); }
+.boat__sec h2{ font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.8rem); }
+.boat__sub{ margin: 12px 0 0; max-width: 60ch; color: var(--texto-2); }
+.fleet{ display:grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 28px; }
+.fleet__card{ border-radius: 24px; overflow:hidden; background:#fff; border: 1px solid var(--linha); display:flex; flex-direction:column; }
+.fleet__media{ position:relative; aspect-ratio: 16 / 9; background: var(--mar); overflow:hidden; }
+.fleet__media img{ width:100%; height:100%; object-fit:cover; }
+.fleet__ph{ position:absolute; inset:0; display:grid; place-content:center; justify-items:center; gap: 10px; color: rgba(248,246,241,.75); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='46' viewBox='0 0 160 46'%3E%3Cpath d='M0 23c20 0 20-17 40-17s20 34 40 34 20-34 40-34 20 17 40 17' fill='none' stroke='%23f8f6f1' stroke-opacity='.08' stroke-width='9'/%3E%3C/svg%3E"); background-size: 160px 46px; }
+.fleet__ph svg{ width: 64px; height: 64px; }
+.fleet__ph small{ font-family: var(--mono); font-size: .72rem; letter-spacing: .14em; text-transform: uppercase; }
+.fleet__n{ position:absolute; left: 18px; top: 14px; font-family: var(--serif); font-size: 2.2rem; color: var(--sol); line-height: 1; }
+.fleet__body{ padding: 22px 24px 24px; display:flex; flex-direction:column; gap: 12px; flex:1; }
+.fleet__body h3{ font-size: 1.6rem; }
+.fleet__body p{ margin:0; color: var(--texto-2); }
+.fleet__body dl{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); margin: 4px 0 6px; border-top: 1px solid var(--linha); }
+.fleet__body dl div{ padding-top: 12px; }
+.fleet__body dt{ font-family: var(--mono); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); }
+.fleet__body dd{ margin: 2px 0 0; font-weight:700; }
+.fleet__body dd i{ font-weight:500; color: var(--texto-2); }
+.fleet__body .alem__act{ margin-top:auto; }
+.boat__gal{ display:grid; grid-template-columns: .9fr 1fr 1fr; grid-template-rows: 240px 240px; gap: 10px; margin-top: 26px; }
+.boat__gal figure{ margin:0; border-radius: 20px; overflow:hidden; animation: card-in .6s var(--ease) both; animation-delay: calc(var(--k) * 90ms); }
+.boat__gal figure:first-child{ grid-row: 1 / 3; }
+.boat__gal figure:nth-child(2){ grid-column: 2 / 4; }
+.boat__gal img{ width:100%; height:100%; object-fit:cover; transition: transform 1s var(--ease); }
+.boat__gal figure:hover img{ transform: scale(1.05); }
+.bform{ margin-top: clamp(56px, 7vw, 88px); padding: clamp(24px, 4vw, 44px); border-radius: var(--r-lg); background: var(--mar); color: var(--espuma); display:grid; gap: 14px; scroll-margin-top: calc(var(--header-h) + 20px); }
+.bform__head h2{ font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.6rem); }
+.bform__head p{ margin: 10px 0 8px; color: rgba(248,246,241,.75); max-width: 60ch; }
+.bform__grid{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+.bform label{ display:grid; gap: 6px; font-size: .86rem; font-weight:600; color: rgba(248,246,241,.8); min-width:0; }
+.bform input, .bform select, .bform textarea{ width:100%; min-height: 50px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(248,246,241,.2); background: rgba(248,246,241,.08); color: var(--espuma); font-size: 1rem; font-weight:500; color-scheme: dark; }
+.bform select option{ color: var(--texto); }
+.bform textarea{ resize: vertical; min-height: 70px; }
+.bform input:focus, .bform select:focus, .bform textarea:focus{ outline:none; border-color: var(--sol); box-shadow: 0 0 0 3px rgba(242,162,78,.25); }
+.bform .btn{ justify-self:start; }
+@media (max-width: 1000px){ .boat__facts{ grid-template-columns: 1fr 1fr; } .bform__grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 900px){
+  .boat__top{ grid-template-columns: 1fr; }
+  .boat__photo{ aspect-ratio: 4 / 3; max-height:none; }
+  .fleet{ grid-template-columns: 1fr; }
+  .boat__gal{ grid-template-columns: 1fr 1fr; grid-template-rows: 200px 160px 160px; }
+  .boat__gal figure:first-child{ grid-row: 1 / 2; grid-column: 1 / 3; }
+  .boat__gal figure:nth-child(2){ grid-column: auto; }
+  .boat__gal figure:last-child{ grid-column: 1 / 3; }
+}
+@media (max-width: 560px){ .boat__facts{ grid-template-columns: 1fr; } .bform__grid{ grid-template-columns: 1fr 1fr; } .bform .btn{ justify-self: stretch; } .dboat img{ width: 64px; height: 64px; } .dboat b{ font-size: 1.15rem; } }
 
 /* ---------- rodapé ---------- */
 .footer{ background: var(--mar); color: rgba(248,246,241,.8); padding-bottom: 96px; }

@@ -14,6 +14,7 @@ python3 -m http.server 8080   # abrir http://localhost:8080
 |---|---|
 | **Intro animada** | Ondas do calçadão de Copacabana desenhadas na tela + logotipo. Aparece 1× por sessão, tem botão "Pular" e versão curta com movimento reduzido. |
 | **Página inicial enxuta** | Destinos primeiro (3 blocos com foto e "Ver imóveis"), Quem somos, avaliações reais em carrossel, chamada para o Além das chaves, faixa para proprietários e dúvidas só com busca (sem resultado → assistente). |
+| **Passeio de lancha** | 4º bloco da página inicial e página `#lancha` (dados em `lancha` de `data/site-data.js`, do Instagram @barco_angra_dos_reis): embarque no Pier 99, aberto a quem não está hospedado, as 2 lanchas (fotos e dados a preencher em `frota`) e consulta de data pelo WhatsApp. |
 | **Páginas por endereço** | `#destino/barra`, `#destino/copacabana`, `#destino/angra` (imóveis + mapa), `#alem-das-chaves/<regiao>` (serviços por região, de `alem` em `data/site-data.js`) e `#anuncie` (formulário do proprietário → WhatsApp ou e-mail). Funciona sem servidor. |
 | **Página de cada imóvel** | Abre em `#imovel/<slug>` (link compartilhável): galeria com lightbox, descrição, comodidades, regras, mapa da região e consulta de datas que abre o WhatsApp com a mensagem pronta. Link para o anúncio no Airbnb. |
 | **Mapa interativo** | MapLibre + OpenFreeMap (sem chave): os 7 imóveis (área aproximada) + escritório "3D" pulsante, mostra só os imóveis do destino aberto, pinos com casinha e nota. |

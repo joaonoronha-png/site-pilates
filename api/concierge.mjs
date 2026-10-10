@@ -26,6 +26,8 @@ const base = JSON.stringify(
     comodidades: DATA.comodidades,
     imoveis: DATA.imoveis.map(({ fotos, lat, lng, ...i }) => i),
     faq: DATA.faq.map(({ palavras, ...f }) => f),
+    lancha: (({ foto, fotoAlt, galeria, ...l }) => l)(DATA.lancha),
+    alemDasChaves: DATA.alem,
   },
   null,
   1,

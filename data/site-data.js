@@ -403,11 +403,42 @@
         { titulo: 'Portaria 24 horas', icone: 'i-door', texto: 'Porteiro o dia todo para chegar a qualquer hora com tranquilidade.', imoveis: ['leme-copacabana'] }
       ],
       angra: [
-        { titulo: 'Barco pelas ilhas', icone: 'i-wave', etiqueta: 'à parte', texto: 'Embarcações para passeio podem ser contratadas com a equipe para conhecer as ilhas da baía.', wa: 'Olá! Quero saber sobre passeio de barco em Angra dos Reis.' },
+        { titulo: 'Passeio de lancha pelas ilhas', icone: 'i-boat', etiqueta: 'à parte', texto: 'Lancha com tripulação e roteiro sob medida, com embarque no Pier 99. Também para quem não está hospedado.', link: '#lancha', linkTexto: 'Conhecer o passeio de lancha' },
         { titulo: 'Apoio de empregada', icone: 'i-house', etiqueta: 'à parte', texto: 'Serviço de empregada durante a estadia nas casas de Angra.', wa: 'Olá! Quero saber sobre o serviço de empregada nas casas de Angra.' },
         { titulo: 'Piscina, sauna e churrasqueira', icone: 'i-pool', texto: 'Lazer do condomínio fechado, com acesso por terra e por mar.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] },
         { titulo: 'Casas para o grupo todo', icone: 'i-users', texto: '4 suítes com ar-condicionado e Smart TV. A Casa Ponta da Cruz recebe até 14 pessoas.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] }
       ]
+    },
+
+    // Passeio de lancha em Angra (Instagram @barco_angra_dos_reis, out/2026).
+    // Vale também para quem não está hospedado. Fotos das lanchas, capacidade,
+    // duração e valores: aguardando o cliente (null = a equipe confirma).
+    lancha: {
+      nome: 'Passeio de lancha',
+      local: 'Angra dos Reis',
+      instagram: 'barco_angra_dos_reis',
+      embarque: 'Pier 99, Angra dos Reis',
+      chamada: 'Pelas ilhas de Angra, mesmo sem se hospedar com a gente.',
+      texto: 'Navegue pelas águas cristalinas de Angra dos Reis, conheça ilhas e praias que só se alcançam pelo mar e escolha o seu ritmo. A saída é combinada com você, com tripulação e roteiro sob medida.',
+      foto: 'assets/img/lancha/rastro',
+      fotoAlt: 'Rastro de espuma da lancha no mar azul de Angra dos Reis, com ilha e serra ao fundo',
+      destaques: [
+        { titulo: 'Saídas personalizadas', icone: 'i-sun', texto: 'Dia e horário combinados com você.' },
+        { titulo: 'Tripulação especializada', icone: 'i-users', texto: 'Você só aproveita o passeio.' },
+        { titulo: 'Roteiros sob medida', icone: 'i-map', texto: 'Ilhas e praias escolhidas para o seu grupo.' },
+        { titulo: 'Embarque no Pier 99', icone: 'i-pin', texto: 'Em Angra dos Reis.' }
+      ],
+      // As duas lanchas da empresa. Preencha com as fotos e os dados quando chegarem.
+      frota: [
+        { nome: 'Lancha menor', fotos: [], pessoas: null, tamanho: null, texto: null },
+        { nome: 'Segunda lancha', fotos: [], pessoas: null, tamanho: null, texto: null }
+      ],
+      galeria: [
+        { src: 'assets/img/lancha/angra-1-700.webp', alt: 'Praia de pedras com coqueiro e mar calmo em Angra dos Reis' },
+        { src: 'assets/img/lancha/angra-2-700.webp', alt: 'Água verde-esmeralda transparente entre pedras em Angra dos Reis' },
+        { src: 'assets/img/lancha/angra-3-700.webp', alt: 'Ilha com faixa de areia branca vista do alto em Angra dos Reis' }
+      ],
+      precos: null, duracao: null
     },
 
     // Avaliações reais (perfil público do anfitrião no Airbnb, set/2026)
@@ -493,10 +524,10 @@
         pergunta: 'Aceitam estadias longas?',
         resposta: 'Sim, os anúncios aceitam estadias de 28 dias ou mais, para quem vem trabalhar, estudar ou passar uma temporada.',
         palavras: ['mes', 'mensal', 'longa', 'longo prazo', 'temporada longa', '30 dias', '28 dias'] },
-      { id: 'barco', status: 'depende', categoria: 'Passeios',
-        pergunta: 'Tem passeio de barco em Angra?',
-        resposta: 'Sim. Quem se hospeda nas casas de Angra pode contratar embarcações para passeio, com valor à parte. Peça as opções pelo WhatsApp.',
-        palavras: ['barco', 'lancha', 'escuna', 'passeio de barco', 'ilha', 'ilhas', 'embarcacao'] },
+      { id: 'barco', status: 'confirmado', categoria: 'Passeios',
+        pergunta: 'Tem passeio de lancha em Angra? Preciso estar hospedado?',
+        resposta: 'Tem, e não precisa estar hospedado com a gente. O passeio de lancha sai do Pier 99, em Angra dos Reis, com tripulação e roteiro sob medida. Dia, duração, número de pessoas e valor são combinados pelo WhatsApp.',
+        palavras: ['barco', 'lancha', 'escuna', 'passeio de barco', 'passeio de lancha', 'ilha', 'ilhas', 'embarcacao', 'pier', 'marina', 'navegar', 'boat'] },
       { id: 'cambio', status: 'confirmado', categoria: 'Passeios',
         pergunta: 'Vocês ajudam com passeios e câmbio?',
         resposta: 'O anfitrião também tem uma agência de turismo e câmbio na Barra da Tijuca. Peça indicações de passeios e cotação de câmbio pelo WhatsApp.',
