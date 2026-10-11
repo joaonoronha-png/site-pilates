@@ -523,7 +523,7 @@
     if (!i.fotos.length) {
       var p = img(i);
       return '<div class="gal gal--single"><button type="button" data-lb="0" aria-label="Ampliar foto"><img src="' + p.big + '" alt="' + esc(p.alt) + '"></button>' +
-        '<span class="gal__note">Foto ilustrativa da região. <a href="' + i.airbnb + '" target="_blank" rel="noopener" style="color:inherit;font-weight:600">Ver fotos do imóvel no Airbnb →</a></span></div>';
+        '<span class="gal__note">Foto ilustrativa da região.</span></div>';
     }
     var show = i.fotos.slice(0, 5);
     return '<div class="gal">' + show.map(function (f, n) {
@@ -556,7 +556,7 @@
         '<h3>O espaço</h3><ul class="pdp__desc">' + i.descricao.map(function (d) { return '<li>' + esc(d) + '</li>'; }).join('') + '</ul>' +
         '<h3>Comodidades</h3><ul class="pdp__am">' + am + '</ul>' +
         (i.notas ? '<h3 class="pdp-rev__h"><svg aria-hidden="true"><use href="#i-star"/></svg> ' + i.nota + ' · ' + i.avaliacoes + ' avaliações</h3><div class="rcats rcats--pdp">' + ratingCats(i.notas, i.distribuicao) + '</div>' +
-          '<p class="pdp__ref"><a href="' + i.airbnb + '#reviews" target="_blank" rel="noopener">Ler as avaliações deste imóvel no Airbnb →</a></p>' : '') +
+          '' : '') +
         '<h3>Regras e horários</h3><dl class="pdp__rules">' +
           '<div><dt>Check-in</dt><dd>' + esc(r.checkin) + '</dd></div><div><dt>Check-out</dt><dd>' + esc(r.checkout) + '</dd></div>' +
           '<div><dt>Pets</dt><dd>' + yn(r.pet, 'Permitidos', 'Não permitidos') + '</dd></div><div><dt>Fumar</dt><dd>' + yn(r.fumar, 'Permitido', 'Proibido') + '</dd></div>' +
@@ -576,7 +576,8 @@
         '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
         '<a class="wa-open" id="book-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a></form>' +
         '<ul class="book__terms"><li>Mínimo de ' + C.minimoNoites + ' noites</li><li>Taxa de limpeza: R$ ' + (casa ? C.limpeza.casa : C.limpeza.apartamento) + '</li><li>' + esc(C.pagamento) + ': ' + esc(C.sinal) + '</li><li>' + esc(C.cancelamento) + '</li></ul>' +
-        '<p class="book__alt">Quer ver o preço das suas datas agora? <a href="' + i.airbnb + '" target="_blank" rel="noopener">Ver no Airbnb</a></p>' +
+        '<p class="book__save"><svg aria-hidden="true"><use href="#i-tag"/></svg><span><b>Reserva direta, sem taxa do Airbnb.</b> Você paga menos reservando aqui com a gente.</span></p>' +
+        '<p class="book__alt">Dúvidas sobre a reserva? <a href="#" data-wa-msg="' + esc('Olá! Tenho uma dúvida sobre a reserva do imóvel "' + i.nome + '".') + '" data-wa="book-help" target="_blank" rel="noopener">Fale com a equipe no WhatsApp</a></p>' +
       '</aside></div>' +
       '<div class="sheet__cta"><button class="btn btn--sun" type="button" data-go-book><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></div>';
 
@@ -606,6 +607,7 @@
     });
 
     $('[data-go-book]').addEventListener('click', function () { $('#book-form').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function () { $('#book-form').ci.focus(); }, 500); });
+    bindWa(sheetBody);
     // galeria
     $$('[data-lb]', sheetBody).forEach(function (b) { b.addEventListener('click', function () { lightbox(i, Number(b.dataset.lb)); }); });
 
