@@ -49,6 +49,6 @@ Quatro avaliações 5★ públicas no perfil do anfitrião (Matías, Michelle, C
 2. Confirmar o que é o "tapete" incluso na Real 36 (tapete flutuante?).
 3. Diárias: o cliente sugeriu usar os valores do Airbnb, mas eles mudam por data e só aparecem no calendário do anúncio; o site mostra "Consulte o valor" + link "Ver no Airbnb".
 4. Caução (não respondido), estacionamento do Flat Vista Mar.
-5. Autorização de uso das fotos (não respondido), CNPJ/razão social, logo em vetor.
+5. Fotos do Airbnb e do Instagram: liberadas pelo responsável do projeto ("acho que pode"); vale o cliente confirmar por escrito. Pendentes: CNPJ/razão social, logo em vetor.
 6. Domínio: aguardando o TI do cliente.
 7. As artes de roteiro têm o logo de uma empresa de passeios náuticos no rodapé; o site usa só as fotos recortadas. Confirmar que pode.
