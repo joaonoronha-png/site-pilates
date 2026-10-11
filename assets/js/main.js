@@ -60,25 +60,66 @@
     var el = $('#intro'); if (!el) return;
     var seen = false; try { seen = sessionStorage.getItem('atrj-intro') === '1'; } catch (e) {}
     if (seen) { el.remove(); return; }
-    if (reduce) el.classList.add('is-short');
     document.body.classList.add('no-scroll');
+    var stage = $('.intro__stage', el), mark = $('.intro__mark', el), logo = $('.header .logo');
+
+    // nome letra por letra
+    var base = 1.05;
+    $$('[data-split]', el).forEach(function (w) {
+      var t = w.textContent; w.textContent = ''; w.setAttribute('aria-label', t);
+      t.split('').forEach(function (c, k) {
+        var sp = document.createElement('span'); sp.className = 'ch'; sp.textContent = c; sp.setAttribute('aria-hidden', 'true');
+        sp.style.setProperty('--c', k); sp.style.setProperty('--d0', base + 's'); w.appendChild(sp);
+      });
+      base += t.length * 0.042 + 0.12;
+    });
+
+    // interação: o cartão inclina com o mouse e as ondas acompanham; um toque solta uma ondinha
+    var move = function (x, y) {
+      var dx = x / window.innerWidth - .5, dy = y / window.innerHeight - .5;
+      el.style.setProperty('--rx', (dx * 14).toFixed(2) + 'deg'); el.style.setProperty('--ry', (-dy * 10).toFixed(2) + 'deg');
+      el.style.setProperty('--wx', (-dx * 40).toFixed(1) + 'px'); el.style.setProperty('--wy', (-dy * 24).toFixed(1) + 'px');
+    };
+    setTimeout(function () { el.classList.add('is-tilt'); }, 1200);
+    el.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse') move(e.clientX, e.clientY); });
+    el.addEventListener('pointerdown', function (e) {
+      if (e.target.closest('[data-intro-skip]')) return;
+      var r = document.createElement('span'); r.className = 'intro__ripple';
+      r.style.left = e.clientX + 'px'; r.style.top = e.clientY + 'px'; el.appendChild(r);
+      setTimeout(function () { r.remove(); }, 1300);
+      if (e.pointerType !== 'mouse') { move(e.clientX, e.clientY); setTimeout(function () { move(window.innerWidth / 2, window.innerHeight / 2); }, 700); }
+    });
+
     var done = function () {
       if (el.classList.contains('is-done')) return;
+      // o logo da abertura voa até o logo do topo do site
+      try {
+        var from = mark.getBoundingClientRect(), to = $('.logo__mark', logo).getBoundingClientRect();
+        if (from.width && to.width) {
+          var fly = mark.cloneNode(true); fly.removeAttribute('class'); fly.classList.add('intro-fly');
+          $$('.im', fly).forEach(function (pth) { pth.style.animation = 'none'; pth.style.strokeDashoffset = '0'; });
+          fly.style.left = from.left + 'px'; fly.style.top = from.top + 'px'; fly.style.width = from.width + 'px'; fly.style.height = from.height + 'px';
+          document.body.appendChild(fly); logo.classList.add('is-waiting'); mark.style.visibility = 'hidden';
+          requestAnimationFrame(function () { requestAnimationFrame(function () {
+            fly.style.transform = 'translate(' + (to.left - from.left) + 'px,' + (to.top - from.top) + 'px) scale(' + (to.width / from.width) + ')';
+          }); });
+          setTimeout(function () { logo.classList.remove('is-waiting'); fly.remove(); }, 950);
+        }
+      } catch (e) { logo.classList.remove('is-waiting'); }
       el.classList.add('is-done'); document.body.classList.remove('no-scroll');
       try { sessionStorage.setItem('atrj-intro', '1'); } catch (e) {}
       setTimeout(function () { el.remove(); }, 1100);
     };
-    // só o botão "Pular" (ou Esc) encerra antes do tempo: um toque sem querer no iPad não corta a abertura
+    // só o botão "Pular" (ou Esc) encerra antes do tempo: um toque na tela vira ondinha, não fecha
     $('[data-intro-skip]', el).addEventListener('click', done);
     document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { done(); document.removeEventListener('keydown', k); } });
-    // logotipo completo na tela por cerca de 2,5 s (completo em ~1,6 s, sai em 4,2 s);
-    // com "reduzir movimento" ligado, aparece parado logo de cara e fica o mesmo tempo
-    // o tempo só conta com a página de fato na tela (no app, o artefato pode carregar antes de aparecer)
+    // logotipo e nome completos na tela por cerca de 2,5 s (prontos em ~2 s, saída em 4,6 s).
+    // O tempo só conta com a página de fato na tela (no app, o artefato pode carregar antes de aparecer).
     var started = false;
     var start = function () {
       if (started || document.hidden) return; started = true;
       el.classList.add('is-on');
-      setTimeout(done, reduce ? 3000 : 4200);
+      setTimeout(done, 4600);
     };
     requestAnimationFrame(function () { requestAnimationFrame(start); });
     document.addEventListener('visibilitychange', start);
