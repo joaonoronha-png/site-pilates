@@ -39,11 +39,16 @@ Descrições, camas, banheiros, comodidades e regras (check-in 14h, check-out 11
 ## Avaliações exibidas
 Quatro avaliações 5★ públicas no perfil do anfitrião (Matías, Michelle, Cristian, Oussama — set/2026), com a tradução do próprio Airbnb indicada. Não há avaliação inventada.
 
+## Respostas do cliente (out/2026)
+- Lancha Real 36: 12 pessoas, 7 horas, a partir de R$ 3.500 (varia com a data e a quantidade de locações); inclui marinheiro, som, churrasqueira e tapete; saída do condomínio do cliente em Angra ou do Piratas; reserva com 50% de sinal e 50% um dia antes. Roteiros: Águas Quentes, Paradisíacos e Ilha Grande (+R$ 250).
+- Imóveis (reserva direta): mínimo 2 noites; limpeza R$ 200 (apartamentos) e R$ 300 (casas); Pix, 50% na reserva e 50% um dia antes da entrada; cancelamento a menos de 30 dias da entrada sem reembolso; roupa de cama e toalhas em todos; kit praia só no Wyndham (Posto 4); estacionamento: Golden Coast tem, Wyndham pago no local, Leme não tem (pago perto); festas respeitando a lei do silêncio; quem fumar responde por danos de bitucas.
+- Atendimento 7h às 22h. Público principal: hispanofalante. Barra Travel pode aparecer, com link (barratravel.com.br). Domínio: o cliente já tem um, o TI dele vai enviar.
+
 ## Pendências (pedir ao cliente)
-1. **Tabela de preços** (diária, fim de semana, feriados, Réveillon, Carnaval, mínimo de noites, taxa de limpeza, caução, formas de pagamento, cancelamento para reserva direta).
-2. **Autorização de uso das fotos** (Instagram e anúncios do Airbnb) e, se possível, os arquivos originais em alta resolução.
-3. Horário de atendimento, CNPJ/razão social, logo em vetor.
-4. Passeios que de fato oferecem (o site cita só barco em Angra e a agência de turismo/câmbio, ambos publicados).
-5. Domínio definitivo (o site usa `alugueltemporadarj.com.br` como provisório em canonical/sitemap).
-6. **Público principal** (ainda não definido pelo cliente). Pista pelas avaliações públicas: muitos hóspedes da Argentina, do Chile e dos EUA, além de brasileiros. Se o público estrangeiro for grande, vale ter o site em espanhol/inglês (o assistente já responde nos três idiomas) e destacar a agência de câmbio.
-7. **Lanchas (Angra):** fotos reais das 2 lanchas (no Instagram estão só nos destaques "Real 36"/"Real 22", que exigem login), nome/modelo, capacidade, duração e valores do passeio. Do perfil @barco_angra_dos_reis foram usados: embarque no Pier 99, saídas personalizadas, tripulação especializada, roteiros sob medida e o WhatsApp (21) 97633-1432.
+1. Fotos das duas lanchas e os dados da segunda lancha (nome, pessoas, duração, valor, o que inclui).
+2. Confirmar o que é o "tapete" incluso na Real 36 (tapete flutuante?).
+3. Diárias: o cliente sugeriu usar os valores do Airbnb, mas eles mudam por data e só aparecem no calendário do anúncio; o site mostra "Consulte o valor" + link "Ver no Airbnb".
+4. Caução (não respondido), estacionamento do Flat Vista Mar.
+5. Autorização de uso das fotos (não respondido), CNPJ/razão social, logo em vetor.
+6. Domínio: aguardando o TI do cliente.
+7. As artes de roteiro têm o logo de uma empresa de passeios náuticos no rodapé; o site usa só as fotos recortadas. Confirmar que pode.

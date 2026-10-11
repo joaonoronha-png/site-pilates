@@ -405,7 +405,8 @@
   ];
   function alemItem(x, k) {
     var act = '';
-    if (x.link) act = '<a class="alem__act alem__act--in" href="' + x.link + '"><svg aria-hidden="true"><use href="#i-boat"/></svg>' + esc(x.linkTexto) + '</a>';
+    if (x.site) act = '<a class="alem__act" href="#" data-wa-msg="' + esc(x.wa) + '" data-wa="alem" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a><a class="alem__act alem__act--in" href="' + x.site + '" target="_blank" rel="noopener">' + esc(x.siteTexto) + ' →</a>';
+    else if (x.link) act = '<a class="alem__act alem__act--in" href="' + x.link + '"><svg aria-hidden="true"><use href="#i-boat"/></svg>' + esc(x.linkTexto) + '</a>';
     else if (x.wa) act = '<a class="alem__act" href="#" data-wa-msg="' + esc(x.wa) + '" data-wa="alem" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir pelo WhatsApp</a>';
     else if (x.imoveis) act = '<span class="alem__where">' + x.imoveis.map(function (s) { return bySlug[s] ? '<a href="#imovel/' + s + '">' + esc(bySlug[s].nome) + '</a>' : ''; }).join('') + '</span>';
     return '<li class="alem__item" style="--k:' + k + '"><span class="alem__ico" aria-hidden="true"><svg><use href="#' + x.icone + '"/></svg></span>' +
@@ -434,16 +435,28 @@
   $('#boat-facts').innerHTML = B.destaques.map(function (x) {
     return '<li><span class="alem__ico" aria-hidden="true"><svg><use href="#' + x.icone + '"/></svg></span><span><b>' + esc(x.titulo) + '</b>' + esc(x.texto) + '</span></li>';
   }).join('');
-  var spec = function (v, suf) { return v ? esc(v) + suf : '<i>a confirmar</i>'; };
+  var spec = function (v) { return v ? esc(v) : '<i>a confirmar</i>'; };
   $('#boat-fleet').innerHTML = B.frota.map(function (l, k) {
     var media = l.fotos.length
       ? '<img src="' + l.fotos[0].src + '" alt="' + esc(l.fotos[0].alt) + '" loading="lazy">'
       : '<span class="fleet__ph" aria-hidden="true"><svg><use href="#i-boat"/></svg><small>Fotos em breve</small></span>';
     return '<article class="fleet__card"><div class="fleet__media">' + media + '<span class="fleet__n">0' + (k + 1) + '</span></div>' +
-      '<div class="fleet__body"><h3>' + esc(l.nome) + '</h3>' + (l.texto ? '<p>' + esc(l.texto) + '</p>' : '') +
-      '<dl><div><dt>Pessoas</dt><dd>' + spec(l.pessoas, '') + '</dd></div><div><dt>Tamanho</dt><dd>' + spec(l.tamanho, '') + '</dd></div><div><dt>Embarque</dt><dd>Pier 99</dd></div></dl>' +
-      '<a class="alem__act" href="#" data-wa-msg="' + esc('Olá! Quero saber sobre a ' + l.nome.toLowerCase() + ' para passeio em Angra dos Reis: capacidade, duração e valor.') + '" data-wa="lancha" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Perguntar sobre esta lancha</a></div></article>';
+      '<div class="fleet__body"><h3>' + esc(l.nome) + '</h3>' +
+      '<dl><div><dt>Pessoas</dt><dd>' + spec(l.pessoas && 'até ' + l.pessoas) + '</dd></div><div><dt>Passeio</dt><dd>' + spec(l.duracao) + '</dd></div><div><dt>Valor</dt><dd>' + spec(l.preco && l.preco.replace('A partir de ', 'a partir de ')) + '</dd></div></dl>' +
+      (l.inclui && l.inclui.length ? '<ul class="fleet__inc"><li class="fleet__inc-h">Incluso</li>' + l.inclui.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>' : '') +
+      (l.precoNota ? '<p class="fleet__note">' + esc(l.precoNota) + '</p>' : '') +
+      '<a class="alem__act" href="#" data-wa-msg="' + esc('Olá! Quero saber sobre a lancha ' + l.nome + ' para passeio em Angra dos Reis: datas e valor.') + '" data-wa="lancha" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Consultar esta lancha</a></div></article>';
   }).join('');
+  $('#boat-routes').innerHTML = B.roteiros.map(function (r, k) {
+    return '<article class="route" style="--k:' + k + '">' +
+      '<div class="route__pics">' + r.fotos.map(function (f, j) { return '<img src="' + f + (j ? '-t' : '-720') + '.webp" alt="' + esc(r.paradas[j] || r.nome) + '" loading="lazy">'; }).join('') + '</div>' +
+      '<div class="route__body"><span class="route__n">Roteiro 0' + (k + 1) + '</span><h3>' + esc(r.nome) + '</h3>' +
+      '<ol>' + r.paradas.map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ol>' +
+      (r.acrescimo ? '<p class="route__extra">' + esc(r.acrescimo) + '</p>' : '') +
+      '<a class="alem__act" href="#" data-wa-msg="' + esc('Olá! Quero fazer o roteiro ' + r.nome + ' de lancha em Angra dos Reis. Pode me passar datas e valor?') + '" data-wa="roteiro" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-wa"/></svg>Quero este roteiro</a></div></article>';
+  }).join('');
+  bindWa($('#boat-routes'));
+  $('#boat-route').innerHTML += B.roteiros.map(function (r) { return '<option>' + esc(r.nome) + '</option>'; }).join('');
   $('#boat-pick').innerHTML += B.frota.map(function (l) { return '<option>' + esc(l.nome) + '</option>'; }).join('');
   $('#boat-gal').innerHTML = [{ src: B.foto + '-720.webp', alt: B.fotoAlt }].concat(B.galeria).map(function (g, k) {
     return '<figure style="--k:' + k + '"><img src="' + g.src + '" alt="' + esc(g.alt) + '" loading="lazy"></figure>';
@@ -457,6 +470,7 @@
     m += '\nData: ' + (bform.data.value ? fmtDate(bform.data.value) : 'a definir') + '.';
     m += '\nPessoas: ' + (bform.pessoas.value || 'a definir') + '.';
     if (bform.lancha.value) m += '\nLancha: ' + bform.lancha.value + '.';
+    if (bform.roteiro.value) m += '\nRoteiro: ' + bform.roteiro.value + '.';
     m += '\nHospedagem: ' + bform.hosp.value + '.';
     if (bform.msg.value.trim()) m += '\n' + bform.msg.value.trim();
     m += '\nPode me passar disponibilidade e valor?';
@@ -520,7 +534,8 @@
     var i = bySlug[slug]; if (!i) return;
     var am = i.comodidades.map(function (k) { return '<li>' + esc(D.comodidades[k]) + '</li>'; }).join('') + (i.extras || []).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('');
     var r = i.regras;
-    var yn = function (v, s, n) { return v === true ? s : v === false ? n : 'Consultar'; };
+    var yn = function (v, s, n) { return typeof v === 'string' ? esc(v) : v === true ? s : v === false ? n : 'Consultar'; };
+    var C = E.condicoes, casa = /^Casa/.test(i.tipo);
     sheetBody.innerHTML = gallery(i) +
       '<div class="pdp"><div>' +
         '<header class="pdp__head"><p class="eyebrow">' + esc(destName[i.destino]) + ' · ' + esc(i.tipo) + '</p><h2 id="sheet-title">' + esc(i.nome) + '</h2>' +
@@ -545,6 +560,7 @@
           '<div><dt>Check-in</dt><dd>' + esc(r.checkin) + '</dd></div><div><dt>Check-out</dt><dd>' + esc(r.checkout) + '</dd></div>' +
           '<div><dt>Pets</dt><dd>' + yn(r.pet, 'Permitidos', 'Não permitidos') + '</dd></div><div><dt>Fumar</dt><dd>' + yn(r.fumar, 'Permitido', 'Proibido') + '</dd></div>' +
           '<div><dt>Festas</dt><dd>' + yn(r.festas, 'Permitidas', 'Não permitidas') + '</dd></div><div><dt>Entrada</dt><dd>' + esc(r.selfCheckin ? 'Self check-in ' + r.selfCheckin : 'Combinada com o anfitrião') + '</dd></div>' +
+          '<div><dt>Estacionamento</dt><dd>' + yn(r.estacionamento, 'Tem', 'Não tem') + '</dd></div><div><dt>Roupa de cama e toalhas</dt><dd>' + yn(r.enxoval, 'Incluídas', 'Não incluídas') + '</dd></div>' +
         '</dl>' +
         '<h3>Localização aproximada</h3><p class="pdp__ref">O endereço exato é enviado após a reserva.</p><div class="pdp__mini" id="mini-map"></div>' +
       '</div>' +
@@ -558,7 +574,8 @@
         '<p class="book__sum" id="book-sum" aria-live="polite"></p><p class="book__warn" id="book-warn" hidden></p>' +
         '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
         '<a class="wa-open" id="book-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a></form>' +
-        '<p class="book__alt">ou reserve pelo <a href="' + i.airbnb + '" target="_blank" rel="noopener">Airbnb</a></p>' +
+        '<ul class="book__terms"><li>Mínimo de ' + C.minimoNoites + ' noites</li><li>Taxa de limpeza: R$ ' + (casa ? C.limpeza.casa : C.limpeza.apartamento) + '</li><li>' + esc(C.pagamento) + ': ' + esc(C.sinal) + '</li><li>' + esc(C.cancelamento) + '</li></ul>' +
+        '<p class="book__alt">Quer ver o preço das suas datas agora? <a href="' + i.airbnb + '" target="_blank" rel="noopener">Ver no Airbnb</a></p>' +
       '</aside></div>' +
       '<div class="sheet__cta"><button class="btn btn--sun" type="button" data-go-book><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></div>';
 

@@ -251,7 +251,7 @@
         <div class="grid" id="grid"></div>
         <a class="dboat" id="dboat" href="#lancha" hidden>
           <img src="assets/img/lancha/rastro-480.webp" alt="" loading="lazy" width="480" height="693">
-          <span><small>Também em Angra</small><b>Passeio de lancha pelas ilhas</b>Com tripulação e roteiro sob medida, saindo do Pier 99.</span>
+          <span><small>Também em Angra</small><b>Passeio de lancha pelas ilhas</b>Real 36 para até 12 pessoas, 7 horas, saindo do seu condomínio ou do Piratas.</span>
           <svg aria-hidden="true"><use href="#i-arrow"/></svg>
         </a>
         <div class="dhelp">
@@ -285,7 +285,7 @@
       </div>
       <figure class="boat__photo">
         <img id="boat-photo" alt="" width="720" height="1040">
-        <figcaption><svg aria-hidden="true"><use href="#i-pin"/></svg> Embarque no Pier 99 · Angra dos Reis</figcaption>
+        <figcaption><svg aria-hidden="true"><use href="#i-pin"/></svg> Saída do seu condomínio ou do Piratas · Angra</figcaption>
       </figure>
     </div>
     <div class="wrap">
@@ -293,8 +293,14 @@
 
       <div class="boat__sec">
         <h2>As lanchas</h2>
-        <p class="boat__sub">Duas lanchas para escolher. Capacidade, duração e valor são confirmados pela equipe no WhatsApp.</p>
+        <p class="boat__sub">Marinheiro a bordo e saída do seu condomínio em Angra ou do Piratas.</p>
         <div class="fleet" id="boat-fleet"></div>
+      </div>
+
+      <div class="boat__sec">
+        <h2>Roteiros</h2>
+        <p class="boat__sub">Três caminhos pelas ilhas de Angra. Escolha um ou combine o seu com a equipe.</p>
+        <div class="routes" id="boat-routes"></div>
       </div>
 
       <div class="boat__sec">
@@ -305,13 +311,16 @@
       <form class="bform" id="boat-form" novalidate>
         <div class="bform__head">
           <h2>Consulte uma data</h2>
-          <p>A mensagem chega pronta no WhatsApp da equipe, que responde com disponibilidade, lancha indicada e valor.</p>
+          <p>A mensagem chega pronta no WhatsApp da equipe, que responde com disponibilidade e valor. Para reservar: 50% de sinal e 50% um dia antes do passeio.</p>
         </div>
         <div class="bform__grid">
           <label>Data<input type="date" name="data"></label>
           <label>Pessoas<input type="number" name="pessoas" min="1" max="40" value="4" inputmode="numeric"></label>
           <label>Lancha
             <select name="lancha" id="boat-pick"><option value="">Tanto faz</option></select>
+          </label>
+          <label>Roteiro
+            <select name="roteiro" id="boat-route"><option value="">Ainda não sei</option></select>
           </label>
           <label>Hospedagem
             <select name="hosp">
@@ -413,7 +422,9 @@
     <div>
       <a class="footer__ig" href="https://www.instagram.com/_alugueltemporadarj/" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-ig"/></svg> @_alugueltemporadarj</a>
       <p><a href="#" data-wa-msg="Olá! Vim pelo site." target="_blank" rel="noopener">(21) 97633-1432</a> · <a href="mailto:diogo@grupo3d.app.br">diogo@grupo3d.app.br</a></p>
+      <p>Atendimento todos os dias, das 7h às 22h</p>
       <p>Shopping Città America · Av. das Américas, 700 · Barra da Tijuca</p>
+      <p>Turismo e câmbio: <a href="https://barratravel.com.br" target="_blank" rel="noopener">Barra Travel</a></p>
     </div>
   </div>
   <div class="wrap footer__bottom" id="creditos">

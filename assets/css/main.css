@@ -703,14 +703,14 @@ body[data-page="destino"] .maptoggle.is-on{ transform: translate(-50%, 0); }
 .bform{ margin-top: clamp(56px, 7vw, 88px); padding: clamp(24px, 4vw, 44px); border-radius: var(--r-lg); background: var(--mar); color: var(--espuma); display:grid; gap: 14px; scroll-margin-top: calc(var(--header-h) + 20px); }
 .bform__head h2{ font-size: clamp(1.9rem, 1.3rem + 1.8vw, 2.6rem); }
 .bform__head p{ margin: 10px 0 8px; color: rgba(248,246,241,.75); max-width: 60ch; }
-.bform__grid{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 14px; }
+.bform__grid{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap: 14px; }
 .bform label{ display:grid; gap: 6px; font-size: .86rem; font-weight:600; color: rgba(248,246,241,.8); min-width:0; }
 .bform input, .bform select, .bform textarea{ width:100%; min-height: 50px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(248,246,241,.2); background: rgba(248,246,241,.08); color: var(--espuma); font-size: 1rem; font-weight:500; color-scheme: dark; }
 .bform select option{ color: var(--texto); }
 .bform textarea{ resize: vertical; min-height: 70px; }
 .bform input:focus, .bform select:focus, .bform textarea:focus{ outline:none; border-color: var(--sol); box-shadow: 0 0 0 3px rgba(242,162,78,.25); }
 .bform .btn{ justify-self:start; }
-@media (max-width: 1000px){ .boat__facts{ grid-template-columns: 1fr 1fr; } .bform__grid{ grid-template-columns: 1fr 1fr; } }
+@media (max-width: 1000px){ .boat__facts{ grid-template-columns: 1fr 1fr; } .bform__grid{ grid-template-columns: 1fr 1fr; } .routes{ grid-template-columns: 1fr; } }
 @media (max-width: 900px){
   .boat__top{ grid-template-columns: 1fr; }
   .boat__photo{ aspect-ratio: 4 / 3; max-height:none; }
@@ -722,6 +722,29 @@ body[data-page="destino"] .maptoggle.is-on{ transform: translate(-50%, 0); }
 }
 @media (max-width: 560px){ .boat__facts{ grid-template-columns: 1fr; } .bform__grid{ grid-template-columns: 1fr 1fr; } .bform .btn{ justify-self: stretch; } .dboat img{ width: 64px; height: 64px; } .dboat b{ font-size: 1.15rem; } }
 
+
+/* lanchas: incluso, roteiros e condições */
+.fleet__inc{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap: 6px; align-items:center; }
+.fleet__inc li{ padding: 5px 12px; border-radius: 999px; background: var(--areia); font-size: .86rem; font-weight:600; }
+.fleet__inc .fleet__inc-h{ background:none; padding-left:0; font-family: var(--mono); font-size: .68rem; font-weight:400; letter-spacing: .12em; text-transform: uppercase; color: var(--texto-2); }
+.fleet__note{ font-size: .86rem; }
+.routes{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; margin-top: 26px; }
+.route{ display:flex; flex-direction:column; border-radius: 24px; overflow:hidden; background:#fff; border: 1px solid var(--linha); animation: card-in .5s var(--ease) both; animation-delay: calc(var(--k) * 90ms); }
+.route__pics{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 3px; background: var(--linha); }
+.route__pics img{ width:100%; aspect-ratio: 4 / 3; object-fit:cover; }
+.route__pics img:first-child{ grid-column: 1 / 4; aspect-ratio: 720 / 238; object-position: 50% 50%; }
+@media (max-width: 1000px){ .routes{ grid-template-columns: 1fr; } }
+.route__body{ padding: 20px 22px 22px; display:flex; flex-direction:column; gap: 10px; flex:1; }
+.route__n{ font-family: var(--mono); font-size: .7rem; letter-spacing: .14em; text-transform: uppercase; color: var(--sol-texto); }
+.route__body h3{ font-size: 1.7rem; }
+.route__body ol{ margin:0; padding-left: 20px; color: var(--texto-2); font-size: .95rem; display:grid; gap: 4px; }
+.route__body ol li::marker{ color: var(--oceano); font-weight:700; }
+.route__extra{ margin:0; padding: 8px 12px; border-radius: 12px; background: var(--areia); color: var(--sol-texto); font-size: .86rem; font-weight:600; }
+.route__body .alem__act{ margin-top:auto; }
+.book__terms{ list-style:none; margin: 4px 0 0; padding: 14px 0 0; border-top: 1px solid var(--linha); display:grid; gap: 6px; font-size: .86rem; color: var(--texto-2); }
+.book__terms li{ position:relative; padding-left: 16px; }
+.book__terms li::before{ content:''; position:absolute; left: 2px; top: .55em; width: 6px; height: 6px; border-radius:50%; background: var(--angra); }
+.alem__item .alem__act + .alem__act{ margin-left: 16px; }
 /* ---------- rodapé ---------- */
 .footer{ background: var(--mar); color: rgba(248,246,241,.8); padding-bottom: 96px; }
 .footer__grid{ display:grid; grid-template-columns: 1.3fr 1fr 1fr; gap: 32px; padding-top: 56px; padding-bottom: 32px; }

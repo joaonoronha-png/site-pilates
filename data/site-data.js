@@ -34,7 +34,7 @@
         lat: -23.0028,
         lng: -43.3212
       },
-      horarioAtendimento: null,
+      horarioAtendimento: 'todos os dias, das 7h às 22h',
       cnpj: null,
       // Números públicos do perfil de anfitrião no Airbnb
       airbnb: {
@@ -52,6 +52,17 @@
         avaliacoesComNota: 192
       },
       // Serviços ao proprietário (post do Instagram de 11/05/2026)
+      // Agência de turismo e câmbio do anfitrião (pode aparecer no site, com link)
+      agencia: { nome: 'Barra Travel', site: 'https://barratravel.com.br', instagram: 'barratravel' },
+      // Reserva direta (fora do Airbnb), respostas do cliente em out/2026
+      condicoes: {
+        minimoNoites: 2,
+        limpeza: { apartamento: 200, casa: 300 },
+        pagamento: 'Pix',
+        sinal: '50% na reserva e 50% um dia antes da entrada',
+        cancelamento: 'Cancelamentos a menos de 30 dias da entrada não têm reembolso.',
+        caucao: null
+      },
       gestao: [
         'Gestão completa do imóvel',
         'Anúncios profissionais e otimizados',
@@ -139,8 +150,8 @@
           'Lavanderia com máquina lava e seca. Wi-Fi de alta velocidade.',
           'Vaga de garagem para 1 carro. Lazer do condomínio: piscina, sauna, academia e salão de jogos.'
         ],
-        comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'garagem', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'lavaSeca', 'academia', 'sauna', 'portaria24h', 'cozinha', 'kitPraia'],
-        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
+        comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'garagem', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'lavaSeca', 'academia', 'sauna', 'portaria24h', 'cozinha'],
+        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: 'Tem estacionamento no condomínio', enxoval: true },
         fotos: [
           { src: 'assets/img/imoveis/golden-coast/varanda-mar', alt: 'Varanda envidraçada com poltronas e vista para o mar da Barra' },
           { src: 'assets/img/imoveis/golden-coast/sala-jantar', alt: 'Sala integrada com mesa de jantar redonda e cozinha azul ao fundo' },
@@ -183,8 +194,8 @@
           'No prédio: restaurante Paris 6, pizzaria, cafeteria e academia com professor. Limpeza diária básica incluída.',
           'Apartamento residencial particular dentro do complexo do hotel; não é operado como quarto de hotel.'
         ],
-        comodidades: ['vistaMar', 'peNaAreia', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha'],
-        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
+        comodidades: ['vistaMar', 'peNaAreia', 'garagem', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha'],
+        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: 'Estacionamento no complexo, pago no local', enxoval: true },
         fotos: [
           { src: 'assets/img/imoveis/posto-4-varanda/varanda', alt: 'Varanda envidraçada com mesa posta e vista para o mar' },
           { src: 'assets/img/imoveis/posto-4-varanda/banheiro', alt: 'Banheiro com bancada iluminada e box de vidro' },
@@ -219,8 +230,8 @@
           'Serviço de praia incluído: 2 cadeiras, 1 guarda-sol e toalhas, conforme o número de hóspedes.',
           'Academia com professor, restaurante Paris 6, pizzaria e cafeteria no próprio prédio.'
         ],
-        comodidades: ['vistaMar', 'peNaAreia', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha', 'lavaSeca'],
-        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
+        comodidades: ['vistaMar', 'peNaAreia', 'garagem', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'wifi', 'academia', 'kitPraia', 'portaria24h', 'cozinha', 'lavaSeca'],
+        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: 'Estacionamento no complexo, pago no local', enxoval: true },
         fotos: [
           { src: 'assets/img/imoveis/posto-4-vista-frontal/varanda', alt: 'Varanda envidraçada com mesa e vista para o mar da Barra' },
           { src: 'assets/img/imoveis/posto-4-vista-frontal/quarto', alt: 'Quarto com cama king, roupa de cama azul e quadros coloridos do Rio' },
@@ -255,8 +266,8 @@
           'Cozinha compacta: frigobar, micro-ondas, air fryer, fogão elétrico de duas bocas, cafeteira e chaleira elétrica.',
           'Lazer: piscina, academia, sauna, área kids e espaço pet.'
         ],
-        comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'academia', 'sauna', 'kitPraia', 'portaria24h', 'cozinha'],
-        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: true, festas: null },
+        comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'pet', 'familia', 'homeOffice', 'arCondicionado', 'academia', 'sauna', 'portaria24h', 'cozinha'],
+        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do prédio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: null, enxoval: true },
         fotos: [
           { src: 'assets/img/imoveis/flat-vista-mar/varanda', alt: 'Varanda com mesa e cadeiras de frente para o mar e coqueiros' },
           { src: 'assets/img/imoveis/flat-vista-mar/quarto', alt: 'Cama king com cabideiro e espelho' },
@@ -292,7 +303,7 @@
           'Portaria com porteiro 24 horas.'
         ],
         comodidades: ['pet', 'homeOffice', 'arCondicionado', 'wifi', 'lavaSeca', 'portaria24h', 'cozinha'],
-        regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: null, pet: true, fumar: false, festas: false },
+        regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: null, pet: true, fumar: false, festas: false, estacionamento: 'Não tem; há estacionamento pago perto do apartamento', enxoval: true },
         fotos: [
           { src: 'assets/img/imoveis/leme-copacabana/quarto-janela', alt: 'Quarto com cama de casal, toalhas e janela para o bairro' },
           { src: 'assets/img/imoveis/leme-copacabana/quarto', alt: 'Quarto com cama de casal e piso de madeira' },
@@ -327,8 +338,8 @@
           'Condomínio com 12 casas, piscina, sauna e churrasqueira; elevador ou escadas até a área de lazer.',
           'Acesso fácil por terra e por mar. Empregada e embarcações para passeio podem ser contratadas à parte.'
         ],
-        comodidades: ['vistaMar', 'piscina', 'garagem', 'pet', 'familia', 'arCondicionado', 'sauna', 'churrasqueira', 'cozinha', 'kitPraia', 'lavaSeca'],
-        regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: true, festas: null },
+        comodidades: ['vistaMar', 'piscina', 'garagem', 'pet', 'familia', 'arCondicionado', 'sauna', 'churrasqueira', 'cozinha', 'lavaSeca'],
+        regras: { checkin: 'a partir das 14h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: 'Tem garagem', enxoval: true },
         extras: ['Embarcações para locação', 'Empregada (à parte)'],
         fotos: [
           { src: 'assets/img/imoveis/angra-ponta-da-cruz/deck', alt: 'Deck com guarda-sol e espreguiçadeiras de frente para a piscina e o mar' },
@@ -365,7 +376,7 @@
           'Empregada e embarcações para passeio podem ser contratadas à parte.'
         ],
         comodidades: ['vistaMar', 'peNaAreia', 'piscina', 'garagem', 'pet', 'familia', 'arCondicionado', 'sauna', 'churrasqueira', 'cozinha', 'lavaSeca'],
-        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: true, festas: null },
+        regras: { checkin: '14h às 23h', checkout: 'até 11h', selfCheckin: 'com a equipe do condomínio', pet: true, fumar: 'Permitido; quem fumar responde por danos causados por bitucas', festas: 'Respeitando a lei do silêncio', estacionamento: 'Tem garagem', enxoval: true },
         extras: ['Embarcações para locação', 'Empregada (à parte)'],
         fotos: [
           { src: 'assets/img/imoveis/angra-paraiso/varanda', alt: 'Varanda com vista para a baía de Angra e as montanhas' },
@@ -388,8 +399,8 @@
      */
     alem: {
       todos: [
-        { titulo: 'Turismo e câmbio', icone: 'i-sparkle', texto: 'O anfitrião tem uma agência de turismo e câmbio na Barra da Tijuca. Peça indicações de passeios pelo Rio e cotação de moedas.', wa: 'Olá! Quero indicações de passeios no Rio e uma cotação de câmbio.' },
-        { titulo: 'Atendimento direto', icone: 'i-chat', texto: 'Você fala com quem cuida do imóvel, pelo WhatsApp, com resposta em até 1 hora, do primeiro contato à entrega das chaves.', wa: 'Olá! Quero tirar uma dúvida sobre a hospedagem.' }
+        { titulo: 'Turismo e câmbio com a Barra Travel', icone: 'i-sparkle', texto: 'A Barra Travel, agência de turismo e câmbio do anfitrião na Barra da Tijuca, indica passeios pelo Rio e faz cotação de moedas.', wa: 'Olá! Quero indicações de passeios no Rio e uma cotação de câmbio.', site: 'https://barratravel.com.br', siteTexto: 'Conhecer a Barra Travel' },
+        { titulo: 'Atendimento direto', icone: 'i-chat', texto: 'Você fala com quem cuida do imóvel, pelo WhatsApp, todos os dias das 7h às 22h, do primeiro contato à entrega das chaves.', wa: 'Olá! Quero tirar uma dúvida sobre a hospedagem.' }
       ],
       barra: [
         { titulo: 'Kit praia incluído', icone: 'i-umbrella', etiqueta: 'Posto 4', texto: '2 cadeiras, guarda-sol e toalhas, conforme o número de hóspedes, retirados com o cartão do apartamento.', imoveis: ['posto-4-varanda', 'posto-4-vista-frontal'] },
@@ -403,7 +414,7 @@
         { titulo: 'Portaria 24 horas', icone: 'i-door', texto: 'Porteiro o dia todo para chegar a qualquer hora com tranquilidade.', imoveis: ['leme-copacabana'] }
       ],
       angra: [
-        { titulo: 'Passeio de lancha pelas ilhas', icone: 'i-boat', etiqueta: 'à parte', texto: 'Lancha com tripulação e roteiro sob medida, com embarque no Pier 99. Também para quem não está hospedado.', link: '#lancha', linkTexto: 'Conhecer o passeio de lancha' },
+        { titulo: 'Passeio de lancha pelas ilhas', icone: 'i-boat', etiqueta: 'à parte', texto: 'Lancha com marinheiro, saída do seu condomínio ou do Piratas e três roteiros pelas ilhas. Também para quem não está hospedado.', link: '#lancha', linkTexto: 'Conhecer o passeio de lancha' },
         { titulo: 'Apoio de empregada', icone: 'i-house', etiqueta: 'à parte', texto: 'Serviço de empregada durante a estadia nas casas de Angra.', wa: 'Olá! Quero saber sobre o serviço de empregada nas casas de Angra.' },
         { titulo: 'Piscina, sauna e churrasqueira', icone: 'i-pool', texto: 'Lazer do condomínio fechado, com acesso por terra e por mar.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] },
         { titulo: 'Casas para o grupo todo', icone: 'i-users', texto: '4 suítes com ar-condicionado e Smart TV. A Casa Ponta da Cruz recebe até 14 pessoas.', imoveis: ['angra-ponta-da-cruz', 'angra-paraiso'] }
@@ -417,7 +428,8 @@
       nome: 'Passeio de lancha',
       local: 'Angra dos Reis',
       instagram: 'barco_angra_dos_reis',
-      embarque: 'Pier 99, Angra dos Reis',
+      embarque: 'No seu condomínio em Angra dos Reis ou no Piratas',
+      reserva: 'Sinal de 50% na reserva e 50% um dia antes do passeio.',
       chamada: 'Pelas ilhas de Angra, mesmo sem se hospedar com a gente.',
       texto: 'Navegue pelas águas cristalinas de Angra dos Reis, conheça ilhas e praias que só se alcançam pelo mar e escolha o seu ritmo. A saída é combinada com você, com tripulação e roteiro sob medida.',
       foto: 'assets/img/lancha/rastro',
@@ -426,19 +438,29 @@
         { titulo: 'Saídas personalizadas', icone: 'i-sun', texto: 'Dia e horário combinados com você.' },
         { titulo: 'Tripulação especializada', icone: 'i-users', texto: 'Você só aproveita o passeio.' },
         { titulo: 'Roteiros sob medida', icone: 'i-map', texto: 'Ilhas e praias escolhidas para o seu grupo.' },
-        { titulo: 'Embarque no Pier 99', icone: 'i-pin', texto: 'Em Angra dos Reis.' }
+        { titulo: 'Saída onde for melhor', icone: 'i-pin', texto: 'No seu condomínio em Angra ou no Piratas.' }
       ],
       // As duas lanchas da empresa. Preencha com as fotos e os dados quando chegarem.
       frota: [
-        { nome: 'Lancha menor', fotos: [], pessoas: null, tamanho: null, texto: null },
-        { nome: 'Segunda lancha', fotos: [], pessoas: null, tamanho: null, texto: null }
+        { nome: 'Real 36', fotos: [], pessoas: 12, duracao: '7 horas', preco: 'A partir de R$ 3.500',
+          precoNota: 'O valor varia com a data e a quantidade de locações.',
+          inclui: ['Marinheiro', 'Som', 'Churrasqueira', 'Tapete'] },
+        { nome: 'Segunda lancha', fotos: [], pessoas: null, duracao: null, preco: null, inclui: [] }
       ],
       galeria: [
         { src: 'assets/img/lancha/angra-1-700.webp', alt: 'Praia de pedras com coqueiro e mar calmo em Angra dos Reis' },
         { src: 'assets/img/lancha/angra-2-700.webp', alt: 'Água verde-esmeralda transparente entre pedras em Angra dos Reis' },
         { src: 'assets/img/lancha/angra-3-700.webp', alt: 'Ilha com faixa de areia branca vista do alto em Angra dos Reis' }
       ],
-      precos: null, duracao: null
+      // Roteiros enviados pelo cliente (out/2026)
+      roteiros: [
+        { nome: 'Águas Quentes', paradas: ['Ilha de Paquetá', 'Ilha de Itanhangá', 'Praia do Pingo d\'Água', 'Praia do Laboratório'], acrescimo: null,
+          fotos: ['assets/img/lancha/roteiro-aguas-quentes-1', 'assets/img/lancha/roteiro-aguas-quentes-2', 'assets/img/lancha/roteiro-aguas-quentes-3', 'assets/img/lancha/roteiro-aguas-quentes-4'] },
+        { nome: 'Paradisíacos', paradas: ['Ilha das Botinas', 'Praia do Dentista (Jurubaíba), Ilha da Gipóia', 'Praia da Piedade, Ilha da Gipóia', 'Praia do Vitorino, Ilha da Gipóia'], acrescimo: null,
+          fotos: ['assets/img/lancha/roteiro-paradisiacos-1', 'assets/img/lancha/roteiro-paradisiacos-2', 'assets/img/lancha/roteiro-paradisiacos-3', 'assets/img/lancha/roteiro-paradisiacos-4'] },
+        { nome: 'Ilha Grande', paradas: ['Ilha de Cataguás', 'Lagoa Azul, Ilha Grande', 'Praia de Freguesia de Santana, Ilha Grande', 'Praia do Araçá, Ilha Grande'], acrescimo: 'Acréscimo de R$ 250 por causa da distância.',
+          fotos: ['assets/img/lancha/roteiro-ilha-grande-1', 'assets/img/lancha/roteiro-ilha-grande-2', 'assets/img/lancha/roteiro-ilha-grande-3', 'assets/img/lancha/roteiro-ilha-grande-4'] }
+      ]
     },
 
     // Avaliações reais (perfil público do anfitrião no Airbnb, set/2026)
@@ -462,16 +484,16 @@
     faq: [
       { id: 'reserva', status: 'confirmado', categoria: 'Reserva',
         pergunta: 'Como faço para reservar?',
-        resposta: 'Escolha o imóvel, informe as datas e o número de hóspedes e toque em "Consultar disponibilidade". A conversa abre no WhatsApp (21) 97633-1432 com tudo preenchido, e a equipe confirma valores e disponibilidade. Todos os imóveis também podem ser reservados pelo Airbnb.',
+        resposta: 'Escolha o imóvel, informe as datas e o número de hóspedes e toque em "Consultar disponibilidade". A conversa abre no WhatsApp (21) 97633-1432 com tudo preenchido. Na reserva direta, você paga 50% de sinal por Pix e os outros 50% um dia antes da entrada. Todos os imóveis também podem ser reservados pelo Airbnb.',
         palavras: ['reservar', 'reserva', 'como alugar', 'como funciona', 'agendar', 'fechar'] },
       { id: 'disponibilidade', status: 'confirmado', categoria: 'Reserva',
         pergunta: 'Como sei se o imóvel está disponível nas minhas datas?',
         resposta: 'A disponibilidade muda todo dia. Envie as datas pelo botão de consulta do imóvel (vai pelo WhatsApp) ou confira o calendário no anúncio do Airbnb. O anfitrião responde em até 1 hora.',
         palavras: ['disponivel', 'disponibilidade', 'livre', 'vaga', 'tem data', 'calendario', 'ocupado'] },
-      { id: 'precos', status: 'pendente', categoria: 'Valores',
+      { id: 'precos', status: 'depende', categoria: 'Valores',
         pergunta: 'Quanto custa a diária?',
-        resposta: 'O valor depende do imóvel, da data e do número de hóspedes; feriados, Carnaval, Réveillon e alta temporada têm tarifa própria. Peça o orçamento das suas datas pelo WhatsApp que a equipe responde com o valor fechado.',
-        palavras: ['preco', 'valor', 'quanto', 'diaria', 'custa', 'orcamento', 'barato', 'caro', 'tarifa'] },
+        resposta: 'O valor depende do imóvel e da data: feriados, Carnaval, Réveillon e alta temporada têm tarifa própria. Peça o orçamento das suas datas pelo WhatsApp ou veja o calendário com preços no anúncio do Airbnb. Na reserva direta, a taxa de limpeza é de R$ 200 nos apartamentos e R$ 300 nas casas, e o mínimo é de 2 noites.',
+        palavras: ['preco', 'valor', 'quanto', 'diaria', 'custa', 'orcamento', 'barato', 'caro', 'tarifa', 'taxa de limpeza', 'limpeza'] },
       { id: 'checkin', status: 'confirmado', categoria: 'Estadia',
         pergunta: 'Qual o horário de check-in e check-out?',
         resposta: 'Check-in a partir das 14h (nos apartamentos da Barra, entre 14h e 23h) e check-out até as 11h. Nos prédios com portaria, o self check-in é feito com a equipe do edifício.',
@@ -484,41 +506,41 @@
         pergunta: 'É bom para viajar com crianças?',
         resposta: 'Sim. O Flat Vista Mar tem área kids no condomínio, o Pé na Areia (Posto 7) tem piscina, e as casas de Angra recebem até 14 pessoas com piscina e churrasqueira no condomínio. Bebês e crianças contam no total de hóspedes informado na reserva.',
         palavras: ['crianca', 'criancas', 'filho', 'filhos', 'bebe', 'familia', 'kids', 'infantil', 'ninos'] },
-      { id: 'garagem', status: 'depende', categoria: 'Estadia',
+      { id: 'garagem', status: 'confirmado', categoria: 'Estadia',
         pergunta: 'Os imóveis têm garagem?',
-        resposta: 'O Pé na Areia (Posto 7) tem 1 vaga de garagem e as casas de Angra têm estacionamento. Nos outros, pergunte à equipe sobre estacionamento no prédio ou nas proximidades.',
+        resposta: 'O Pé na Areia (Posto 7) tem estacionamento no condomínio. Nos apartamentos do Posto 4 (complexo Wyndham) o estacionamento é pago no local. As casas de Angra têm garagem. O apartamento do Leme não tem vaga, mas há estacionamento pago perto. Para o Flat Vista Mar, a equipe confirma.',
         palavras: ['garagem', 'vaga', 'estacionamento', 'estacionar', 'carro'] },
-      { id: 'enxoval', status: 'depende', categoria: 'Estadia',
+      { id: 'enxoval', status: 'confirmado', categoria: 'Estadia',
         pergunta: 'Tem roupa de cama e toalhas?',
-        resposta: 'O Pé na Areia (Posto 7) inclui toalhas, lençóis, cobertores e travesseiros extras. Nos apartamentos do Posto 4 há cartão para retirar toalhas de piscina e o kit praia. Para os demais imóveis, a equipe confirma o enxoval na reserva.',
+        resposta: 'Sim, todos os imóveis têm roupa de cama e toalhas. Nos apartamentos do Posto 4 há ainda cartão para retirar toalhas de piscina e o kit praia.',
         palavras: ['roupa de cama', 'lencol', 'toalha', 'toalhas', 'enxoval', 'travesseiro', 'cobertor'] },
-      { id: 'kitpraia', status: 'depende', categoria: 'Estadia',
+      { id: 'kitpraia', status: 'confirmado', categoria: 'Estadia',
         pergunta: 'Tem cadeira e guarda-sol de praia?',
-        resposta: 'Nos dois apartamentos do Posto 4 o serviço de praia está incluído: 2 cadeiras, 1 guarda-sol e toalhas, conforme o número de hóspedes. Nos demais, confirme com a equipe.',
+        resposta: 'O kit praia fica nos dois apartamentos do Posto 4, no complexo Wyndham: 2 cadeiras, 1 guarda-sol e toalhas, conforme o número de hóspedes. Os outros imóveis não têm kit praia.',
         palavras: ['cadeira', 'guarda-sol', 'guarda sol', 'kit praia', 'servico de praia', 'barraca'] },
       { id: 'wifi', status: 'confirmado', categoria: 'Estadia',
         pergunta: 'Tem Wi-Fi para trabalhar?',
         resposta: 'Sim. Os apartamentos têm Wi-Fi e espaço de trabalho; o Flat Vista Mar tem mesa na varanda de frente para o mar e o Leme tem área de home office na sala.',
         palavras: ['wifi', 'wi-fi', 'internet', 'home office', 'trabalhar', 'trabalho', 'remoto'] },
-      { id: 'festas', status: 'depende', categoria: 'Regras',
+      { id: 'festas', status: 'confirmado', categoria: 'Regras',
         pergunta: 'Posso fazer festas ou receber visitas?',
-        resposta: 'Festas e eventos não são permitidos no apartamento do Leme. Nos demais, visitas e eventos dependem das regras de cada condomínio: pergunte à equipe antes de reservar.',
+        resposta: 'Pode receber, desde que respeite a lei do silêncio e as regras do condomínio. No apartamento do Leme, festas e eventos não são permitidos.',
         palavras: ['festa', 'festas', 'evento', 'visita', 'visitas', 'aniversario', 'som alto', 'barulho'] },
-      { id: 'fumar', status: 'depende', categoria: 'Regras',
+      { id: 'fumar', status: 'confirmado', categoria: 'Regras',
         pergunta: 'É permitido fumar?',
-        resposta: 'No Leme é proibido fumar na unidade. Nos demais anúncios é permitido, de acordo com as regras do condomínio.',
+        resposta: 'É permitido, mas quem fumar se responsabiliza por danos causados por bitucas de cigarro. No apartamento do Leme é proibido fumar na unidade.',
         palavras: ['fumar', 'cigarro', 'fumante'] },
-      { id: 'cancelamento', status: 'pendente', categoria: 'Valores',
+      { id: 'cancelamento', status: 'confirmado', categoria: 'Valores',
         pergunta: 'Qual a política de cancelamento?',
-        resposta: 'Pelo Airbnb vale a política escolhida no momento da reserva. Para reservas diretas, a equipe informa as condições de cancelamento junto com o orçamento.',
+        resposta: 'Na reserva direta, cancelamentos a menos de 30 dias da entrada não têm reembolso. Pelo Airbnb vale a política escolhida no momento da reserva.',
         palavras: ['cancelar', 'cancelamento', 'reembolso', 'desistir', 'devolucao'] },
-      { id: 'pagamento', status: 'pendente', categoria: 'Valores',
+      { id: 'pagamento', status: 'confirmado', categoria: 'Valores',
         pergunta: 'Quais as formas de pagamento?',
-        resposta: 'No Airbnb, o pagamento é feito pela plataforma. Para reservas diretas, a equipe informa as formas aceitas, sinal e caução, se houver, junto com o orçamento.',
-        palavras: ['pagamento', 'pagar', 'pix', 'cartao', 'parcelar', 'sinal', 'caucao', 'deposito', 'taxa de limpeza', 'limpeza'] },
-      { id: 'minimo', status: 'pendente', categoria: 'Valores',
+        resposta: 'Na reserva direta, o pagamento é por Pix: 50% de sinal para garantir a reserva e 50% um dia antes da entrada. A taxa de limpeza é de R$ 200 nos apartamentos e R$ 300 nas casas. No Airbnb, o pagamento é feito pela plataforma.',
+        palavras: ['pagamento', 'pagar', 'pix', 'cartao', 'parcelar', 'sinal', 'caucao', 'deposito', 'entrada', 'adiantamento'] },
+      { id: 'minimo', status: 'confirmado', categoria: 'Valores',
         pergunta: 'Existe número mínimo de diárias?',
-        resposta: 'O mínimo de noites varia por imóvel e por data (feriados e Réveillon costumam ter pacotes). Envie suas datas que a equipe confirma.',
+        resposta: 'Sim, o mínimo é de 2 noites. Em feriados, Carnaval e Réveillon pode haver pacotes: envie suas datas que a equipe confirma.',
         palavras: ['minimo', 'quantas noites', 'diarias minimas', 'uma noite', 'pacote'] },
       { id: 'longas', status: 'confirmado', categoria: 'Reserva',
         pergunta: 'Aceitam estadias longas?',
@@ -526,16 +548,16 @@
         palavras: ['mes', 'mensal', 'longa', 'longo prazo', 'temporada longa', '30 dias', '28 dias'] },
       { id: 'barco', status: 'confirmado', categoria: 'Passeios',
         pergunta: 'Tem passeio de lancha em Angra? Preciso estar hospedado?',
-        resposta: 'Tem, e não precisa estar hospedado com a gente. O passeio de lancha sai do Pier 99, em Angra dos Reis, com tripulação e roteiro sob medida. Dia, duração, número de pessoas e valor são combinados pelo WhatsApp.',
-        palavras: ['barco', 'lancha', 'escuna', 'passeio de barco', 'passeio de lancha', 'ilha', 'ilhas', 'embarcacao', 'pier', 'marina', 'navegar', 'boat'] },
+        resposta: 'Tem, e não precisa estar hospedado. A Real 36 leva até 12 pessoas, o passeio dura 7 horas, com marinheiro, som, churrasqueira e tapete, e sai do seu condomínio em Angra ou do Piratas. Valores a partir de R$ 3.500, conforme a data. São três roteiros: Águas Quentes, Paradisíacos e Ilha Grande (este com acréscimo de R$ 250). Reserva com 50% de sinal e 50% um dia antes do passeio.',
+        palavras: ['barco', 'lancha', 'escuna', 'passeio de barco', 'passeio de lancha', 'ilha', 'ilhas', 'embarcacao', 'marina', 'piratas', 'navegar', 'boat', 'lagoa azul', 'ilha grande', 'gipoia', 'botinas', 'roteiro'] },
       { id: 'cambio', status: 'confirmado', categoria: 'Passeios',
         pergunta: 'Vocês ajudam com passeios e câmbio?',
-        resposta: 'O anfitrião também tem uma agência de turismo e câmbio na Barra da Tijuca. Peça indicações de passeios e cotação de câmbio pelo WhatsApp.',
+        resposta: 'Sim. A Barra Travel (barratravel.com.br), agência de turismo e câmbio do anfitrião na Barra da Tijuca, indica passeios e faz cotação de câmbio. Peça pelo WhatsApp.',
         palavras: ['cambio', 'dolar', 'dolares', 'peso', 'pesos', 'euro', 'trocar dinheiro', 'turismo', 'agencia', 'passeio', 'passeios', 'tour', 'cristo', 'pao de acucar'] },
       { id: 'escritorio', status: 'confirmado', categoria: 'Atendimento',
-        pergunta: 'Onde fica o escritório?',
-        resposta: 'No Shopping Città America, Av. das Américas, 700, Barra da Tijuca. O atendimento é feito principalmente pelo WhatsApp (21) 97633-1432.',
-        palavras: ['escritorio', 'endereco', 'onde fica', 'onde voces', 'citta', 'loja', 'atendimento presencial'] },
+        pergunta: 'Onde fica o escritório e qual o horário de atendimento?',
+        resposta: 'O escritório fica no Shopping Città America, Av. das Américas, 700, Barra da Tijuca. O atendimento é todos os dias, das 7h às 22h, principalmente pelo WhatsApp (21) 97633-1432.',
+        palavras: ['escritorio', 'endereco', 'onde fica', 'onde voces', 'citta', 'loja', 'atendimento', 'horario de atendimento', 'que horas', 'aberto'] },
       { id: 'proprietario', status: 'confirmado', categoria: 'Proprietários',
         pergunta: 'Tenho um imóvel. Vocês administram?',
         resposta: 'Sim. O Grupo 3D faz a gestão completa de imóveis para temporada no Rio: preparação, anúncios profissionais, atendimento e check-in dos hóspedes, acompanhamento operacional e estratégia de preço.',
