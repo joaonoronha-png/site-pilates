@@ -211,6 +211,21 @@ html:not(.js) .intro{ display:none; }
 @media (max-width: 420px){ .header__cta{ padding: 0; width: 42px; } .header__cta span{ display:none; } }
 @media (max-width: 520px){ .logo__txt{ font-size: 1.05rem; } .logo__mark{ width:32px; height:32px; } }
 
+
+/* seletor de idioma */
+.lang{ position:relative; }
+.lang__btn{ display:flex; align-items:center; gap: 6px; height: 42px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--linha); background:#fff; font-weight:700; font-size: .84rem; letter-spacing: .04em; color: var(--texto); transition: box-shadow .2s; }
+.lang__btn:hover, .lang.is-open .lang__btn{ box-shadow: 0 4px 14px -6px rgba(11,44,61,.35); }
+.lang__btn svg{ width: 18px; height: 18px; color: var(--oceano); }
+.lang__menu{ position:absolute; right:0; top: calc(100% + 8px); z-index: 20; min-width: 170px; display:flex; flex-direction:column; padding: 6px; background:#fff; border-radius: 14px; box-shadow: 0 16px 40px -12px rgba(11,44,61,.35), 0 0 0 1px var(--linha); opacity:0; visibility:hidden; transform: translateY(-6px); transition: opacity .2s, transform .25s var(--ease), visibility 0s .25s; }
+.lang.is-open .lang__menu{ opacity:1; visibility:visible; transform:none; transition: opacity .2s, transform .25s var(--ease); }
+.lang__menu button{ display:flex; align-items:center; gap: 10px; padding: 10px 12px; border:0; border-radius: 10px; background:none; text-align:left; font-size: .94rem; }
+.lang__menu button:hover{ background: var(--espuma); }
+.lang__menu b{ font-family: var(--mono); font-size: .72rem; color: var(--oceano); width: 22px; }
+.lang__menu button[aria-pressed="true"]{ background: var(--areia); font-weight:600; }
+@media (max-width: 420px){ .lang__btn{ padding: 0 9px; } .lang__btn svg{ display:none; } .header__actions{ gap: 6px; } }
+@media (max-width: 380px){ .header__cta{ display:none; } }
+
 /* ---------- cards (formato Airbnb) ---------- */
 .card{ position:relative; display:flex; flex-direction:column; gap: 10px; animation: card-in .5s var(--ease) both; animation-delay: calc(var(--i, 0) * 50ms); }
 @keyframes card-in{ from{ opacity:0; transform: translateY(10px); } }

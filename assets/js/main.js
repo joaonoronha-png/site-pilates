@@ -9,7 +9,8 @@
   var esc = function (s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
 
   /* ---------- utilidades ---------- */
-  function waLink(msg) { return 'https://wa.me/' + E.whatsapp + '?text=' + encodeURIComponent(msg); }
+  // a mensagem sai no idioma do site (o hóspede vê e envia o texto que entende)
+  function waLink(msg) { if (window.I18N) msg = I18N.t(msg); return 'https://wa.me/' + E.whatsapp + '?text=' + encodeURIComponent(msg); }
   // abre o WhatsApp; se o navegador bloquear a janela, mostra um link para tocar
   function openWa(url, link) {
     if (link) { link.href = url; link.hidden = false; }

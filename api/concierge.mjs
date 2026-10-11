@@ -78,9 +78,11 @@ export default async function handler(req, res) {
   if (!messages.length || messages.at(-1).role !== 'user') return res.status(400).json({ error: 'Mensagem inválida' });
 
   const busca = typeof req.body?.memoria?.busca === 'string' ? req.body.memoria.busca.slice(0, 300) : '';
-  if (busca) {
+  const LANG = { pt: 'português do Brasil', es: 'espanhol', en: 'inglês' }[req.body?.lang] || null;
+  if (busca || (LANG && req.body.lang !== 'pt')) {
     const last = messages.at(-1);
-    last.content = `${last.content}\n\n[Contexto já entendido pelo site: ${busca}]`;
+    if (busca) last.content = `${last.content}\n\n[Contexto já entendido pelo site: ${busca}]`;
+    if (LANG && req.body.lang !== 'pt') last.content = `${last.content}\n\n[O site está em ${LANG}: responda em ${LANG}.]`;
   }
 
   try {

@@ -150,8 +150,9 @@
     var out = { text: '', cards: [], actions: [], chips: [] };
     var hasCriteria = Object.keys(got).filter(function (k) { return k !== 'lang'; }).length > 0;
     var lead = '';
-    if (got.lang === 'es') lead = '¡Hola! Respondo en portugués, pero entiendo español. ';
-    if (got.lang === 'en') lead = 'Hi! I reply in Portuguese, but I understand English. ';
+    var siteLang = window.I18N ? I18N.lang : 'pt';  // em ES/EN as respostas já saem traduzidas
+    if (got.lang === 'es' && siteLang === 'pt') lead = '¡Hola! Respondo en portugués, pero entiendo español. ';
+    if (got.lang === 'en' && siteLang === 'pt') lead = 'Hi! I reply in Portuguese, but I understand English. ';
 
     if (/\b(atendente|humano|pessoa real|falar com alguem|whatsapp|zap|ligar|telefone)\b/.test(n)) {
       out.text = lead + 'Claro. Toque no botão abaixo: a conversa abre no WhatsApp ' + E.whatsappExibicao + ' com o resumo do que você me contou.';
@@ -245,7 +246,7 @@
 
   /* ---------- interface ---------- */
   function bubble(cls, html) {
-    var d = document.createElement('div'); d.className = 'msg ' + cls; d.innerHTML = html; log.appendChild(d);
+    var d = document.createElement('div'); d.className = 'msg ' + cls; if (/msg--user/.test(cls)) d.setAttribute('data-no-i18n', ''); d.innerHTML = html; log.appendChild(d);
     log.scrollTop = log.scrollHeight; return d;
   }
   function renderReply(out) {
@@ -275,17 +276,18 @@
   }
   var DEFAULT_CHIPS = ['4 pessoas na Barra com piscina', 'Família com crianças', 'Casa em Angra para 10', 'Aceita pet?', 'Horário de check-in', 'Tenho um imóvel'];
   function setChips(list) {
-    chips.innerHTML = (list || DEFAULT_CHIPS).map(function (c) { return '<button type="button">' + esc(c) + '</button>'; }).join('');
-    Array.prototype.forEach.call(chips.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { send(b.textContent); }); });
+    // o botão mostra o texto traduzido, mas envia o original (o assistente entende melhor)
+    chips.innerHTML = (list || DEFAULT_CHIPS).map(function (c) { return '<button type="button" data-q="' + esc(c) + '">' + esc(c) + '</button>'; }).join('');
+    Array.prototype.forEach.call(chips.querySelectorAll('button'), function (b) { b.addEventListener('click', function () { send(b.dataset.q, b.textContent); }); });
   }
 
   var busy = false;
-  function send(text) {
+  function send(text, shown) {
     text = String(text || '').trim(); if (!text || busy) return;
     if (text === 'Ver imóveis') { if (window.innerWidth < 950) close(); APP().showResults(); return; }
     if (text === 'Anunciar meu imóvel') { close(); location.hash = 'anuncie'; return; }
     if (text === 'Ver passeio de lancha') { if (window.innerWidth < 950) close(); location.hash = 'lancha'; return; }
-    bubble('msg--user', esc(text));
+    bubble('msg--user', esc(shown || text));
     history.push({ role: 'user', content: text });
     busy = true;
     var typing = bubble('msg--bot msg--typing', '<i></i><i></i><i></i>');
@@ -297,7 +299,7 @@
       var timer = setTimeout(function () { if (ctrl) ctrl.abort(); }, 12000);
       fetch(CFG.aiEndpoint, {
         method: 'POST', headers: { 'Content-Type': 'application/json' }, signal: ctrl && ctrl.signal,
-        body: JSON.stringify({ messages: history.slice(-10), memoria: { busca: resumoBusca(), duvidas: mem.duvidas.slice(-4) } })
+        body: JSON.stringify({ lang: window.I18N ? I18N.lang : 'pt', messages: history.slice(-10), memoria: { busca: resumoBusca(), duvidas: mem.duvidas.slice(-4) } })
       }).then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (j) {
           clearTimeout(timer);
