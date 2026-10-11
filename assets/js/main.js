@@ -68,11 +68,21 @@
       try { sessionStorage.setItem('atrj-intro', '1'); } catch (e) {}
       setTimeout(function () { el.remove(); }, 1100);
     };
+    // só o botão "Pular" (ou Esc) encerra antes do tempo: um toque sem querer no iPad não corta a abertura
     $('[data-intro-skip]', el).addEventListener('click', done);
-    el.addEventListener('click', done);
     document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { done(); document.removeEventListener('keydown', k); } });
-    // logotipo legível na tela por cerca de 2,5 s (aparece em ~1 s, sai em 3,6 s)
-    setTimeout(done, reduce ? 900 : 3600);
+    // logotipo completo na tela por cerca de 2,5 s (completo em ~1,6 s, sai em 4,2 s);
+    // com "reduzir movimento" ligado, aparece parado logo de cara e fica o mesmo tempo
+    // o tempo só conta com a página de fato na tela (no app, o artefato pode carregar antes de aparecer)
+    var started = false;
+    var start = function () {
+      if (started || document.hidden) return; started = true;
+      el.classList.add('is-on');
+      setTimeout(done, reduce ? 3000 : 4200);
+    };
+    requestAnimationFrame(function () { requestAnimationFrame(start); });
+    document.addEventListener('visibilitychange', start);
+    setTimeout(start, 1500); // reserva, caso o navegador segure os quadros
   })();
 
   /* ---------- header, menu, botões flutuantes ---------- */
