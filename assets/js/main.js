@@ -71,7 +71,8 @@
     $('[data-intro-skip]', el).addEventListener('click', done);
     el.addEventListener('click', done);
     document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { done(); document.removeEventListener('keydown', k); } });
-    setTimeout(done, reduce ? 900 : 2900);
+    // logotipo legível na tela por cerca de 2,5 s (aparece em ~1 s, sai em 3,6 s)
+    setTimeout(done, reduce ? 900 : 3600);
   })();
 
   /* ---------- header, menu, botões flutuantes ---------- */
