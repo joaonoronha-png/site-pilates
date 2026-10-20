@@ -327,14 +327,22 @@
     var rt; window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(measure, 200); });
     var currentX = function () { return new DOMMatrixReadOnly(getComputedStyle(track).transform).m41; };
     var wrapX = function (x) { var v = x % shift; if (v > 0) v -= shift; return v; };
+    // o arraste só começa quando o gesto é claramente para o lado: rolar a página por cima do carrossel não mexe nele
+    var downX = 0, downY = 0, pending = false;
     container.addEventListener('pointerdown', function (e) {
       if (e.button !== undefined && e.button !== 0) return;
-      dragging = true; startX = e.clientX; startOffset = currentX();
-      track.style.animation = 'none'; track.style.transform = 'translateX(' + startOffset + 'px)';
-      if (container.setPointerCapture) container.setPointerCapture(e.pointerId);
-      container.classList.add('is-dragging');
+      pending = true; downX = e.clientX; downY = e.clientY;
     });
     container.addEventListener('pointermove', function (e) {
+      if (pending && !dragging) {
+        var dx = Math.abs(e.clientX - downX), dy = Math.abs(e.clientY - downY);
+        if (dy > 8 && dy > dx) { pending = false; return; }
+        if (dx < 8 || dx < dy) return;
+        pending = false; dragging = true; startX = e.clientX; startOffset = currentX();
+        track.style.animation = 'none'; track.style.transform = 'translateX(' + startOffset + 'px)';
+        if (container.setPointerCapture) try { container.setPointerCapture(e.pointerId); } catch (er) {}
+        container.classList.add('is-dragging');
+      }
       if (!dragging) return;
       track.style.transform = 'translateX(' + wrapX(startOffset + (e.clientX - startX)) + 'px)';
     });
@@ -346,8 +354,8 @@
       track.style.animation = 'marquee-scroll ' + durationSec + 's linear infinite';
       track.style.animationDelay = '-' + elapsed + 's';
     };
-    container.addEventListener('pointerup', endDrag);
-    container.addEventListener('pointercancel', endDrag);
+    container.addEventListener('pointerup', function () { pending = false; endDrag(); });
+    container.addEventListener('pointercancel', function () { pending = false; endDrag(); });
     // pausa só com mouse de verdade (no toque o :hover fica preso e parecia travado)
     container.addEventListener('mouseenter', function () { if (!dragging) track.style.animationPlayState = 'paused'; });
     container.addEventListener('mouseleave', function () { if (!dragging) track.style.animationPlayState = 'running'; });
