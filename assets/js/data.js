@@ -65,7 +65,7 @@ window.OBRAS = [
    ===================================================== */
 window.DESTAQUE = {
   id: "barra-dor", nome: "Hospital Barra D'Or", cidade: "Barra da Tijuca · Rio de Janeiro", uf: "RJ",
-  seg: "Saúde", coords: [-22.98505, -43.35885],
+  seg: "Saúde", coords: [-22.98446, -43.36282],
   desc: "Participação da Argento no escoramento da estrutura de concreto de um dos hospitais mais renomados do Rio de Janeiro.",
   fotos: [],
 };
