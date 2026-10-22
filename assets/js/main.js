@@ -224,7 +224,7 @@
     if (D.fotos.length) {
       const box = $("#featPhotos");
       box.innerHTML = D.fotos.slice(0, 3).map((f, k) => `<button type="button" data-k="${k}" aria-label="Abrir foto ${k + 1} de ${D.nome}"><img src="${f}" alt="${D.nome} — foto ${k + 1}" loading="lazy"></button>`).join("");
-      box.hidden = false; $(".feat__svg", feat).style.display = "none";
+      box.hidden = false; $(".feat__aerial", feat).hidden = true;
       $$("button", box).forEach((b) => b.addEventListener("click", () => openLB(window.OBRAS.findIndex((o) => o.id === D.id), +b.dataset.k)));
     }
     $("#featMap").addEventListener("click", () => {
