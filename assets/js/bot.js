@@ -231,5 +231,10 @@
   if (!hinted) setTimeout(() => { if (panel.hidden && !document.body.classList.contains("is-intro")) { hint.hidden = false; try { sessionStorage.setItem("argento-hint", "1"); } catch {} } }, 9000);
   hint.addEventListener("click", (e) => { if (e.target.closest(".bot__hint-x")) hint.hidden = true; else open(); });
 
-  window.argentoBot = { open, close, ask };
+  // para a busca de dúvidas: só resultados fortes; o 2º só se for quase tão relevante quanto o 1º
+  const rank = (q) => {
+    const r = match(q).ranked.filter((x) => x.it.q && KB.includes(x.it) && x.s >= 3);
+    return r.filter((x, i) => i === 0 || x.s >= r[0].s * 0.8).map((x) => x.it);
+  };
+  window.argentoBot = { open, close, ask, rank };
 })();

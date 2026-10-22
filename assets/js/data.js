@@ -113,7 +113,7 @@ window.XRAY = [
 window.KB = [
   // ---------- Empresa ----------
   { id: "sobre", q: "O que a Argento Escoramentos faz?", faq: true,
-    k: ["argento", "empresa", "o que voces fazem", "o que fazem", "quem sao", "sobre a empresa", "servicos", "trabalham com", "ramo"],
+    k: ["argento", "empresa", "o que voces fazem", "o que fazem", "quem sao", "sobre a empresa", "servicos", "ramo"],
     a: "Somos especialistas em <b>escoramento metálico para estruturas de concreto</b>: escoras reguláveis, torres de escoramento, vigas e forcados, com <b>projeto de escoramento</b>, entrega programada, apoio na montagem e retirada. Atendemos edifícios, obras públicas, indústria e infraestrutura (viadutos, pontes e recuperação estrutural).",
     go: ["equipamentos", "projeto", "regioes"] },
   { id: "regioes", q: "Quais regiões vocês atendem?", faq: true,
@@ -165,7 +165,7 @@ window.KB = [
     a: "O metálico costuma vencer em quase tudo: <b>capacidade de carga conhecida</b>, <b>ajuste fino de altura</b>, montagem mais rápida, <b>reaproveitamento</b> em muitas obras e canteiro mais limpo e seguro. A madeira (pontaletes de eucalipto) tem resistência variável, perde-se com o uso e gera mais resíduo.",
     go: ["sustentabilidade", "capacidade", "orcamento"] },
   { id: "equipamentos", q: "Quais equipamentos vocês fornecem?", faq: true,
-    k: ["equipamento", "equipamentos", "pecas", "produtos", "escora", "escoras", "forcado", "cabecal", "viga metalica", "vigas", "torre", "torres", "contraventamento", "tripe", "base", "catalogo"],
+    k: ["equipamento", "equipamentos", "pecas", "produtos", "tipos de escora", "modelos de escora", "que escoras", "forcado", "cabecal", "viga metalica", "vigas", "torre", "torres", "contraventamento", "tripe", "base", "catalogo"],
     a: "Trabalhamos com o sistema completo: <b>escoras metálicas reguláveis</b>, <b>torres de escoramento</b> modulares, <b>vigas</b>, <b>forcados (cabeçais)</b>, travamentos/contraventamentos e acessórios de base. A combinação ideal é definida no projeto de escoramento. Quer uma indicação para a sua obra?",
     go: ["torres", "capacidade", "orcamento"] },
   { id: "torres", q: "Quando usar torres de escoramento?",

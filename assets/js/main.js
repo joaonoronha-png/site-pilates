@@ -302,6 +302,28 @@
   if (!reduced) setInterval(() => { if (rvVisible && !rvPaused && !document.hidden) $("#rvNext").click(); }, 5500);
 
   /* =========================================================
+     TELA DE ORÇAMENTO
+     ========================================================= */
+  const qModal = $("#quoteModal");
+  let qLastFocus = null;
+  function openQuote() {
+    qLastFocus = document.activeElement;
+    qModal.hidden = false; document.body.style.overflow = "hidden";
+    if (window.argentoBot) window.argentoBot.close();
+    setTimeout(() => $(".opt", qModal).focus({ preventScroll: true }), 60);
+  }
+  function closeQuote() { qModal.hidden = true; document.body.style.overflow = ""; qLastFocus && qLastFocus.focus && qLastFocus.focus({ preventScroll: true }); }
+  window.argentoOpenQuote = openQuote;
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest('[data-open-quote], a[href="#orcamento"]');
+    if (!t) return;
+    e.preventDefault(); openQuote();
+  });
+  $("#quoteClose").addEventListener("click", closeQuote);
+  qModal.addEventListener("click", (e) => { if (e.target === qModal) closeQuote(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !qModal.hidden) closeQuote(); });
+
+  /* =========================================================
      SIMULADOR DE ORÇAMENTO
      ========================================================= */
   const form = $("#quoteForm");
@@ -371,36 +393,39 @@
   });
 
   /* =========================================================
-     FAQ
+     DÚVIDAS — busca com resposta instantânea
      ========================================================= */
-  const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
+  const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   window.argentoNorm = norm;
   const ans = (it) => (typeof it.a === "function" ? it.a() : it.a);
-  const faqItems = window.KB.filter((k) => k.faq);
-  const all = window.KB;
-  const faqList = $("#faqList");
-  function renderFaq(list) {
-    faqList.innerHTML = list.length
-      ? list.map((it) => `<details class="faq__item"><summary>${it.q}</summary><div class="faq__a">${ans(it)}</div></details>`).join("")
-      : `<p class="faq__empty">Nada encontrado — <button class="link-arrow" style="background:none;border:0;padding:0" data-open-bot>pergunte ao assistente</button>.</p>`;
-    bindContacts(faqList);
-    $$("[data-close]", faqList).forEach((a) => a.removeAttribute("data-close"));
-    $$("[data-open-bot]", faqList).forEach((b) => b.addEventListener("click", () => window.argentoBot && window.argentoBot.open($("#faqSearch").value)));
+  const faqRes = $("#faqRes"), faqInput = $("#faqSearch");
+  const escQ = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  function faqFind(q) {
+    if (window.argentoBot && window.argentoBot.rank) return window.argentoBot.rank(q).slice(0, 2);
+    const words = norm(q).split(/\s+/).filter((w) => w.length > 2);
+    return window.KB.filter((it) => { const hay = norm(it.q + " " + it.k.join(" ")); return words.length && words.every((w) => hay.includes(w)); }).slice(0, 2);
   }
-  renderFaq(faqItems);
-  $("#faqSearch").addEventListener("input", (e) => {
-    const q = norm(e.target.value.trim());
-    if (!q) return renderFaq(faqItems);
-    const words = q.split(/\s+/).filter((w) => w.length > 2);
-    const res = all.filter((it) => {
-      const hay = norm(it.q + " " + it.k.join(" ") + " " + ans(it).replace(/<[^>]+>/g, ""));
-      return words.every((w) => hay.includes(w));
-    });
-    renderFaq(res);
-    if (res.length === 1) faqList.querySelector("details").open = true;
-  });
-  // acordeão: abre um por vez
-  faqList.addEventListener("toggle", (e) => { if (e.target.open) $$("details", faqList).forEach((d) => d !== e.target && (d.open = false)); }, true);
+  function faqRender() {
+    const q = faqInput.value.trim();
+    if (q.length < 3) { faqRes.innerHTML = ""; return; }
+    const found = faqFind(q);
+    const wa = waLink(`Olá! Vim pelo site da Argento. Minha dúvida: ${q}`);
+    const actions = (lead) => `
+      <div class="fq-help">
+        <span>${lead}</span>
+        <button type="button" class="btn btn--teal btn--sm" data-ask-bot>Perguntar ao assistente</button>
+        <a class="btn btn--wa btn--sm" href="${wa}" target="_blank" rel="noopener">Falar no WhatsApp</a>
+      </div>`;
+    faqRes.innerHTML = found.length
+      ? found.map((it) => `<article class="fq-card"><h3>${it.q}</h3><div>${ans(it)}</div></article>`).join("") + actions("Não era isso?")
+      : `<article class="fq-card fq-card--empty"><h3>Não encontrei uma resposta pronta para “${escQ(q)}”.</h3><p>O assistente pode responder agora — ou fale direto com a equipe.</p></article>` + actions("");
+    bindContacts(faqRes);
+    $$("[data-close]", faqRes).forEach((a) => a.removeAttribute("data-close"));
+    $("[data-ask-bot]", faqRes).addEventListener("click", () => window.argentoBot && window.argentoBot.open(q));
+  }
+  let faqT;
+  faqInput.addEventListener("input", () => { clearTimeout(faqT); faqT = setTimeout(faqRender, 180); });
+  faqInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); clearTimeout(faqT); faqRender(); } });
 
   /* =========================================================
      MAPA (Leaflet, carregado sob demanda)

@@ -417,73 +417,13 @@
     </section>
 
     <!-- ================= ORÇAMENTO ================= -->
-    <section class="section section--ink" id="orcamento">
-      <div class="wrap">
-        <div class="quote">
-          <div class="quote__intro">
-            <p class="kicker kicker--y">06 — Simulador</p>
-            <h2 class="reveal">Monte seu pedido em <em>60 segundos.</em></h2>
-            <p class="sec-head__lead">Responda o básico e receba uma estimativa preliminar de peças. Depois é só enviar pelo WhatsApp — nossa equipe técnica responde com a proposta.</p>
-            <div class="quote__estimate" id="estimate" aria-live="polite">
-              <span class="quote__label">Estimativa preliminar</span>
-              <b id="estNum">—</b>
-              <span id="estUnit">preencha a área ao lado</span>
-              <small>Referência de ordem de grandeza. A quantidade real depende do projeto de escoramento.</small>
-            </div>
-          </div>
-
-          <form class="quote__form" id="quoteForm" novalidate>
-            <fieldset>
-              <legend>1. Que tipo de obra?</legend>
-              <div class="opts" data-name="tipo">
-                <button type="button" class="opt" data-v="Edifício residencial">Residencial</button>
-                <button type="button" class="opt" data-v="Edifício comercial/corporativo">Comercial</button>
-                <button type="button" class="opt" data-v="Obra pública / institucional">Pública</button>
-                <button type="button" class="opt" data-v="Industrial / galpão">Industrial</button>
-                <button type="button" class="opt" data-v="Ponte / viaduto / infraestrutura">Infraestrutura</button>
-                <button type="button" class="opt" data-v="Reforço / recuperação estrutural">Recuperação</button>
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>2. O que vai ser escorado?</legend>
-              <div class="opts opts--multi" data-name="elemento">
-                <button type="button" class="opt" data-v="Laje maciça">Laje maciça</button>
-                <button type="button" class="opt" data-v="Laje nervurada">Laje nervurada</button>
-                <button type="button" class="opt" data-v="Vigas">Vigas</button>
-                <button type="button" class="opt" data-v="Balanços / marquises">Balanços</button>
-                <button type="button" class="opt" data-v="Tabuleiro / estrutura especial">Estrutura especial</button>
-              </div>
-            </fieldset>
-            <div class="row2">
-              <label class="range">
-                <span>3. Área por concretagem <output id="areaOut">200 m²</output></span>
-                <input type="range" id="area" min="20" max="3000" step="10" value="200">
-              </label>
-              <label class="range">
-                <span>4. Pé-direito <output id="hOut">3,0 m</output></span>
-                <input type="range" id="altura" min="2.4" max="20" step="0.1" value="3">
-              </label>
-            </div>
-            <div class="row2">
-              <label class="field"><span>Cidade / UF da obra</span><input id="cidade" type="text" placeholder="Ex.: Niterói / RJ" autocomplete="address-level2"></label>
-              <label class="field"><span>Previsão de início</span>
-                <select id="inicio">
-                  <option>Imediato</option><option>Em até 30 dias</option><option>De 1 a 3 meses</option><option>Ainda em planejamento</option>
-                </select>
-              </label>
-            </div>
-            <div class="row2">
-              <label class="field"><span>Seu nome</span><input id="nome" type="text" required autocomplete="name" placeholder="Nome e sobrenome"></label>
-              <label class="field"><span>Empresa (opcional)</span><input id="empresa" type="text" autocomplete="organization" placeholder="Construtora"></label>
-            </div>
-            <label class="check"><input type="checkbox" id="temProjeto"> <span>Já tenho projeto estrutural / plantas para enviar</span></label>
-            <div class="quote__actions">
-              <button type="submit" class="btn btn--yellow">Enviar pelo WhatsApp →</button>
-              <button type="button" class="btn btn--ghost" id="quoteMail">Enviar por e-mail</button>
-            </div>
-            <p class="form-msg" id="formMsg" role="status"></p>
-          </form>
+    <section class="section section--ink cta-band" id="orcamento">
+      <div class="wrap cta-band__inner">
+        <div>
+          <p class="kicker kicker--y">06 — Orçamento</p>
+          <h2 class="reveal">Venha fazer seu <em>orçamento.</em></h2>
         </div>
+        <button type="button" class="btn btn--yellow btn--lg magnetic" data-open-quote>Fazer meu orçamento <span aria-hidden="true">→</span></button>
       </div>
     </section>
 
@@ -491,18 +431,14 @@
     <section class="section section--paper" id="faq">
       <div class="wrap wrap--narrow">
         <header class="sec-head sec-head--center">
-          <p class="kicker">07 — Dúvidas frequentes</p>
-          <h2 class="reveal">Perguntou, <em>respondemos.</em></h2>
+          <p class="kicker">07 — Dúvidas</p>
+          <h2 class="reveal">Ficou com <em>alguma dúvida?</em></h2>
           <label class="faq-search">
             <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
-            <input type="search" id="faqSearch" placeholder="Busque: prazo, NBR, frete, reescoramento…" aria-label="Buscar nas dúvidas">
+            <input type="search" id="faqSearch" placeholder="Escreva sua dúvida…" aria-label="Escreva sua dúvida" autocomplete="off">
           </label>
         </header>
-        <div class="faq" id="faqList"></div>
-        <div class="faq-more">
-          <p>Não achou o que procurava?</p>
-          <button class="btn btn--teal" type="button" data-open-bot>Pergunte ao assistente Argento</button>
-        </div>
+        <div class="faq-res" id="faqRes" aria-live="polite"></div>
       </div>
     </section>
 
@@ -561,6 +497,75 @@
       <a href="#inicio">Voltar ao topo ↑</a>
     </div>
   </footer>
+
+  <!-- ================= TELA DE ORÇAMENTO ================= -->
+  <div class="qmodal" id="quoteModal" role="dialog" aria-modal="true" aria-labelledby="qmTitle" hidden>
+    <div class="qmodal__panel">
+      <header class="qmodal__head">
+        <div>
+          <p class="kicker kicker--y">Orçamento</p>
+          <h2 id="qmTitle">Seu pedido de <em>escoramento</em></h2>
+        </div>
+        <button type="button" class="qmodal__close" id="quoteClose" aria-label="Fechar orçamento">×</button>
+      </header>
+      <div class="qmodal__est" id="estimate" aria-live="polite">
+        <span class="quote__label">Estimativa preliminar</span>
+        <b id="estNum">—</b>
+        <span id="estUnit">preencha a área</span>
+      </div>
+      <form class="quote__form" id="quoteForm" novalidate>
+            <fieldset>
+              <legend>1. Que tipo de obra?</legend>
+              <div class="opts" data-name="tipo">
+                <button type="button" class="opt" data-v="Edifício residencial">Residencial</button>
+                <button type="button" class="opt" data-v="Edifício comercial/corporativo">Comercial</button>
+                <button type="button" class="opt" data-v="Obra pública / institucional">Pública</button>
+                <button type="button" class="opt" data-v="Industrial / galpão">Industrial</button>
+                <button type="button" class="opt" data-v="Ponte / viaduto / infraestrutura">Infraestrutura</button>
+                <button type="button" class="opt" data-v="Reforço / recuperação estrutural">Recuperação</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>2. O que vai ser escorado?</legend>
+              <div class="opts opts--multi" data-name="elemento">
+                <button type="button" class="opt" data-v="Laje maciça">Laje maciça</button>
+                <button type="button" class="opt" data-v="Laje nervurada">Laje nervurada</button>
+                <button type="button" class="opt" data-v="Vigas">Vigas</button>
+                <button type="button" class="opt" data-v="Balanços / marquises">Balanços</button>
+                <button type="button" class="opt" data-v="Tabuleiro / estrutura especial">Estrutura especial</button>
+              </div>
+            </fieldset>
+            <div class="row2">
+              <label class="range">
+                <span>3. Área por concretagem <output id="areaOut">200 m²</output></span>
+                <input type="range" id="area" min="20" max="3000" step="10" value="200">
+              </label>
+              <label class="range">
+                <span>4. Pé-direito <output id="hOut">3,0 m</output></span>
+                <input type="range" id="altura" min="2.4" max="20" step="0.1" value="3">
+              </label>
+            </div>
+            <div class="row2">
+              <label class="field"><span>Cidade / UF da obra</span><input id="cidade" type="text" placeholder="Ex.: Niterói / RJ" autocomplete="address-level2"></label>
+              <label class="field"><span>Previsão de início</span>
+                <select id="inicio">
+                  <option>Imediato</option><option>Em até 30 dias</option><option>De 1 a 3 meses</option><option>Ainda em planejamento</option>
+                </select>
+              </label>
+            </div>
+            <div class="row2">
+              <label class="field"><span>Seu nome</span><input id="nome" type="text" required autocomplete="name" placeholder="Nome e sobrenome"></label>
+              <label class="field"><span>Empresa (opcional)</span><input id="empresa" type="text" autocomplete="organization" placeholder="Construtora"></label>
+            </div>
+            <label class="check"><input type="checkbox" id="temProjeto"> <span>Já tenho projeto estrutural / plantas para enviar</span></label>
+            <div class="quote__actions">
+              <button type="submit" class="btn btn--yellow">Enviar pelo WhatsApp →</button>
+              <button type="button" class="btn btn--ghost" id="quoteMail">Enviar por e-mail</button>
+            </div>
+            <p class="form-msg" id="formMsg" role="status"></p>
+          </form>
+    </div>
+  </div>
 
   <!-- ================= LIGHTBOX ================= -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria da obra" hidden>

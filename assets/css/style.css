@@ -558,6 +558,42 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .quote__actions { display: flex; flex-wrap: wrap; gap: 12px; }
 .form-msg { font-size: .9rem; color: var(--yellow); min-height: 1.4em; }
 
+/* ---------- faixa de orçamento ---------- */
+.cta-band { padding: clamp(64px, 9vw, 110px) 0; background:
+  radial-gradient(700px 300px at 85% 50%, rgba(254,228,91,.12), transparent 70%), var(--ink); }
+.cta-band__inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
+.cta-band h2 { font-size: clamp(2.4rem, 6vw, 4.6rem); }
+.btn--lg { padding: 22px 34px; font-size: 1.15rem; }
+.btn--wa { --bg: #25d366; --fg: #fff; }
+.btn--wa:hover { --bg: #1fbd59; }
+
+/* ---------- tela de orçamento ---------- */
+.qmodal { position: fixed; inset: 0; z-index: 420; display: grid; place-items: center; padding: 20px; background: rgba(5,18,22,.72); backdrop-filter: blur(6px); animation: fade .25s; }
+.qmodal[hidden] { display: none; }
+.qmodal__panel { width: min(760px, 100%); max-height: calc(100svh - 40px); overflow-y: auto; overscroll-behavior: contain; background: var(--ink-2); color: var(--paper); border: 1px solid var(--line-dark); border-radius: 24px; box-shadow: 0 40px 90px -30px rgba(0,0,0,.7); animation: botIn .45s var(--ease); }
+.qmodal__head { position: sticky; top: 0; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; padding: 24px clamp(20px, 3vw, 36px) 16px; background: var(--ink-2); border-bottom: 1px solid var(--line-dark); }
+.qmodal__head .kicker { margin-bottom: 8px; }
+.qmodal__head h2 { font-size: clamp(1.6rem, 3.4vw, 2.3rem); }
+.qmodal__head h2 em { color: var(--yellow); }
+.qmodal__close { width: 44px; height: 44px; flex: none; border-radius: 50%; border: 1px solid var(--line-dark); background: transparent; font-size: 1.5rem; line-height: 1; }
+.qmodal__close:hover { background: var(--yellow); color: var(--ink); border-color: var(--yellow); }
+.qmodal__est { margin: 18px clamp(20px, 3vw, 36px) 0; padding: 14px 18px; border-radius: 14px; background: linear-gradient(135deg, var(--teal), var(--teal-2)); display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 14px; }
+.qmodal__est b { font-family: var(--f-display); font-weight: 900; font-size: 1.8rem; line-height: 1; font-variation-settings: "wdth" 78; }
+.qmodal__est span:last-child { font-weight: 600; font-size: .92rem; }
+.qmodal .quote__form { background: transparent; border: 0; border-radius: 0; padding: 22px clamp(20px, 3vw, 36px) 30px; }
+
+/* ---------- dúvidas: resposta instantânea ---------- */
+.faq-res { display: grid; gap: 12px; }
+.faq-res:empty { display: none; }
+.fq-card { background: var(--white); border: 1px solid var(--line); border-radius: 16px; padding: 22px 24px; animation: msgIn .35s var(--ease); }
+.fq-card h3 { font-size: 1.12rem; margin-bottom: 8px; }
+.fq-card div, .fq-card p { color: var(--muted); }
+.fq-card a { color: var(--teal-2); font-weight: 600; }
+.fq-card--empty { border-style: dashed; }
+.fq-help { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; padding-top: 6px; animation: msgIn .35s var(--ease); }
+.fq-help span { color: var(--muted); font-weight: 600; font-size: .95rem; }
+.fq-help span:empty { display: none; }
+
 /* =========================================================
    FAQ
    ========================================================= */
@@ -744,6 +780,9 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
   .pillars { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 720px) {
+  .qmodal { padding: 0; place-items: end stretch; }
+  .qmodal__panel { max-height: 100svh; height: 100svh; border-radius: 0; border: 0; }
+  .btn--lg { width: 100%; }
   .hero__feat { margin-top: -18px; }
   .hero__feat b { font-size: .84rem; }
   .feat__stamp { display: none; }
