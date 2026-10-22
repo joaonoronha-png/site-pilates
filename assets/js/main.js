@@ -311,9 +311,25 @@
 
   // carrossel infinito das avaliações (mesmo comportamento dos sites anteriores):
   // roda sozinho, pausa com o mouse em cima e pode ser arrastado com o dedo ou o mouse
+  // com "reduzir movimento" o carrossel fica parado: desliza com o dedo e tem setas
+  function staticReviews(container) {
+    container.classList.add('is-static'); container.closest('.reviews').classList.add('is-static');
+    var btns = $$('[data-rev]'), cards = function () { return $$('.review-card:not([aria-hidden="true"])', container); };
+    var upd = function () {
+      btns[0].disabled = container.scrollLeft < 8;
+      btns[1].disabled = container.scrollLeft + container.clientWidth >= container.scrollWidth - 8;
+    };
+    btns.forEach(function (b) {
+      b.addEventListener('click', function () {
+        var w = (cards()[0] || {}).offsetWidth || 300;
+        container.scrollBy({ left: Number(b.dataset.rev) * (w + 20), behavior: 'smooth' });
+      });
+    });
+    container.addEventListener('scroll', upd, { passive: true }); upd();
+  }
   function initMarquee(container, durationSec) {
     var track = container.querySelector('.reviews-track');
-    if (!track || reduce) { container.classList.add('is-static'); return; }
+    if (!track || reduce) { staticReviews(container); return; }
     var dragging = false, startX = 0, startOffset = 0, shift = 0;
     var measure = function () {
       var firstDup = track.querySelector('.review-card[aria-hidden="true"]');
