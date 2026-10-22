@@ -270,16 +270,7 @@
         ${r.data ? `<time>${esc(r.data)}</time>` : ""}
       </footer>
     </article>`).join("");
-  if (RV.length) {
-    const avg = RV.reduce((a, r) => a + r.nota, 0) / RV.length;
-    $("#rvAvg").textContent = avg.toFixed(1).replace(".", ",");
-    $("#rvStars").innerHTML = stars(avg);
-    const demo = RV.some((r) => r.exemplo);
-    $("#rvCount").textContent = demo ? `${RV.length} avaliações de exemplo` : `${RV.length} avaliações`;
-    $("#rvSummary").classList.toggle("is-demo", demo);
-    $("#rvNote").hidden = !demo;
-  }
-  $("#rvCta").href = C.googleReviewUrl || `https://www.google.com/search?q=${encodeURIComponent("Argento Escoramentos avaliações")}`;
+  $("#rvNote").hidden = !RV.some((r) => r.exemplo);
 
   const cards = $$(".rv-card", rail);
   const rvDots = $("#rvDots");

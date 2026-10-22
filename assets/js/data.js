@@ -142,8 +142,8 @@ window.KB = [
     go: ["sobre"] },
 
   { id: "avaliacoes", q: "O que os clientes dizem da Argento?",
-    k: ["avaliacao", "avaliacoes", "depoimento", "depoimentos", "opiniao", "recomendam", "reclamacao", "reclame aqui", "confiavel", "boa empresa", "google"],
-    a: "Você pode ver as avaliações na seção <a href='#avaliacoes' data-close>Avaliações</a> do site. Já é cliente? Sua opinião ajuda muito — deixe uma avaliação no Google pelo botão da seção.",
+    k: ["avaliacao", "avaliacoes", "depoimento", "depoimentos", "opiniao", "recomendam", "reclamacao", "reclame aqui", "confiavel", "boa empresa"],
+    a: "Você pode ver as avaliações na seção <a href='#avaliacoes' data-close>Avaliações</a> do site. Já é cliente? Conte como foi pelo WhatsApp — sua opinião ajuda muito.",
     go: ["obras", "contato"] },
 
   { id: "hospital", q: "Vocês fizeram o Hospital Barra D'Or?",
