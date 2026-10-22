@@ -619,6 +619,13 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .contact { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 28px; }
 .ccard { display: flex; gap: 14px; align-items: flex-start; padding: 22px; border-radius: var(--r); background: var(--ink-2); border: 1px solid var(--line-dark); text-decoration: none; transition: border-color .25s, transform .4s var(--ease); min-width: 0; }
 a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
+.ccard--person { grid-column: span 2; align-items: center; flex-wrap: wrap; border-color: rgba(254,228,91,.35); background: linear-gradient(135deg, var(--ink-2), rgba(31,98,114,.45)); }
+.ccard__av { width: 58px; height: 64px; flex: none; display: grid; place-items: center; background: var(--yellow); color: var(--ink); font-weight: 900; font-size: 1.15rem; letter-spacing: .02em; clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); }
+.ccard__who { display: grid; gap: 2px; min-width: 0; flex: 1 1 200px; }
+.ccard__who b { font-size: 1.08rem; line-height: 1.25; }
+.ccard__num { font-family: var(--f-mono); color: var(--yellow); font-size: .95rem; }
+.ccard__acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.ccard__acts .btn--ghost { color: var(--paper); }
 .ccard__ico { width: 44px; height: 44px; flex: none; border-radius: 12px; background: var(--yellow); display: grid; place-items: center; }
 .ccard__ico svg { width: 22px; height: 22px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 .ccard > span:last-child { display: grid; gap: 2px; min-width: 0; }
@@ -813,6 +820,9 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
   .step__n { font-size: 2rem; }
   .row2 { grid-template-columns: 1fr; }
   .contact { grid-template-columns: 1fr; }
+  .ccard--person { grid-column: auto; }
+  .ccard__acts { width: 100%; flex-wrap: nowrap; }
+  .ccard__acts .btn { flex: 1; }
   .pillars { grid-template-columns: 1fr; gap: 26px; }
   .footer__grid { grid-template-columns: 1fr; }
   .hot { width: 26px; height: 26px; font-size: .72rem; }

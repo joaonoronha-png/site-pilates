@@ -4,11 +4,16 @@
    ========================================================= */
 window.ARGENTO = {
   // WhatsApp só com números: 55 + DDD + número  (ex.: 5521999998888)
-  whatsapp: "5521900000000",
-  whatsappLabel: "(21) 90000-0000",
+  whatsapp: "5521999732284",
+  whatsappLabel: "(21) 99973-2284",
 
-  phone: "+552100000000",
-  phoneLabel: "(21) 0000-0000",
+  phone: "+5521999732284",
+  phoneLabel: "(21) 99973-2284",
+
+  // Pessoa de contato comercial (aparece no contato, no rodapé e no bot)
+  contactName: "Bibiana Lemos Mendes Vassallo",
+  contactShort: "Bibiana",
+  contactRole: "Gestora Comercial",
 
   email: "contato@argentoescoramentos.com.br",
 

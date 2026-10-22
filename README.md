@@ -22,4 +22,5 @@ Site estático (HTML + CSS + JS puro, sem build). Basta abrir `index.html` ou pu
 | Perguntas e respostas do bot e do FAQ | `assets/js/data.js` → `KB` |
 | Fotos | `assets/img/obras/` |
 
-> ⚠️ Os dados de contato em `config.js` são **provisórios** — substitua pelos reais antes de publicar.
+> Contato comercial: Bibiana Lemos Mendes Vassallo (Gestora Comercial) · WhatsApp/telefone (21) 99973-2284.
+> ⚠️ Ainda provisórios em `config.js`: **e-mail**, **endereço da sede** (e coordenadas do mapa) e **horário**.

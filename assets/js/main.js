@@ -8,7 +8,7 @@
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* ---------- links de contato a partir do config ---------- */
-  const waLink = (text = "Olá! Vim pelo site da Argento Escoramentos e gostaria de mais informações.") =>
+  const waLink = (text = `Olá, ${C.contactShort || "Argento"}! Vim pelo site da Argento Escoramentos e gostaria de mais informações.`) =>
     `https://wa.me/${C.whatsapp}?text=${encodeURIComponent(text)}`;
   window.argentoWa = waLink;
 
