@@ -1,0 +1,531 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Argento Escoramentos | Escoramento metálico para obras</title>
+  <meta name="description" content="Argento Escoramentos: escoramento metálico, torres, escoras e engenharia de escoramento para lajes, vigas, viadutos e grandes estruturas de concreto. Obras no RJ, MG, MT e DF.">
+  <meta name="theme-color" content="#0E2A33">
+  <meta property="og:title" content="Argento Escoramentos">
+  <meta property="og:description" content="Sustentamos a estrutura. Você constrói o futuro. Escoramento metálico e engenharia para obras de concreto.">
+  <meta property="og:image" content="assets/img/obras/faetec-01.jpg">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="is-intro">
+
+  <!-- ================= INTRO ================= -->
+  <div id="intro" class="intro" aria-hidden="false">
+    <div class="intro__grid"></div>
+    <div class="intro__panel intro__panel--top"></div>
+    <div class="intro__panel intro__panel--bottom"></div>
+
+    <div class="intro__stage">
+      <svg class="intro__logo" viewBox="0 0 100 100" aria-hidden="true">
+        <path class="intro__hex" d="M50 5 L89 27.5 L89 72.5 L50 95 L11 72.5 L11 27.5 Z"/>
+        <g class="intro__icon">
+          <path class="ii ii--fork" d="M35 18 h7 v16 h16 v-16 h7 v23 h-30 z"/>
+          <rect class="ii ii--neck" x="45" y="41" width="10" height="9"/>
+          <rect class="ii ii--clamp" x="41" y="50" width="18" height="17" rx="2"/>
+          <rect class="ii ii--lobe" x="24" y="53" width="17" height="11" rx="5.5"/>
+          <rect class="ii ii--lobe" x="59" y="53" width="17" height="11" rx="5.5"/>
+          <rect class="ii ii--stem" x="46" y="67" width="8" height="12"/>
+        </g>
+      </svg>
+      <div class="intro__word">
+        <span class="intro__brand" data-split>ARGENTO</span>
+        <span class="intro__bar"></span>
+        <span class="intro__sub">escoramentos</span>
+      </div>
+      <p class="intro__tag">Sustentamos a estrutura. Você constrói o futuro.</p>
+      <div class="intro__load"><span class="intro__count">0</span><span>%</span> <em>carregando estrutura</em></div>
+    </div>
+
+    <button class="intro__skip" type="button" id="introSkip">Pular intro <span aria-hidden="true">→</span></button>
+  </div>
+
+  <div class="progress" aria-hidden="true"><span></span></div>
+
+  <!-- ================= HEADER ================= -->
+  <header class="nav" id="nav">
+    <a href="#inicio" class="nav__brand" aria-label="Argento Escoramentos — início">
+      <img src="assets/img/logo.svg" alt="" width="40" height="40">
+      <span><b>ARGENTO</b><small>escoramentos</small></span>
+    </a>
+    <nav class="nav__links" aria-label="Principal">
+      <a href="#solucoes">Soluções</a>
+      <a href="#raio-x">Como funciona</a>
+      <a href="#obras">Obras</a>
+      <a href="#processo">Processo</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#orcamento" class="btn btn--yellow btn--sm nav__cta">Solicitar orçamento</a>
+    <button class="nav__burger" id="burger" aria-label="Abrir menu" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <div class="drawer" id="drawer" aria-hidden="true">
+    <nav>
+      <a href="#solucoes">Soluções</a>
+      <a href="#raio-x">Como funciona</a>
+      <a href="#obras">Obras</a>
+      <a href="#processo">Processo</a>
+      <a href="#orcamento">Orçamento</a>
+      <a href="#faq">Dúvidas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn--yellow" data-wa href="#">Chamar no WhatsApp</a>
+  </div>
+
+  <main>
+    <!-- ================= HERO ================= -->
+    <section class="hero" id="inicio">
+      <div class="hero__blueprint" aria-hidden="true">
+        <svg viewBox="0 0 600 600" class="hero__tower">
+          <g class="tw">
+            <path d="M120 560 V140 M240 560 V140 M360 560 V140 M480 560 V140"/>
+            <path d="M120 470 H480 M120 380 H480 M120 290 H480 M120 200 H480"/>
+            <path d="M120 560 L240 470 L120 380 L240 290 L120 200 M360 560 L480 470 L360 380 L480 290 L360 200"/>
+            <path d="M80 140 H520 M80 116 H520" class="tw__slab"/>
+          </g>
+        </svg>
+      </div>
+
+      <div class="hero__inner">
+        <div class="hero__copy">
+          <p class="eyebrow reveal"><span class="dot"></span> Escoramento metálico · Engenharia · Obras de concreto</p>
+          <h1 class="hero__title">
+            <span class="line"><span>Sustentamos</span></span>
+            <span class="line"><span>a <em>estrutura.</em></span></span>
+            <span class="line line--thin"><span>Você constrói o futuro.</span></span>
+          </h1>
+          <p class="hero__lead reveal">Escoras, torres e projetos de escoramento para lajes, vigas, viadutos e grandes estruturas — do primeiro pavimento à última concretagem.</p>
+          <div class="hero__ctas reveal">
+            <a href="#orcamento" class="btn btn--yellow magnetic">Simular meu orçamento <span aria-hidden="true">→</span></a>
+            <a href="#obras" class="btn btn--ghost magnetic">Ver obras realizadas</a>
+          </div>
+          <ul class="hero__stats reveal">
+            <li><b data-count="9">0</b><span>obras em destaque</span></li>
+            <li><b data-count="4">0</b><span>estados atendidos</span></li>
+            <li><b data-count="6">0</b><span>segmentos de obra</span></li>
+          </ul>
+        </div>
+
+        <div class="hero__stack" aria-hidden="true">
+          <figure class="card-photo card-photo--1" data-depth="18">
+            <img src="assets/img/obras/faetec-01.jpg" alt="">
+            <figcaption>FAETEC · RJ</figcaption>
+          </figure>
+          <figure class="card-photo card-photo--2" data-depth="32">
+            <img src="assets/img/obras/epic-01.jpg" alt="">
+            <figcaption>Epic Tower · MT</figcaption>
+          </figure>
+          <figure class="card-photo card-photo--3" data-depth="48">
+            <img src="assets/img/obras/viaduto-03.jpg" alt="">
+            <figcaption>Viaduto · RJ</figcaption>
+          </figure>
+          <div class="hero__badge">
+            <img src="assets/img/logo.svg" alt="">
+            <span>Projeto · Entrega · Montagem · Retirada</span>
+          </div>
+        </div>
+      </div>
+
+      <a href="#solucoes" class="hero__scroll" aria-label="Rolar para baixo"><span></span></a>
+    </section>
+
+    <!-- ================= TICKER ================= -->
+    <div class="ticker" aria-label="Algumas obras">
+      <div class="ticker__track">
+        <span>FAETEC · RJ</span><i></i><span>Tribunal de Justiça · MG</span><i></i><span>Epic Tower · Sorriso, MT</span><i></i><span>Escola Técnica · Paranoá, DF</span><i></i><span>SESC · Rio das Ostras, RJ</span><i></i><span>SESC · Itaperuna, RJ</span><i></i><span>Recuperação de Viaduto · RJ</span><i></i><span>Escola · Saquarema, RJ</span><i></i><span>Centro de Convenções · RJ</span><i></i>
+      </div>
+    </div>
+
+    <!-- ================= SOLUÇÕES ================= -->
+    <section class="section section--paper" id="solucoes">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker">01 — Soluções</p>
+          <h2 class="reveal">Tudo o que a sua estrutura precisa para ficar de pé <em>até o concreto assumir.</em></h2>
+          <p class="sec-head__lead reveal">Inspirados nos líderes mundiais do setor, reunimos equipamento, engenharia e logística num só parceiro — sem você precisar coordenar três fornecedores.</p>
+        </header>
+
+        <div class="bento">
+          <article class="tile tile--big reveal">
+            <div class="tile__img"><img src="assets/img/obras/epic-05.jpg" alt="Laje nervurada escorada com escoras metálicas" loading="lazy"></div>
+            <div class="tile__body">
+              <span class="tile__n">A</span>
+              <h3>Escoramento de lajes</h3>
+              <p>Escoras metálicas reguláveis, vigas e forcados para lajes maciças, nervuradas e protendidas, com distribuição definida em projeto.</p>
+              <ul class="tags"><li>Laje maciça</li><li>Nervurada</li><li>Reescoramento</li></ul>
+            </div>
+          </article>
+          <article class="tile reveal">
+            <span class="tile__n">B</span>
+            <h3>Torres de escoramento</h3>
+            <p>Para pé-direito alto, balanços e cargas elevadas. Torres modulares contraventadas que vencem grandes alturas com segurança.</p>
+            <svg class="tile__ico" viewBox="0 0 48 48"><path d="M12 44V8M36 44V8M12 36h24M12 24h24M12 12h24M12 36l24-12M12 24l24-12"/></svg>
+          </article>
+          <article class="tile tile--teal reveal">
+            <span class="tile__n">C</span>
+            <h3>Projeto de escoramento</h3>
+            <p>Dimensionamento conforme a ABNT NBR 15696, com planta de locação das peças e responsável técnico. O equipamento certo, na quantidade certa.</p>
+            <svg class="tile__ico" viewBox="0 0 48 48"><path d="M6 40h36M10 40V14l14-8 14 8v26M18 40V26h12v14"/></svg>
+          </article>
+          <article class="tile reveal">
+            <span class="tile__n">D</span>
+            <h3>Vigas e pilares</h3>
+            <p>Escoramento de fundos de viga, travamento de pilares e apoio para estruturas de concreto aparente com acabamento exigente.</p>
+            <svg class="tile__ico" viewBox="0 0 48 48"><path d="M4 14h40v6H4zM10 20v24M38 20v24M24 20v24"/></svg>
+          </article>
+          <article class="tile tile--photo reveal">
+            <img src="assets/img/obras/viaduto-05.jpg" alt="Torres de escoramento em recuperação de pilar de viaduto" loading="lazy">
+            <div class="tile__body">
+              <span class="tile__n">E</span>
+              <h3>Infraestrutura & recuperação estrutural</h3>
+              <p>Viadutos, pontes e reforços: escoramento provisório que alivia a estrutura enquanto ela é recuperada.</p>
+            </div>
+          </article>
+          <article class="tile tile--yellow reveal">
+            <span class="tile__n">F</span>
+            <h3>Logística, montagem e retirada</h3>
+            <p>Entrega programada no ritmo da obra, apoio técnico na montagem e retirada ao final — você paga pelo tempo que usa.</p>
+            <a href="#processo" class="link-arrow">Ver o processo →</a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= RAIO-X ================= -->
+    <section class="section section--ink" id="raio-x">
+      <div class="wrap">
+        <header class="sec-head sec-head--split">
+          <div>
+            <p class="kicker kicker--y">02 — Raio-X do escoramento</p>
+            <h2 class="reveal">Entenda, peça por peça, <em>o que segura uma laje.</em></h2>
+          </div>
+          <p class="sec-head__lead reveal">Toque nos pontos numerados. Cada componente tem uma função — e um erro em qualquer um deles compromete o conjunto.</p>
+        </header>
+
+        <div class="xray" id="xray">
+          <div class="xray__canvas"><div class="xray__fig">
+            <svg viewBox="0 0 1000 560" class="xray__svg" role="img" aria-label="Diagrama de um sistema de escoramento de laje">
+              <defs>
+                <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><path d="M0 0V8" stroke="#2c6575" stroke-width="2"/></pattern>
+              </defs>
+              <!-- solo -->
+              <rect x="40" y="520" width="920" height="20" fill="url(#hatch)" class="x-ground"/>
+              <!-- bases -->
+              <g class="x-part x-base" data-part="base">
+                <rect x="130" y="508" width="60" height="12"/><rect x="370" y="508" width="60" height="12"/><rect x="610" y="508" width="60" height="12"/><rect x="810" y="508" width="60" height="12"/>
+              </g>
+              <!-- escoras -->
+              <g class="x-part x-props" data-part="escora">
+                <rect x="153" y="200" width="14" height="308"/><rect x="393" y="200" width="14" height="308"/><rect x="633" y="200" width="14" height="308"/><rect x="833" y="200" width="14" height="308"/>
+                <rect x="149" y="350" width="22" height="16" class="x-pin"/><rect x="389" y="350" width="22" height="16" class="x-pin"/><rect x="629" y="350" width="22" height="16" class="x-pin"/><rect x="829" y="350" width="22" height="16" class="x-pin"/>
+              </g>
+              <!-- contraventamento -->
+              <g class="x-part x-brace" data-part="contraventamento">
+                <path d="M160 470 L400 300 M400 470 L640 300 M640 470 L840 300 M160 300 H840"/>
+              </g>
+              <!-- forcados -->
+              <g class="x-part x-fork" data-part="forcado">
+                <path d="M140 200 V178 H150 V190 H170 V178 H180 V200 Z"/><path d="M380 200 V178 H390 V190 H410 V178 H420 V200 Z"/><path d="M620 200 V178 H630 V190 H650 V178 H660 V200 Z"/><path d="M820 200 V178 H830 V190 H850 V178 H860 V200 Z"/>
+              </g>
+              <!-- vigas primarias -->
+              <g class="x-part x-beam" data-part="viga">
+                <rect x="70" y="160" width="860" height="26" rx="2"/>
+              </g>
+              <!-- barrotes / vigas secundárias -->
+              <g class="x-part x-joist" data-part="barrote">
+                <rect x="90" y="140" width="18" height="20"/><rect x="190" y="140" width="18" height="20"/><rect x="290" y="140" width="18" height="20"/><rect x="390" y="140" width="18" height="20"/><rect x="490" y="140" width="18" height="20"/><rect x="590" y="140" width="18" height="20"/><rect x="690" y="140" width="18" height="20"/><rect x="790" y="140" width="18" height="20"/><rect x="890" y="140" width="18" height="20"/>
+              </g>
+              <!-- forma + laje -->
+              <g class="x-part x-slab" data-part="laje">
+                <rect x="60" y="126" width="880" height="14" class="x-form"/>
+                <rect x="60" y="70" width="880" height="56" class="x-concrete"/>
+                <path d="M60 98 H940" class="x-rebar"/>
+              </g>
+              <!-- dimension -->
+              <g class="x-dim">
+                <path d="M975 126 V520 M968 126 H982 M968 520 H982"/>
+                <text x="990" y="330" transform="rotate(90 990 330)">pé-direito</text>
+              </g>
+            </svg>
+
+            <button class="hot" style="--x:50%;--y:17.5%" data-part="laje">1</button>
+            <button class="hot" style="--x:30%;--y:26.8%" data-part="barrote">2</button>
+            <button class="hot" style="--x:70%;--y:30.9%" data-part="viga">3</button>
+            <button class="hot" style="--x:16%;--y:33.2%" data-part="forcado">4</button>
+            <button class="hot" style="--x:40.7%;--y:76.8%" data-part="escora">5</button>
+            <button class="hot" style="--x:52%;--y:68.8%" data-part="contraventamento">6</button>
+            <button class="hot" style="--x:84%;--y:91.8%" data-part="base">7</button>
+          </div></div>
+
+          <aside class="xray__info" aria-live="polite">
+            <span class="xray__num" id="xrNum">1</span>
+            <h3 id="xrTitle">Laje de concreto</h3>
+            <p id="xrText">O concreto fresco pesa cerca de 2.500 kg/m³. Até atingir a resistência de projeto, todo esse peso — mais o das pessoas e equipamentos — é transferido para o escoramento.</p>
+            <p class="xray__tip" id="xrTip">Laje de 12 cm ≈ 300 kg/m² só de concreto.</p>
+            <div class="xray__nav">
+              <button type="button" id="xrPrev" aria-label="Anterior">←</button>
+              <div class="xray__dots" id="xrDots"></div>
+              <button type="button" id="xrNext" aria-label="Próximo">→</button>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OBRAS ================= -->
+    <section class="section section--paper" id="obras">
+      <div class="wrap">
+        <header class="sec-head sec-head--split">
+          <div>
+            <p class="kicker">03 — Obras</p>
+            <h2 class="reveal">Do Rio ao Mato Grosso: <em>estruturas que ajudamos a erguer.</em></h2>
+          </div>
+          <div class="filters" role="tablist" aria-label="Filtrar obras" id="filters">
+            <button class="chip is-on" data-filter="all">Todas</button>
+            <button class="chip" data-filter="RJ">RJ</button>
+            <button class="chip" data-filter="MG">MG</button>
+            <button class="chip" data-filter="MT">MT</button>
+            <button class="chip" data-filter="DF">DF</button>
+          </div>
+        </header>
+
+        <div class="works" id="works"></div>
+        <p class="works__note">Clique numa obra para abrir a galeria completa.</p>
+      </div>
+    </section>
+
+    <!-- ================= PROCESSO ================= -->
+    <section class="section section--teal" id="processo">
+      <div class="wrap">
+        <header class="sec-head">
+          <p class="kicker kicker--y">04 — Processo</p>
+          <h2 class="reveal">Seis etapas. <em>Zero improviso.</em></h2>
+        </header>
+
+        <ol class="steps" id="steps">
+          <li class="step"><span class="step__n">01</span><div><h3>Conversa e levantamento</h3><p>Você envia projeto estrutural, plantas ou fotos. Entendemos cargas, vãos, pé-direito e cronograma.</p></div></li>
+          <li class="step"><span class="step__n">02</span><div><h3>Projeto de escoramento</h3><p>Dimensionamos o sistema e entregamos a planta de locação: onde vai cada escora, torre e viga.</p></div></li>
+          <li class="step"><span class="step__n">03</span><div><h3>Proposta clara</h3><p>Quantitativo de peças, prazo de locação e condições. Sem letras miúdas.</p></div></li>
+          <li class="step"><span class="step__n">04</span><div><h3>Entrega programada</h3><p>O material chega no ritmo das concretagens — nada de pátio entulhado antes da hora.</p></div></li>
+          <li class="step"><span class="step__n">05</span><div><h3>Montagem e acompanhamento</h3><p>Orientação técnica na montagem e conferência antes da concretagem. Segurança em primeiro lugar.</p></div></li>
+          <li class="step"><span class="step__n">06</span><div><h3>Desforma e retirada</h3><p>Retirada conforme o plano de desforma e reescoramento. Peças conferidas, obra liberada.</p></div></li>
+        </ol>
+        <div class="steps__line" aria-hidden="true"><span></span></div>
+      </div>
+    </section>
+
+    <!-- ================= POR QUE ================= -->
+    <section class="section section--paper section--tight">
+      <div class="wrap">
+        <div class="pillars">
+          <div class="pillar reveal"><svg viewBox="0 0 40 40"><path d="M20 4l14 6v9c0 9-6 15-14 17C12 34 6 28 6 19v-9z"/><path d="M14 20l4 4 8-9"/></svg><h3>Segurança normativa</h3><p>Projetos alinhados à NBR 15696 e às exigências da NR-18 e NR-35.</p></div>
+          <div class="pillar reveal"><svg viewBox="0 0 40 40"><circle cx="20" cy="20" r="15"/><path d="M20 11v9l6 4"/></svg><h3>Ritmo da obra</h3><p>Entregas e retiradas sincronizadas com o seu cronograma de concretagem.</p></div>
+          <div class="pillar reveal"><svg viewBox="0 0 40 40"><path d="M6 34h28M10 34V16M20 34V8M30 34V22"/></svg><h3>Engenharia de verdade</h3><p>Quantitativo calculado, não estimado “no olho”. Menos peça parada, menos custo.</p></div>
+          <div class="pillar reveal"><svg viewBox="0 0 40 40"><path d="M8 28c4-10 20-10 24 0M14 16a6 6 0 1012 0 6 6 0 00-12 0"/></svg><h3>Gente que atende</h3><p>Um interlocutor técnico do orçamento à retirada. Você sabe com quem falar.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= ORÇAMENTO ================= -->
+    <section class="section section--ink" id="orcamento">
+      <div class="wrap">
+        <div class="quote">
+          <div class="quote__intro">
+            <p class="kicker kicker--y">05 — Simulador</p>
+            <h2 class="reveal">Monte seu pedido em <em>60 segundos.</em></h2>
+            <p class="sec-head__lead">Responda o básico e receba uma estimativa preliminar de peças. Depois é só enviar pelo WhatsApp — nossa equipe técnica responde com a proposta.</p>
+            <div class="quote__estimate" id="estimate" aria-live="polite">
+              <span class="quote__label">Estimativa preliminar</span>
+              <b id="estNum">—</b>
+              <span id="estUnit">preencha a área ao lado</span>
+              <small>Referência de ordem de grandeza. A quantidade real depende do projeto de escoramento.</small>
+            </div>
+          </div>
+
+          <form class="quote__form" id="quoteForm" novalidate>
+            <fieldset>
+              <legend>1. Que tipo de obra?</legend>
+              <div class="opts" data-name="tipo">
+                <button type="button" class="opt" data-v="Edifício residencial">Residencial</button>
+                <button type="button" class="opt" data-v="Edifício comercial/corporativo">Comercial</button>
+                <button type="button" class="opt" data-v="Obra pública / institucional">Pública</button>
+                <button type="button" class="opt" data-v="Industrial / galpão">Industrial</button>
+                <button type="button" class="opt" data-v="Ponte / viaduto / infraestrutura">Infraestrutura</button>
+                <button type="button" class="opt" data-v="Reforço / recuperação estrutural">Recuperação</button>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>2. O que vai ser escorado?</legend>
+              <div class="opts opts--multi" data-name="elemento">
+                <button type="button" class="opt" data-v="Laje maciça">Laje maciça</button>
+                <button type="button" class="opt" data-v="Laje nervurada">Laje nervurada</button>
+                <button type="button" class="opt" data-v="Vigas">Vigas</button>
+                <button type="button" class="opt" data-v="Balanços / marquises">Balanços</button>
+                <button type="button" class="opt" data-v="Tabuleiro / estrutura especial">Estrutura especial</button>
+              </div>
+            </fieldset>
+            <div class="row2">
+              <label class="range">
+                <span>3. Área por concretagem <output id="areaOut">200 m²</output></span>
+                <input type="range" id="area" min="20" max="3000" step="10" value="200">
+              </label>
+              <label class="range">
+                <span>4. Pé-direito <output id="hOut">3,0 m</output></span>
+                <input type="range" id="altura" min="2.4" max="20" step="0.1" value="3">
+              </label>
+            </div>
+            <div class="row2">
+              <label class="field"><span>Cidade / UF da obra</span><input id="cidade" type="text" placeholder="Ex.: Niterói / RJ" autocomplete="address-level2"></label>
+              <label class="field"><span>Previsão de início</span>
+                <select id="inicio">
+                  <option>Imediato</option><option>Em até 30 dias</option><option>De 1 a 3 meses</option><option>Ainda em planejamento</option>
+                </select>
+              </label>
+            </div>
+            <div class="row2">
+              <label class="field"><span>Seu nome</span><input id="nome" type="text" required autocomplete="name" placeholder="Nome e sobrenome"></label>
+              <label class="field"><span>Empresa (opcional)</span><input id="empresa" type="text" autocomplete="organization" placeholder="Construtora"></label>
+            </div>
+            <label class="check"><input type="checkbox" id="temProjeto"> <span>Já tenho projeto estrutural / plantas para enviar</span></label>
+            <div class="quote__actions">
+              <button type="submit" class="btn btn--yellow">Enviar pelo WhatsApp →</button>
+              <button type="button" class="btn btn--ghost" id="quoteMail">Enviar por e-mail</button>
+            </div>
+            <p class="form-msg" id="formMsg" role="status"></p>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= FAQ ================= -->
+    <section class="section section--paper" id="faq">
+      <div class="wrap wrap--narrow">
+        <header class="sec-head sec-head--center">
+          <p class="kicker">06 — Dúvidas frequentes</p>
+          <h2 class="reveal">Perguntou, <em>respondemos.</em></h2>
+          <label class="faq-search">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+            <input type="search" id="faqSearch" placeholder="Busque: prazo, NBR, frete, reescoramento…" aria-label="Buscar nas dúvidas">
+          </label>
+        </header>
+        <div class="faq" id="faqList"></div>
+        <div class="faq-more">
+          <p>Não achou o que procurava?</p>
+          <button class="btn btn--teal" type="button" data-open-bot>Pergunte ao assistente Argento</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CONTATO + MAPA ================= -->
+    <section class="section section--ink section--contact" id="contato">
+      <div class="wrap">
+        <header class="sec-head sec-head--split">
+          <div>
+            <p class="kicker kicker--y">07 — Contato</p>
+            <h2 class="reveal">Vamos sustentar <em>a sua próxima obra?</em></h2>
+          </div>
+          <p class="sec-head__lead reveal">Fale direto com a equipe técnica. Envie plantas, fotos ou só uma ideia do que precisa — a gente ajuda a transformar em projeto.</p>
+        </header>
+
+        <div class="contact">
+          <a class="ccard" data-wa href="#"><span class="ccard__ico"><svg viewBox="0 0 24 24"><path d="M4 20l1.3-4A8 8 0 1112 20a8 8 0 01-4-1.1z"/></svg></span><span><small>WhatsApp</small><b data-cfg="whatsappLabel"></b></span></a>
+          <a class="ccard" data-tel href="#"><span class="ccard__ico"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg></span><span><small>Telefone</small><b data-cfg="phoneLabel"></b></span></a>
+          <a class="ccard" data-mail href="#"><span class="ccard__ico"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></span><span><small>E-mail</small><b data-cfg="email"></b></span></a>
+          <div class="ccard"><span class="ccard__ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></span><span><small>Endereço</small><b data-cfg="address"></b><em data-cfg="hours"></em></span></div>
+        </div>
+
+        <div class="mapbox">
+          <div class="mapbox__bar">
+            <span class="mapbox__title">Mapa interativo</span>
+            <div class="mapbox__toggles">
+              <button class="chip chip--dark is-on" data-layer="sede">Sede</button>
+              <button class="chip chip--dark is-on" data-layer="obras">Obras</button>
+              <button class="chip chip--dark" id="mapFit">Ver tudo</button>
+            </div>
+          </div>
+          <div id="map" class="map" role="region" aria-label="Mapa com a sede e as obras da Argento"></div>
+          <a class="mapbox__route btn btn--yellow btn--sm" id="routeBtn" target="_blank" rel="noopener">Como chegar ↗</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="wrap footer__grid">
+      <div>
+        <img src="assets/img/logo-full.svg" alt="Argento Escoramentos" class="footer__logo" width="220" height="64">
+        <p>Escoramento metálico e engenharia para estruturas de concreto.</p>
+      </div>
+      <nav aria-label="Rodapé">
+        <a href="#solucoes">Soluções</a><a href="#obras">Obras</a><a href="#processo">Processo</a><a href="#orcamento">Orçamento</a><a href="#faq">Dúvidas</a><a href="#contato">Contato</a>
+      </nav>
+      <div class="footer__contact">
+        <a data-wa href="#">WhatsApp</a>
+        <a data-mail href="#" data-cfg="email"></a>
+        <span data-cfg="address"></span>
+      </div>
+    </div>
+    <div class="wrap footer__base">
+      <span>© <span id="year"></span> Argento Escoramentos. Todos os direitos reservados.</span>
+      <a href="#inicio">Voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <!-- ================= LIGHTBOX ================= -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria da obra" hidden>
+    <button class="lightbox__close" type="button" aria-label="Fechar">×</button>
+    <button class="lightbox__arrow lightbox__arrow--prev" type="button" aria-label="Foto anterior">←</button>
+    <figure class="lightbox__fig">
+      <img id="lbImg" alt="">
+      <figcaption><b id="lbTitle"></b><span id="lbMeta"></span><span id="lbCount"></span></figcaption>
+    </figure>
+    <button class="lightbox__arrow lightbox__arrow--next" type="button" aria-label="Próxima foto">→</button>
+    <div class="lightbox__thumbs" id="lbThumbs"></div>
+  </div>
+
+  <!-- ================= CHATBOT ================= -->
+  <div class="bot" id="bot">
+    <div class="bot__hint" id="botHint" hidden>
+      <button type="button" class="bot__hint-x" aria-label="Fechar aviso">×</button>
+      Olá! 👋 Tem alguma dúvida sobre escoramento? Eu respondo na hora.
+    </div>
+    <section class="bot__panel" id="botPanel" aria-label="Assistente virtual Argento" hidden>
+      <header class="bot__head">
+        <img src="assets/img/logo.svg" alt="" width="36" height="36">
+        <div><b>Assistente Argento</b><small><i></i> online · responde na hora</small></div>
+        <button type="button" class="bot__reset" id="botReset" title="Recomeçar conversa" aria-label="Recomeçar conversa">↺</button>
+        <button type="button" class="bot__close" id="botClose" aria-label="Fechar assistente">×</button>
+      </header>
+      <div class="bot__msgs" id="botMsgs" aria-live="polite"></div>
+      <div class="bot__chips" id="botChips"></div>
+      <form class="bot__form" id="botForm" autocomplete="off">
+        <input id="botInput" type="text" placeholder="Digite sua pergunta…" aria-label="Sua pergunta" maxlength="300">
+        <button type="submit" aria-label="Enviar"><svg viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-2-6z"/></svg></button>
+      </form>
+    </section>
+    <button class="bot__fab" id="botFab" type="button" aria-label="Abrir assistente virtual" aria-expanded="false">
+      <span class="bot__fab-ico"><svg viewBox="0 0 24 24"><path d="M4 5h16v11H9l-5 4z"/><circle cx="9" cy="10.5" r="1"/><circle cx="12" cy="10.5" r="1"/><circle cx="15" cy="10.5" r="1"/></svg></span>
+      <span class="bot__fab-label">Dúvidas? Pergunte</span>
+    </button>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/bot.js"></script>
+</body>
+</html>
