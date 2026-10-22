@@ -19,5 +19,8 @@ window.ARGENTO = {
   // Coordenadas do pino da sede no mapa [latitude, longitude]
   hq: [-22.9068, -43.1729],
 
+  // Link "Avaliar no Google" (Perfil da Empresa → Pedir avaliações → copiar link)
+  googleReviewUrl: "",
+
   instagram: "", // ex.: "https://instagram.com/argentoescoramentos"
 };

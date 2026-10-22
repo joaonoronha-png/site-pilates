@@ -58,6 +58,29 @@ window.OBRAS = [
   },
 ].map((o) => ({ ...o, fotos: o.fotos.map(IMG) }));
 
+/* ================= AVALIAÇÕES =================
+   ATENÇÃO: os textos abaixo são EXEMPLOS para o layout (exemplo: true).
+   Substitua pelas avaliações reais dos clientes (nome, cargo/empresa,
+   nota, data e texto exatamente como publicados) e remova "exemplo".
+   Enquanto houver exemplos, o site mostra um aviso na seção.
+   ============================================== */
+window.AVALIACOES = [
+  { nome: "Cliente 1", cargo: "Engenheiro de obra", obra: "Obra educacional · RJ", nota: 5, exemplo: true,
+    texto: "O projeto de escoramento chegou com a planta de locação peça por peça. A montagem andou rápido e a laje foi concretada sem nenhum ajuste de última hora." },
+  { nome: "Cliente 2", cargo: "Gerente de contrato", obra: "Edifício institucional · MG", nota: 5, exemplo: true,
+    texto: "Entregas sincronizadas com o cronograma de concretagem. Não tivemos material parado no canteiro nem falta de peça em nenhum pavimento." },
+  { nome: "Cliente 3", cargo: "Diretor técnico", obra: "Torre residencial · MT", nota: 5, exemplo: true,
+    texto: "Mesmo com a obra longe do Rio, a logística funcionou. O reescoramento entre pavimentos foi planejado junto com a nossa equipe." },
+  { nome: "Cliente 4", cargo: "Engenheira responsável", obra: "Recuperação estrutural · RJ", nota: 5, exemplo: true,
+    texto: "Escoramento sob tabuleiro com torres em pé-direito alto. Equipe técnica presente, segura e muito clara nas orientações." },
+  { nome: "Cliente 5", cargo: "Mestre de obras", obra: "Complexo de lazer · RJ", nota: 5, exemplo: true,
+    texto: "Peças em bom estado, roscas e pinos funcionando. A conferência na entrega e na devolução foi rápida e sem discussão." },
+  { nome: "Cliente 6", cargo: "Coordenador de obras", obra: "Escola · Saquarema, RJ", nota: 5, exemplo: true,
+    texto: "Atendimento rápido pelo WhatsApp e proposta objetiva. Recebemos o quantitativo certo para cada etapa da laje." },
+  { nome: "Cliente 7", cargo: "Engenheiro de planejamento", obra: "Centro de convenções · RJ", nota: 5, exemplo: true,
+    texto: "Estrutura de grande porte e prazo apertado. A Argento ajudou a definir a sequência de desforma e cumpriu as datas combinadas." },
+];
+
 /* ================= RAIO-X ================= */
 window.XRAY = [
   { part: "laje", t: "Laje de concreto", d: "O concreto fresco pesa cerca de 2.500 kg/m³. Até atingir a resistência de projeto, todo esse peso — mais o de pessoas e equipamentos — é transferido para o escoramento.", tip: "Laje de 12 cm ≈ 300 kg/m² só de concreto." },
@@ -104,6 +127,11 @@ window.KB = [
     k: ["trabalhe conosco", "vaga", "vagas", "trabalhar", "emprego", "curriculo", "contratando", "trabalhar ai", "estagio"],
     a: () => `Que bom que quer fazer parte! Envie seu currículo para <a data-mail href='#'>${ARGENTO.email}</a> com o assunto <b>“Trabalhe conosco”</b> e a função desejada.`,
     go: ["sobre"] },
+
+  { id: "avaliacoes", q: "O que os clientes dizem da Argento?",
+    k: ["avaliacao", "avaliacoes", "depoimento", "depoimentos", "opiniao", "recomendam", "reclamacao", "reclame aqui", "confiavel", "boa empresa", "google"],
+    a: "Você pode ver as avaliações na seção <a href='#avaliacoes' data-close>Avaliações</a> do site. Já é cliente? Sua opinião ajuda muito — deixe uma avaliação no Google pelo botão da seção.",
+    go: ["obras", "contato"] },
 
   // ---------- Conceitos ----------
   { id: "oque", q: "O que é escoramento?", faq: true,

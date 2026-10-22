@@ -231,6 +231,58 @@
   placeLine(); addEventListener("resize", placeLine);
 
   /* =========================================================
+     AVALIAÇÕES
+     ========================================================= */
+  const RV = window.AVALIACOES || [];
+  const rail = $("#rvRail");
+  const star = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5l2.6 5.5 6 .7-4.4 4.1 1.2 5.9L10 14.8 4.6 17.7l1.2-5.9L1.4 7.7l6-.7z"/></svg>';
+  const stars = (n) => Array.from({ length: 5 }, (_, i) => `<span class="${i < Math.round(n) ? "on" : ""}">${star}</span>`).join("");
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  rail.innerHTML = RV.map((r, i) => `
+    <article class="rv-card" aria-label="Avaliação ${i + 1} de ${RV.length}">
+      <div class="rv-card__top">
+        <span class="rv-stars" role="img" aria-label="${r.nota} de 5 estrelas">${stars(r.nota)}</span>
+        ${r.exemplo ? '<span class="rv-tag">Exemplo</span>' : ""}
+      </div>
+      <p class="rv-card__text">${esc(r.texto)}</p>
+      <footer class="rv-card__who">
+        <span class="rv-av" aria-hidden="true">${esc(r.nome.trim()[0] || "?")}</span>
+        <span><b>${esc(r.nome)}</b><small>${esc(r.cargo)}${r.obra ? " · " + esc(r.obra) : ""}</small></span>
+        ${r.data ? `<time>${esc(r.data)}</time>` : ""}
+      </footer>
+    </article>`).join("");
+  if (RV.length) {
+    const avg = RV.reduce((a, r) => a + r.nota, 0) / RV.length;
+    $("#rvAvg").textContent = avg.toFixed(1).replace(".", ",");
+    $("#rvStars").innerHTML = stars(avg);
+    const demo = RV.some((r) => r.exemplo);
+    $("#rvCount").textContent = demo ? `${RV.length} avaliações de exemplo` : `${RV.length} avaliações`;
+    $("#rvSummary").classList.toggle("is-demo", demo);
+    $("#rvNote").hidden = !demo;
+  }
+  $("#rvCta").href = C.googleReviewUrl || `https://www.google.com/search?q=${encodeURIComponent("Argento Escoramentos avaliações")}`;
+
+  const cards = $$(".rv-card", rail);
+  const rvDots = $("#rvDots");
+  rvDots.innerHTML = cards.map((_, i) => `<button type="button" aria-label="Ir para avaliação ${i + 1}"></button>`).join("");
+  const dotBtns = $$("button", rvDots);
+  const current = () => { const x = rail.scrollLeft; let best = 0, d = Infinity; cards.forEach((c, i) => { const dd = Math.abs(c.offsetLeft - rail.offsetLeft - x); if (dd < d) { d = dd; best = i; } }); return best; };
+  const goTo = (i) => { const c = cards[(i + cards.length) % cards.length]; rail.scrollTo({ left: c.offsetLeft - rail.offsetLeft, behavior: reduced ? "auto" : "smooth" }); };
+  const syncDots = () => { const k = current(); dotBtns.forEach((b, i) => b.classList.toggle("is-on", i === k)); };
+  dotBtns.forEach((b, i) => b.addEventListener("click", () => goTo(i)));
+  $("#rvPrev").addEventListener("click", () => goTo(current() - 1));
+  $("#rvNext").addEventListener("click", () => { const k = current(); const atEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4; goTo(atEnd ? 0 : k + 1); });
+  rail.addEventListener("scroll", () => requestAnimationFrame(syncDots), { passive: true });
+  rail.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { e.preventDefault(); $("#rvNext").click(); } if (e.key === "ArrowLeft") { e.preventDefault(); $("#rvPrev").click(); } });
+  syncDots();
+  // autoplay suave, pausa quando o visitante interage
+  let rvPaused = false, rvVisible = false;
+  ["mouseenter", "focusin", "touchstart"].forEach((ev) => rail.addEventListener(ev, () => (rvPaused = true), { passive: true }));
+  ["mouseleave", "focusout"].forEach((ev) => rail.addEventListener(ev, () => (rvPaused = false)));
+  new IntersectionObserver((en) => (rvVisible = en[0].isIntersecting), { threshold: 0.4 }).observe(rail);
+  if (!reduced) setInterval(() => { if (rvVisible && !rvPaused && !document.hidden) $("#rvNext").click(); }, 5500);
+
+  /* =========================================================
      SIMULADOR DE ORÇAMENTO
      ========================================================= */
   const form = $("#quoteForm");
