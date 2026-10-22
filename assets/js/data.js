@@ -58,6 +58,19 @@ window.OBRAS = [
   },
 ].map((o) => ({ ...o, fotos: o.fotos.map(IMG) }));
 
+/* ================= OBRA EM DESTAQUE =================
+   Para mostrar fotos, coloque os arquivos em assets/img/obras/ e liste
+   os nomes em "fotos" (ex.: ["barra-dor-01", "barra-dor-02"]).
+   Sem fotos, o site exibe a ilustração técnica.
+   ===================================================== */
+window.DESTAQUE = {
+  id: "barra-dor", nome: "Hospital Barra D'Or", cidade: "Barra da Tijuca · Rio de Janeiro", uf: "RJ",
+  seg: "Saúde", coords: [-22.981, -43.365],
+  desc: "Participação da Argento no escoramento da estrutura de concreto de um dos hospitais mais renomados do Rio de Janeiro.",
+  fotos: [],
+};
+window.DESTAQUE.fotos = window.DESTAQUE.fotos.map(IMG);
+
 /* ================= AVALIAÇÕES =================
    ATENÇÃO: os textos abaixo são EXEMPLOS para o layout (exemplo: true).
    Substitua pelas avaliações reais dos clientes (nome, cargo/empresa,
@@ -65,8 +78,8 @@ window.OBRAS = [
    Enquanto houver exemplos, o site mostra um aviso na seção.
    ============================================== */
 window.AVALIACOES = [
-  { nome: "Cliente 1", cargo: "Engenheiro de obra", obra: "Obra educacional · RJ", nota: 5, exemplo: true,
-    texto: "O projeto de escoramento chegou com a planta de locação peça por peça. A montagem andou rápido e a laje foi concretada sem nenhum ajuste de última hora." },
+  { nome: "Cliente 1", cargo: "Engenheiro de obra", obra: "Obra hospitalar · Barra da Tijuca, RJ", nota: 5, exemplo: true,
+    texto: "Hospital não admite improviso: lajes com carga de equipamentos e cronograma apertado. O escoramento veio com planta de locação peça por peça e cada concretagem saiu na data." },
   { nome: "Cliente 2", cargo: "Gerente de contrato", obra: "Edifício institucional · MG", nota: 5, exemplo: true,
     texto: "Entregas sincronizadas com o cronograma de concretagem. Não tivemos material parado no canteiro nem falta de peça em nenhum pavimento." },
   { nome: "Cliente 3", cargo: "Diretor técnico", obra: "Torre residencial · MT", nota: 5, exemplo: true,
@@ -109,7 +122,7 @@ window.KB = [
     go: ["frete", "obras", "orcamento"] },
   { id: "obras", q: "Quais obras vocês já fizeram?",
     k: ["obras", "portfolio", "portifolio", "ja fizeram", "clientes", "cases", "experiencia", "referencias", "trabalhos"],
-    a: "Alguns destaques: <b>Escola Técnica FAETEC (RJ)</b>, <b>Tribunal de Justiça (MG)</b>, <b>Residencial Epic Tower (Sorriso/MT)</b>, <b>Escola Técnica Paranoá (DF)</b>, <b>SESC Rio das Ostras</b> e <b>SESC Itaperuna (RJ)</b>, <b>recuperação estrutural de viaduto (RJ)</b>, <b>escola em Saquarema</b> e um <b>centro de convenções (RJ)</b>. <a href='#obras' data-close>Ver galeria de obras →</a>",
+    a: "Nosso grande destaque é o <b>Hospital Barra D'Or</b>, na Barra da Tijuca (RJ). Também participamos de: <b>Escola Técnica FAETEC (RJ)</b>, <b>Tribunal de Justiça (MG)</b>, <b>Residencial Epic Tower (Sorriso/MT)</b>, <b>Escola Técnica Paranoá (DF)</b>, <b>SESC Rio das Ostras</b> e <b>SESC Itaperuna (RJ)</b>, <b>recuperação estrutural de viaduto (RJ)</b>, <b>escola em Saquarema</b> e um <b>centro de convenções (RJ)</b>. <a href='#obras' data-close>Ver galeria de obras →</a>",
     go: ["publica", "viaduto", "orcamento"] },
   { id: "endereco", q: "Onde vocês ficam? Qual o endereço?",
     k: ["endereco", "onde fica", "onde ficam", "localizacao", "local", "sede", "escritorio", "deposito", "patio", "visitar", "como chegar", "mapa"],
@@ -132,6 +145,11 @@ window.KB = [
     k: ["avaliacao", "avaliacoes", "depoimento", "depoimentos", "opiniao", "recomendam", "reclamacao", "reclame aqui", "confiavel", "boa empresa", "google"],
     a: "Você pode ver as avaliações na seção <a href='#avaliacoes' data-close>Avaliações</a> do site. Já é cliente? Sua opinião ajuda muito — deixe uma avaliação no Google pelo botão da seção.",
     go: ["obras", "contato"] },
+
+  { id: "hospital", q: "Vocês fizeram o Hospital Barra D'Or?",
+    k: ["barra dor", "barra d or", "rede dor", "hospital", "hospitais", "hospitalar", "saude", "clinica", "barra da tijuca"],
+    a: "Sim! A Argento participou do escoramento da estrutura do <b>Hospital Barra D'Or</b>, na Barra da Tijuca (RJ) — uma das obras de que mais nos orgulhamos. Obras hospitalares exigem lajes para cargas de equipamentos, entreforros técnicos altos e cronograma sem margem. <a href='#destaque' data-close>Ver a obra em destaque →</a>",
+    go: ["obras", "torres", "orcamento"] },
 
   // ---------- Conceitos ----------
   { id: "oque", q: "O que é escoramento?", faq: true,

@@ -112,10 +112,11 @@
             <a href="#orcamento" class="btn btn--yellow magnetic">Simular meu orçamento <span aria-hidden="true">→</span></a>
             <a href="#obras" class="btn btn--ghost magnetic">Ver obras realizadas</a>
           </div>
+          <a href="#destaque" class="hero__feat reveal"><span class="hero__feat-star" aria-hidden="true">★</span><span><small>Obra em destaque</small><b>Hospital Barra D'Or · Barra da Tijuca</b></span><span class="hero__feat-go" aria-hidden="true">→</span></a>
           <ul class="hero__stats reveal">
-            <li><b data-count="9">0</b><span>obras em destaque</span></li>
+            <li><b data-count="10">0</b><span>obras em destaque</span></li>
             <li><b data-count="4">0</b><span>estados atendidos</span></li>
-            <li><b data-count="6">0</b><span>segmentos de obra</span></li>
+            <li><b data-count="7">0</b><span>segmentos de obra</span></li>
           </ul>
         </div>
 
@@ -145,7 +146,7 @@
     <!-- ================= TICKER ================= -->
     <div class="ticker" aria-label="Algumas obras">
       <div class="ticker__track">
-        <span>FAETEC · RJ</span><i></i><span>Tribunal de Justiça · MG</span><i></i><span>Epic Tower · Sorriso, MT</span><i></i><span>Escola Técnica · Paranoá, DF</span><i></i><span>SESC · Rio das Ostras, RJ</span><i></i><span>SESC · Itaperuna, RJ</span><i></i><span>Recuperação de Viaduto · RJ</span><i></i><span>Escola · Saquarema, RJ</span><i></i><span>Centro de Convenções · RJ</span><i></i>
+        <span class="t-star">★ Hospital Barra D'Or · Barra da Tijuca, RJ</span><i></i><span>FAETEC · RJ</span><i></i><span>Tribunal de Justiça · MG</span><i></i><span>Epic Tower · Sorriso, MT</span><i></i><span>Escola Técnica · Paranoá, DF</span><i></i><span>SESC · Rio das Ostras, RJ</span><i></i><span>SESC · Itaperuna, RJ</span><i></i><span>Recuperação de Viaduto · RJ</span><i></i><span>Escola · Saquarema, RJ</span><i></i><span>Centro de Convenções · RJ</span><i></i>
       </div>
     </div>
 
@@ -291,7 +292,7 @@
         <header class="sec-head sec-head--split">
           <div>
             <p class="kicker">03 — Obras</p>
-            <h2 class="reveal">Do Rio ao Mato Grosso: <em>estruturas que ajudamos a erguer.</em></h2>
+            <h2 class="reveal">Do Barra D'Or ao Mato Grosso: <em>estruturas que ajudamos a erguer.</em></h2>
           </div>
           <div class="filters" role="tablist" aria-label="Filtrar obras" id="filters">
             <button class="chip is-on" data-filter="all">Todas</button>
@@ -301,6 +302,52 @@
             <button class="chip" data-filter="DF">DF</button>
           </div>
         </header>
+
+        <article class="feat" id="destaque">
+          <div class="feat__copy">
+            <p class="feat__kicker"><span aria-hidden="true">★</span> Obra em destaque</p>
+            <h3 class="feat__title">Hospital <em>Barra D'Or</em></h3>
+            <ul class="feat__meta">
+              <li>Saúde</li><li>Barra da Tijuca · Rio de Janeiro, RJ</li>
+            </ul>
+            <p class="feat__lead">A Argento participou do escoramento da estrutura de concreto de um dos hospitais mais renomados do Rio de Janeiro. É a obra que melhor resume o que fazemos.</p>
+            <ul class="feat__points">
+              <li><b>Cargas elevadas</b><span>Lajes para equipamentos médicos pesados pedem uma malha de escoramento precisa.</span></li>
+              <li><b>Entreforros técnicos</b><span>Pés-direitos maiores para dutos e instalações exigem torres e travamento cuidadoso.</span></li>
+              <li><b>Cronograma sem folga</b><span>Hospital tem data para abrir: entrega e retirada no ritmo de cada concretagem.</span></li>
+            </ul>
+            <div class="feat__ctas">
+              <a href="#orcamento" class="btn btn--yellow btn--sm">Quero esse padrão na minha obra →</a>
+              <button type="button" class="btn btn--ghost btn--sm" id="featMap">Ver no mapa</button>
+            </div>
+          </div>
+          <div class="feat__visual" id="featVisual">
+            <svg class="feat__svg" viewBox="0 0 600 460" role="img" aria-label="Ilustração técnica de um hospital em construção, com torres de escoramento sob a laje superior">
+              <defs><pattern id="fgrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#f4f2ec" stroke-opacity=".06"/></pattern></defs>
+              <rect width="600" height="460" fill="url(#fgrid)"/>
+              <g class="fs fs--build">
+                <path d="M60 410 H560"/>
+                <path d="M80 410 V170 M440 410 V170"/>
+                <path d="M80 362 H440 M80 314 H440 M80 266 H440 M80 218 H440 M80 170 H440"/>
+                <path d="M110 395 V377 H150 V395 M190 395 V377 H230 V395 M110 347 V329 H150 V347 M190 347 V329 H230 V347 M270 347 V329 H310 V347 M110 299 V281 H150 V299 M190 299 V281 H230 V299 M270 299 V281 H310 V299 M110 251 V233 H150 V251 M190 251 V233 H230 V251 M270 251 V233 H310 V251 M110 203 V185 H150 V203 M190 203 V185 H230 V203 M270 203 V185 H310 V203"/>
+                <path d="M250 410 V380 H300 V410"/>
+              </g>
+              <g class="fs fs--cross"><circle cx="385" cy="290" r="30"/><path d="M385 272 V308 M367 290 H403"/></g>
+              <g class="fs fs--towers">
+                <path d="M100 170 V126 M130 170 V126 M100 148 H130 M100 170 L130 126"/>
+                <path d="M180 170 V126 M210 170 V126 M180 148 H210 M180 170 L210 126"/>
+                <path d="M260 170 V126 M290 170 V126 M260 148 H290 M260 170 L290 126"/>
+                <path d="M340 170 V126 M370 170 V126 M340 148 H370 M340 170 L370 126"/>
+                <path d="M410 170 V126 M440 170 V126 M410 148 H440 M410 170 L440 126"/>
+              </g>
+              <g class="fs fs--slab"><path d="M70 126 H470 M70 112 H470 M70 112 V126 M470 112 V126"/></g>
+              <g class="fs fs--crane"><path d="M510 410 V60 M522 410 V60 M510 380 L522 350 L510 320 L522 290 L510 260 L522 230 L510 200 L522 170 L510 140 L522 110 L510 80"/><path d="M470 60 H590 M516 60 L516 40 L470 60 M516 40 L590 60"/><path d="M455 60 V96"/><rect x="445" y="96" width="20" height="10"/></g>
+              <g class="fs-dim"><path d="M40 170 V410 M34 170 H46 M34 410 H46"/><text x="30" y="290" transform="rotate(-90 30 290)">PAVIMENTOS</text><text x="70" y="100">LAJE EM CONCRETAGEM · TORRES DE ESCORAMENTO</text></g>
+            </svg>
+            <div class="feat__photos" id="featPhotos" hidden></div>
+            <span class="feat__stamp">Barra da Tijuca · RJ</span>
+          </div>
+        </article>
 
         <div class="works" id="works"></div>
         <p class="works__note">Clique numa obra para abrir a galeria completa.</p>

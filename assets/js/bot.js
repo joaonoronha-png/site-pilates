@@ -86,7 +86,7 @@
   }
 
   function match(q) {
-    const text = " " + norm(q).replace(/[?!.,;:]/g, " ").replace(/\s+/g, " ") + " ";
+    const text = " " + norm(q).replace(/[?!.,;:'’]/g, " ").replace(/\s+/g, " ") + " ";
     const toks = tokens(text);
     const ranked = ALL.map((it) => ({ it, s: score(text, toks, it) })).filter((r) => r.s > 0).sort((a, b) => b.s - a.s);
     // saudações só vencem se a frase for curta

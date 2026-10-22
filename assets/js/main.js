@@ -158,7 +158,9 @@
      OBRAS + LIGHTBOX
      ========================================================= */
   const works = $("#works");
-  works.innerHTML = window.OBRAS.map((o, i) => `
+  const D = window.DESTAQUE;
+  if (D && D.fotos.length) window.OBRAS.push({ ...D, hideInGrid: true });
+  works.innerHTML = window.OBRAS.map((o, i) => o.hideInGrid ? "" : `
     <button class="work ${o.size ? "work--" + o.size : ""} reveal" data-uf="${o.uf}" data-i="${i}" aria-label="Abrir galeria: ${o.nome}">
       <img src="${o.fotos[0]}" alt="${o.nome} — ${o.cidade}/${o.uf}" loading="lazy">
       <span class="work__uf">${o.uf}</span>
@@ -213,6 +215,23 @@
   let tx = null;
   lb.addEventListener("touchstart", (e) => (tx = e.touches[0].clientX), { passive: true });
   lb.addEventListener("touchend", (e) => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) stepLB(dx < 0 ? 1 : -1); tx = null; });
+
+  /* ---------- obra em destaque ---------- */
+  const feat = $("#destaque");
+  if (D && feat) {
+    if (!reduced) feat.classList.add("js-draw");
+    new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { feat.classList.add("is-drawn"); o.disconnect(); } }, { threshold: 0.3 }).observe(feat);
+    if (D.fotos.length) {
+      const box = $("#featPhotos");
+      box.innerHTML = D.fotos.slice(0, 3).map((f, k) => `<button type="button" data-k="${k}" aria-label="Abrir foto ${k + 1} de ${D.nome}"><img src="${f}" alt="${D.nome} — foto ${k + 1}" loading="lazy"></button>`).join("");
+      box.hidden = false; $(".feat__svg", feat).style.display = "none";
+      $$("button", box).forEach((b) => b.addEventListener("click", () => openLB(window.OBRAS.findIndex((o) => o.id === D.id), +b.dataset.k)));
+    }
+    $("#featMap").addEventListener("click", () => {
+      $("#map").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+      initMap(); setTimeout(() => window.argentoFocusDestaque && window.argentoFocusDestaque(), 900);
+    });
+  }
 
   /* =========================================================
      PROCESSO — linha que preenche
@@ -413,14 +432,26 @@
         `<div class="pop"><img src="${o.fotos[0]}" alt=""><b>${o.nome}</b><span>${o.cidade}/${o.uf} · ${o.seg}</span><br><button type="button" data-obra="${o.id}">Ver galeria (${o.fotos.length})</button></div>`
       );
     }));
+    if (D) {
+      const dIcon = L.divIcon({ className: "pin-wrap", html: '<div class="pin pin--star">★</div>', iconSize: [40, 46], iconAnchor: [20, 46], popupAnchor: [0, -42] });
+      const dm = L.marker(D.coords, { icon: dIcon, title: D.nome, zIndexOffset: 1000 }).bindPopup(
+        `<div class="pop">${D.fotos[0] ? `<img src="${D.fotos[0]}" alt="">` : ""}<b>★ ${D.nome}</b><span>${D.cidade}/${D.uf} · ${D.seg}</span><br><button type="button" data-destaque>Ver obra em destaque</button></div>`
+      );
+      obras.addLayer(dm);
+      window.argentoFocusDestaque = () => { if (!map.hasLayer(obras)) { obras.addTo(map); $('[data-layer="obras"]').classList.add("is-on"); } map.flyTo(D.coords, Math.min(13, map.getMaxZoom()), { duration: 1.2 }); setTimeout(() => dm.openPopup(), 1300); };
+    }
     sede.addTo(map); obras.addTo(map);
     const layers = { sede, obras };
-    map.on("popupopen", (e) => { const b = e.popup.getElement().querySelector("[data-obra]"); if (b) b.addEventListener("click", () => window.argentoOpenObra(b.dataset.obra)); });
+    map.on("popupopen", (e) => {
+      const el = e.popup.getElement();
+      const b = el.querySelector("[data-obra]"); if (b) b.addEventListener("click", () => window.argentoOpenObra(b.dataset.obra));
+      const d = el.querySelector("[data-destaque]"); if (d) d.addEventListener("click", () => $("#destaque").scrollIntoView({ behavior: "smooth", block: "start" }));
+    });
 
     const fitAll = () => {
       const pts = [];
       if (map.hasLayer(sede)) pts.push(C.hq);
-      if (map.hasLayer(obras)) window.OBRAS.forEach((o) => pts.push(o.coords));
+      if (map.hasLayer(obras)) { window.OBRAS.forEach((o) => pts.push(o.coords)); if (D) pts.push(D.coords); }
       if (pts.length) map.flyToBounds(L.latLngBounds(pts), { padding: [50, 50], duration: 1.2, maxZoom: 11 });
     };
     $$("[data-layer]").forEach((b) => b.addEventListener("click", () => {
