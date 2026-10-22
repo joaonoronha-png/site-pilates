@@ -379,7 +379,29 @@
     $("#mapFit").addEventListener("click", fitAll);
     setTimeout(fitAll, 400);
   }
-  $("#routeBtn").href = `https://www.google.com/maps/dir/?api=1&destination=${C.hq.join(",")}`;
+  /* ---------- botão de rotas (Uber, Mapas do iPhone, Waze, Google Maps) ---------- */
+  const [lat, lng] = C.hq;
+  const dest = encodeURIComponent(C.address);
+  const routes = {
+    uber: `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}&dropoff[nickname]=${encodeURIComponent("Argento Escoramentos")}&dropoff[formatted_address]=${dest}`,
+    apple: `https://maps.apple.com/?daddr=${lat},${lng}&q=${encodeURIComponent("Argento Escoramentos")}`,
+    waze: `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`,
+    google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+  };
+  $$("[data-route]").forEach((a) => (a.href = routes[a.dataset.route]));
+  const routeMenu = $("#routeMenu"), mapFab = $("#mapFab");
+  function toggleRoutes(open) {
+    const o = open ?? routeMenu.hidden;
+    routeMenu.hidden = !o;
+    mapFab.setAttribute("aria-expanded", o);
+    if (o) routeMenu.querySelector("a").focus({ preventScroll: true });
+  }
+  mapFab.addEventListener("click", (e) => { e.stopPropagation(); toggleRoutes(); });
+  $("#routeBtn").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); toggleRoutes(true); });
+  $("#routeBtn").href = routes.google;
+  $$("a", routeMenu).forEach((a) => a.addEventListener("click", () => toggleRoutes(false)));
+  document.addEventListener("click", (e) => { if (!routeMenu.hidden && !e.target.closest(".fab-wrap--map")) toggleRoutes(false); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !routeMenu.hidden) { toggleRoutes(false); mapFab.focus(); } });
   new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { initMap(); o.disconnect(); } }, { rootMargin: "300px" }).observe($("#map"));
 
   onScroll();

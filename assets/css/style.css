@@ -543,18 +543,47 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
    CHATBOT
    ========================================================= */
 .bot { position: fixed; right: max(18px, env(safe-area-inset-right)); bottom: max(18px, env(safe-area-inset-bottom)); z-index: 300; display: grid; justify-items: end; gap: 12px; }
-.bot__fab {
-  display: flex; align-items: center; gap: 10px; border: 0; background: var(--yellow); color: var(--ink);
-  padding: 8px 20px 8px 8px; border-radius: 999px; font-weight: 800; font-size: .95rem;
-  box-shadow: 0 18px 40px -14px rgba(0,0,0,.55), 0 0 0 4px rgba(254,228,91,.25); transition: transform .35s var(--ease), padding .35s var(--ease);
+/* botões flutuantes redondos */
+.fabs { display: grid; gap: 12px; justify-items: end; }
+.fab-wrap { position: relative; }
+.fab {
+  width: 58px; height: 58px; border-radius: 50%; border: 0; display: grid; place-items: center; position: relative;
+  text-decoration: none; box-shadow: 0 16px 34px -12px rgba(0,0,0,.55); transition: transform .35s var(--ease), box-shadow .35s;
 }
-.bot__fab:hover { transform: translateY(-3px); }
-.bot__fab-ico { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); display: grid; place-items: center; position: relative; }
-.bot__fab-ico::after { content: ""; position: absolute; top: 2px; right: 2px; width: 11px; height: 11px; border-radius: 50%; background: #3ddc84; border: 2px solid var(--ink); }
-.bot__fab-ico svg { width: 22px; height: 22px; fill: none; stroke: var(--yellow); stroke-width: 2; stroke-linejoin: round; }
-.bot__fab-ico svg circle { fill: var(--yellow); stroke: none; }
-.bot.is-open .bot__fab-label { display: none; }
-.bot.is-open .bot__fab { padding: 8px; }
+.fab:hover { transform: translateY(-3px) scale(1.04); }
+.fab svg { width: 26px; height: 26px; }
+.fab--map { background: var(--teal); color: var(--paper); box-shadow: 0 16px 34px -12px rgba(0,0,0,.55), 0 0 0 3px rgba(244,242,236,.18); }
+.fab--map svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.fab--map[aria-expanded="true"] { background: var(--paper); color: var(--teal); }
+.fab--wa { background: #25d366; color: #fff; box-shadow: 0 16px 34px -12px rgba(0,0,0,.55), 0 0 0 3px rgba(37,211,102,.25); }
+.fab--wa svg { fill: currentColor; width: 28px; height: 28px; }
+.fab--bot { background: var(--yellow); color: var(--ink); box-shadow: 0 16px 34px -12px rgba(0,0,0,.55), 0 0 0 4px rgba(254,228,91,.28); }
+.fab--bot svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.fab--bot svg circle { fill: currentColor; stroke: none; }
+.fab--bot .ico-close { display: none; }
+.bot.is-open .fab--bot .ico-open, .bot.is-open .fab__dot { display: none; }
+.bot.is-open .fab--bot .ico-close { display: block; }
+.bot.is-open .fab-wrap--map, .bot.is-open .fab--wa { display: none; }
+.fab__dot { position: absolute; top: 4px; right: 4px; width: 13px; height: 13px; border-radius: 50%; background: #3ddc84; border: 2px solid var(--yellow); }
+.route-menu {
+  position: absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); width: 236px;
+  background: var(--white); color: var(--text); border-radius: 18px; padding: 10px; display: grid; gap: 2px;
+  box-shadow: 0 24px 50px -18px rgba(0,0,0,.55); transform-origin: right center; animation: menuIn .3s var(--ease);
+}
+@keyframes menuIn { from { opacity: 0; transform: translateY(-50%) scale(.94); } }
+.route-menu__title { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 6px 10px 8px; }
+.route-opt { display: flex; align-items: center; gap: 12px; padding: 9px 10px; border-radius: 12px; text-decoration: none; font-weight: 700; font-size: .95rem; transition: background .2s; }
+.route-opt:hover, .route-opt:focus-visible { background: var(--paper); }
+.route-opt__ico { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.route-opt__ico svg { width: 19px; height: 19px; fill: none; stroke: #fff; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.route-opt__ico--uber { background: #000; }
+.route-opt__ico--apple { background: linear-gradient(135deg, #5ac8fa, #007aff); }
+.route-opt__ico--apple svg { fill: #fff; stroke: none; }
+.route-opt__ico--waze { background: #33ccff; }
+.route-opt__ico--waze svg { stroke: #0b2229; }
+.route-opt__ico--waze svg circle { fill: #0b2229; stroke: none; }
+.route-opt__ico--google { background: #fff; border: 1.5px solid var(--line); }
+.route-opt__ico--google svg { stroke: #ea4335; }
 .bot__hint { position: relative; max-width: 260px; background: var(--white); color: var(--text); padding: 14px 34px 14px 16px; border-radius: 16px 16px 4px 16px; box-shadow: 0 20px 40px -18px rgba(0,0,0,.5); font-size: .92rem; animation: lbIn .5s var(--ease); }
 .bot__hint-x { position: absolute; top: 6px; right: 6px; border: 0; background: transparent; font-size: 1.1rem; width: 26px; height: 26px; color: var(--muted); }
 .bot__panel {
@@ -643,8 +672,7 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
   .lightbox__arrow--prev { grid-row: 2; grid-column: 1; }
   .lightbox__arrow--next { grid-row: 2; grid-column: 2; }
   .lightbox__thumbs { grid-row: 3; justify-content: flex-start; }
-  .bot__fab-label { display: none; }
-  .bot__fab { padding: 8px; }
+  .fab { width: 52px; height: 52px; }
   .bot__panel { height: calc(100svh - 100px); }
   .mapbox__route { left: 16px; right: 16px; }
 }
