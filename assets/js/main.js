@@ -290,8 +290,9 @@
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     if (!validate()) return;
-    window.open(waLink(buildMsg()), "_blank", "noopener");
-    $("#formMsg").textContent = "Abrimos o WhatsApp com seu pedido pronto. É só enviar! ✅";
+    const url = waLink(buildMsg());
+    window.open(url, "_blank", "noopener");
+    $("#formMsg").innerHTML = `Pedido pronto! Se o WhatsApp não abriu, <a href="${url}" target="_blank" rel="noopener">toque aqui para enviar</a>.`;
   });
   $("#quoteMail").addEventListener("click", () => {
     if (!validate()) return;
@@ -338,8 +339,15 @@
     if (map || !window.L) return;
     map = L.map("map", { scrollWheelZoom: false, zoomControl: true, attributionControl: true }).setView(C.hq, 7);
     const esri = "https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/";
-    L.tileLayer(esri + "World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16, attribution: "Tiles &copy; Esri — Esri, HERE, Garmin, &copy; OpenStreetMap contributors" }).addTo(map);
-    L.tileLayer(esri + "World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16 }).addTo(map);
+    const attribution = "Tiles &copy; Esri — Esri, HERE, Garmin, &copy; OpenStreetMap contributors";
+    if (window.ARGENTO_TILES) { // tiles locais (versão de preview)
+      const T = window.ARGENTO_TILES;
+      map.setMinZoom(T.minZoom); map.setMaxZoom(T.maxZoom); map.setMaxBounds(T.bounds);
+      L.tileLayer(T.url, { minZoom: T.minZoom, maxZoom: T.maxZoom, attribution }).addTo(map);
+    } else {
+      L.tileLayer(esri + "World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16, attribution }).addTo(map);
+      L.tileLayer(esri + "World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16 }).addTo(map);
+    }
     map.on("click", () => map.scrollWheelZoom.enable());
     map.on("mouseout", () => map.scrollWheelZoom.disable());
 
