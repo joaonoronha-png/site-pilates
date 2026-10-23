@@ -4,55 +4,55 @@ const IMG = (n) => `assets/img/obras/${n}.jpg`;
 window.OBRAS = [
   {
     id: "faetec", nome: "Escola Técnica FAETEC", cidade: "Rio de Janeiro", uf: "RJ",
-    seg: "Educação", coords: [-22.874, -43.335], size: "xl",
+    seg: "Educação", coords: [-22.874, -43.335], aprox: true, size: "xl",
     desc: "Estrutura em concreto aparente com balanços inclinados e lajes em vários níveis — escoramento em torres para vencer alturas e grandes projeções.",
     fotos: ["faetec-01", "faetec-03", "faetec-02", "faetec-05", "faetec-04", "faetec-06"],
   },
   {
     id: "tjmg", nome: "Tribunal de Justiça", cidade: "Minas Gerais", uf: "MG",
-    seg: "Judiciário", coords: [-19.9167, -43.9345],
+    seg: "Judiciário", coords: [-19.9227, -43.9451], aprox: true,
     desc: "Edifício institucional de múltiplos pavimentos com escoramento de lajes e vigas pavimento a pavimento.",
     fotos: ["tjmg-01", "tjmg-02", "tjmg-04", "tjmg-03"],
   },
   {
     id: "epic", nome: "Residencial Epic Tower", cidade: "Sorriso", uf: "MT",
-    seg: "Residencial", coords: [-12.5425, -55.7211], size: "tall",
+    seg: "Residencial", coords: [-12.5445, -55.7234], aprox: true, size: "tall",
     desc: "Torre residencial com ciclo vertical de concretagens, incluindo laje nervurada escorada com escoras metálicas reguláveis.",
     fotos: ["epic-01", "epic-02", "epic-03", "epic-04", "epic-05"],
   },
   {
     id: "paranoa", nome: "Escola Técnica Paranoá", cidade: "Paranoá", uf: "DF",
-    seg: "Educação", coords: [-15.7745, -47.7797],
+    seg: "Educação", coords: [-15.7808, -47.7849],
     desc: "Escoramento de lajes e vigas com torres para pé-direito elevado em edificação educacional.",
     fotos: ["paranoa-01", "paranoa-02", "paranoa-03"],
   },
   {
     id: "sesc-ro", nome: "SESC Rio das Ostras", cidade: "Rio das Ostras", uf: "RJ",
-    seg: "Lazer & Cultura", coords: [-22.5269, -41.945],
+    seg: "Lazer & Cultura", coords: [-22.5269, -41.945], aprox: true,
     desc: "Complexo de lazer com lajes de grandes vãos e beirais em balanço.",
     fotos: ["sesc-ro-01", "sesc-ro-02", "sesc-ro-03"],
   },
   {
     id: "sesc-ita", nome: "SESC Itaperuna", cidade: "Itaperuna", uf: "RJ",
-    seg: "Lazer & Cultura", coords: [-21.205, -41.888], size: "wide",
+    seg: "Lazer & Cultura", coords: [-21.207, -41.8894], aprox: true, size: "wide",
     desc: "Edificação horizontal extensa com escoramento distribuído em várias frentes de concretagem.",
     fotos: ["sesc-ita-01", "sesc-ita-02", "sesc-ita-03"],
   },
   {
     id: "viaduto", nome: "Recuperação Estrutural de Viaduto", cidade: "Rio de Janeiro", uf: "RJ",
-    seg: "Infraestrutura", coords: [-22.889, -43.255], size: "tall",
+    seg: "Infraestrutura", coords: [-22.889, -43.255], aprox: true, size: "tall",
     desc: "Torres de escoramento sob tabuleiro e junto aos pilares para aliviar a estrutura durante o reforço e a recuperação.",
     fotos: ["viaduto-03", "viaduto-01", "viaduto-02", "viaduto-04", "viaduto-05"],
   },
   {
     id: "saquarema", nome: "Escola Saquarema", cidade: "Saquarema", uf: "RJ",
-    seg: "Educação", coords: [-22.9292, -42.5103],
+    seg: "Educação", coords: [-22.9324, -42.4969], aprox: true,
     desc: "Malha de escoramento com vigas metálicas e escoras para lajes da escola.",
     fotos: ["saquarema-01", "saquarema-02", "saquarema-03"],
   },
   {
     id: "convencao", nome: "Centro de Convenções", cidade: "Rio de Janeiro", uf: "RJ",
-    seg: "Eventos", coords: [-22.975, -43.39],
+    seg: "Eventos", coords: [-22.975, -43.39], aprox: true,
     desc: "Estrutura de grande porte em concreto para centro de eventos e convenções.",
     fotos: ["convencao-01"],
   },
@@ -70,29 +70,6 @@ window.DESTAQUE = {
   fotos: [],
 };
 window.DESTAQUE.fotos = window.DESTAQUE.fotos.map(IMG);
-
-/* ================= AVALIAÇÕES =================
-   ATENÇÃO: os textos abaixo são EXEMPLOS para o layout (exemplo: true).
-   Substitua pelas avaliações reais dos clientes (nome, cargo/empresa,
-   nota, data e texto exatamente como publicados) e remova "exemplo".
-   Enquanto houver exemplos, o site mostra um aviso na seção.
-   ============================================== */
-window.AVALIACOES = [
-  { nome: "Cliente 1", cargo: "Engenheiro de obra", obra: "Obra hospitalar · Barra da Tijuca, RJ", nota: 5, exemplo: true,
-    texto: "Hospital não admite improviso: lajes com carga de equipamentos e cronograma apertado. O escoramento veio com planta de locação peça por peça e cada concretagem saiu na data." },
-  { nome: "Cliente 2", cargo: "Gerente de contrato", obra: "Edifício institucional · MG", nota: 5, exemplo: true,
-    texto: "Entregas sincronizadas com o cronograma de concretagem. Não tivemos material parado no canteiro nem falta de peça em nenhum pavimento." },
-  { nome: "Cliente 3", cargo: "Diretor técnico", obra: "Torre residencial · MT", nota: 5, exemplo: true,
-    texto: "Mesmo com a obra longe do Rio, a logística funcionou. O reescoramento entre pavimentos foi planejado junto com a nossa equipe." },
-  { nome: "Cliente 4", cargo: "Engenheira responsável", obra: "Recuperação estrutural · RJ", nota: 5, exemplo: true,
-    texto: "Escoramento sob tabuleiro com torres em pé-direito alto. Equipe técnica presente, segura e muito clara nas orientações." },
-  { nome: "Cliente 5", cargo: "Mestre de obras", obra: "Complexo de lazer · RJ", nota: 5, exemplo: true,
-    texto: "Peças em bom estado, roscas e pinos funcionando. A conferência na entrega e na devolução foi rápida e sem discussão." },
-  { nome: "Cliente 6", cargo: "Coordenador de obras", obra: "Escola · Saquarema, RJ", nota: 5, exemplo: true,
-    texto: "Atendimento rápido pelo WhatsApp e proposta objetiva. Recebemos o quantitativo certo para cada etapa da laje." },
-  { nome: "Cliente 7", cargo: "Engenheiro de planejamento", obra: "Centro de convenções · RJ", nota: 5, exemplo: true,
-    texto: "Estrutura de grande porte e prazo apertado. A Argento ajudou a definir a sequência de desforma e cumpriu as datas combinadas." },
-];
 
 /* ================= RAIO-X ================= */
 window.XRAY = [
@@ -143,7 +120,7 @@ window.KB = [
 
   { id: "avaliacoes", q: "O que os clientes dizem da Argento?",
     k: ["avaliacao", "avaliacoes", "depoimento", "depoimentos", "opiniao", "recomendam", "reclamacao", "reclame aqui", "confiavel", "boa empresa"],
-    a: "Você pode ver as avaliações na seção <a href='#avaliacoes' data-close>Avaliações</a> do site. Já é cliente? Conte como foi pelo WhatsApp — sua opinião ajuda muito.",
+    a: () => `Nosso trabalho fala pelas obras: Hospital Barra D'Or, FAETEC, Tribunal de Justiça (MG), SESC e outras. <a href='#obras' data-close>Ver obras →</a><br>Quer referências de clientes? Fale com a ${ARGENTO.contactName.split(" ")[0]}: <a data-wa href='#'>${ARGENTO.whatsappLabel}</a>.`,
     go: ["obras", "contato"] },
 
   { id: "hospital", q: "Vocês fizeram o Hospital Barra D'Or?",

@@ -153,7 +153,43 @@
   $("#xrPrev").addEventListener("click", () => showPart(xi - 1));
   $(".xray__svg").addEventListener("mouseleave", () => { xray.classList.remove("has-focus"); });
   showPart(0, false);
-  new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { xray.classList.add("is-built"); o.disconnect(); } }, { threshold: 0.35 }).observe(xray);
+  const xModal = $("#xrayModal");
+  let xLastFocus = null;
+  function openXray() {
+    xLastFocus = document.activeElement;
+    xray.classList.remove("is-built", "has-focus");
+    xModal.hidden = false; document.body.style.overflow = "hidden";
+    if (window.argentoBot) window.argentoBot.close();
+    showPart(0, false);
+    requestAnimationFrame(() => requestAnimationFrame(() => xray.classList.add("is-built")));
+    $("#xrayClose").focus({ preventScroll: true });
+  }
+  function closeXray() { xModal.hidden = true; document.body.style.overflow = ""; xLastFocus && xLastFocus.focus && xLastFocus.focus({ preventScroll: true }); }
+  document.addEventListener("click", (e) => { if (e.target.closest("[data-open-xray]")) { e.preventDefault(); openXray(); } });
+  $("#xrayClose").addEventListener("click", closeXray);
+  xModal.addEventListener("click", (e) => { if (e.target === xModal) closeXray(); });
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !xModal.hidden) closeXray(); });
+
+  /* =========================================================
+     SOLUÇÕES — carrossel lateral A–F
+     ========================================================= */
+  function carousel(rail, prev, next, dotsEl) {
+    const items = [...rail.children];
+    dotsEl.innerHTML = items.map((it, i) => `<button type="button" aria-label="Ir para ${it.dataset.letter || i + 1}"></button>`).join("");
+    const dotBtns = [...dotsEl.children];
+    const cur = () => { let best = 0, d = Infinity; items.forEach((c, i) => { const dd = Math.abs(c.offsetLeft - rail.offsetLeft - rail.scrollLeft); if (dd < d) { d = dd; best = i; } }); return best; };
+    const atEnd = () => rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4;
+    const go = (i) => { const c = items[Math.max(0, Math.min(items.length - 1, i))]; rail.scrollTo({ left: c.offsetLeft - rail.offsetLeft, behavior: reduced ? "auto" : "smooth" }); };
+    const sync = () => { const k = atEnd() ? items.length - 1 : cur(); dotBtns.forEach((b, i) => b.classList.toggle("is-on", i === k)); prev.disabled = rail.scrollLeft < 4; next.disabled = atEnd(); };
+    dotBtns.forEach((b, i) => b.addEventListener("click", () => go(i)));
+    prev.addEventListener("click", () => go(cur() - 1));
+    next.addEventListener("click", () => go(cur() + 1));
+    rail.addEventListener("scroll", () => requestAnimationFrame(sync), { passive: true });
+    rail.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { e.preventDefault(); go(cur() + 1); } if (e.key === "ArrowLeft") { e.preventDefault(); go(cur() - 1); } });
+    addEventListener("resize", sync);
+    sync();
+  }
+  carousel($("#solRail"), $("#solPrev"), $("#solNext"), $("#solDots"));
 
   /* =========================================================
      OBRAS + LIGHTBOX
@@ -251,49 +287,6 @@
   placeLine(); addEventListener("resize", placeLine);
 
   /* =========================================================
-     AVALIAÇÕES
-     ========================================================= */
-  const RV = window.AVALIACOES || [];
-  const rail = $("#rvRail");
-  const star = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 1.5l2.6 5.5 6 .7-4.4 4.1 1.2 5.9L10 14.8 4.6 17.7l1.2-5.9L1.4 7.7l6-.7z"/></svg>';
-  const stars = (n) => Array.from({ length: 5 }, (_, i) => `<span class="${i < Math.round(n) ? "on" : ""}">${star}</span>`).join("");
-  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  rail.innerHTML = RV.map((r, i) => `
-    <article class="rv-card" aria-label="Avaliação ${i + 1} de ${RV.length}">
-      <div class="rv-card__top">
-        <span class="rv-stars" role="img" aria-label="${r.nota} de 5 estrelas">${stars(r.nota)}</span>
-        ${r.exemplo ? '<span class="rv-tag">Exemplo</span>' : ""}
-      </div>
-      <p class="rv-card__text">${esc(r.texto)}</p>
-      <footer class="rv-card__who">
-        <span class="rv-av" aria-hidden="true">${esc(r.nome.trim()[0] || "?")}</span>
-        <span><b>${esc(r.nome)}</b><small>${esc(r.cargo)}${r.obra ? " · " + esc(r.obra) : ""}</small></span>
-        ${r.data ? `<time>${esc(r.data)}</time>` : ""}
-      </footer>
-    </article>`).join("");
-  $("#rvNote").hidden = !RV.some((r) => r.exemplo);
-
-  const cards = $$(".rv-card", rail);
-  const rvDots = $("#rvDots");
-  rvDots.innerHTML = cards.map((_, i) => `<button type="button" aria-label="Ir para avaliação ${i + 1}"></button>`).join("");
-  const dotBtns = $$("button", rvDots);
-  const current = () => { const x = rail.scrollLeft; let best = 0, d = Infinity; cards.forEach((c, i) => { const dd = Math.abs(c.offsetLeft - rail.offsetLeft - x); if (dd < d) { d = dd; best = i; } }); return best; };
-  const goTo = (i) => { const c = cards[(i + cards.length) % cards.length]; rail.scrollTo({ left: c.offsetLeft - rail.offsetLeft, behavior: reduced ? "auto" : "smooth" }); };
-  const syncDots = () => { const k = current(); dotBtns.forEach((b, i) => b.classList.toggle("is-on", i === k)); };
-  dotBtns.forEach((b, i) => b.addEventListener("click", () => goTo(i)));
-  $("#rvPrev").addEventListener("click", () => goTo(current() - 1));
-  $("#rvNext").addEventListener("click", () => { const k = current(); const atEnd = rail.scrollLeft + rail.clientWidth >= rail.scrollWidth - 4; goTo(atEnd ? 0 : k + 1); });
-  rail.addEventListener("scroll", () => requestAnimationFrame(syncDots), { passive: true });
-  rail.addEventListener("keydown", (e) => { if (e.key === "ArrowRight") { e.preventDefault(); $("#rvNext").click(); } if (e.key === "ArrowLeft") { e.preventDefault(); $("#rvPrev").click(); } });
-  syncDots();
-  // autoplay suave, pausa quando o visitante interage
-  let rvPaused = false, rvVisible = false;
-  ["mouseenter", "focusin", "touchstart"].forEach((ev) => rail.addEventListener(ev, () => (rvPaused = true), { passive: true }));
-  ["mouseleave", "focusout"].forEach((ev) => rail.addEventListener(ev, () => (rvPaused = false)));
-  new IntersectionObserver((en) => (rvVisible = en[0].isIntersecting), { threshold: 0.4 }).observe(rail);
-  if (!reduced) setInterval(() => { if (rvVisible && !rvPaused && !document.hidden) $("#rvNext").click(); }, 5500);
-
-  /* =========================================================
      TELA DE ORÇAMENTO
      ========================================================= */
   const qModal = $("#quoteModal");
@@ -384,40 +377,8 @@
     location.href = `mailto:${C.email}?subject=${encodeURIComponent("Orçamento de escoramento — site")}&body=${encodeURIComponent(buildMsg())}`;
   });
 
-  /* =========================================================
-     DÚVIDAS — busca com resposta instantânea
-     ========================================================= */
   const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   window.argentoNorm = norm;
-  const ans = (it) => (typeof it.a === "function" ? it.a() : it.a);
-  const faqRes = $("#faqRes"), faqInput = $("#faqSearch");
-  const escQ = (t) => t.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-  function faqFind(q) {
-    if (window.argentoBot && window.argentoBot.rank) return window.argentoBot.rank(q).slice(0, 2);
-    const words = norm(q).split(/\s+/).filter((w) => w.length > 2);
-    return window.KB.filter((it) => { const hay = norm(it.q + " " + it.k.join(" ")); return words.length && words.every((w) => hay.includes(w)); }).slice(0, 2);
-  }
-  function faqRender() {
-    const q = faqInput.value.trim();
-    if (q.length < 3) { faqRes.innerHTML = ""; return; }
-    const found = faqFind(q);
-    const wa = waLink(`Olá! Vim pelo site da Argento. Minha dúvida: ${q}`);
-    const actions = (lead) => `
-      <div class="fq-help">
-        <span>${lead}</span>
-        <button type="button" class="btn btn--teal btn--sm" data-ask-bot>Perguntar ao assistente</button>
-        <a class="btn btn--wa btn--sm" href="${wa}" target="_blank" rel="noopener">Falar no WhatsApp</a>
-      </div>`;
-    faqRes.innerHTML = found.length
-      ? found.map((it) => `<article class="fq-card"><h3>${it.q}</h3><div>${ans(it)}</div></article>`).join("") + actions("Não era isso?")
-      : `<article class="fq-card fq-card--empty"><h3>Não encontrei uma resposta pronta para “${escQ(q)}”.</h3><p>O assistente pode responder agora — ou fale direto com a equipe.</p></article>` + actions("");
-    bindContacts(faqRes);
-    $$("[data-close]", faqRes).forEach((a) => a.removeAttribute("data-close"));
-    $("[data-ask-bot]", faqRes).addEventListener("click", () => window.argentoBot && window.argentoBot.open(q));
-  }
-  let faqT;
-  faqInput.addEventListener("input", () => { clearTimeout(faqT); faqT = setTimeout(faqRender, 180); });
-  faqInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); clearTimeout(faqT); faqRender(); } });
 
   /* =========================================================
      MAPA (Leaflet, carregado sob demanda)
@@ -470,7 +431,7 @@
     const obras = L.layerGroup(window.OBRAS.map((o, i) => {
       const ic = L.divIcon({ className: "pin-wrap", html: `<div class="pin">${o.uf}</div>`, iconSize: [30, 34], iconAnchor: [15, 34], popupAnchor: [0, -30] });
       return L.marker(o.coords, { icon: ic, title: o.nome }).bindPopup(
-        `<div class="pop"><img src="${o.fotos[0]}" alt=""><b>${o.nome}</b><span>${o.cidade}/${o.uf} · ${o.seg}</span><br><button type="button" data-obra="${o.id}">Ver galeria (${o.fotos.length})</button> <button type="button" class="pop__zoom" data-zoom="${o.coords.join(",")}">Ver de perto</button> <button type="button" class="pop__route" data-route-to="${o.coords.join(",")}" data-route-name="${o.nome}">Como chegar</button></div>`
+        `<div class="pop"><img src="${o.fotos[0]}" alt=""><b>${o.nome}</b><span>${o.cidade}/${o.uf} · ${o.seg}</span>${o.aprox ? `<em class="pop__aprox">Localização aproximada (cidade)</em>` : ""}<br><button type="button" data-obra="${o.id}">Ver galeria (${o.fotos.length})</button>${o.aprox ? "" : ` <button type="button" class="pop__zoom" data-zoom="${o.coords.join(",")}">Ver de perto</button> <button type="button" class="pop__route" data-route-to="${o.coords.join(",")}" data-route-name="${o.nome}">Como chegar</button>`}</div>`
       );
     }));
     if (D) {
