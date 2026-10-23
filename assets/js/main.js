@@ -61,18 +61,18 @@
      ========================================================= */
   const nav = $("#nav");
   const bar = $(".progress span");
-  let lastY = 0;
+  // o topo fica sempre fixo; a rolagem só atualiza o fundo e a barra de progresso (1x por quadro)
+  let ticking = false, solid = null;
   function onScroll() {
+    ticking = false;
     const y = scrollY;
     const max = document.documentElement.scrollHeight - innerHeight;
     bar.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
-    nav.classList.toggle("is-solid", y > 40);
-    nav.classList.toggle("is-hidden", y > 500 && y > lastY + 4 && !drawer.classList.contains("is-open"));
-    if (y < lastY - 4 || y < 500) nav.classList.remove("is-hidden");
-    lastY = y;
+    const s = y > 40;
+    if (s !== solid) { solid = s; nav.classList.toggle("is-solid", s); }
     stepsProgress();
   }
-  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("scroll", () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
 
   const navLinks = $$(".nav__links a");
   const spy = new IntersectionObserver((entries) => {
