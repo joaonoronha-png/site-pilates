@@ -615,6 +615,16 @@ input[type="range"]::-moz-range-thumb { width: 16px; height: 16px; border-radius
 .sol-rail::-webkit-scrollbar { display: none; }
 .sol-rail .tile { scroll-snap-align: start; min-width: 0; }
 .sol-rail .tile:hover { transform: translateY(-4px); }
+/* foto ocupando o cartão inteiro, texto por cima */
+.sol-rail .tile { position: relative; min-height: 470px; padding: 0; border: 0; background: var(--ink); color: var(--paper); isolation: isolate; }
+.sol-rail .tile .tile__img { position: absolute; inset: 0; height: auto; z-index: -2; }
+.sol-rail .tile::after { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgba(11,34,41,.05) 25%, rgba(11,34,41,.55) 52%, rgba(11,34,41,.94) 82%); }
+.sol-rail .tile .tile__body { margin-top: auto; flex: none; padding: 26px; }
+.sol-rail .tile h3 { color: var(--paper); }
+.sol-rail .tile p { color: rgba(244,242,236,.86); }
+.sol-rail .tile .tile__n { background: var(--yellow); color: var(--ink); }
+.sol-rail .tile .tags li { background: rgba(244,242,236,.16); color: var(--paper); }
+.sol-rail .tile .link-arrow { color: var(--yellow); }
 .rail-ctrl { display: flex; align-items: center; justify-content: center; gap: 16px; margin-top: 20px; }
 .rail-btn { width: 46px; height: 46px; border-radius: 50%; border: 1.5px solid var(--line); background: var(--white); font-size: 1.1rem; transition: background .2s, color .2s, border-color .2s, opacity .2s; }
 .rail-btn:hover:not(:disabled) { background: var(--ink); color: var(--paper); border-color: var(--ink); }
@@ -861,6 +871,7 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
 }
 @media (max-width: 720px) {
   .sol-rail { grid-auto-columns: 84%; gap: 14px; }
+  .sol-rail .tile { min-height: 430px; }
   .qmodal__body { padding: 16px 14px 24px; }
   .nav.is-solid { background: var(--ink); backdrop-filter: none; -webkit-backdrop-filter: none; }
   .qmodal { padding: 0; place-items: end stretch; }
