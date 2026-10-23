@@ -279,7 +279,7 @@ body.is-ready .hero__title .line > span { transform: none; }
 
 /* ---------- ticker ---------- */
 .ticker { background: var(--yellow); color: var(--ink); overflow: hidden; padding: 16px 0; border-block: 2px solid var(--ink); }
-.ticker__track { display: flex; align-items: center; gap: 28px; width: max-content; animation: marquee 38s linear infinite; font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .04em; font-variation-settings: "wdth" 90; white-space: nowrap; }
+.ticker__track { display: flex; align-items: center; gap: 28px; padding-right: 28px; width: max-content; will-change: transform; animation: marquee 70s linear infinite; font-family: var(--f-display); font-weight: 800; font-size: 1.15rem; text-transform: uppercase; letter-spacing: .04em; font-variation-settings: "wdth" 90; white-space: nowrap; }
 .ticker__track i { width: 14px; height: 14px; background: var(--ink); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); flex: none; }
 .ticker:hover .ticker__track { animation-play-state: paused; }
 @keyframes marquee { to { transform: translateX(-50%); } }
@@ -934,4 +934,6 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
+  /* a faixa de obras continua passando, só mais devagar */
+  .ticker__track { animation-duration: 120s !important; animation-iteration-count: infinite !important; }
 }

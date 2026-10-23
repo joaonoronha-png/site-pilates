@@ -56,6 +56,15 @@
   $("#introSkip").addEventListener("click", () => endIntro(true));
   addEventListener("keydown", (e) => { if (!introDone && (e.key === "Escape" || e.key === "Enter")) endIntro(true); });
 
+  /* faixa de obras: duplica a lista para o loop ficar contínuo, sem pulo */
+  const track = $(".ticker__track");
+  if (track) {
+    const base = track.innerHTML;
+    track.innerHTML = base + base.replace(/<span/g, '<span aria-hidden="true"');
+    // em telas muito largas, repete até cobrir a tela duas vezes
+    while (track.scrollWidth < innerWidth * 2.2) track.innerHTML += base.replace(/<span/g, '<span aria-hidden="true"') + base.replace(/<span/g, '<span aria-hidden="true"');
+  }
+
   /* =========================================================
      NAV / PROGRESS / ACTIVE LINK
      ========================================================= */
