@@ -667,6 +667,7 @@ a.ccard:hover { border-color: var(--yellow); transform: translateY(-4px); }
 .pop b { display: block; font-size: 1rem; margin-bottom: 2px; color: var(--ink); }
 .pop span { color: var(--muted); }
 .pop img { width: 220px; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; }
+.pop .pop__zoom { background: var(--yellow); color: var(--ink); }
 .pop button { margin-top: 8px; border: 0; background: var(--teal); color: #fff; padding: 7px 12px; border-radius: 999px; font-weight: 600; font-size: .8rem; }
 .pin { width: 30px; height: 34px; background: var(--yellow); clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%); display: grid; place-items: center; font-weight: 800; font-size: .7rem; color: var(--ink); box-shadow: 0 0 0 2px var(--ink); }
 .pin--hq { width: 48px; height: 54px; background: var(--yellow) url("../img/logo.svg") center/40px no-repeat; animation: float 3s ease-in-out infinite; }
