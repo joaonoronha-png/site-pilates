@@ -429,9 +429,12 @@
     const Layer = L.GridLayer.extend({
       createTile(c, done) {
         const tile = document.createElement("canvas"); tile.width = tile.height = 256;
-        const zn = Math.min(c.z, maxNative), f = 2 ** (c.z - zn);
-        const px = Math.floor(c.x / f), py = Math.floor(c.y / f);
-        const m = (index[zn] || []).find((q) => px >= q.x0 && px < q.x0 + q.w && py >= q.y0 && py < q.y0 + q.h);
+        let zn = Math.min(c.z, maxNative), f, px, py, m;
+        for (; zn >= minZoom; zn--) {
+          f = 2 ** (c.z - zn); px = Math.floor(c.x / f); py = Math.floor(c.y / f);
+          m = (index[zn] || []).find((q) => px >= q.x0 && px < q.x0 + q.w && py >= q.y0 && py < q.y0 + q.h);
+          if (m) break;
+        }
         if (!m) { setTimeout(() => done(null, tile)); return tile; }
         load(m.src).then((im) => {
           if (im) tile.getContext("2d").drawImage(im, (px - m.x0) * 256 + (c.x % f) * 256 / f, (py - m.y0) * 256 + (c.y % f) * 256 / f, 256 / f, 256 / f, 0, 0, 256, 256);
@@ -446,35 +449,16 @@
     if (map || !window.L) return;
     map = L.map("map", { scrollWheelZoom: false, zoomControl: true, attributionControl: true, maxZoom: 18 }).setView(C.hq, 7);
     const esri = "https://server.arcgisonline.com/ArcGIS/rest/services/";
-    const attribution = "Tiles &copy; Esri — Esri, HERE, Garmin, &copy; OpenStreetMap contributors";
     const satAttribution = "Imagens &copy; Esri, Maxar, Earthstar Geographics";
-    let streetLayers, satLayers;
-    if (window.ARGENTO_TILES) { // tiles locais (versão de preview, sem acesso a servidores de mapa)
+    if (window.ARGENTO_TILES) { // imagens locais (versão de preview, sem acesso a servidores de mapa)
       const T = window.ARGENTO_TILES;
       map.setMinZoom(T.minZoom); map.setMaxBounds(T.bounds);
-      const base = L.tileLayer(T.url, { minZoom: T.minZoom, maxNativeZoom: 8, maxZoom: 18, attribution });
-      streetLayers = [base, mosaicLayer(T.mosaics.dark, 9, 15)];
-      satLayers = [base, mosaicLayer(T.mosaics.color, 4, 18, satAttribution)];
+      mosaicLayer(T.mosaics.color, 4, 18, satAttribution).addTo(map);
     } else {
-      streetLayers = [
-        L.tileLayer(esri + "Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 16, maxZoom: 18, attribution }),
-        L.tileLayer(esri + "Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 16, maxZoom: 18 }),
-      ];
-      satLayers = [
-        L.tileLayer(esri + "World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18, attribution: satAttribution }),
-        L.tileLayer(esri + "Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}", { minZoom: 12, maxNativeZoom: 19, maxZoom: 18 }),
-        L.tileLayer(esri + "Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18 }),
-      ];
+      L.tileLayer(esri + "World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18, attribution: satAttribution }).addTo(map);
+      L.tileLayer(esri + "Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}", { minZoom: 12, maxNativeZoom: 19, maxZoom: 18 }).addTo(map);
+      L.tileLayer(esri + "Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18 }).addTo(map);
     }
-    let satOn = true;
-    satLayers.forEach((l) => l.addTo(map));
-    const setSat = (on) => {
-      satOn = on;
-      (on ? streetLayers : satLayers).forEach((l) => map.removeLayer(l));
-      (on ? satLayers : streetLayers).forEach((l) => l.addTo(map));
-      $("#mapSat").classList.toggle("is-on", on);
-    };
-    $("#mapSat").addEventListener("click", () => setSat(!satOn));
     map.on("click", () => map.scrollWheelZoom.enable());
     map.on("mouseout", () => map.scrollWheelZoom.disable());
 
@@ -510,7 +494,7 @@
       const rb = el.querySelector("[data-route-to]");
       if (rb) rb.addEventListener("click", () => openRoutes(rb.dataset.routeName, rb.dataset.routeTo.split(",").map(Number), rb.dataset.routeAddr || ""));
       const zb = el.querySelector("[data-zoom]");
-      if (zb) zb.addEventListener("click", () => { const c = zb.dataset.zoom.split(",").map(Number); map.closePopup(); setSat(true); map.flyTo(c, 17, { duration: 1.4 }); });
+      if (zb) zb.addEventListener("click", () => { const c = zb.dataset.zoom.split(",").map(Number); map.closePopup(); map.flyTo(c, 17, { duration: 1.4 }); });
     });
 
     const fitAll = () => {
