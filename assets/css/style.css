@@ -198,8 +198,25 @@ p { margin: 0; }
   clip-path: circle(0 at calc(100% - 40px) 36px); transition: clip-path .7s var(--ease); visibility: hidden;
 }
 .drawer.is-open { clip-path: circle(150% at calc(100% - 40px) 36px); visibility: visible; }
-.drawer nav { display: grid; gap: 4px; }
-.drawer nav a { font-family: var(--f-display); font-size: clamp(2rem, 9vw, 3rem); font-weight: 800; text-decoration: none; font-variation-settings: "wdth" 85; padding: 4px 0; border-bottom: 1px solid var(--line-dark); }
+.drawer { justify-content: flex-start; gap: 14px; overflow-y: auto; padding-top: calc(var(--nav-h) + 18px); padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+.drawer__label { font-family: var(--f-mono); font-size: .7rem; letter-spacing: .16em; text-transform: uppercase; color: var(--yellow); }
+.drawer__nav { display: grid; gap: 6px; }
+.drawer__link { display: flex; align-items: center; gap: 14px; padding: 12px 14px; border-radius: 14px; text-decoration: none; font-weight: 650; font-size: 1.05rem; background: rgba(244,242,236,.04); border: 1px solid var(--line-dark); transition: background .2s, border-color .2s; opacity: 0; transform: translateY(8px); }
+.drawer.is-open .drawer__link { opacity: 1; transform: none; transition: opacity .4s var(--ease), transform .4s var(--ease), background .2s, border-color .2s; }
+.drawer.is-open .drawer__link:nth-child(2) { transition-delay: .03s; } .drawer.is-open .drawer__link:nth-child(3) { transition-delay: .06s; }
+.drawer.is-open .drawer__link:nth-child(4) { transition-delay: .09s; } .drawer.is-open .drawer__link:nth-child(5) { transition-delay: .12s; }
+.drawer.is-open .drawer__link:nth-child(6) { transition-delay: .15s; } .drawer.is-open .drawer__link:nth-child(7) { transition-delay: .18s; }
+.drawer__link:active, .drawer__link:hover { background: rgba(254,228,91,.1); border-color: rgba(254,228,91,.4); }
+.drawer__link.is-active { border-color: var(--yellow); }
+.drawer__link.is-active .drawer__ico { background: var(--yellow); color: var(--ink); }
+.drawer__ico { width: 34px; height: 34px; flex: none; display: grid; place-items: center; border-radius: 10px; background: rgba(244,242,236,.08); color: var(--yellow); }
+.drawer__ico svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.drawer__go { margin-left: auto; color: var(--concrete); font-size: 1.3rem; line-height: 1; }
+.drawer__foot { margin-top: auto; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 10px; }
+.drawer__foot .btn { padding: 14px 10px; font-size: .95rem; }
+.drawer__contact { grid-column: 1 / -1; display: grid; gap: 2px; text-align: center; font-size: .82rem; color: var(--concrete); }
+.drawer__contact b { color: var(--paper); font-size: .9rem; }
+body.menu-open .bot { display: none; }
 
 /* =========================================================
    HERO

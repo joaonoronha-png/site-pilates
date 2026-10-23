@@ -77,7 +77,7 @@
   const navLinks = $$(".nav__links a");
   const spy = new IntersectionObserver((entries) => {
     entries.forEach((en) => {
-      if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${en.target.id}`));
+      if (en.isIntersecting) [...navLinks, ...$$(".drawer__link")].forEach((a) => a.classList.toggle("is-active", a.getAttribute("href") === `#${en.target.id}`));
     });
   }, { rootMargin: "-45% 0px -50% 0px" });
   $$("main section[id]").forEach((s) => spy.observe(s));
@@ -91,9 +91,10 @@
     burger.setAttribute("aria-expanded", o);
     drawer.setAttribute("aria-hidden", !o);
     document.body.style.overflow = o ? "hidden" : "";
+    document.body.classList.toggle("menu-open", o);
   }
   burger.addEventListener("click", () => toggleDrawer());
-  $$("#drawer a").forEach((a) => a.addEventListener("click", () => toggleDrawer(false)));
+  $$("#drawer a, #drawer [data-open-quote]").forEach((a) => a.addEventListener("click", () => toggleDrawer(false)));
 
   /* =========================================================
      REVEAL + COUNTERS
