@@ -454,16 +454,20 @@
       map.setMinZoom(T.minZoom); map.setMaxBounds(T.bounds);
       const base = L.tileLayer(T.url, { minZoom: T.minZoom, maxNativeZoom: 8, maxZoom: 18, attribution });
       streetLayers = [base, mosaicLayer(T.mosaics.dark, 9, 15)];
-      satLayers = [base, mosaicLayer(T.mosaics.sat, 13, 18, satAttribution)];
+      satLayers = [base, mosaicLayer(T.mosaics.color, 4, 18, satAttribution)];
     } else {
       streetLayers = [
         L.tileLayer(esri + "Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 16, maxZoom: 18, attribution }),
         L.tileLayer(esri + "Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 16, maxZoom: 18 }),
       ];
-      satLayers = [L.tileLayer(esri + "World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18, attribution: satAttribution })];
+      satLayers = [
+        L.tileLayer(esri + "World_Imagery/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18, attribution: satAttribution }),
+        L.tileLayer(esri + "Reference/World_Transportation/MapServer/tile/{z}/{y}/{x}", { minZoom: 12, maxNativeZoom: 19, maxZoom: 18 }),
+        L.tileLayer(esri + "Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}", { maxNativeZoom: 19, maxZoom: 18 }),
+      ];
     }
-    let satOn = false;
-    streetLayers.forEach((l) => l.addTo(map));
+    let satOn = true;
+    satLayers.forEach((l) => l.addTo(map));
     const setSat = (on) => {
       satOn = on;
       (on ? streetLayers : satLayers).forEach((l) => map.removeLayer(l));
@@ -474,30 +478,37 @@
     map.on("click", () => map.scrollWheelZoom.enable());
     map.on("mouseout", () => map.scrollWheelZoom.disable());
 
+    let hqMarker;
     const hqIcon = L.divIcon({ className: "pin-wrap", html: '<div class="pin pin--hq"></div>', iconSize: [48, 54], iconAnchor: [24, 54], popupAnchor: [0, -50] });
     const sede = L.layerGroup([
-      L.marker(C.hq, { icon: hqIcon, title: "Sede Argento" }).bindPopup(`<div class="pop"><b>Argento Escoramentos</b><span>${C.address}<br>${C.hours}</span></div>`),
+      hqMarker = L.marker(C.hq, { icon: hqIcon, title: "Sede Argento" }).bindPopup(`<div class="pop"><b>Argento Escoramentos</b><span>${C.address}<br>${C.hours}</span><br><button type="button" class="pop__route" data-route-to="${C.hq.join(",")}" data-route-name="Argento Escoramentos" data-route-addr="${C.address}">Como chegar</button></div>`),
     ]);
     const obras = L.layerGroup(window.OBRAS.map((o, i) => {
       const ic = L.divIcon({ className: "pin-wrap", html: `<div class="pin">${o.uf}</div>`, iconSize: [30, 34], iconAnchor: [15, 34], popupAnchor: [0, -30] });
       return L.marker(o.coords, { icon: ic, title: o.nome }).bindPopup(
-        `<div class="pop"><img src="${o.fotos[0]}" alt=""><b>${o.nome}</b><span>${o.cidade}/${o.uf} · ${o.seg}</span><br><button type="button" data-obra="${o.id}">Ver galeria (${o.fotos.length})</button> <button type="button" class="pop__zoom" data-zoom="${o.coords.join(",")}">Ver de perto</button></div>`
+        `<div class="pop"><img src="${o.fotos[0]}" alt=""><b>${o.nome}</b><span>${o.cidade}/${o.uf} · ${o.seg}</span><br><button type="button" data-obra="${o.id}">Ver galeria (${o.fotos.length})</button> <button type="button" class="pop__zoom" data-zoom="${o.coords.join(",")}">Ver de perto</button> <button type="button" class="pop__route" data-route-to="${o.coords.join(",")}" data-route-name="${o.nome}">Como chegar</button></div>`
       );
     }));
     if (D) {
       const dIcon = L.divIcon({ className: "pin-wrap", html: '<div class="pin pin--star">★</div>', iconSize: [40, 46], iconAnchor: [20, 46], popupAnchor: [0, -42] });
       const dm = L.marker(D.coords, { icon: dIcon, title: D.nome, zIndexOffset: 1000 }).bindPopup(
-        `<div class="pop">${D.fotos[0] ? `<img src="${D.fotos[0]}" alt="">` : ""}<b>★ ${D.nome}</b><span>${D.cidade}/${D.uf} · ${D.seg}</span><br><button type="button" data-destaque>Ver obra em destaque</button> <button type="button" class="pop__zoom" data-zoom="${D.coords.join(",")}">Ver de perto</button></div>`
+        `<div class="pop">${D.fotos[0] ? `<img src="${D.fotos[0]}" alt="">` : ""}<b>★ ${D.nome}</b><span>${D.cidade}/${D.uf} · ${D.seg}</span><br><button type="button" data-destaque>Ver obra em destaque</button> <button type="button" class="pop__zoom" data-zoom="${D.coords.join(",")}">Ver de perto</button> <button type="button" class="pop__route" data-route-to="${D.coords.join(",")}" data-route-name="${D.nome}">Como chegar</button></div>`
       );
       obras.addLayer(dm);
       window.argentoFocusDestaque = () => { if (!map.hasLayer(obras)) { obras.addTo(map); $('[data-layer="obras"]').classList.add("is-on"); } map.flyTo(D.coords, Math.min(13, map.getMaxZoom()), { duration: 1.2 }); setTimeout(() => dm.openPopup(), 1300); };
     }
+    window.argentoFocusSede = () => {
+      if (!map.hasLayer(sede)) { sede.addTo(map); $('[data-layer="sede"]').classList.add("is-on"); }
+      map.flyTo(C.hq, 15, { duration: 1.3 }); setTimeout(() => hqMarker.openPopup(), 1400);
+    };
     sede.addTo(map); obras.addTo(map);
     const layers = { sede, obras };
     map.on("popupopen", (e) => {
       const el = e.popup.getElement();
       const b = el.querySelector("[data-obra]"); if (b) b.addEventListener("click", () => window.argentoOpenObra(b.dataset.obra));
       const d = el.querySelector("[data-destaque]"); if (d) d.addEventListener("click", () => $("#destaque").scrollIntoView({ behavior: "smooth", block: "start" }));
+      const rb = el.querySelector("[data-route-to]");
+      if (rb) rb.addEventListener("click", () => openRoutes(rb.dataset.routeName, rb.dataset.routeTo.split(",").map(Number), rb.dataset.routeAddr || ""));
       const zb = el.querySelector("[data-zoom]");
       if (zb) zb.addEventListener("click", () => { const c = zb.dataset.zoom.split(",").map(Number); map.closePopup(); setSat(true); map.flyTo(c, 17, { duration: 1.4 }); });
     });
@@ -516,29 +527,38 @@
     $("#mapFit").addEventListener("click", fitAll);
     setTimeout(fitAll, 400);
   }
-  /* ---------- botão de rotas (Uber, Mapas do iPhone, Waze, Google Maps) ---------- */
-  const [lat, lng] = C.hq;
-  const dest = encodeURIComponent(C.address);
-  const routes = {
-    uber: `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${lat}&dropoff[longitude]=${lng}&dropoff[nickname]=${encodeURIComponent("Argento Escoramentos")}&dropoff[formatted_address]=${dest}`,
-    apple: `https://maps.apple.com/?daddr=${lat},${lng}&q=${encodeURIComponent("Argento Escoramentos")}`,
-    waze: `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`,
-    google: `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
-  };
-  $$("[data-route]").forEach((a) => (a.href = routes[a.dataset.route]));
-  const routeMenu = $("#routeMenu"), mapFab = $("#mapFab");
-  function toggleRoutes(open) {
-    const o = open ?? routeMenu.hidden;
-    routeMenu.hidden = !o;
-    mapFab.setAttribute("aria-expanded", o);
-    if (o) routeMenu.querySelector("a").focus({ preventScroll: true });
+  /* ---------- como chegar (Uber, Mapas do iPhone, Waze, Google Maps) ---------- */
+  const routeSheet = $("#routeSheet");
+  let routeLastFocus = null;
+  function openRoutes(name, coords, address = "") {
+    const [la, lo] = coords, nm = encodeURIComponent(name);
+    const links = {
+      uber: `https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[latitude]=${la}&dropoff[longitude]=${lo}&dropoff[nickname]=${nm}${address ? `&dropoff[formatted_address]=${encodeURIComponent(address)}` : ""}`,
+      apple: `https://maps.apple.com/?daddr=${la},${lo}&q=${nm}`,
+      waze: `https://waze.com/ul?ll=${la},${lo}&navigate=yes`,
+      google: `https://www.google.com/maps/dir/?api=1&destination=${la},${lo}`,
+    };
+    $$("[data-route]", routeSheet).forEach((a) => (a.href = links[a.dataset.route]));
+    $("#rsTitle").textContent = name;
+    $("#rsSub").textContent = address;
+    routeLastFocus = document.activeElement;
+    routeSheet.hidden = false;
+    $("a", routeSheet).focus({ preventScroll: true });
   }
-  mapFab.addEventListener("click", (e) => { e.stopPropagation(); toggleRoutes(); });
-  $("#routeBtn").addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); toggleRoutes(true); });
-  $("#routeBtn").href = routes.google;
-  $$("a", routeMenu).forEach((a) => a.addEventListener("click", () => toggleRoutes(false)));
-  document.addEventListener("click", (e) => { if (!routeMenu.hidden && !e.target.closest(".fab-wrap--map")) toggleRoutes(false); });
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && !routeMenu.hidden) { toggleRoutes(false); mapFab.focus(); } });
+  function closeRoutes() { routeSheet.hidden = true; routeLastFocus && routeLastFocus.focus && routeLastFocus.focus({ preventScroll: true }); }
+  window.argentoRoutes = openRoutes;
+  $("#routeClose").addEventListener("click", closeRoutes);
+  routeSheet.addEventListener("click", (e) => { if (e.target === routeSheet) closeRoutes(); });
+  $$("a", routeSheet).forEach((a) => a.addEventListener("click", () => setTimeout(closeRoutes, 50)));
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && !routeSheet.hidden) closeRoutes(); });
+  $("#routeBtn").addEventListener("click", (e) => { e.preventDefault(); openRoutes("Argento Escoramentos", C.hq, C.address); });
+
+  /* ---------- botão redondo de mapa: leva até a sede ---------- */
+  $("#mapFab").addEventListener("click", () => {
+    $("#map").scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    initMap();
+    setTimeout(() => window.argentoFocusSede && window.argentoFocusSede(), 900);
+  });
   new IntersectionObserver((en, o) => { if (en[0].isIntersecting) { initMap(); o.disconnect(); } }, { rootMargin: "300px" }).observe($("#map"));
 
   onScroll();

@@ -458,7 +458,7 @@
             <div class="mapbox__toggles">
               <button class="chip chip--dark is-on" data-layer="sede">Sede</button>
               <button class="chip chip--dark is-on" data-layer="obras">Obras</button>
-              <button class="chip chip--dark" id="mapSat">Satélite</button>
+              <button class="chip chip--dark is-on" id="mapSat">Satélite</button>
               <button class="chip chip--dark" id="mapFit">Ver tudo</button>
             </div>
           </div>
@@ -561,6 +561,30 @@
     </div>
   </div>
 
+  <!-- ================= COMO CHEGAR ================= -->
+  <div class="rsheet" id="routeSheet" role="dialog" aria-modal="true" aria-labelledby="rsTitle" hidden>
+    <div class="rsheet__panel">
+      <button type="button" class="rsheet__close" id="routeClose" aria-label="Fechar">×</button>
+      <p class="rsheet__kicker">Como chegar</p>
+      <h3 id="rsTitle">Argento Escoramentos</h3>
+      <p class="rsheet__sub" id="rsSub"></p>
+      <div class="rsheet__opts">
+        <a class="route-opt" data-route="uber" target="_blank" rel="noopener">
+            <span class="route-opt__ico route-opt__ico--uber"><svg viewBox="0 0 24 24"><path d="M7 6v7a5 5 0 0010 0V6" /></svg></span>Uber
+          </a>
+        <a class="route-opt" data-route="apple" target="_blank" rel="noopener">
+            <span class="route-opt__ico route-opt__ico--apple"><svg viewBox="0 0 24 24"><path d="M12 3l7 18-7-4-7 4z"/></svg></span>Mapas do iPhone
+          </a>
+        <a class="route-opt" data-route="waze" target="_blank" rel="noopener">
+            <span class="route-opt__ico route-opt__ico--waze"><svg viewBox="0 0 24 24"><path d="M5 15a7 7 0 1114 0c0 2-1.5 3-3 3H8c-1.5 0-3-1-3-3z"/><circle cx="10" cy="11" r=".9"/><circle cx="14.5" cy="11" r=".9"/><path d="M10 14c1 1 3.5 1 4.5 0"/></svg></span>Waze
+          </a>
+        <a class="route-opt" data-route="google" target="_blank" rel="noopener">
+            <span class="route-opt__ico route-opt__ico--google"><svg viewBox="0 0 24 24"><path d="M12 22s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>Google Maps
+          </a>
+      </div>
+    </div>
+  </div>
+
   <!-- ================= LIGHTBOX ================= -->
   <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeria da obra" hidden>
     <button class="lightbox__close" type="button" aria-label="Fechar">×</button>
@@ -595,22 +619,7 @@
     </section>
     <div class="fabs">
       <div class="fab-wrap fab-wrap--map">
-        <div class="route-menu" id="routeMenu" role="menu" aria-label="Abrir rota até a Argento" hidden>
-          <p class="route-menu__title">Como chegar à Argento</p>
-          <a role="menuitem" class="route-opt" data-route="uber" target="_blank" rel="noopener">
-            <span class="route-opt__ico route-opt__ico--uber"><svg viewBox="0 0 24 24"><path d="M7 6v7a5 5 0 0010 0V6" /></svg></span>Uber
-          </a>
-          <a role="menuitem" class="route-opt" data-route="apple" target="_blank" rel="noopener">
-            <span class="route-opt__ico route-opt__ico--apple"><svg viewBox="0 0 24 24"><path d="M12 3l7 18-7-4-7 4z"/></svg></span>Mapas do iPhone
-          </a>
-          <a role="menuitem" class="route-opt" data-route="waze" target="_blank" rel="noopener">
-            <span class="route-opt__ico route-opt__ico--waze"><svg viewBox="0 0 24 24"><path d="M5 15a7 7 0 1114 0c0 2-1.5 3-3 3H8c-1.5 0-3-1-3-3z"/><circle cx="10" cy="11" r=".9"/><circle cx="14.5" cy="11" r=".9"/><path d="M10 14c1 1 3.5 1 4.5 0"/></svg></span>Waze
-          </a>
-          <a role="menuitem" class="route-opt" data-route="google" target="_blank" rel="noopener">
-            <span class="route-opt__ico route-opt__ico--google"><svg viewBox="0 0 24 24"><path d="M12 22s-7-6.2-7-12a7 7 0 0114 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="10" r="2.5"/></svg></span>Google Maps
-          </a>
-        </div>
-        <button class="fab fab--map" id="mapFab" type="button" aria-label="Como chegar: abrir opções de mapa" aria-expanded="false" aria-controls="routeMenu">
+        <button class="fab fab--map" id="mapFab" type="button" aria-label="Ver a sede da Argento no mapa">
           <svg viewBox="0 0 24 24"><path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2z"/><path d="M9 4v14M15 6v14"/></svg>
         </button>
       </div>
