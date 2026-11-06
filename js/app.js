@@ -51,7 +51,7 @@
   }
   function syncWish() {
     const b = $('#wishCount'); b.textContent = wish.length; $('#openWish').classList.toggle('has', wish.length > 0);
-    $('#favChipCount').textContent = wish.length;
+    $('#favChipCount').textContent = wish.length; $('#menuFavCount').textContent = wish.length;
     $$('.c-heart').forEach(h => { const on = isWished(h.dataset.id); h.classList.toggle('on', on); h.setAttribute('aria-pressed', on); });
     if (current) setViewerHeart();
     renderWish();
@@ -285,10 +285,18 @@
     $('#scrim').addEventListener('click', closeWish);
 
     // menu mobile
-    const nav = $('#nav'), mb = $('#menuBtn'), top = $('#topbar');
-    const setMenu = open => { nav.classList.toggle('open', open); mb.setAttribute('aria-expanded', open); top.classList.toggle('menu-open', open); document.body.style.overflow = open ? 'hidden' : ''; };
-    mb.addEventListener('click', () => setMenu(!nav.classList.contains('open')));
-    $$('a', nav).forEach(a => a.addEventListener('click', () => setMenu(false)));
+    const panel = $('#menuPanel'), mb = $('#menuBtn'), top = $('#topbar');
+    const setMenu = open => {
+      panel.hidden = !open; mb.setAttribute('aria-expanded', open);
+      mb.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu'); $('.mb-label', mb).textContent = open ? 'Fechar' : 'Menu';
+      top.classList.toggle('menu-open', open); document.body.style.overflow = open ? 'hidden' : '';
+    };
+    mb.addEventListener('click', () => setMenu(panel.hidden));
+    $$('a', panel).forEach(a => a.addEventListener('click', () => setMenu(false)));
+    $('#menuFav').addEventListener('click', () => { setMenu(false); openWish(); });
+    $('#menuWa').href = wa('Olá, Vicente! Vim pelo site e tenho uma dúvida sobre as suas obras.');
+    addEventListener('keydown', e => { if (e.key === 'Escape' && !panel.hidden) setMenu(false); });
+    addEventListener('resize', () => { if (innerWidth > 900 && !panel.hidden) setMenu(false); });
 
     // topo ao rolar + cor sobre seção escura
     const darks = $$('.dark-room, .contact, .footer');

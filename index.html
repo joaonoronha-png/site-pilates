@@ -52,11 +52,27 @@
       <span class="fav-label">Favoritas</span>
       <span class="fav-count" id="wishCount">0</span>
     </button>
-    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
-      <span></span><span></span>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuPanel">
+      <span class="mb-ico" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="mb-label">Menu</span>
     </button>
   </div>
 </header>
+
+<div class="menu-panel" id="menuPanel" hidden>
+  <nav class="mp-links" aria-label="Menu">
+    <a href="#destaques"><span class="mp-n">01</span><span class="mp-t">Destaques<small>As obras que abrem a coleção</small></span><i aria-hidden="true">→</i></a>
+    <a href="#colecao"><span class="mp-n">02</span><span class="mp-t">Coleção<small>Todas as obras, por cor e formato</small></span><i aria-hidden="true">→</i></a>
+    <a href="#parede"><span class="mp-n">03</span><span class="mp-t">Ver na parede<small>Simule a obra no seu ambiente</small></span><i aria-hidden="true">→</i></a>
+    <a href="#artista"><span class="mp-n">04</span><span class="mp-t">O artista<small>Conheça Vicente Prior</small></span><i aria-hidden="true">→</i></a>
+    <a href="#contato"><span class="mp-n">05</span><span class="mp-t">Contato<small>Faça sua oferta ou tire dúvidas</small></span><i aria-hidden="true">→</i></a>
+  </nav>
+  <div class="mp-foot">
+    <button class="mp-fav" id="menuFav" type="button"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Minhas favoritas <b id="menuFavCount">0</b></button>
+    <a class="btn btn-deal" id="menuWa" href="#" target="_blank" rel="noopener">Falar com o Vicente no WhatsApp</a>
+    <p>+55 21 99351-8769 · vicenteprior@gmail.com</p>
+  </div>
+</div>
 
 <main>
 <!-- HERO -->
