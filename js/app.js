@@ -4,8 +4,8 @@
 
   /* ---- CONFIGURAÇÃO: troque pelos dados reais do ateliê ---- */
   const CONFIG = {
-    whatsapp: '5500000000000',          // DDI + DDD + número, só dígitos
-    email: 'contato@vicenteprior.com.br'
+    whatsapp: '5521993518769',          // DDI + DDD + número, só dígitos
+    email: 'vicenteprior@gmail.com'
   };
 
   const OBRAS = window.OBRAS.slice().sort((a, b) => a.rank - b.rank);
