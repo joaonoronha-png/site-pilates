@@ -303,5 +303,24 @@
     addEventListener('hashchange', openFromHash); openFromHash();
   }
 
-  hero(); podium(); filters(); renderGrid(); wall(); viewer(); global(); syncWish();
+  /* ---------- abertura ---------- */
+  function intro() {
+    const el = $('#intro'); if (!el) return;
+    let seen = false;
+    try { seen = sessionStorage.getItem('vp-intro') === '1'; } catch (e) {}
+    if (seen || location.hash.startsWith('#obra-') || matchMedia('(prefers-reduced-motion: reduce)').matches) { el.remove(); return; }
+    document.body.classList.add('intro-on');
+    let done = false;
+    const end = () => {
+      if (done) return; done = true;
+      try { sessionStorage.setItem('vp-intro', '1'); } catch (e) {}
+      el.classList.add('out'); document.body.classList.remove('intro-on');
+      setTimeout(() => el.remove(), 1400);
+    };
+    el.addEventListener('click', end);
+    addEventListener('keydown', end, { once: true });
+    setTimeout(end, 3400);
+  }
+
+  intro(); hero(); podium(); filters(); renderGrid(); wall(); viewer(); global(); syncWish();
 })();

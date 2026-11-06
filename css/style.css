@@ -387,3 +387,34 @@ blockquote{margin:30px 0;padding-left:22px;border-left:2px solid var(--rust);fon
   *,*::before,*::after{animation:none!important;transition:none!important}
   .reveal,.card{opacity:1;transform:none}
 }
+
+/* ---------- abertura ---------- */
+.intro{position:fixed;inset:0;z-index:400;display:grid;place-items:center;background:var(--night);color:var(--paper);overflow:hidden;cursor:pointer}
+.intro.out{pointer-events:none;background:transparent}
+.intro-cols{position:absolute;inset:0;display:grid;grid-template-columns:repeat(5,1fr)}
+.intro-cols i{position:relative;overflow:hidden;background:var(--night)}
+.intro-cols img{position:absolute;inset:0;width:100%;height:100%;max-width:none;object-fit:cover;filter:brightness(.5) saturate(.9);
+  clip-path:inset(100% 0 0 0);animation:colIn 1.1s var(--ease) calc(.15s + var(--i) * .12s) forwards}
+.intro-cols i::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,12,11,.2),rgba(14,12,11,.75))}
+@keyframes colIn{to{clip-path:inset(0 0 0 0)}}
+.intro.out .intro-cols i{animation:colOut .9s var(--ease) calc(var(--i) * .07s) forwards}
+@keyframes colOut{to{transform:translateY(-102%)}}
+.intro-copy{position:relative;text-align:center;padding:0 16px}
+.intro-eyebrow{margin:0 0 22px;font:600 11px/1 var(--sans);letter-spacing:.32em;text-transform:uppercase;color:#cfc4b6;opacity:0;animation:fadeUp .8s var(--ease) .5s forwards}
+.intro-name{margin:0;font:300 clamp(56px,12vw,170px)/.9 var(--serif);letter-spacing:-.04em;font-variation-settings:"opsz" 144}
+.intro-name span{display:inline-block;clip-path:inset(0 100% 0 0);animation:write 1.1s var(--ease) forwards}
+.intro-name .w1{animation-delay:.7s}
+.intro-name .w2{font-style:italic;color:#e07a4c;animation-delay:1.05s}
+@keyframes write{to{clip-path:inset(0 -10% 0 0)}}
+.intro-stroke{display:block;height:3px;width:min(340px,60vw);margin:26px auto 18px;background:linear-gradient(90deg,transparent,#e07a4c 20%,var(--gold) 80%,transparent);transform:scaleX(0);transform-origin:left;animation:stroke .9s var(--ease) 1.6s forwards;border-radius:2px}
+@keyframes stroke{to{transform:scaleX(1)}}
+.intro-sub{margin:0;font:italic 300 20px/1 var(--serif);color:#cfc4b6;opacity:0;animation:fadeUp .8s var(--ease) 1.9s forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.intro.out .intro-copy{transition:opacity .4s,transform .6s var(--ease);opacity:0;transform:translateY(-30px)}
+.intro-skip{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));padding:12px 20px;border:1px solid rgba(243,238,230,.35);border-radius:999px;color:var(--paper);font:600 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;opacity:0;animation:fadeUp .6s var(--ease) 1s forwards}
+.intro-skip:hover{background:var(--paper);color:var(--ink)}
+.intro.out .intro-skip{animation:none;opacity:0;transition:opacity .3s}
+body.intro-on{overflow:hidden}
+body.intro-on .hero .reveal{animation-play-state:paused}
+@media (max-width:640px){.intro-cols{grid-template-columns:repeat(3,1fr)}.intro-cols i:nth-child(n+4){display:none}}
+@media (prefers-reduced-motion:reduce){.intro{display:none}}
