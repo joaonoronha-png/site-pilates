@@ -176,7 +176,6 @@
       $('#wallName').textContent = b.dataset.name;
       $$('.wc').forEach(x => x.classList.toggle('on', x === b));
     });
-    $('#showDims').addEventListener('change', e => $('#dims').style.display = e.target.checked ? '' : 'none');
     $('#roomDetail').addEventListener('click', () => openViewer(roomId));
     addEventListener('resize', fitScene);
     setRoom(roomId);
@@ -187,18 +186,12 @@
     const vw = Math.min(520, need), vx = 260 - vw / 2;
     svg.setAttribute('viewBox', `${vx} 0 ${vw} 300`);
     svg.parentElement.style.aspectRatio = `${vw} / 300`;
-    const px = svg.parentElement.clientWidth / vw;                // px por cm
-    const fs = Math.max(6, 12 / px);
-    $$('#dims text').forEach(t => t.setAttribute('font-size', fs.toFixed(1)));
   }
   function setRoom(id) {
     roomId = id; const o = byId[id], s = sizeOf(o);
     $$('.wp-t').forEach(b => b.classList.toggle('on', b.dataset.room === id));
     $('#roomInterest').href = negLink(o);
     $('#wpThumb').src = thumb(id); $('#wpTitle').textContent = o.titulo;
-    const label = `${fmtCm(s.w)} × ${fmtCm(s.h)}`;
-    $('#wpSize').textContent = s.real ? label : `≈ ${label} · medida a confirmar`;
-    $('#roomCapSize').textContent = s.real ? `Obra: ${label}` : 'Obra em tamanho aproximado';
     // altura: centro a 1,50 m do chão, sem encostar no sofá e sem passar do teto
     let c = Math.max(150, SOFA_TOP + 18 + s.h / 2);
     if (c + s.h / 2 > 250) c = Math.max(s.h / 2 + 2, 250 - s.h / 2);
@@ -209,12 +202,6 @@
       im.setAttribute('href', img(id));
       [im, $('#artEdge')].forEach(el => { el.setAttribute('x', x); el.setAttribute('y', y); el.setAttribute('width', s.w); el.setAttribute('height', s.h); });
       const sp = $('#artSpot'); sp.setAttribute('cy', y + s.h / 2); sp.setAttribute('rx', s.w * .75 + 50); sp.setAttribute('ry', s.h * .8 + 40);
-      const dy = y - 7, dx = x + s.w + 7, t = 3;
-      $('#dimW').setAttribute('d', `M${x} ${dy} H${x + s.w} M${x} ${dy - t} V${dy + t} M${x + s.w} ${dy - t} V${dy + t}`);
-      $('#dimH').setAttribute('d', `M${dx} ${y} V${y + s.h} M${dx - t} ${y} H${dx + t} M${dx - t} ${y + s.h} H${dx + t}`);
-      const wt = $('#dimWt'); wt.setAttribute('x', 260); wt.setAttribute('y', dy - 4); wt.textContent = (s.real ? '' : '≈ ') + fmtCm(s.w);
-      const ht = $('#dimHt'); ht.textContent = (s.real ? '' : '≈ ') + fmtCm(s.h);
-      ht.setAttribute('transform', `translate(${dx + 5} ${y + s.h / 2}) rotate(90)`);
       fitScene();
       art.style.opacity = 1;
     }, 180);
@@ -235,7 +222,6 @@
     $('#vPecasRow').hidden = !o.pecas; $('#vPecas').textContent = o.pecas ? `${o.pecas} telas que formam uma só obra` : '';
     $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
-    $('#vDim').textContent = o.dimensoes || 'Sob consulta';
     $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Todas as obras têm preço negociado direto com o artista</small>`;
     $('#vBuy').href = negLink(o);
     $('#vAsk').href = askLink(o);

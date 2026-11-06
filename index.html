@@ -142,7 +142,7 @@
   <header class="sec-head">
     <p class="eyebrow">Experimente antes de comprar</p>
     <h2 class="sec-title">Veja na sua <em>parede</em></h2>
-    <p class="sec-sub">A sala está em escala real: o sofá tem 2,10 m e o teto 2,60 m. Escolha a obra e a cor da parede para sentir o tamanho dela no ambiente.</p>
+    <p class="sec-sub">Escolha a obra e a cor da parede para ver como ela fica no ambiente.</p>
   </header>
   <div class="wall-wrap">
     <figure class="room-frame">
@@ -207,14 +207,9 @@
             <image id="artImg" x="0" y="0" width="60" height="40" preserveAspectRatio="xMidYMid slice"/>
             <rect id="artEdge" x="0" y="0" width="60" height="40" fill="none" stroke="#000" stroke-opacity=".12" stroke-width=".5"/>
           </g>
-          <g id="dims" class="s-dims">
-            <path id="dimW" d=""/><path id="dimH" d=""/>
-            <text id="dimWt" text-anchor="middle"></text>
-            <text id="dimHt" text-anchor="middle"></text>
-          </g>
         </svg>
       </div>
-      <figcaption class="room-cap"><span>Escala real · sofá de 2,10 m · teto de 2,60 m</span><span id="roomCapSize"></span></figcaption>
+      <figcaption class="room-cap"><span>Simulação ilustrativa</span></figcaption>
     </figure>
     <aside class="wall-panel">
       <div class="wp-sel">
@@ -222,7 +217,6 @@
         <div>
           <span class="wp-eyebrow">Na parede agora</span>
           <b id="wpTitle"></b>
-          <span class="wp-size" id="wpSize"></span>
         </div>
       </div>
       <div class="fld">
@@ -233,7 +227,6 @@
         <span>Cor da parede · <b id="wallName">Off-white</b></span>
         <div class="wall-colors" id="wallColors"></div>
       </div>
-      <label class="wp-toggle"><input type="checkbox" id="showDims" checked><span>Mostrar medidas</span></label>
       <div class="wall-actions">
         <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Negociar preço desta obra</a>
         <button class="btn btn-ghost" id="roomDetail">Ver detalhes</button>
@@ -373,7 +366,6 @@
     <dl class="v-specs">
       <div><dt>Técnica</dt><dd>Pintura artesanal sobre tela</dd></div>
       <div><dt>Produção</dt><dd>100% feita à mão pelo artista</dd></div>
-      <div><dt>Dimensões</dt><dd id="vDim">Sob consulta</dd></div>
       <div id="vPecasRow" hidden><dt>Composição</dt><dd id="vPecas"></dd></div>
       <div><dt>Edição</dt><dd>Peça única, assinada</dd></div>
     </dl>
