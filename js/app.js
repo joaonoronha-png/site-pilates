@@ -154,40 +154,70 @@
       </article>`).join('');
   }
 
-  /* ---------- VER NA PAREDE ---------- */
-  const WALLS = ['#ece6dc', '#f7f5f0', '#d9cbb6', '#a9b3a1', '#6f7f8c', '#3f4a52', '#b8836a', '#2a2623'];
+  /* ---------- VER NA PAREDE (sala em escala real, unidades em cm) ---------- */
+  const WALLS = [['Off-white', '#ece6dc'], ['Branco', '#f7f5f0'], ['Areia', '#d9cbb6'], ['Sálvia', '#a9b3a1'], ['Azul névoa', '#7d8d99'], ['Grafite', '#3f4a52'], ['Terracota', '#b8836a'], ['Noite', '#2a2623']];
+  const FLOOR = 262, SOFA_TOP = 80;          // chão no y=262; encosto do sofá a 80 cm
   let roomId = OBRAS[0].id;
+  const sizeOf = o => {
+    const m = o.dimensoes && String(o.dimensoes).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i);
+    if (m) return { w: parseFloat(m[1].replace(',', '.')), h: parseFloat(m[2].replace(',', '.')), real: true };
+    return { w: 60, h: Math.round(60 / (o.w / o.h)), real: false };
+  };
+  const fmtCm = n => (n >= 100 ? (n / 100).toFixed(2).replace('.', ',') + ' m' : Math.round(n) + ' cm');
   function wall() {
-    $('#roomPick').innerHTML = OBRAS.map(o => `<option value="${o.id}">${esc(o.titulo)}</option>`).join('');
     $('#formObra').innerHTML += OBRAS.map(o => `<option value="${o.id}">${esc(o.titulo)}</option>`).join('');
-    $('#wallColors').innerHTML = WALLS.map((c, i) => `<button class="wc ${i ? '' : 'on'}" style="background:${c}" data-wall="${c}" aria-label="Parede ${c}"></button>`).join('');
+    $('#roomThumbs').innerHTML = FEATURED_FIRST.map(o => `<button class="wp-t" data-room="${o.id}" title="${esc(o.titulo)}" aria-label="${esc(o.titulo)}"><img src="${thumb(o.id)}" alt="" loading="lazy"></button>`).join('');
+    $('#roomThumbs').addEventListener('click', e => { const b = e.target.closest('[data-room]'); if (b) setRoom(b.dataset.room); });
+    $('#wallColors').innerHTML = WALLS.map(([n, c], i) => `<button class="wc ${i ? '' : 'on'}" style="background:${c}" data-wall="${c}" data-name="${n}" aria-label="Parede ${n}" title="${n}"></button>`).join('');
     $('#wallColors').addEventListener('click', e => {
       const b = e.target.closest('[data-wall]'); if (!b) return;
-      $('#roomWall').style.setProperty('--wall', b.dataset.wall);
+      $('#scene').style.setProperty('--wall', b.dataset.wall);
+      $('#scene').classList.toggle('dark-wall', ['#3f4a52', '#2a2623'].includes(b.dataset.wall));
+      $('#wallName').textContent = b.dataset.name;
       $$('.wc').forEach(x => x.classList.toggle('on', x === b));
     });
-    $('#roomPick').addEventListener('change', e => setRoom(e.target.value));
-    window.addEventListener('resize', sizeRoom);
+    $('#showDims').addEventListener('change', e => $('#dims').style.display = e.target.checked ? '' : 'none');
     $('#roomDetail').addEventListener('click', () => openViewer(roomId));
+    addEventListener('resize', fitScene);
     setRoom(roomId);
   }
-  function setRoom(id) {
-    roomId = id; const o = byId[id], a = $('#roomArt');
-    $('#roomPick').value = id;
-    $('#roomInterest').href = negLink(o);
-    a.style.opacity = 0;
-    setTimeout(() => { a.src = img(id); a.alt = `${o.titulo} simulada em uma sala`; a.dataset.ratio = o.w / o.h; sizeRoom(); a.style.opacity = 1; }, 200);
+  function fitScene() {
+    const svg = $('#scene'), narrow = svg.parentElement.clientWidth < 560;
+    const s = sizeOf(byId[roomId]), need = Math.max(s.w + 70, narrow ? 400 : 520);
+    const vw = Math.min(520, need), vx = 260 - vw / 2;
+    svg.setAttribute('viewBox', `${vx} 0 ${vw} 300`);
+    svg.parentElement.style.aspectRatio = `${vw} / 300`;
+    const px = svg.parentElement.clientWidth / vw;                // px por cm
+    const fs = Math.max(6, 12 / px);
+    $$('#dims text').forEach(t => t.setAttribute('font-size', fs.toFixed(1)));
   }
-  function sizeRoom() {
-    const o = byId[roomId], m = o.dimensoes && String(o.dimensoes).match(/\d+/), cm = m ? +m[0] : 60;  // largura real da obra (campo "dimensoes"); 60 cm enquanto não informada
-    const a = $('#roomArt'), sr = $('.room-sofa').getBoundingClientRect(), wr = $('#roomWall').getBoundingClientRect();
-    const pxcm = sr.width / 210, ratio = +a.dataset.ratio || 1.5;
-    const gap = 22 * pxcm;                                // ~22 cm acima do encosto
-    const bottom = wr.bottom - sr.top + gap;              // distância da base da parede
-    const maxH = wr.height - bottom - wr.height * .07;    // respiro no teto
-    let w = cm * pxcm, h = w / ratio;
-    if (h > maxH) { h = maxH; w = h * ratio; }
-    Object.assign(a.style, { width: w + 'px', height: h + 'px', bottom: bottom + 'px' });
+  function setRoom(id) {
+    roomId = id; const o = byId[id], s = sizeOf(o);
+    $$('.wp-t').forEach(b => b.classList.toggle('on', b.dataset.room === id));
+    $('#roomInterest').href = negLink(o);
+    $('#wpThumb').src = thumb(id); $('#wpTitle').textContent = o.titulo;
+    const label = `${fmtCm(s.w)} × ${fmtCm(s.h)}`;
+    $('#wpSize').textContent = s.real ? label : `≈ ${label} · medida a confirmar`;
+    $('#roomCapSize').textContent = s.real ? `Obra: ${label}` : 'Obra em tamanho aproximado';
+    // altura: centro a 1,50 m do chão, sem encostar no sofá e sem passar do teto
+    let c = Math.max(150, SOFA_TOP + 18 + s.h / 2);
+    if (c + s.h / 2 > 250) c = Math.max(s.h / 2 + 2, 250 - s.h / 2);
+    const x = 260 - s.w / 2, y = FLOOR - (c + s.h / 2);
+    const im = $('#artImg'), art = $('#art');
+    art.style.opacity = 0;
+    setTimeout(() => {
+      im.setAttribute('href', img(id));
+      [im, $('#artEdge')].forEach(el => { el.setAttribute('x', x); el.setAttribute('y', y); el.setAttribute('width', s.w); el.setAttribute('height', s.h); });
+      const sp = $('#artSpot'); sp.setAttribute('cy', y + s.h / 2); sp.setAttribute('rx', s.w * .75 + 50); sp.setAttribute('ry', s.h * .8 + 40);
+      const dy = y - 7, dx = x + s.w + 7, t = 3;
+      $('#dimW').setAttribute('d', `M${x} ${dy} H${x + s.w} M${x} ${dy - t} V${dy + t} M${x + s.w} ${dy - t} V${dy + t}`);
+      $('#dimH').setAttribute('d', `M${dx} ${y} V${y + s.h} M${dx - t} ${y} H${dx + t} M${dx - t} ${y + s.h} H${dx + t}`);
+      const wt = $('#dimWt'); wt.setAttribute('x', 260); wt.setAttribute('y', dy - 4); wt.textContent = (s.real ? '' : '≈ ') + fmtCm(s.w);
+      const ht = $('#dimHt'); ht.textContent = (s.real ? '' : '≈ ') + fmtCm(s.h);
+      ht.setAttribute('transform', `translate(${dx + 5} ${y + s.h / 2}) rotate(90)`);
+      fitScene();
+      art.style.opacity = 1;
+    }, 180);
   }
 
   /* ---------- VISUALIZADOR ---------- */

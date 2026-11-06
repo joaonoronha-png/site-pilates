@@ -2,7 +2,7 @@
    Para anunciar preço/medidas, preencha "preco" (ex.: 4800) e "dimensoes" (ex.: "100 x 70 cm").
    Opcional: "descricao" (texto extra só daquela obra) e "pecas" (quantas telas formam a obra). */
 window.OBRAS = [
- {"id": "01", "rank": 1, "titulo": "Matéria em erupção", "nota": 9.9, "w": 1469, "h": 948, "formato": "horizontal", "cores": ["vermelhos", "verdes"], "preco": null, "dimensoes": null, "paleta": ["#362a28", "#683a37", "#706255", "#90846f", "#aba89d"]},
+ {"id": "01", "rank": 1, "titulo": "Matéria em erupção", "nota": 9.9, "w": 1469, "h": 948, "formato": "horizontal", "cores": ["vermelhos", "verdes"], "preco": null, "dimensoes": "230 x 110 cm", "paleta": ["#362a28", "#683a37", "#706255", "#90846f", "#aba89d"]},
  {"id": "02", "rank": 2, "titulo": "Rasgos sobre a terra", "nota": 9.8, "w": 1471, "h": 969, "formato": "horizontal", "cores": ["terrosos", "escuros"], "preco": null, "dimensoes": null, "paleta": ["#644f44", "#7a6659", "#3e2f29", "#8f7d72", "#ada29a"]},
  {"id": "03", "rank": 3, "titulo": "Carvão e ouro", "nota": 9.8, "w": 1240, "h": 1463, "formato": "vertical", "cores": ["escuros", "dourados"], "preco": null, "dimensoes": null, "paleta": ["#262226", "#433f3e", "#706b62", "#958978", "#a6a191"]},
  {"id": "04", "rank": 4, "titulo": "Vermelho em fluxo", "nota": 9.7, "w": 1473, "h": 881, "formato": "horizontal", "cores": ["vermelhos"], "preco": null, "dimensoes": null, "paleta": ["#5d281c", "#9e2a21", "#96594e", "#b0796f", "#c6a199"]},

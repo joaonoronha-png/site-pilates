@@ -142,47 +142,102 @@
   <header class="sec-head">
     <p class="eyebrow">Experimente antes de comprar</p>
     <h2 class="sec-title">Veja na sua <em>parede</em></h2>
-    <p class="sec-sub">Escolha a obra e a cor da parede para ver como ela fica no ambiente. O sofá tem 2,10 m como referência.</p>
+    <p class="sec-sub">A sala está em escala real: o sofá tem 2,10 m e o teto 2,60 m. Escolha a obra e a cor da parede para sentir o tamanho dela no ambiente.</p>
   </header>
   <div class="wall-wrap">
-    <div class="room" id="room">
-      <div class="room-wall" id="roomWall">
-        <div class="room-light" aria-hidden="true"></div>
-        <img class="room-art" id="roomArt" alt="">
+    <figure class="room-frame">
+      <div class="room" id="room">
+        <svg id="scene" viewBox="0 0 520 300" role="img" aria-label="Simulação da obra em uma sala">
+          <defs>
+            <linearGradient id="gShade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".28" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>
+            <linearGradient id="gTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient>
+            <radialGradient id="gSpot"><stop offset="0" stop-color="#fff6e6" stop-opacity=".55"/><stop offset="1" stop-color="#fff6e6" stop-opacity="0"/></radialGradient>
+            <linearGradient id="gFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d6e52"/><stop offset="1" stop-color="#b08c6a"/></linearGradient>
+            <linearGradient id="gSofa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2d9cb"/><stop offset="1" stop-color="#cfc3b2"/></linearGradient>
+            <filter id="fArt" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="1.2" dy="3" stdDeviation="2.4" flood-color="#2a1a0e" flood-opacity=".38"/></filter>
+            <filter id="fSoft" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#2a1a0e" flood-opacity=".22"/></filter>
+          </defs>
+          <rect class="s-wall" x="0" y="0" width="520" height="262"/>
+          <rect x="0" y="0" width="520" height="262" fill="url(#gShade)"/>
+          <rect x="0" y="0" width="520" height="262" fill="url(#gTop)"/>
+          <ellipse id="artSpot" cx="260" cy="110" rx="160" ry="110" fill="url(#gSpot)"/>
+          <g class="s-track"><rect x="205" y="0" width="110" height="2.2" rx="1"/><path d="M228 2 l-5 7 h8z M292 2 l5 7 h-8z"/></g>
+          <rect x="0" y="254" width="520" height="8" fill="#fff" opacity=".5"/>
+          <rect x="0" y="261.4" width="520" height=".8" fill="#000" opacity=".12"/>
+          <rect x="0" y="262" width="520" height="38" fill="url(#gFloor)"/>
+          <g stroke="#5a4330" stroke-opacity=".18" stroke-width=".6"><line x1="-52" y1="262" x2="-220" y2="300"/><line x1="-26" y1="262" x2="-180" y2="300"/><line x1="0" y1="262" x2="-140" y2="300"/><line x1="26" y1="262" x2="-100" y2="300"/><line x1="52" y1="262" x2="-60" y2="300"/><line x1="78" y1="262" x2="-20" y2="300"/><line x1="104" y1="262" x2="20" y2="300"/><line x1="130" y1="262" x2="60" y2="300"/><line x1="156" y1="262" x2="100" y2="300"/><line x1="182" y1="262" x2="140" y2="300"/><line x1="208" y1="262" x2="180" y2="300"/><line x1="234" y1="262" x2="220" y2="300"/><line x1="260" y1="262" x2="260" y2="300"/><line x1="286" y1="262" x2="300" y2="300"/><line x1="312" y1="262" x2="340" y2="300"/><line x1="338" y1="262" x2="380" y2="300"/><line x1="364" y1="262" x2="420" y2="300"/><line x1="390" y1="262" x2="460" y2="300"/><line x1="416" y1="262" x2="500" y2="300"/><line x1="442" y1="262" x2="540" y2="300"/><line x1="468" y1="262" x2="580" y2="300"/><line x1="494" y1="262" x2="620" y2="300"/><line x1="520" y1="262" x2="660" y2="300"/><line x1="546" y1="262" x2="700" y2="300"/><line x1="572" y1="262" x2="740" y2="300"/></g>
+          <path d="M118 268 H402 L432 292 H88 Z" fill="#e7dfd2" opacity=".85"/>
+          <path d="M118 268 H402 L432 292 H88 Z" fill="none" stroke="#cfc3b2" stroke-width=".8"/>
+          <g class="s-lamp" fill="#2a2420" stroke="#2a2420">
+            <ellipse cx="62" cy="262" rx="12" ry="2.4" stroke="none"/>
+            <path d="M62 262 V96 Q62 78 92 78" fill="none" stroke-width="1.6"/>
+            <path d="M80 78 h26 l6 14 h-38z" stroke="none"/>
+            <ellipse cx="93" cy="92" rx="19" ry="1.6" fill="#f6e7c8" stroke="none"/>
+          </g>
+          <ellipse cx="260" cy="262" rx="120" ry="4" fill="#000" opacity=".18"/>
+          <g class="s-sofa" filter="url(#fSoft)">
+            <rect x="170" y="246" width="3" height="16" fill="#3a2f27"/><rect x="347" y="246" width="3" height="16" fill="#3a2f27"/>
+            <rect x="160" y="182" width="200" height="46" rx="10" fill="url(#gSofa)"/>
+            <rect x="150" y="198" width="24" height="52" rx="10" fill="#d6cbbb"/>
+            <rect x="346" y="198" width="24" height="52" rx="10" fill="#d6cbbb"/>
+            <rect x="166" y="224" width="188" height="26" rx="6" fill="#d3c7b6"/>
+            <rect x="168" y="186" width="91" height="30" rx="9" fill="#e6ddd0"/>
+            <rect x="261" y="186" width="91" height="30" rx="9" fill="#e6ddd0"/>
+            <rect x="168" y="213" width="91" height="15" rx="6" fill="#ece4d8"/>
+            <rect x="261" y="213" width="91" height="15" rx="6" fill="#ece4d8"/>
+            <rect x="182" y="190" width="30" height="24" rx="6" fill="#b4441e" transform="rotate(-7 197 202)"/>
+            <rect x="314" y="192" width="26" height="22" rx="6" fill="#c9a46a" transform="rotate(6 327 203)"/>
+          </g>
+          <g class="s-table">
+            <rect x="392" y="206" width="44" height="3" rx="1.5" fill="#3a2f27"/>
+            <path d="M398 209 L395 262 M430 209 L433 262" stroke="#3a2f27" stroke-width="1.6"/>
+            <path d="M408 206 q-3 -14 6 -20 q9 6 6 20z" fill="#efe8dc" stroke="#cfc3b2" stroke-width=".6"/>
+            <path d="M414 186 q-6 -16 -2 -26 M414 186 q6 -12 10 -18" stroke="#6b7a52" stroke-width="1" fill="none"/>
+          </g>
+          <g class="s-plant">
+            <path d="M476 262 l-4 -36 h28 l-4 36z" fill="#2c2420"/>
+            <path d="M486 226 C470 196 462 170 470 140 M486 226 C496 190 508 170 504 146 M486 226 C484 196 488 176 486 156" stroke="#4d5a3c" stroke-width="1.4" fill="none"/>
+            <ellipse cx="470" cy="146" rx="6" ry="13" fill="#5d6c47" transform="rotate(-18 470 146)"/>
+            <ellipse cx="504" cy="152" rx="6" ry="12" fill="#6b7a52" transform="rotate(22 504 152)"/>
+            <ellipse cx="486" cy="160" rx="5" ry="12" fill="#56653f"/>
+            <ellipse cx="466" cy="180" rx="5" ry="11" fill="#6b7a52" transform="rotate(-40 466 180)"/>
+            <ellipse cx="503" cy="184" rx="5" ry="10" fill="#5d6c47" transform="rotate(38 503 184)"/>
+          </g>
+          <g id="art" filter="url(#fArt)">
+            <image id="artImg" x="0" y="0" width="60" height="40" preserveAspectRatio="xMidYMid slice"/>
+            <rect id="artEdge" x="0" y="0" width="60" height="40" fill="none" stroke="#000" stroke-opacity=".12" stroke-width=".5"/>
+          </g>
+          <g id="dims" class="s-dims">
+            <path id="dimW" d=""/><path id="dimH" d=""/>
+            <text id="dimWt" text-anchor="middle"></text>
+            <text id="dimHt" text-anchor="middle"></text>
+          </g>
+        </svg>
       </div>
-      <div class="room-floor" aria-hidden="true"></div>
-      <svg class="room-sofa" viewBox="0 0 420 150" aria-hidden="true">
-        <rect x="18" y="40" width="384" height="70" rx="22" fill="#d8d0c4"/>
-        <rect x="0" y="62" width="56" height="70" rx="20" fill="#cfc6b8"/>
-        <rect x="364" y="62" width="56" height="70" rx="20" fill="#cfc6b8"/>
-        <rect x="40" y="88" width="340" height="40" rx="12" fill="#e3dccf"/>
-        <line x1="210" y1="90" x2="210" y2="128" stroke="#cfc6b8" stroke-width="2"/>
-        <rect x="40" y="128" width="8" height="18" fill="#3a2f27"/><rect x="372" y="128" width="8" height="18" fill="#3a2f27"/>
-        <rect x="70" y="52" width="70" height="46" rx="12" fill="#b4441e" opacity=".85" transform="rotate(-6 105 75)"/>
-      </svg>
-      <svg class="room-plant" viewBox="0 0 80 220" aria-hidden="true">
-        <path d="M40 150 C 10 110, 5 60, 30 20 M40 150 C 60 100, 75 70, 62 30 M40 150 C 35 100, 45 70, 40 40" stroke="#4d5a3c" stroke-width="3" fill="none"/>
-        <ellipse cx="30" cy="22" rx="12" ry="26" fill="#5d6c47" transform="rotate(-20 30 22)"/>
-        <ellipse cx="62" cy="32" rx="11" ry="24" fill="#6b7a52" transform="rotate(25 62 32)"/>
-        <ellipse cx="40" cy="44" rx="9" ry="22" fill="#56653f"/>
-        <ellipse cx="18" cy="86" rx="9" ry="20" fill="#6b7a52" transform="rotate(-40 18 86)"/>
-        <path d="M22 150 h36 l-6 66 h-24z" fill="#2c2420"/>
-      </svg>
-    </div>
+      <figcaption class="room-cap"><span>Escala real · sofá de 2,10 m · teto de 2,60 m</span><span id="roomCapSize"></span></figcaption>
+    </figure>
     <aside class="wall-panel">
-      <label class="fld">
-        <span>Obra</span>
-        <select id="roomPick"></select>
-      </label>
+      <div class="wp-sel">
+        <img id="wpThumb" alt="">
+        <div>
+          <span class="wp-eyebrow">Na parede agora</span>
+          <b id="wpTitle"></b>
+          <span class="wp-size" id="wpSize"></span>
+        </div>
+      </div>
       <div class="fld">
-        <span>Cor da parede</span>
+        <span>Escolha a obra</span>
+        <div class="wp-thumbs" id="roomThumbs"></div>
+      </div>
+      <div class="fld">
+        <span>Cor da parede · <b id="wallName">Off-white</b></span>
         <div class="wall-colors" id="wallColors"></div>
       </div>
+      <label class="wp-toggle"><input type="checkbox" id="showDims" checked><span>Mostrar medidas</span></label>
       <div class="wall-actions">
         <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Negociar preço desta obra</a>
         <button class="btn btn-ghost" id="roomDetail">Ver detalhes</button>
       </div>
-      <p class="fine">Simulação ilustrativa, com tamanho aproximado. As medidas exatas de cada tela são informadas no atendimento.</p>
     </aside>
   </div>
 </section>
