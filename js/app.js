@@ -8,7 +8,10 @@
     email: 'vicenteprior@gmail.com'
   };
 
+  // Destaques escolhidos à mão (ids). Aparecem na sala escura e no topo da coleção; o resto segue o ranking.
+  const DESTAQUES = ['01', '06', '03'];
   const OBRAS = window.OBRAS.slice().sort((a, b) => a.rank - b.rank);
+  const FEATURED_FIRST = [...DESTAQUES.map(id => OBRAS.find(o => o.id === id)), ...OBRAS.filter(o => !DESTAQUES.includes(o.id))];
   const byId = Object.fromEntries(OBRAS.map(o => [o.id, o]));
   const $ = (s, el = document) => el.querySelector(s);
   const $$ = (s, el = document) => [...el.querySelectorAll(s)];
@@ -97,7 +100,7 @@
 
   /* ---------- TOP 3 ---------- */
   function podium() {
-    $('#podium').innerHTML = OBRAS.slice(0, 3).map(o => `
+    $('#podium').innerHTML = FEATURED_FIRST.slice(0, 3).map(o => `
       <article class="p-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Abrir ${esc(o.titulo)}">
         <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}"></div>
         <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="cap-acts"><span class="p-neg">Ver obra e fazer oferta →</span>${heartBtn(o)}</span></div>
@@ -129,7 +132,7 @@
     $('#sort').addEventListener('change', e => { state.sort = e.target.value; renderGrid(); });
   }
   function renderGrid() {
-    let list = OBRAS.filter(o =>
+    let list = FEATURED_FIRST.filter(o =>
       (!state.fav || isWished(o.id)) &&
       (!state.color || o.cores.includes(state.color)) &&
       (!state.shape || o.formato === state.shape));
@@ -225,7 +228,7 @@
     history.replaceState(null, '', location.pathname + location.search);
     if (lastFocus) lastFocus.focus({ preventScroll: true });
   }
-  function step(d) { const i = OBRAS.indexOf(current); openViewer(OBRAS[(i + d + OBRAS.length) % OBRAS.length].id); }
+  function step(d) { const L = FEATURED_FIRST, i = L.indexOf(current); openViewer(L[(i + d + L.length) % L.length].id); }
   function viewer() {
     $('#vClose').addEventListener('click', closeViewer);
     $('#vOffer').addEventListener('input', e => { const v = e.target.value.replace(/[^\d.,]/g, ''); e.target.value = v; $('#vBuy').href = negLink(current, v); });
