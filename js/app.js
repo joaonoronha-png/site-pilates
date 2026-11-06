@@ -20,8 +20,9 @@
   const wa = text => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const url = o => `${location.origin}${location.pathname}#obra-${o.id}`;
-  const negMsg = (o, offer) => `Olá! Gostaria de negociar o preço da obra "${o.titulo}" de Vicente Prior.` + (offer ? ` Minha proposta é de R$ ${offer}.` : ' Qual o valor e as medidas?') + ` ${url(o)}`;
+  const negMsg = (o, offer) => `Olá! Gostaria de negociar o preço da obra "${o.titulo}" de Vicente Prior.` + (offer ? ` Minha oferta é de R$ ${offer}.` : ' Qual o valor e as medidas?') + ` ${url(o)}`;
   const negLink = (o, offer) => wa(negMsg(o, offer));
+  const askLink = o => wa(`Olá, Vicente! Tenho uma dúvida sobre a obra "${o.titulo}": ${url(o)}`);
   const DESC = 'Obra feita artesanalmente por Vicente Prior. Cada camada de tinta, textura e raspagem é aplicada à mão, por isso não existe outra igual. Peça única, assinada, acompanhada de certificado de autenticidade.';
 
   const COLORS = {
@@ -197,8 +198,9 @@
     $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
     $('#vDim').textContent = o.dimensoes || 'Sob consulta';
-    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Faça sua proposta pelo WhatsApp</small>`;
+    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Todas as obras têm preço negociado direto com o artista</small>`;
     $('#vBuy').href = negLink(o);
+    $('#vAsk').href = askLink(o);
     $('#vHeart').setAttribute('aria-pressed', isWished(o.id));
     $('#vLens').style.backgroundImage = `url(${img(o.id)})`;
     if (v.hidden) { v.hidden = false; document.body.style.overflow = 'hidden'; $('#vClose').focus(); }
@@ -213,6 +215,8 @@
   function viewer() {
     $('#vClose').addEventListener('click', closeViewer);
     $('#vOffer').addEventListener('input', e => { const v = e.target.value.replace(/[^\d.,]/g, ''); e.target.value = v; $('#vBuy').href = negLink(current, v); });
+    $('#vDeal').addEventListener('submit', e => { e.preventDefault(); $('#vBuy').click(); });
+    $('#formOffer').addEventListener('input', e => { e.target.value = e.target.value.replace(/[^\d.,]/g, ''); });
     $('#vPrev').addEventListener('click', () => step(-1));
     $('#vNext').addEventListener('click', () => step(1));
     $('#vHeart').addEventListener('click', () => toggleWish(current.id));
@@ -288,13 +292,14 @@
 
 
     // contato
-    $('#waMain').href = wa('Olá! Vim pelo site e gostaria de negociar o preço de uma obra de Vicente Prior.');
+    $('#waMain').href = wa('Olá, Vicente! Vim pelo site e tenho uma dúvida sobre as suas obras.');
     $('#contactForm').addEventListener('submit', e => {
       e.preventDefault();
       const f = new FormData(e.target), o = byId[f.get('obra')];
-      const msg = `Olá! Sou ${f.get('nome')} (${f.get('contato')}).` + (o ? ` Gostaria de negociar o preço da obra "${o.titulo}".` : '') + (f.get('msg') ? `\n${f.get('msg')}` : '');
-      const a = $('#formSend'); a.href = wa(msg); a.hidden = false; a.focus();
-      toast('Mensagem pronta: toque em “Abrir no WhatsApp”');
+      const offer = (f.get('oferta') || '').trim();
+      const msg = `Olá! Sou ${f.get('nome')} (${f.get('contato')}).` + (o ? ` Gostaria de negociar o preço da obra "${o.titulo}".` : ' Gostaria de negociar o preço de uma obra.') + (offer ? ` Minha oferta é de R$ ${offer}.` : '') + (f.get('msg') ? `\n${f.get('msg')}` : '');
+      const href = wa(msg), win = window.open(href, '_blank'); if (win) win.opener = null;
+      if (!win) { const a = $('#formSend'); a.href = href; a.hidden = false; a.focus(); toast('Mensagem pronta: toque em “Abrir no WhatsApp”'); }
     });
     $('#year').textContent = new Date().getFullYear();
 

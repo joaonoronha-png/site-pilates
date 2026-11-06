@@ -218,9 +218,9 @@
 <section class="contact" id="contato">
   <div class="contact-copy">
     <p class="eyebrow light">Contato</p>
-    <h2 class="sec-title light">Vamos encontrar a obra <em>certa</em> para o seu espaço</h2>
-    <p>Arquitetos, decoradores e colecionadores: envie a foto do ambiente e ajudamos na escolha.</p>
-    <a class="btn btn-paper" id="waMain" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+    <h2 class="sec-title light">Escolha a obra e faça a sua <em>oferta</em></h2>
+    <p>Todos os preços são negociados direto com o artista. Escolha a obra, escreva quanto quer oferecer e envie pelo WhatsApp. Ficou com dúvida? Fale com o Vicente.</p>
+    <a class="btn btn-paper" id="waMain" href="#" target="_blank" rel="noopener">Tirar dúvidas no WhatsApp</a>
     <ul class="contact-list">
       <li><span>WhatsApp</span><a href="https://wa.me/5521993518769" target="_blank" rel="noopener">+55 21 99351-8769</a></li>
       <li><span>E-mail</span><a href="mailto:vicenteprior@gmail.com">vicenteprior@gmail.com</a></li>
@@ -229,9 +229,10 @@
   <form class="contact-form" id="contactForm">
     <label>Nome<input name="nome" required autocomplete="name"></label>
     <label>E-mail ou telefone<input name="contato" required autocomplete="email"></label>
-    <label>Obra de interesse<select name="obra" id="formObra"><option value="">Ainda não sei</option></select></label>
-    <label>Mensagem<textarea name="msg" rows="3" placeholder="Conte sobre o seu espaço…"></textarea></label>
-    <button class="btn btn-paper" type="submit">Preparar mensagem</button>
+    <label>Obra<select name="obra" id="formObra"><option value="">Escolha a obra</option></select></label>
+    <label>Sua oferta (R$)<input name="oferta" id="formOffer" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></label>
+    <label>Mensagem ou dúvida<textarea name="msg" rows="3" placeholder="Opcional: conte sobre o seu espaço ou tire uma dúvida"></textarea></label>
+    <button class="btn btn-paper" type="submit">Negociar preço</button>
     <a class="btn btn-paper" id="formSend" href="#" target="_blank" rel="noopener" hidden>Abrir no WhatsApp</a>
   </form>
 </section>
@@ -258,6 +259,19 @@
     <p class="v-rank">Pintura original · feita à mão</p>
     <h3 class="v-title" id="vTitle"></h3>
     <p class="v-meta" id="vMeta"></p>
+    <form class="v-deal" id="vDeal">
+      <p class="v-price" id="vPrice"></p>
+      <label class="v-offer" for="vOffer">Escreva sua oferta
+        <span class="v-offer-row"><span>R$</span><input id="vOffer" name="oferta" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></span>
+      </label>
+      <a class="btn btn-deal" id="vBuy" href="#" target="_blank" rel="noopener">Negociar preço</a>
+      <p class="v-deal-note">Você fala direto com o Vicente pelo WhatsApp. A oferta vai junto na mensagem.</p>
+    </form>
+    <a class="v-ask" id="vAsk" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M9.5 9a2.5 2.5 0 1 1 3.3 2.4c-.5.2-.8.6-.8 1.1v.3"/><circle cx="12" cy="14.6" r=".6"/></svg>
+      <span><b>Dúvidas sobre esta obra?</b>Pergunte ao Vicente no WhatsApp</span>
+      <i aria-hidden="true">→</i>
+    </a>
     <p class="v-desc" id="vDesc"></p>
     <div class="v-palette" id="vPalette" aria-label="Paleta da obra"></div>
     <dl class="v-specs">
@@ -267,12 +281,7 @@
       <div><dt>Edição</dt><dd>Peça única, assinada</dd></div>
       <div><dt>Acompanha</dt><dd>Certificado de autenticidade</dd></div>
     </dl>
-    <p class="v-price" id="vPrice"></p>
-    <label class="v-offer" for="vOffer">Sua proposta (opcional)
-      <span class="v-offer-row"><span>R$</span><input id="vOffer" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></span>
-    </label>
     <div class="v-actions">
-      <a class="btn btn-ink" id="vBuy" href="#" target="_blank" rel="noopener">Negociar preço</a>
       <button class="btn btn-ghost" id="vWall">Ver na parede</button>
       <button class="icon-btn heart" id="vHeart" aria-label="Salvar na lista de desejos" aria-pressed="false">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
