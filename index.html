@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vicente Prior — Pinturas Originais</title>
+<meta name="description" content="Galeria oficial do pintor Vicente Prior. Pinturas abstratas originais e únicas, selecionadas por ranking curatorial. Veja na sua parede e compre com certificado de autenticidade.">
+<meta property="og:title" content="Vicente Prior — Pinturas Originais">
+<meta property="og:description" content="Matéria, gesto e cor. 40 obras originais, ranqueadas por curadoria.">
+<meta property="og:image" content="assets/obras/01.jpg">
+<meta name="theme-color" content="#f3eee6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23141210'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia' font-size='34' fill='%23f3eee6'%3EVP%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar" id="topbar">
+  <a href="#inicio" class="brand" aria-label="Vicente Prior — início">
+    <span class="brand-mark">VP</span>
+    <span class="brand-name">Vicente Prior</span>
+  </a>
+  <nav class="nav" id="nav" aria-label="Principal">
+    <a href="#obras-primas">Obras-primas</a>
+    <a href="#top10">Top 10</a>
+    <a href="#colecao">Coleção</a>
+    <a href="#parede">Ver na parede</a>
+    <a href="#artista">O artista</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <div class="top-actions">
+    <button class="icon-btn" id="openWish" aria-label="Lista de desejos">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
+      <span class="badge" id="wishCount">0</span>
+    </button>
+    <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <p class="eyebrow reveal">Pinturas originais · peças únicas</p>
+    <h1 class="hero-title reveal">
+      <span>Vicente</span>
+      <span class="it">Prior</span>
+    </h1>
+    <p class="hero-lede reveal">Matéria, gesto e cor. Uma coleção de 40 telas abstratas ranqueadas por curadoria — da mais celebrada à mais íntima. Cada obra é única e acompanha certificado de autenticidade.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-ink" href="#obras-primas">Conhecer as obras-primas</a>
+      <a class="btn btn-ghost" href="#colecao">Explorar coleção</a>
+    </div>
+    <dl class="hero-stats reveal">
+      <div><dt>40</dt><dd>obras originais</dd></div>
+      <div><dt>9.9</dt><dd>nota máxima</dd></div>
+      <div><dt>1/1</dt><dd>sem reproduções</dd></div>
+    </dl>
+  </div>
+  <figure class="hero-art" id="heroArt">
+    <div class="hero-canvas" id="heroCanvas"></div>
+    <figcaption class="hero-cap" id="heroCap"></figcaption>
+  </figure>
+</section>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<!-- SALA ESCURA: TOP 3 -->
+<section class="dark-room" id="obras-primas">
+  <div class="spot" aria-hidden="true"></div>
+  <header class="sec-head light">
+    <p class="eyebrow">Sala escura · as mais bem avaliadas</p>
+    <h2 class="sec-title">As três <em>obras-primas</em></h2>
+    <p class="sec-sub">Mova o cursor para iluminar. As três telas com maior nota curatorial da coleção.</p>
+  </header>
+  <div class="podium" id="podium"></div>
+</section>
+
+<!-- TOP 10 -->
+<section class="top10" id="top10">
+  <header class="sec-head row">
+    <div>
+      <p class="eyebrow">Ranking curatorial</p>
+      <h2 class="sec-title">Top 10 <em>do curador</em></h2>
+    </div>
+    <div class="rail-ctrl">
+      <button class="round" data-rail="-1" aria-label="Anterior">←</button>
+      <button class="round" data-rail="1" aria-label="Próximo">→</button>
+    </div>
+  </header>
+  <div class="rail" id="rail" tabindex="0" aria-label="Top 10 obras"></div>
+</section>
+
+<!-- COLEÇÃO -->
+<section class="collection" id="colecao">
+  <header class="sec-head">
+    <p class="eyebrow">Coleção completa · 40 obras</p>
+    <h2 class="sec-title">Encontre a sua <em>obra</em></h2>
+  </header>
+
+  <div class="filters" id="filters">
+    <div class="f-group" role="group" aria-label="Categoria">
+      <button class="chip on" data-tier="all">Todas</button>
+      <button class="chip" data-tier="prima">Obras-primas <small>9.6+</small></button>
+      <button class="chip" data-tier="destaque">Destaques <small>9.3+</small></button>
+      <button class="chip" data-tier="colecao">Coleção</button>
+    </div>
+    <div class="f-group swatches" role="group" aria-label="Cor" id="colorFilter"></div>
+    <div class="f-group" role="group" aria-label="Formato">
+      <button class="chip shape" data-shape="horizontal" title="Horizontal"><i class="sh h"></i>Horizontal</button>
+      <button class="chip shape" data-shape="vertical" title="Vertical"><i class="sh v"></i>Vertical</button>
+      <button class="chip shape" data-shape="quadrado" title="Quadrado"><i class="sh q"></i>Quadrado</button>
+    </div>
+    <label class="sort">
+      <span>Ordenar</span>
+      <select id="sort">
+        <option value="rank">Ranking (melhor nota)</option>
+        <option value="az">Nome A–Z</option>
+        <option value="za">Nome Z–A</option>
+        <option value="rev">Descobertas (menor → maior)</option>
+      </select>
+    </label>
+  </div>
+  <p class="result-count" id="resultCount" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- VER NA PAREDE -->
+<section class="wall" id="parede">
+  <header class="sec-head">
+    <p class="eyebrow">Experimente antes de comprar</p>
+    <h2 class="sec-title">Veja na sua <em>parede</em></h2>
+    <p class="sec-sub">Escolha a obra, a cor da parede e o tamanho. O sofá tem 2,10 m como referência de escala.</p>
+  </header>
+  <div class="wall-wrap">
+    <div class="room" id="room">
+      <div class="room-wall" id="roomWall">
+        <div class="room-light" aria-hidden="true"></div>
+        <img class="room-art" id="roomArt" alt="">
+      </div>
+      <div class="room-floor" aria-hidden="true"></div>
+      <svg class="room-sofa" viewBox="0 0 420 150" aria-hidden="true">
+        <rect x="18" y="40" width="384" height="70" rx="22" fill="#d8d0c4"/>
+        <rect x="0" y="62" width="56" height="70" rx="20" fill="#cfc6b8"/>
+        <rect x="364" y="62" width="56" height="70" rx="20" fill="#cfc6b8"/>
+        <rect x="40" y="88" width="340" height="40" rx="12" fill="#e3dccf"/>
+        <line x1="210" y1="90" x2="210" y2="128" stroke="#cfc6b8" stroke-width="2"/>
+        <rect x="40" y="128" width="8" height="18" fill="#3a2f27"/><rect x="372" y="128" width="8" height="18" fill="#3a2f27"/>
+        <rect x="70" y="52" width="70" height="46" rx="12" fill="#b4441e" opacity=".85" transform="rotate(-6 105 75)"/>
+      </svg>
+      <svg class="room-plant" viewBox="0 0 80 220" aria-hidden="true">
+        <path d="M40 150 C 10 110, 5 60, 30 20 M40 150 C 60 100, 75 70, 62 30 M40 150 C 35 100, 45 70, 40 40" stroke="#4d5a3c" stroke-width="3" fill="none"/>
+        <ellipse cx="30" cy="22" rx="12" ry="26" fill="#5d6c47" transform="rotate(-20 30 22)"/>
+        <ellipse cx="62" cy="32" rx="11" ry="24" fill="#6b7a52" transform="rotate(25 62 32)"/>
+        <ellipse cx="40" cy="44" rx="9" ry="22" fill="#56653f"/>
+        <ellipse cx="18" cy="86" rx="9" ry="20" fill="#6b7a52" transform="rotate(-40 18 86)"/>
+        <path d="M22 150 h36 l-6 66 h-24z" fill="#2c2420"/>
+      </svg>
+    </div>
+    <aside class="wall-panel">
+      <label class="fld">
+        <span>Obra</span>
+        <select id="roomPick"></select>
+      </label>
+      <div class="fld">
+        <span>Cor da parede</span>
+        <div class="wall-colors" id="wallColors"></div>
+      </div>
+      <label class="fld">
+        <span>Largura aproximada: <b id="sizeOut">100 cm</b></span>
+        <input type="range" id="roomSize" min="50" max="180" step="5" value="100">
+      </label>
+      <div class="wall-actions">
+        <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Tenho interesse nesta obra</a>
+        <button class="btn btn-ghost" id="roomDetail">Ver detalhes</button>
+      </div>
+      <p class="fine">Simulação ilustrativa. As dimensões reais de cada tela são informadas no atendimento.</p>
+    </aside>
+  </div>
+</section>
+
+<!-- ARTISTA -->
+<section class="artist" id="artista">
+  <div class="artist-art">
+    <img src="assets/obras/thumb/03.jpg" alt="Detalhe da obra Carvão e ouro" loading="lazy">
+    <img src="assets/obras/thumb/06.jpg" alt="Detalhe da obra Marés em azul" loading="lazy">
+    <img src="assets/obras/thumb/15.jpg" alt="Detalhe da obra Óxido em movimento" loading="lazy">
+  </div>
+  <div class="artist-copy">
+    <p class="eyebrow">O artista</p>
+    <h2 class="sec-title">Vicente <em>Prior</em></h2>
+    <p class="lead">Pintor experiente, Vicente Prior constrói suas telas camada sobre camada — pigmento, textura, raspagem e escorrido — até que a superfície vire paisagem, ferrugem, mineral.</p>
+    <p>Sua pintura nasce do gesto e da matéria. Terra, cobre, carvão e ouro dialogam com vermelhos intensos e azuis profundos, em composições abstratas que mudam conforme a luz do ambiente. Cada obra é feita à mão, assinada e única: não existem reproduções.</p>
+    <blockquote>“A tela é um território: eu apenas deixo a matéria encontrar o seu caminho.”</blockquote>
+    <ul class="pillars">
+      <li><b>Matéria</b><span>Texturas em relevo que pedem para ser vistas de perto.</span></li>
+      <li><b>Gesto</b><span>Rasgos, escorridos e camadas construídas à mão.</span></li>
+      <li><b>Cor</b><span>Paletas terrosas, minerais e vermelhos vibrantes.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONFIANÇA -->
+<section class="trust" aria-label="Garantias">
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z M9 12l2 2 4-4"/></svg><b>Certificado de autenticidade</b><span>Assinado pelo artista</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3z M14 10h4l3 3v3h-7z M7 19a2 2 0 1 0 0-.1 M17 19a2 2 0 1 0 0-.1"/></svg><b>Envio segurado</b><span>Embalagem reforçada para todo o Brasil</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 10h18 M7 15h4"/></svg><b>Pagamento facilitado</b><span>Pix, cartão e parcelamento</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z M8 9h8 M8 12h5"/></svg><b>Atendimento direto</b><span>Fale com o ateliê pelo WhatsApp</span></div>
+</section>
+
+<!-- COMO COMPRAR -->
+<section class="how">
+  <header class="sec-head">
+    <p class="eyebrow">Simples e pessoal</p>
+    <h2 class="sec-title">Como <em>adquirir</em> uma obra</h2>
+  </header>
+  <ol class="steps">
+    <li><span class="n">01</span><h3>Escolha</h3><p>Navegue pelo ranking, filtre por cor e formato e salve suas favoritas no <em>♡</em>.</p></li>
+    <li><span class="n">02</span><h3>Converse</h3><p>Clique em “Tenho interesse”: você fala direto com o ateliê, recebe medidas, valor e mais fotos.</p></li>
+    <li><span class="n">03</span><h3>Receba</h3><p>Pagamento seguro e envio protegido, com certificado de autenticidade assinado.</p></li>
+  </ol>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <div class="contact-copy">
+    <p class="eyebrow light">Contato</p>
+    <h2 class="sec-title light">Vamos encontrar a obra <em>certa</em> para o seu espaço</h2>
+    <p>Arquitetos, decoradores e colecionadores: envie a foto do ambiente e ajudamos na escolha.</p>
+    <a class="btn btn-paper" id="waMain" href="#" target="_blank" rel="noopener">Falar no WhatsApp</a>
+  </div>
+  <form class="contact-form" id="contactForm">
+    <label>Nome<input name="nome" required autocomplete="name"></label>
+    <label>E-mail ou telefone<input name="contato" required autocomplete="email"></label>
+    <label>Obra de interesse<select name="obra" id="formObra"><option value="">Ainda não sei</option></select></label>
+    <label>Mensagem<textarea name="msg" rows="3" placeholder="Conte sobre o seu espaço…"></textarea></label>
+    <button class="btn btn-paper" type="submit">Preparar mensagem</button>
+    <a class="btn btn-paper" id="formSend" href="#" target="_blank" rel="noopener" hidden>Abrir no WhatsApp</a>
+  </form>
+</section>
+</main>
+
+<footer class="footer">
+  <div class="f-brand"><span class="brand-mark">VP</span> Vicente Prior</div>
+  <p>Pinturas originais · Todas as obras são únicas e protegidas por direitos autorais.</p>
+  <p class="f-small">© <span id="year"></span> Vicente Prior. Imagens meramente ilustrativas; cores podem variar conforme a tela.</p>
+</footer>
+
+<!-- DETALHE DA OBRA -->
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vTitle" hidden>
+  <button class="v-close" id="vClose" aria-label="Fechar">✕</button>
+  <button class="v-nav prev" id="vPrev" aria-label="Obra anterior">←</button>
+  <button class="v-nav next" id="vNext" aria-label="Próxima obra">→</button>
+  <div class="v-stage" id="vStage">
+    <img id="vImg" alt="">
+    <div class="v-lens" id="vLens" aria-hidden="true"></div>
+    <span class="v-hint">Passe o mouse para ver a textura</span>
+  </div>
+  <aside class="v-info">
+    <p class="v-rank" id="vRank"></p>
+    <h3 class="v-title" id="vTitle"></h3>
+    <p class="v-meta" id="vMeta"></p>
+    <div class="v-score">
+      <div class="v-score-num"><span id="vNota"></span><small>/10</small></div>
+      <div class="v-score-bar"><i id="vBar"></i></div>
+      <span class="v-tier" id="vTier"></span>
+    </div>
+    <div class="v-palette" id="vPalette" aria-label="Paleta da obra"></div>
+    <dl class="v-specs">
+      <div><dt>Técnica</dt><dd>Pintura original sobre tela</dd></div>
+      <div><dt>Dimensões</dt><dd id="vDim">Sob consulta</dd></div>
+      <div><dt>Edição</dt><dd>Peça única, assinada</dd></div>
+      <div><dt>Acompanha</dt><dd>Certificado de autenticidade</dd></div>
+    </dl>
+    <p class="v-price" id="vPrice"></p>
+    <div class="v-actions">
+      <a class="btn btn-ink" id="vBuy" href="#" target="_blank" rel="noopener">Tenho interesse</a>
+      <button class="btn btn-ghost" id="vWall">Ver na parede</button>
+      <button class="icon-btn heart" id="vHeart" aria-label="Salvar na lista de desejos" aria-pressed="false">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+      </button>
+    </div>
+    <button class="v-share" id="vShare">Copiar link da obra</button>
+  </aside>
+</div>
+
+<!-- LISTA DE DESEJOS -->
+<aside class="drawer" id="wish" aria-label="Lista de desejos" hidden>
+  <div class="drawer-head">
+    <h3>Sua seleção</h3>
+    <button class="v-close static" id="wishClose" aria-label="Fechar">✕</button>
+  </div>
+  <div class="drawer-body" id="wishList"></div>
+  <div class="drawer-foot">
+    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Pedir valores da seleção</a>
+  </div>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/obras.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
