@@ -78,7 +78,7 @@
   function hero() {
     const o = OBRAS[0];
     $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">`;
-    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><a class="score" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço →</a>`;
+    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><button class="score" type="button" data-open="${o.id}">Ver obra e fazer oferta →</button>`;
     $('#heroCanvas img').addEventListener('click', () => openViewer(o.id));
     const art = $('#heroArt'), cv = $('#heroCanvas');
     if (matchMedia('(hover:hover)').matches) {
@@ -96,7 +96,7 @@
     $('#podium').innerHTML = OBRAS.slice(0, 3).map(o => `
       <article class="p-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Abrir ${esc(o.titulo)}">
         <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}"></div>
-        <div class="p-cap"><h3>${esc(o.titulo)}</h3><a class="p-neg" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço</a></div>
+        <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="p-neg">Ver obra e fazer oferta →</span></div>
       </article>`).join('');
     const room = $('#destaques'), spot = $('.spot', room);
     room.addEventListener('pointermove', e => {
@@ -130,11 +130,12 @@
     const s = state.sort;
     if (s === 'az') list.sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt'));
     if (s === 'za') list.sort((a, b) => b.titulo.localeCompare(a.titulo, 'pt'));
-    $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'obra' : 'obras'} · todas feitas à mão`;
+    $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'obra' : 'obras'} · toque em qualquer obra para ver de perto, tirar dúvidas e fazer sua oferta`;
     if (!list.length) { $('#grid').innerHTML = '<p class="empty">Nenhuma obra com essa combinação. Tente outro filtro.</p>'; return; }
     $('#grid').innerHTML = list.map((o, i) => `
       <article class="card" style="animation-delay:${Math.min(i, 12) * 40}ms" data-open="${o.id}">
         <div class="c-frame">
+          <span class="c-view"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M11 8.5v5M8.5 11h5"/></svg>Ver detalhes</span>
           <img src="${thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
           <button class="c-heart ${isWished(o.id) ? 'on' : ''}" data-id="${o.id}" aria-label="Salvar ${esc(o.titulo)}" aria-pressed="${isWished(o.id)}">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
@@ -143,7 +144,7 @@
         <div class="c-cap"><h3>${esc(o.titulo)}</h3></div>
         <div class="c-sub"><span>Feita à mão · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
           <span class="c-dots">${o.paleta.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</span></div>
-        <a class="c-neg" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço</a>
+        <button class="c-neg" type="button">Ver obra e fazer oferta</button>
       </article>`).join('');
   }
 
@@ -260,7 +261,6 @@
     document.addEventListener('click', e => {
       const h = e.target.closest('.c-heart'); if (h) { e.stopPropagation(); toggleWish(h.dataset.id); return; }
       const u = e.target.closest('[data-unwish]'); if (u) { toggleWish(u.dataset.unwish); return; }
-      if (e.target.closest('.c-neg, .p-neg')) { e.stopPropagation(); return; }
       const o = e.target.closest('[data-open]'); if (o) { if (!$('#wish').hidden) closeWish(); openViewer(o.dataset.open); }
     });
     document.addEventListener('keydown', e => {

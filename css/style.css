@@ -158,6 +158,14 @@ em{font-style:italic}
 .c-frame{position:relative;background:var(--card);aspect-ratio:var(--ar,4/3);display:grid;place-items:center;padding:clamp(14px,2.2vw,34px);overflow:hidden;transition:.5s var(--ease)}
 .c-frame img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;box-shadow:0 1px 2px rgba(0,0,0,.16),0 18px 30px -16px rgba(40,20,10,.45);transition:transform .8s var(--ease)}
 .card:hover .c-frame img{transform:scale(1.04)}
+.c-view{position:absolute;left:50%;bottom:14px;z-index:2;transform:translate(-50%,8px);display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;background:var(--ink);color:var(--paper);font:600 11px/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;opacity:0;transition:.35s var(--ease);pointer-events:none}
+.c-view svg{fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round}
+.card:hover .c-view,.card:focus-within .c-view{opacity:1;transform:translate(-50%,0)}
+.card{cursor:pointer}
+.card:hover .c-neg{background:var(--ink);color:var(--paper)}
+.hero-cap .score{border-bottom:1px solid currentColor;padding-bottom:3px;cursor:pointer}
+.p-item:hover .p-neg{color:var(--paper)}
+@media (hover:none){.c-view{opacity:.9;transform:none;left:8px;bottom:8px;width:32px;height:32px;padding:0;justify-content:center;font-size:0;gap:0}}
 .c-tag{position:absolute;top:12px;left:12px;font:600 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;padding:7px 10px;border-radius:999px;background:var(--ink);color:var(--paper)}
 .c-tag.destaque{background:var(--paper);color:var(--ink);border:1px solid var(--line)}
 .c-heart{position:absolute;top:8px;right:8px;width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(251,248,243,.9);opacity:0;transition:.3s}
@@ -168,7 +176,7 @@ em{font-style:italic}
 .c-cap h3{margin:0;font:400 19px/1.2 var(--serif)}
 .c-cap .rk{font:600 11px/1 var(--sans);letter-spacing:.1em;color:var(--mute);white-space:nowrap}
 .c-sub{display:flex;align-items:center;gap:10px;padding:6px 2px 0;font-size:12px;color:var(--mute)}
-.c-neg{margin-top:12px;align-self:flex-start;padding:10px 16px;font-size:11px;border:1px solid var(--ink);border-radius:999px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:.3s}
+.c-neg{margin-top:12px;align-self:flex-start;cursor:pointer;padding:10px 16px;font-size:11px;border:1px solid var(--ink);border-radius:999px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;transition:.3s}
 .c-neg:hover{background:var(--ink);color:var(--paper)}
 .c-dots{display:flex;gap:3px;margin-left:auto}
 .c-dots i{width:10px;height:10px;border-radius:50%}
@@ -361,7 +369,7 @@ blockquote{margin:30px 0;padding-left:22px;border-left:2px solid var(--rust);fon
   .brand-name{font-size:17px}
   .grid{grid-template-columns:repeat(2,1fr);gap:14px 12px}
   .card{grid-column:span 1}
-  .c-neg{padding:9px 12px;font-size:10px}
+  .c-neg{align-self:stretch;text-align:center;padding:11px 8px;font-size:10px;letter-spacing:.03em}
   .c-frame{padding:10px}
   .c-cap h3{font-size:16px}
   .c-dots{display:none}
