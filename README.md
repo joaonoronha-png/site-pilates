@@ -10,7 +10,7 @@ Para publicar, envie a pasta inteira para qualquer hospedagem estática (Netlify
 - `js/app.js` → `CONFIG.whatsapp` (DDI+DDD+número, só dígitos) e `CONFIG.email`.
 - `js/obras.js` → para cada obra, preencha `preco` (ex.: `4800`) e `dimensoes` (ex.: `"100 x 70 cm"`).
   Enquanto estiverem `null`, o site mostra "Sob consulta".
-- Textos do artista e garantias (envio segurado, parcelamento, certificado) em `index.html`.
+- Textos do artista e garantias (envio segurado, parcelamento) em `index.html`.
 
 ## Estrutura
 - `assets/obras/NN.jpg` — obras recortadas (sem fundo/bordas), 1600px. `assets/obras/thumb/` — 720px.

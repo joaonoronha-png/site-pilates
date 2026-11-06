@@ -23,7 +23,7 @@
   const negMsg = (o, offer) => `Olá! Gostaria de negociar o preço da obra "${o.titulo}" de Vicente Prior.` + (offer ? ` Minha oferta é de R$ ${offer}.` : ' Qual o valor e as medidas?') + ` ${url(o)}`;
   const negLink = (o, offer) => wa(negMsg(o, offer));
   const askLink = o => wa(`Olá, Vicente! Tenho uma dúvida sobre a obra "${o.titulo}": ${url(o)}`);
-  const DESC = 'Obra feita artesanalmente por Vicente Prior. Cada camada de tinta, textura e raspagem é aplicada à mão, por isso não existe outra igual. Peça única, assinada, acompanhada de certificado de autenticidade.';
+  const DESC = 'Obra feita artesanalmente por Vicente Prior. Cada camada de tinta, textura e raspagem é aplicada à mão, por isso não existe outra igual. Peça única, assinada pelo artista.';
 
   const COLORS = {
     vermelhos: { label: 'Vermelhos', c: '#a8281e' },
