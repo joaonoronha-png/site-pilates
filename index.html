@@ -218,20 +218,46 @@
   <div class="contact-copy">
     <p class="eyebrow light">Contato</p>
     <h2 class="sec-title light">Escolha a obra e faça a sua <em>oferta</em></h2>
-    <p>Todos os preços são negociados direto com o artista. Escolha a obra, escreva quanto quer oferecer e envie pelo WhatsApp. Ficou com dúvida? Fale com o Vicente.</p>
-    <a class="btn btn-paper" id="waMain" href="#" target="_blank" rel="noopener">Tirar dúvidas no WhatsApp</a>
-    <ul class="contact-list">
-      <li><span>WhatsApp</span><a href="https://wa.me/5521993518769" target="_blank" rel="noopener">+55 21 99351-8769</a></li>
-      <li><span>E-mail</span><a href="mailto:vicenteprior@gmail.com">vicenteprior@gmail.com</a></li>
-    </ul>
+    <p class="contact-lede">Todos os preços são negociados direto com o artista. Preencha o formulário e sua oferta chega ao Vicente pelo WhatsApp.</p>
+    <div class="contact-cards">
+      <a class="c-card" id="waMain" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c.3 2 2.4 4.2 4.6 4.6l1-1.1 1.9.8-.4 1.6c-3.6.4-7.6-3.6-7.3-7.2l1.6-.4.8 1.9z"/></svg>
+        <span class="c-card-label">Dúvidas? WhatsApp</span>
+        <span class="c-card-value">+55 21 99351-8769</span>
+        <span class="c-card-cta">Conversar com o Vicente →</span>
+      </a>
+      <a class="c-card" href="mailto:vicenteprior@gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <span class="c-card-label">E-mail</span>
+        <span class="c-card-value">vicenteprior@gmail.com</span>
+        <span class="c-card-cta">Escrever um e-mail →</span>
+      </a>
+    </div>
   </div>
   <form class="contact-form" id="contactForm">
-    <label>Nome<input name="nome" required autocomplete="name"></label>
-    <label>E-mail ou telefone<input name="contato" required autocomplete="email"></label>
-    <label>Obra<select name="obra" id="formObra"><option value="">Escolha a obra</option></select></label>
-    <label>Sua oferta (R$)<input name="oferta" id="formOffer" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></label>
-    <label>Mensagem ou dúvida<textarea name="msg" rows="3" placeholder="Opcional: conte sobre o seu espaço ou tire uma dúvida"></textarea></label>
-    <button class="btn btn-paper" type="submit">Negociar preço</button>
+    <header class="cf-head">
+      <h3>Faça sua oferta</h3>
+      <p>Leva menos de 1 minuto.</p>
+    </header>
+    <fieldset class="cf-step">
+      <legend><span>1</span>Seus dados</legend>
+      <div class="cf-row">
+        <label class="cf-field"><span>Nome</span><input name="nome" required autocomplete="name" placeholder="Seu nome"></label>
+        <label class="cf-field"><span>E-mail ou telefone</span><input name="contato" required autocomplete="email" placeholder="Como falamos com você"></label>
+      </div>
+    </fieldset>
+    <fieldset class="cf-step">
+      <legend><span>2</span>A obra e sua oferta</legend>
+      <div class="cf-row">
+        <label class="cf-field"><span>Obra</span><select name="obra" id="formObra"><option value="">Escolha a obra</option></select></label>
+        <label class="cf-field"><span>Sua oferta</span><span class="cf-money"><i>R$</i><input name="oferta" id="formOffer" inputmode="numeric" placeholder="3.500" autocomplete="off"></span></label>
+      </div>
+    </fieldset>
+    <fieldset class="cf-step">
+      <legend><span>3</span>Mensagem <small>opcional</small></legend>
+      <label class="cf-field"><span class="sr">Mensagem ou dúvida</span><textarea name="msg" rows="3" placeholder="Conte sobre o seu espaço ou tire uma dúvida"></textarea></label>
+    </fieldset>
+    <button class="btn btn-deal" type="submit">Negociar preço</button>
     <a class="btn btn-paper" id="formSend" href="#" target="_blank" rel="noopener" hidden>Abrir no WhatsApp</a>
   </form>
 </section>
