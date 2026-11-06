@@ -346,7 +346,7 @@
       if (done) return; done = true;
       try { sessionStorage.setItem('vp-intro', '1'); } catch (e) {}
       el.classList.add('out'); document.body.classList.remove('intro-on');
-      setTimeout(() => el.remove(), 1400);
+      setTimeout(() => el.remove(), 900);
     };
     el.addEventListener('click', end);
     addEventListener('keydown', end, { once: true });
