@@ -10,7 +10,7 @@
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color-scheme:light;color-scheme:light;color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden}
+body{margin:0;background:var(--paper);color-scheme:light;color-scheme:light;color-scheme:light;color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden}
 img{max-width:100%;display:block}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}

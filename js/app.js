@@ -159,7 +159,6 @@
       $$('.wc').forEach(x => x.classList.toggle('on', x === b));
     });
     $('#roomPick').addEventListener('change', e => setRoom(e.target.value));
-    $('#roomSize').addEventListener('input', sizeRoom);
     window.addEventListener('resize', sizeRoom);
     $('#roomDetail').addEventListener('click', () => openViewer(roomId));
     setRoom(roomId);
@@ -168,13 +167,14 @@
     roomId = id; const o = byId[id], a = $('#roomArt');
     $('#roomPick').value = id;
     $('#roomInterest').href = wa(interestMsg(o));
+    $('#roomInterest').href = wa(interestMsg(o));
     $('#roomInterest').href = negLink(o);
     a.style.opacity = 0;
     setTimeout(() => { a.src = img(id); a.alt = `${o.titulo} simulada em uma sala`; a.dataset.ratio = o.w / o.h; sizeRoom(); a.style.opacity = 1; }, 200);
   }
   function sizeRoom() {
-    const cm = +$('#roomSize').value, a = $('#roomArt'), sr = $('.room-sofa').getBoundingClientRect(), wr = $('#roomWall').getBoundingClientRect();
-    $('#sizeOut').textContent = `${cm} cm`;
+    const o = byId[roomId], m = o.dimensoes && String(o.dimensoes).match(/\d+/), cm = m ? +m[0] : 100;  // largura fixa da obra (dimensoes), 100 cm se não informada
+    const a = $('#roomArt'), sr = $('.room-sofa').getBoundingClientRect(), wr = $('#roomWall').getBoundingClientRect();
     const pxcm = sr.width / 210, ratio = +a.dataset.ratio || 1.5;
     const gap = 22 * pxcm;                                // ~22 cm acima do encosto
     const bottom = wr.bottom - sr.top + gap;              // distância da base da parede
