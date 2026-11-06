@@ -179,7 +179,7 @@
     setTimeout(() => { a.src = img(id); a.alt = `${o.titulo} simulada em uma sala`; a.dataset.ratio = o.w / o.h; sizeRoom(); a.style.opacity = 1; }, 200);
   }
   function sizeRoom() {
-    const o = byId[roomId], m = o.dimensoes && String(o.dimensoes).match(/\d+/), cm = m ? +m[0] : 100;  // largura fixa da obra (dimensoes), 100 cm se não informada
+    const o = byId[roomId], m = o.dimensoes && String(o.dimensoes).match(/\d+/), cm = m ? +m[0] : 60;  // largura real da obra (campo "dimensoes"); 60 cm enquanto não informada
     const a = $('#roomArt'), sr = $('.room-sofa').getBoundingClientRect(), wr = $('#roomWall').getBoundingClientRect();
     const pxcm = sr.width / 210, ratio = +a.dataset.ratio || 1.5;
     const gap = 22 * pxcm;                                // ~22 cm acima do encosto
