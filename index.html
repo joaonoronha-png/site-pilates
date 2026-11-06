@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vicente Prior — Pinturas Originais</title>
-<meta name="description" content="Galeria oficial do pintor Vicente Prior. Pinturas abstratas originais e únicas, selecionadas por ranking curatorial. Veja na sua parede e compre com certificado de autenticidade.">
+<meta name="description" content="Galeria oficial do pintor Vicente Prior. Pinturas abstratas originais, únicas e feitas à mão. Veja na sua parede e compre com certificado de autenticidade.">
 <meta property="og:title" content="Vicente Prior — Pinturas Originais">
-<meta property="og:description" content="Matéria, gesto e cor. 40 obras originais, ranqueadas por curadoria.">
+<meta property="og:description" content="Matéria, gesto e cor. 40 obras originais feitas artesanalmente.">
 <meta property="og:image" content="assets/obras/01.jpg">
 <meta name="theme-color" content="#f3eee6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,8 +24,7 @@
     <span class="brand-name">Vicente Prior</span>
   </a>
   <nav class="nav" id="nav" aria-label="Principal">
-    <a href="#obras-primas">Obras-primas</a>
-    <a href="#top10">Top 10</a>
+    <a href="#destaques">Destaques</a>
     <a href="#colecao">Coleção</a>
     <a href="#parede">Ver na parede</a>
     <a href="#artista">O artista</a>
@@ -51,14 +50,14 @@
       <span>Vicente</span>
       <span class="it">Prior</span>
     </h1>
-    <p class="hero-lede reveal">Matéria, gesto e cor. Uma coleção de 40 telas abstratas ranqueadas por curadoria — da mais celebrada à mais íntima. Cada obra é única e acompanha certificado de autenticidade.</p>
+    <p class="hero-lede reveal">Matéria, gesto e cor. Uma coleção de 40 telas abstratas feitas artesanalmente, uma a uma, pelas mãos do artista. Cada obra é única e acompanha certificado de autenticidade.</p>
     <div class="hero-cta reveal">
-      <a class="btn btn-ink" href="#obras-primas">Conhecer as obras-primas</a>
-      <a class="btn btn-ghost" href="#colecao">Explorar coleção</a>
+      <a class="btn btn-ink" href="#colecao">Ver as obras</a>
+      <a class="btn btn-ghost" href="#contato">Negociar preço</a>
     </div>
     <dl class="hero-stats reveal">
       <div><dt>40</dt><dd>obras originais</dd></div>
-      <div><dt>9.9</dt><dd>nota máxima</dd></div>
+      <div><dt>100%</dt><dd>feito à mão</dd></div>
       <div><dt>1/1</dt><dd>sem reproduções</dd></div>
     </dl>
   </div>
@@ -68,48 +67,26 @@
   </figure>
 </section>
 
-<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
 
 <!-- SALA ESCURA: TOP 3 -->
-<section class="dark-room" id="obras-primas">
+<section class="dark-room" id="destaques">
   <div class="spot" aria-hidden="true"></div>
   <header class="sec-head light">
-    <p class="eyebrow">Sala escura · as mais bem avaliadas</p>
-    <h2 class="sec-title">As três <em>obras-primas</em></h2>
-    <p class="sec-sub">Mova o cursor para iluminar. As três telas com maior nota curatorial da coleção.</p>
+    <p class="eyebrow">Sala escura · destaques da coleção</p>
+    <h2 class="sec-title">Obras em <em>destaque</em></h2>
+    <p class="sec-sub">Mova o cursor para iluminar. Três telas escolhidas para abrir a coleção.</p>
   </header>
   <div class="podium" id="podium"></div>
-</section>
-
-<!-- TOP 10 -->
-<section class="top10" id="top10">
-  <header class="sec-head row">
-    <div>
-      <p class="eyebrow">Ranking curatorial</p>
-      <h2 class="sec-title">Top 10 <em>do curador</em></h2>
-    </div>
-    <div class="rail-ctrl">
-      <button class="round" data-rail="-1" aria-label="Anterior">←</button>
-      <button class="round" data-rail="1" aria-label="Próximo">→</button>
-    </div>
-  </header>
-  <div class="rail" id="rail" tabindex="0" aria-label="Top 10 obras"></div>
 </section>
 
 <!-- COLEÇÃO -->
 <section class="collection" id="colecao">
   <header class="sec-head">
-    <p class="eyebrow">Coleção completa · 40 obras</p>
+    <p class="eyebrow">Coleção completa · 40 obras feitas à mão</p>
     <h2 class="sec-title">Encontre a sua <em>obra</em></h2>
   </header>
 
   <div class="filters" id="filters">
-    <div class="f-group" role="group" aria-label="Categoria">
-      <button class="chip on" data-tier="all">Todas</button>
-      <button class="chip" data-tier="prima">Obras-primas <small>9.6+</small></button>
-      <button class="chip" data-tier="destaque">Destaques <small>9.3+</small></button>
-      <button class="chip" data-tier="colecao">Coleção</button>
-    </div>
     <div class="f-group swatches" role="group" aria-label="Cor" id="colorFilter"></div>
     <div class="f-group" role="group" aria-label="Formato">
       <button class="chip shape" data-shape="horizontal" title="Horizontal"><i class="sh h"></i>Horizontal</button>
@@ -119,10 +96,9 @@
     <label class="sort">
       <span>Ordenar</span>
       <select id="sort">
-        <option value="rank">Ranking (melhor nota)</option>
+        <option value="rank">Destaques primeiro</option>
         <option value="az">Nome A–Z</option>
         <option value="za">Nome Z–A</option>
-        <option value="rev">Descobertas (menor → maior)</option>
       </select>
     </label>
   </div>
@@ -176,7 +152,7 @@
         <input type="range" id="roomSize" min="50" max="180" step="5" value="100">
       </label>
       <div class="wall-actions">
-        <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Tenho interesse nesta obra</a>
+        <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Negociar preço desta obra</a>
         <button class="btn btn-ghost" id="roomDetail">Ver detalhes</button>
       </div>
       <p class="fine">Simulação ilustrativa. As dimensões reais de cada tela são informadas no atendimento.</p>
@@ -195,7 +171,7 @@
     <p class="eyebrow">O artista</p>
     <h2 class="sec-title">Vicente <em>Prior</em></h2>
     <p class="lead">Pintor experiente, Vicente Prior constrói suas telas camada sobre camada — pigmento, textura, raspagem e escorrido — até que a superfície vire paisagem, ferrugem, mineral.</p>
-    <p>Sua pintura nasce do gesto e da matéria. Terra, cobre, carvão e ouro dialogam com vermelhos intensos e azuis profundos, em composições abstratas que mudam conforme a luz do ambiente. Cada obra é feita à mão, assinada e única: não existem reproduções.</p>
+    <p>Sua pintura nasce do gesto e da matéria. Terra, cobre, carvão e ouro dialogam com vermelhos intensos e azuis profundos, em composições abstratas que mudam conforme a luz do ambiente. Todo o trabalho é feito artesanalmente: cada obra é pintada à mão, assinada e única. Não existem reproduções.</p>
     <blockquote>“A tela é um território: eu apenas deixo a matéria encontrar o seu caminho.”</blockquote>
     <ul class="pillars">
       <li><b>Matéria</b><span>Texturas em relevo que pedem para ser vistas de perto.</span></li>
@@ -210,7 +186,7 @@
   <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 8-7 9-4-1-7-4.5-7-9V6z M9 12l2 2 4-4"/></svg><b>Certificado de autenticidade</b><span>Assinado pelo artista</span></div>
   <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3z M14 10h4l3 3v3h-7z M7 19a2 2 0 1 0 0-.1 M17 19a2 2 0 1 0 0-.1"/></svg><b>Envio segurado</b><span>Embalagem reforçada para todo o Brasil</span></div>
   <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z M3 10h18 M7 15h4"/></svg><b>Pagamento facilitado</b><span>Pix, cartão e parcelamento</span></div>
-  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z M8 9h8 M8 12h5"/></svg><b>Atendimento direto</b><span>Fale com o ateliê pelo WhatsApp</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z M8 9h8 M8 12h5"/></svg><b>Preço negociável</b><span>Converse direto com o ateliê</span></div>
 </section>
 
 <!-- COMO COMPRAR -->
@@ -220,9 +196,9 @@
     <h2 class="sec-title">Como <em>adquirir</em> uma obra</h2>
   </header>
   <ol class="steps">
-    <li><span class="n">01</span><h3>Escolha</h3><p>Navegue pelo ranking, filtre por cor e formato e salve suas favoritas no <em>♡</em>.</p></li>
-    <li><span class="n">02</span><h3>Converse</h3><p>Clique em “Tenho interesse”: você fala direto com o ateliê, recebe medidas, valor e mais fotos.</p></li>
-    <li><span class="n">03</span><h3>Receba</h3><p>Pagamento seguro e envio protegido, com certificado de autenticidade assinado.</p></li>
+    <li><span class="n">01</span><h3>Escolha</h3><p>Navegue pela coleção, filtre por cor e formato e salve suas favoritas no <em>♡</em>.</p></li>
+    <li><span class="n">02</span><h3>Negocie</h3><p>Clique em “Negociar preço”: você fala direto com o ateliê, faz sua proposta e recebe medidas e mais fotos.</p></li>
+    <li><span class="n">03</span><h3>Receba</h3><p>Sua obra feita à mão chega com envio protegido e certificado de autenticidade assinado.</p></li>
   </ol>
 </section>
 
@@ -262,24 +238,24 @@
     <span class="v-hint">Passe o mouse para ver a textura</span>
   </div>
   <aside class="v-info">
-    <p class="v-rank" id="vRank"></p>
+    <p class="v-rank">Pintura original · feita à mão</p>
     <h3 class="v-title" id="vTitle"></h3>
     <p class="v-meta" id="vMeta"></p>
-    <div class="v-score">
-      <div class="v-score-num"><span id="vNota"></span><small>/10</small></div>
-      <div class="v-score-bar"><i id="vBar"></i></div>
-      <span class="v-tier" id="vTier"></span>
-    </div>
+    <p class="v-desc" id="vDesc"></p>
     <div class="v-palette" id="vPalette" aria-label="Paleta da obra"></div>
     <dl class="v-specs">
-      <div><dt>Técnica</dt><dd>Pintura original sobre tela</dd></div>
+      <div><dt>Técnica</dt><dd>Pintura artesanal sobre tela</dd></div>
+      <div><dt>Produção</dt><dd>100% feita à mão pelo artista</dd></div>
       <div><dt>Dimensões</dt><dd id="vDim">Sob consulta</dd></div>
       <div><dt>Edição</dt><dd>Peça única, assinada</dd></div>
       <div><dt>Acompanha</dt><dd>Certificado de autenticidade</dd></div>
     </dl>
     <p class="v-price" id="vPrice"></p>
+    <label class="v-offer" for="vOffer">Sua proposta (opcional)
+      <span class="v-offer-row"><span>R$</span><input id="vOffer" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></span>
+    </label>
     <div class="v-actions">
-      <a class="btn btn-ink" id="vBuy" href="#" target="_blank" rel="noopener">Tenho interesse</a>
+      <a class="btn btn-ink" id="vBuy" href="#" target="_blank" rel="noopener">Negociar preço</a>
       <button class="btn btn-ghost" id="vWall">Ver na parede</button>
       <button class="icon-btn heart" id="vHeart" aria-label="Salvar na lista de desejos" aria-pressed="false">
         <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
@@ -297,7 +273,7 @@
   </div>
   <div class="drawer-body" id="wishList"></div>
   <div class="drawer-foot">
-    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Pedir valores da seleção</a>
+    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Negociar preço da seleção</a>
   </div>
 </aside>
 <div class="scrim" id="scrim" hidden></div>

@@ -16,13 +16,13 @@
   const thumb = id => `assets/obras/thumb/${id}.jpg`;
   const pad = n => String(n).padStart(2, '0');
   const nota = n => n.toFixed(1);
-  const tier = o => o.nota >= 9.6 ? 'prima' : o.nota >= 9.3 ? 'destaque' : 'colecao';
-  const tierLabel = { prima: 'Obra-prima', destaque: 'Destaque', colecao: 'Coleção' };
   const fmtBRL = v => v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 });
   const wa = text => `https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(text)}`;
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const url = o => `${location.origin}${location.pathname}#obra-${o.id}`;
-  const interestMsg = o => `Olá! Tenho interesse na obra Nº ${pad(o.rank)} "${o.titulo}" de Vicente Prior. Poderia me enviar valor e medidas? ${url(o)}`;
+  const negMsg = (o, offer) => `Olá! Gostaria de negociar o preço da obra "${o.titulo}" de Vicente Prior.` + (offer ? ` Minha proposta é de R$ ${offer}.` : ' Qual o valor e as medidas?') + ` ${url(o)}`;
+  const negLink = (o, offer) => wa(negMsg(o, offer));
+  const DESC = 'Obra feita artesanalmente por Vicente Prior. Cada camada de tinta, textura e raspagem é aplicada à mão, por isso não existe outra igual. Peça única, assinada, acompanhada de certificado de autenticidade.';
 
   const COLORS = {
     vermelhos: { label: 'Vermelhos', c: '#a8281e' },
@@ -62,11 +62,11 @@
     list.innerHTML = wish.map(id => { const o = byId[id]; return `
       <div class="w-item">
         <img src="${thumb(id)}" alt="${esc(o.titulo)}" data-open="${id}">
-        <div><b>${esc(o.titulo)}</b><span>Nº ${pad(o.rank)} · nota ${nota(o.nota)}</span></div>
+        <div><b>${esc(o.titulo)}</b><span>Feita à mão · peça única</span></div>
         <button data-unwish="${id}">Remover</button>
       </div>`; }).join('');
-    const names = wish.map(id => `• Nº ${pad(byId[id].rank)} ${byId[id].titulo}`).join('\n');
-    $('#wishSend').href = wa(`Olá! Gostaria de valores e medidas destas obras de Vicente Prior:\n${names}`);
+    const names = wish.map(id => `• ${byId[id].titulo}`).join('\n');
+    $('#wishSend').href = wa(`Olá! Gostaria de negociar o preço destas obras de Vicente Prior:\n${names}`);
   }
 
   /* ---------- toast ---------- */
@@ -77,7 +77,7 @@
   function hero() {
     const o = OBRAS[0];
     $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">`;
-    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Nº 01 do ranking · Obra-prima</span><span class="score">NOTA ${nota(o.nota)}</span>`;
+    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><a class="score" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço →</a>`;
     $('#heroCanvas img').addEventListener('click', () => openViewer(o.id));
     const art = $('#heroArt'), cv = $('#heroCanvas');
     if (matchMedia('(hover:hover)').matches) {
@@ -88,19 +88,16 @@
       });
       art.addEventListener('mouseleave', () => cv.style.transform = '');
     }
-    const items = OBRAS.slice(0, 20).map(o => `<span>${esc(o.titulo)} <small>Nº ${pad(o.rank)} · ${nota(o.nota)}</small></span>`).join('');
-    $('#ticker').innerHTML = items + items;
   }
 
   /* ---------- TOP 3 ---------- */
   function podium() {
     $('#podium').innerHTML = OBRAS.slice(0, 3).map(o => `
       <article class="p-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Abrir ${esc(o.titulo)}">
-        <span class="p-num">${pad(o.rank)}</span>
         <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}"></div>
-        <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="meta">Nota <b>${nota(o.nota)}</b></span></div>
+        <div class="p-cap"><h3>${esc(o.titulo)}</h3><a class="p-neg" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço</a></div>
       </article>`).join('');
-    const room = $('#obras-primas'), spot = $('.spot', room);
+    const room = $('#destaques'), spot = $('.spot', room);
     room.addEventListener('pointermove', e => {
       const r = room.getBoundingClientRect();
       spot.style.setProperty('--mx', e.clientX - r.left + 'px'); spot.style.setProperty('--my', e.clientY - r.top + 'px');
@@ -112,32 +109,13 @@
     }
   }
 
-  /* ---------- TOP 10 ---------- */
-  function top10() {
-    const rail = $('#rail');
-    rail.innerHTML = OBRAS.slice(0, 10).map(o => `
-      <article class="r-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Nº ${o.rank}: ${esc(o.titulo)}">
-        <span class="r-num" aria-hidden="true">${o.rank}</span>
-        <div class="r-art"><img src="${thumb(o.id)}" alt="${esc(o.titulo)}" loading="lazy" draggable="false" width="${o.w}" height="${o.h}"></div>
-        <div class="r-info"><b>${esc(o.titulo)}</b><span>${nota(o.nota)}</span></div>
-      </article>`).join('');
-    $$('[data-rail]').forEach(b => b.addEventListener('click', () => rail.scrollBy({ left: rail.clientWidth * .7 * +b.dataset.rail, behavior: 'smooth' })));
-    // arrastar com mouse
-    let down = false, sx = 0, sl = 0, moved = false;
-    rail.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = rail.scrollLeft; });
-    window.addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 5) { moved = true; rail.classList.add('drag'); } rail.scrollLeft = sl - dx; });
-    window.addEventListener('pointerup', () => { down = false; rail.classList.remove('drag'); });
-    rail.addEventListener('click', e => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
-  }
-
   /* ---------- COLEÇÃO ---------- */
-  const state = { tier: 'all', color: null, shape: null, sort: 'rank' };
+  const state = { color: null, shape: null, sort: 'rank' };
   function filters() {
     $('#colorFilter').innerHTML = Object.entries(COLORS).map(([k, v]) =>
       `<button class="sw" data-color="${k}" style="background:${v.c}" aria-label="${v.label}" aria-pressed="false"><span class="tip">${v.label}</span></button>`).join('');
     $('#filters').addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
-      if (b.dataset.tier) { state.tier = b.dataset.tier; $$('[data-tier]').forEach(x => x.classList.toggle('on', x === b)); }
       if (b.dataset.color) { state.color = state.color === b.dataset.color ? null : b.dataset.color; $$('[data-color]').forEach(x => { const on = x.dataset.color === state.color; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); }); }
       if (b.dataset.shape) { state.shape = state.shape === b.dataset.shape ? null : b.dataset.shape; $$('[data-shape]').forEach(x => x.classList.toggle('on', x.dataset.shape === state.shape)); }
       renderGrid();
@@ -146,43 +124,34 @@
   }
   function renderGrid() {
     let list = OBRAS.filter(o =>
-      (state.tier === 'all' || tier(o) === state.tier) &&
       (!state.color || o.cores.includes(state.color)) &&
       (!state.shape || o.formato === state.shape));
     const s = state.sort;
     if (s === 'az') list.sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt'));
     if (s === 'za') list.sort((a, b) => b.titulo.localeCompare(a.titulo, 'pt'));
-    if (s === 'rev') list.reverse();
-    const featured = s === 'rank' && state.tier === 'all' && !state.color && !state.shape;
-    $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'obra' : 'obras'}${featured ? ' · as mais bem avaliadas aparecem em destaque' : ''}`;
+    $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'obra' : 'obras'} · todas feitas à mão`;
     if (!list.length) { $('#grid').innerHTML = '<p class="empty">Nenhuma obra com essa combinação. Tente outro filtro.</p>'; return; }
-    $('#grid').innerHTML = list.map((o, i) => {
-      const t = tier(o);
-      // destaque visual proporcional à nota: top 3 grandes, top 10 médios
-      const size = featured ? (o.rank <= 2 ? 'big' : o.rank <= 5 ? 'mid' : '') : '';
-      const ar = `--ar:${size === 'big' ? '16/10' : size === 'mid' ? '5/4' : '1/1'}`;
-      return `
-      <article class="card ${size}" style="animation-delay:${Math.min(i, 12) * 40}ms;${ar}" data-open="${o.id}">
+    $('#grid').innerHTML = list.map((o, i) => `
+      <article class="card" style="animation-delay:${Math.min(i, 12) * 40}ms" data-open="${o.id}">
         <div class="c-frame">
-          <img src="${size === 'big' ? img(o.id) : thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
-          ${t !== 'colecao' ? `<span class="c-tag ${t}">${tierLabel[t]}</span>` : ''}
+          <img src="${thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
           <button class="c-heart ${isWished(o.id) ? 'on' : ''}" data-id="${o.id}" aria-label="Salvar ${esc(o.titulo)}" aria-pressed="${isWished(o.id)}">
             <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
           </button>
         </div>
-        <div class="c-cap"><h3>${esc(o.titulo)}</h3><span class="rk">Nº ${pad(o.rank)}</span></div>
-        <div class="c-sub"><span class="nota">${nota(o.nota)}</span><span>${o.preco ? fmtBRL(o.preco) : 'Sob consulta'}</span>
+        <div class="c-cap"><h3>${esc(o.titulo)}</h3></div>
+        <div class="c-sub"><span>Feita à mão · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
           <span class="c-dots">${o.paleta.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</span></div>
-      </article>`;
-    }).join('');
+        <a class="c-neg" href="${negLink(o)}" target="_blank" rel="noopener">Negociar preço</a>
+      </article>`).join('');
   }
 
   /* ---------- VER NA PAREDE ---------- */
   const WALLS = ['#ece6dc', '#f7f5f0', '#d9cbb6', '#a9b3a1', '#6f7f8c', '#3f4a52', '#b8836a', '#2a2623'];
   let roomId = OBRAS[0].id;
   function wall() {
-    $('#roomPick').innerHTML = OBRAS.map(o => `<option value="${o.id}">Nº ${pad(o.rank)} — ${esc(o.titulo)} (${nota(o.nota)})</option>`).join('');
-    $('#formObra').innerHTML += OBRAS.map(o => `<option value="${o.id}">Nº ${pad(o.rank)} — ${esc(o.titulo)}</option>`).join('');
+    $('#roomPick').innerHTML = OBRAS.map(o => `<option value="${o.id}">${esc(o.titulo)}</option>`).join('');
+    $('#formObra').innerHTML += OBRAS.map(o => `<option value="${o.id}">${esc(o.titulo)}</option>`).join('');
     $('#wallColors').innerHTML = WALLS.map((c, i) => `<button class="wc ${i ? '' : 'on'}" style="background:${c}" data-wall="${c}" aria-label="Parede ${c}"></button>`).join('');
     $('#wallColors').addEventListener('click', e => {
       const b = e.target.closest('[data-wall]'); if (!b) return;
@@ -199,6 +168,7 @@
     roomId = id; const o = byId[id], a = $('#roomArt');
     $('#roomPick').value = id;
     $('#roomInterest').href = wa(interestMsg(o));
+    $('#roomInterest').href = negLink(o);
     a.style.opacity = 0;
     setTimeout(() => { a.src = img(id); a.alt = `${o.titulo} simulada em uma sala`; a.dataset.ratio = o.w / o.h; sizeRoom(); a.style.opacity = 1; }, 200);
   }
@@ -223,17 +193,14 @@
     const v = $('#viewer'), im = $('#vImg');
     im.src = img(o.id); im.alt = `${o.titulo}, pintura de Vicente Prior`;
     im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
-    $('#vRank').textContent = `Nº ${pad(o.rank)} de ${OBRAS.length} no ranking`;
     $('#vTitle').textContent = o.titulo;
     $('#vMeta').textContent = `Vicente Prior · ${o.formato[0].toUpperCase() + o.formato.slice(1)} · ${o.cores.map(c => COLORS[c].label).join(', ')}`;
-    $('#vNota').textContent = nota(o.nota);
-    $('#vBar').style.width = '0';
-    requestAnimationFrame(() => requestAnimationFrame(() => $('#vBar').style.width = `${(o.nota - 8) / 2 * 100}%`));
-    $('#vTier').textContent = `${tierLabel[tier(o)]} · nota curatorial`;
+    $('#vDesc').textContent = DESC;
+    $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
     $('#vDim').textContent = o.dimensoes || 'Sob consulta';
-    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Valor sob consulta<small>Resposta rápida pelo WhatsApp</small>`;
-    $('#vBuy').href = wa(interestMsg(o));
+    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Faça sua proposta pelo WhatsApp</small>`;
+    $('#vBuy').href = negLink(o);
     $('#vHeart').setAttribute('aria-pressed', isWished(o.id));
     $('#vLens').style.backgroundImage = `url(${img(o.id)})`;
     if (v.hidden) { v.hidden = false; document.body.style.overflow = 'hidden'; $('#vClose').focus(); }
@@ -247,6 +214,7 @@
   function step(d) { const i = OBRAS.indexOf(current); openViewer(OBRAS[(i + d + OBRAS.length) % OBRAS.length].id); }
   function viewer() {
     $('#vClose').addEventListener('click', closeViewer);
+    $('#vOffer').addEventListener('input', e => { const v = e.target.value.replace(/[^\d.,]/g, ''); e.target.value = v; $('#vBuy').href = negLink(current, v); });
     $('#vPrev').addEventListener('click', () => step(-1));
     $('#vNext').addEventListener('click', () => step(1));
     $('#vHeart').addEventListener('click', () => toggleWish(current.id));
@@ -290,6 +258,7 @@
     document.addEventListener('click', e => {
       const h = e.target.closest('.c-heart'); if (h) { e.stopPropagation(); toggleWish(h.dataset.id); return; }
       const u = e.target.closest('[data-unwish]'); if (u) { toggleWish(u.dataset.unwish); return; }
+      if (e.target.closest('.c-neg, .p-neg')) { e.stopPropagation(); return; }
       const o = e.target.closest('[data-open]'); if (o) { if (!$('#wish').hidden) closeWish(); openViewer(o.dataset.open); }
     });
     document.addEventListener('keydown', e => {
@@ -321,11 +290,11 @@
 
 
     // contato
-    $('#waMain').href = wa('Olá! Vim pelo site e gostaria de conhecer as obras de Vicente Prior.');
+    $('#waMain').href = wa('Olá! Vim pelo site e gostaria de negociar o preço de uma obra de Vicente Prior.');
     $('#contactForm').addEventListener('submit', e => {
       e.preventDefault();
       const f = new FormData(e.target), o = byId[f.get('obra')];
-      const msg = `Olá! Sou ${f.get('nome')} (${f.get('contato')}).` + (o ? ` Tenho interesse na obra Nº ${pad(o.rank)} "${o.titulo}".` : '') + (f.get('msg') ? `\n${f.get('msg')}` : '');
+      const msg = `Olá! Sou ${f.get('nome')} (${f.get('contato')}).` + (o ? ` Gostaria de negociar o preço da obra "${o.titulo}".` : '') + (f.get('msg') ? `\n${f.get('msg')}` : '');
       const a = $('#formSend'); a.href = wa(msg); a.hidden = false; a.focus();
       toast('Mensagem pronta: toque em “Abrir no WhatsApp”');
     });
@@ -336,5 +305,5 @@
     addEventListener('hashchange', openFromHash); openFromHash();
   }
 
-  hero(); podium(); top10(); filters(); renderGrid(); wall(); viewer(); global(); syncWish();
+  hero(); podium(); filters(); renderGrid(); wall(); viewer(); global(); syncWish();
 })();
