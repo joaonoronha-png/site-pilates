@@ -1,5 +1,6 @@
 /* Gerado a partir de vprior_ranking_40_atualizado.xlsx — ordem = ranking curatorial.
-   Para anunciar preço/medidas, preencha "preco" (ex.: 4800) e "dimensoes" (ex.: "100 x 70 cm"). */
+   Para anunciar preço/medidas, preencha "preco" (ex.: 4800) e "dimensoes" (ex.: "100 x 70 cm").
+   Opcional: "descricao" (texto extra só daquela obra) e "pecas" (quantas telas formam a obra). */
 window.OBRAS = [
  {"id": "01", "rank": 1, "titulo": "Matéria em erupção", "nota": 9.9, "w": 1469, "h": 948, "formato": "horizontal", "cores": ["vermelhos", "verdes"], "preco": null, "dimensoes": null, "paleta": ["#362a28", "#683a37", "#706255", "#90846f", "#aba89d"]},
  {"id": "02", "rank": 2, "titulo": "Rasgos sobre a terra", "nota": 9.8, "w": 1471, "h": 969, "formato": "horizontal", "cores": ["terrosos", "escuros"], "preco": null, "dimensoes": null, "paleta": ["#644f44", "#7a6659", "#3e2f29", "#8f7d72", "#ada29a"]},
@@ -13,7 +14,7 @@ window.OBRAS = [
  {"id": "10", "rank": 10, "titulo": "Terracota em camadas", "nota": 9.5, "w": 1473, "h": 834, "formato": "horizontal", "cores": ["vermelhos", "terrosos"], "preco": null, "dimensoes": null, "paleta": ["#8b3a2a", "#553e2d", "#735241", "#82624e", "#9b8370"]},
  {"id": "11", "rank": 11, "titulo": "Metal e ferrugem", "nota": 9.5, "w": 1467, "h": 1126, "formato": "horizontal", "cores": ["neutros", "terrosos"], "preco": null, "dimensoes": null, "paleta": ["#6d5f5b", "#534541", "#837976", "#9e9694", "#c1bdbb"]},
  {"id": "12", "rank": 12, "titulo": "Véus cromáticos", "nota": 9.4, "w": 1471, "h": 971, "formato": "horizontal", "cores": ["vermelhos", "azuis", "multicor"], "preco": null, "dimensoes": null, "paleta": ["#938382", "#4d4950", "#964c4d", "#ac9a94", "#c4b5a9"]},
- {"id": "13", "rank": 13, "titulo": "Gesto em bronze", "nota": 9.4, "w": 1212, "h": 1283, "formato": "quadrado", "cores": ["terrosos"], "preco": null, "dimensoes": null, "paleta": ["#82675c", "#60473b", "#a1887f", "#b69f96", "#cdb6ab"]},
+ {"id": "13", "rank": 13, "titulo": "Gesto em bronze", "nota": 9.4, "pecas": 4, "descricao": "Esta obra é formada por 4 telas que, colocadas lado a lado, compõem uma única pintura. O gesto atravessa as quatro partes de um quadro a outro.", "w": 1212, "h": 1283, "formato": "quadrado", "cores": ["terrosos"], "preco": null, "dimensoes": null, "paleta": ["#82675c", "#60473b", "#a1887f", "#b69f96", "#cdb6ab"]},
  {"id": "14", "rank": 14, "titulo": "Vermelhos cruzados", "nota": 9.4, "w": 1091, "h": 1467, "formato": "vertical", "cores": ["vermelhos"], "preco": null, "dimensoes": null, "paleta": ["#af3e34", "#63312d", "#9a5f56", "#a5796f", "#baa5a1"]},
  {"id": "15", "rank": 15, "titulo": "Óxido em movimento", "nota": 9.4, "w": 1091, "h": 1467, "formato": "vertical", "cores": ["terrosos"], "preco": null, "dimensoes": null, "paleta": ["#ab5327", "#6a4833", "#ab613e", "#b17052", "#c0957f"]},
  {"id": "16", "rank": 16, "titulo": "Rasgos do gesto", "nota": 9.3, "w": 1401, "h": 1285, "formato": "quadrado", "cores": ["azuis", "escuros"], "preco": null, "dimensoes": null, "paleta": ["#4a545f", "#293447", "#6c7376", "#8b8f8b", "#b4b09f"]},

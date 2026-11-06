@@ -148,7 +148,7 @@
           <img src="${thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
         </div>
         <div class="c-cap"><h3>${esc(o.titulo)}</h3>${heartBtn(o)}</div>
-        <div class="c-sub"><span>Feita à mão · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
+        <div class="c-sub"><span>Feita à mão${o.pecas ? ` · ${o.pecas} telas` : ''} · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
           <span class="c-dots">${o.paleta.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</span></div>
         <button class="c-neg" type="button">Ver obra e fazer oferta</button>
       </article>`).join('');
@@ -201,7 +201,8 @@
     im.style.animation = 'none'; void im.offsetWidth; im.style.animation = '';
     $('#vTitle').textContent = o.titulo;
     $('#vMeta').textContent = `Vicente Prior · ${o.formato[0].toUpperCase() + o.formato.slice(1)} · ${o.cores.map(c => COLORS[c].label).join(', ')}`;
-    $('#vDesc').textContent = DESC;
+    $('#vDesc').textContent = (o.descricao ? o.descricao + ' ' : '') + DESC;
+    $('#vPecasRow').hidden = !o.pecas; $('#vPecas').textContent = o.pecas ? `${o.pecas} telas que formam uma só obra` : '';
     $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
     $('#vDim').textContent = o.dimensoes || 'Sob consulta';
