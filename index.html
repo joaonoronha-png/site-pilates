@@ -47,9 +47,10 @@
     <a href="#contato">Contato</a>
   </nav>
   <div class="top-actions">
-    <button class="icon-btn" id="openWish" aria-label="Lista de desejos">
-      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>
-      <span class="badge" id="wishCount">0</span>
+    <button class="fav-btn" id="openWish" aria-label="Minhas favoritas">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+      <span class="fav-label">Favoritas</span>
+      <span class="fav-count" id="wishCount">0</span>
     </button>
     <button class="icon-btn menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false">
       <span></span><span></span>
@@ -102,6 +103,7 @@
   </header>
 
   <div class="filters" id="filters">
+    <button class="chip fav-chip" id="favFilter" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Minhas favoritas <small id="favChipCount">0</small></button>
     <div class="f-group swatches" role="group" aria-label="Cor" id="colorFilter"></div>
     <div class="f-group" role="group" aria-label="Formato">
       <button class="chip shape" data-shape="horizontal" title="Horizontal"><i class="sh h"></i>Horizontal</button>
@@ -307,23 +309,24 @@
     </dl>
     <div class="v-actions">
       <button class="btn btn-ghost" id="vWall">Ver na parede</button>
-      <button class="icon-btn heart" id="vHeart" aria-label="Salvar na lista de desejos" aria-pressed="false">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+      <button class="btn heart" id="vHeart" aria-pressed="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span id="vHeartLabel">Favoritar</span>
       </button>
     </div>
     <button class="v-share" id="vShare">Copiar link da obra</button>
   </aside>
 </div>
 
-<!-- LISTA DE DESEJOS -->
-<aside class="drawer" id="wish" aria-label="Lista de desejos" hidden>
+<!-- FAVORITAS -->
+<aside class="drawer" id="wish" aria-label="Minhas favoritas" hidden>
   <div class="drawer-head">
-    <h3>Sua seleção</h3>
+    <div><h3>Minhas favoritas</h3><p class="drawer-sub">Ficam guardadas neste aparelho para você ver depois.</p></div>
     <button class="v-close static" id="wishClose" aria-label="Fechar">✕</button>
   </div>
   <div class="drawer-body" id="wishList"></div>
   <div class="drawer-foot">
-    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Negociar preço da seleção</a>
+    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Negociar preço das favoritas</a>
+    <button class="btn btn-ghost full" id="wishShow" type="button">Ver favoritas na coleção</button>
   </div>
 </aside>
 <div class="scrim" id="scrim" hidden></div>

@@ -45,26 +45,28 @@
     const on = !isWished(id);
     wish = on ? [...wish, id] : wish.filter(x => x !== id);
     saveWish(); syncWish();
-    toast(on ? `“${byId[id].titulo}” salva na sua seleção` : 'Removida da seleção');
+    toast(on ? `♥ “${byId[id].titulo}” está nas suas favoritas` : 'Removida das favoritas');
+    if (on) { const b = $('#openWish'); b.classList.remove('pulse'); void b.offsetWidth; b.classList.add('pulse'); }
+    if (state.fav) renderGrid();
   }
   function syncWish() {
-    const b = $('#wishCount'); b.textContent = wish.length; b.classList.toggle('on', wish.length > 0);
+    const b = $('#wishCount'); b.textContent = wish.length; $('#openWish').classList.toggle('has', wish.length > 0);
+    $('#favChipCount').textContent = wish.length;
     $$('.c-heart').forEach(h => { const on = isWished(h.dataset.id); h.classList.toggle('on', on); h.setAttribute('aria-pressed', on); });
-    if (current) $('#vHeart').setAttribute('aria-pressed', isWished(current.id));
+    if (current) setViewerHeart();
     renderWish();
   }
   function renderWish() {
     const list = $('#wishList');
     if (!wish.length) {
-      list.innerHTML = '<p class="w-empty">Sua seleção está vazia. Toque no ♡ das obras que você gostar para compará-las e pedir valores de uma só vez.</p>';
-      $('#wishSend').style.display = 'none'; return;
+      list.innerHTML = `<div class="w-empty"><span class="w-empty-ico">♡</span><b>Nenhuma obra favoritada ainda</b><p>Toque no coração de qualquer obra para guardá-la aqui. Depois é só voltar, comparar com calma e negociar o preço de todas de uma vez.</p></div>`;
+      $('#wishSend').hidden = true; $('#wishShow').hidden = true; return;
     }
-    $('#wishSend').style.display = '';
+    $('#wishSend').hidden = false; $('#wishShow').hidden = false;
     list.innerHTML = wish.map(id => { const o = byId[id]; return `
       <div class="w-item">
         <img src="${thumb(id)}" alt="${esc(o.titulo)}" data-open="${id}">
-        <div><b>${esc(o.titulo)}</b><span>Feita à mão · peça única</span></div>
-        <button data-unwish="${id}">Remover</button>
+        <div><b>${esc(o.titulo)}</b><span>Feita à mão · peça única</span><span class="w-acts"><button data-open="${id}">Ver obra</button><button data-unwish="${id}">Remover</button></span></div>
       </div>`; }).join('');
     const names = wish.map(id => `• ${byId[id].titulo}`).join('\n');
     $('#wishSend').href = wa(`Olá! Gostaria de negociar o preço destas obras de Vicente Prior:\n${names}`);
@@ -111,12 +113,13 @@
   }
 
   /* ---------- COLEÇÃO ---------- */
-  const state = { color: null, shape: null, sort: 'rank' };
+  const state = { color: null, shape: null, sort: 'rank', fav: false };
   function filters() {
     $('#colorFilter').innerHTML = Object.entries(COLORS).map(([k, v]) =>
       `<button class="sw" data-color="${k}" style="background:${v.c}" aria-label="${v.label}" aria-pressed="false"><span class="tip">${v.label}</span></button>`).join('');
     $('#filters').addEventListener('click', e => {
       const b = e.target.closest('button'); if (!b) return;
+      if (b.id === 'favFilter') setFav(!state.fav);
       if (b.dataset.color) { state.color = state.color === b.dataset.color ? null : b.dataset.color; $$('[data-color]').forEach(x => { const on = x.dataset.color === state.color; x.classList.toggle('on', on); x.setAttribute('aria-pressed', on); }); }
       if (b.dataset.shape) { state.shape = state.shape === b.dataset.shape ? null : b.dataset.shape; $$('[data-shape]').forEach(x => x.classList.toggle('on', x.dataset.shape === state.shape)); }
       renderGrid();
@@ -125,13 +128,14 @@
   }
   function renderGrid() {
     let list = OBRAS.filter(o =>
+      (!state.fav || isWished(o.id)) &&
       (!state.color || o.cores.includes(state.color)) &&
       (!state.shape || o.formato === state.shape));
     const s = state.sort;
     if (s === 'az') list.sort((a, b) => a.titulo.localeCompare(b.titulo, 'pt'));
     if (s === 'za') list.sort((a, b) => b.titulo.localeCompare(a.titulo, 'pt'));
     $('#resultCount').textContent = `${list.length} ${list.length === 1 ? 'obra' : 'obras'} · toque em qualquer obra para ver de perto, tirar dúvidas e fazer sua oferta`;
-    if (!list.length) { $('#grid').innerHTML = '<p class="empty">Nenhuma obra com essa combinação. Tente outro filtro.</p>'; return; }
+    if (!list.length) { $('#grid').innerHTML = state.fav && !wish.length ? '<p class="empty">Você ainda não favoritou nenhuma obra. Toque no ♡ de uma obra para guardá-la aqui.</p>' : '<p class="empty">Nenhuma obra com essa combinação. Tente outro filtro.</p>'; return; }
     $('#grid').innerHTML = list.map((o, i) => `
       <article class="card" style="animation-delay:${Math.min(i, 12) * 40}ms" data-open="${o.id}">
         <div class="c-frame">
@@ -202,10 +206,20 @@
     $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Todas as obras têm preço negociado direto com o artista</small>`;
     $('#vBuy').href = negLink(o);
     $('#vAsk').href = askLink(o);
-    $('#vHeart').setAttribute('aria-pressed', isWished(o.id));
+    setViewerHeart();
     $('#vLens').style.backgroundImage = `url(${img(o.id)})`;
     if (v.hidden) { v.hidden = false; document.body.style.overflow = 'hidden'; $('#vClose').focus(); }
     if (push) history.replaceState(null, '', `#obra-${o.id}`);
+  }
+  function setViewerHeart() {
+    const on = isWished(current.id);
+    $('#vHeart').setAttribute('aria-pressed', on);
+    $('#vHeartLabel').textContent = on ? 'Nas favoritas' : 'Favoritar';
+  }
+  function setFav(on) {
+    state.fav = on;
+    const c = $('#favFilter'); c.classList.toggle('on', on); c.setAttribute('aria-pressed', on);
+    renderGrid();
   }
   function closeViewer() {
     $('#viewer').hidden = true; document.body.style.overflow = ''; current = null;
@@ -267,6 +281,7 @@
       if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('[data-open][role=button]')) { e.preventDefault(); openViewer(e.target.dataset.open); }
     });
     $('#openWish').addEventListener('click', openWish);
+    $('#wishShow').addEventListener('click', () => { closeWish(); setFav(true); $('#colecao').scrollIntoView({ behavior: 'smooth' }); });
     $('#wishClose').addEventListener('click', closeWish);
     $('#scrim').addEventListener('click', closeWish);
 
