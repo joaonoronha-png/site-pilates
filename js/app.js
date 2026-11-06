@@ -81,8 +81,8 @@
   /* ---------- HERO ---------- */
   function hero() {
     const o = OBRAS[0];
-    $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">${heartBtn(o)}`;
-    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><button class="score" type="button" data-open="${o.id}">Ver obra e fazer oferta →</button>`;
+    $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">`;
+    $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><span class="cap-acts">${heartBtn(o)}<button class="score" type="button" data-open="${o.id}">Ver obra e fazer oferta →</button></span>`;
     $('#heroCanvas img').addEventListener('click', () => openViewer(o.id));
     const art = $('#heroArt'), cv = $('#heroCanvas');
     if (matchMedia('(hover:hover)').matches) {
@@ -99,8 +99,8 @@
   function podium() {
     $('#podium').innerHTML = OBRAS.slice(0, 3).map(o => `
       <article class="p-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Abrir ${esc(o.titulo)}">
-        <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}">${heartBtn(o)}</div>
-        <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="p-neg">Ver obra e fazer oferta →</span></div>
+        <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}"></div>
+        <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="cap-acts"><span class="p-neg">Ver obra e fazer oferta →</span>${heartBtn(o)}</span></div>
       </article>`).join('');
     const room = $('#destaques'), spot = $('.spot', room);
     room.addEventListener('pointermove', e => {
@@ -143,9 +143,8 @@
         <div class="c-frame">
           <span class="c-view"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M11 8.5v5M8.5 11h5"/></svg>Ver detalhes</span>
           <img src="${thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
-          ${heartBtn(o)}
         </div>
-        <div class="c-cap"><h3>${esc(o.titulo)}</h3></div>
+        <div class="c-cap"><h3>${esc(o.titulo)}</h3>${heartBtn(o)}</div>
         <div class="c-sub"><span>Feita à mão · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
           <span class="c-dots">${o.paleta.slice(0, 4).map(c => `<i style="background:${c}"></i>`).join('')}</span></div>
         <button class="c-neg" type="button">Ver obra e fazer oferta</button>
