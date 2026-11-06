@@ -9,7 +9,7 @@
   };
 
   // Destaques escolhidos à mão (ids). Aparecem na sala escura e no topo da coleção; o resto segue o ranking.
-  const DESTAQUES = ['01', '06', '03'];
+  const DESTAQUES = ['06', '04', '03'];
   const OBRAS = window.OBRAS.slice().sort((a, b) => a.rank - b.rank);
   const FEATURED_FIRST = [...DESTAQUES.map(id => OBRAS.find(o => o.id === id)), ...OBRAS.filter(o => !DESTAQUES.includes(o.id))];
   const byId = Object.fromEntries(OBRAS.map(o => [o.id, o]));
