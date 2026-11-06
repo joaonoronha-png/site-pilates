@@ -10,8 +10,8 @@
 }
 *{box-sizing:border-box}
 [hidden]{display:none!important}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--paper);color-scheme:light;color-scheme:light;color-scheme:light;color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none}
+body{margin:0;background:var(--paper);color-scheme:light;color:var(--ink);font:400 16px/1.6 var(--sans);overflow-x:hidden;overflow-x:clip;overscroll-behavior-x:none;touch-action:pan-y pinch-zoom;position:relative;width:100%}
 img{max-width:100%;display:block}
 a{color:inherit}
 button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
@@ -423,7 +423,8 @@ blockquote{margin:30px 0;padding-left:22px;border-left:2px solid var(--rust);fon
   .trust-item{border-right:0;border-bottom:1px solid var(--line)}
   .hero-stats dt{font-size:28px}
   .filters{gap:12px}
-  .f-group{flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding-bottom:4px;scrollbar-width:none}
+  .f-group{flex-wrap:wrap;max-width:100%}
+  .swatches{gap:10px}
   .chip{white-space:nowrap}
   .v-title{font-size:32px}
   .wall-panel{padding:20px}
@@ -531,3 +532,5 @@ body.intro-on .hero .reveal{animation-play-state:paused}
   .menu-btn{padding:0 14px 0 12px}
 }
 @media (max-width:370px){.mb-label{display:none}.menu-btn{padding:0 12px}}
+main,section,footer,header{max-width:100%}
+main{overflow-x:clip}
