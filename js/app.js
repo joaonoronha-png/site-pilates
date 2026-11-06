@@ -166,8 +166,6 @@
   function setRoom(id) {
     roomId = id; const o = byId[id], a = $('#roomArt');
     $('#roomPick').value = id;
-    $('#roomInterest').href = wa(interestMsg(o));
-    $('#roomInterest').href = wa(interestMsg(o));
     $('#roomInterest').href = negLink(o);
     a.style.opacity = 0;
     setTimeout(() => { a.src = img(id); a.alt = `${o.titulo} simulada em uma sala`; a.dataset.ratio = o.w / o.h; sizeRoom(); a.style.opacity = 1; }, 200);
