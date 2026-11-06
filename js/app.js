@@ -72,6 +72,8 @@
     $('#wishSend').href = wa(`Olá! Gostaria de negociar o preço destas obras de Vicente Prior:\n${names}`);
   }
 
+  const heartBtn = o => `<button class="c-heart ${isWished(o.id) ? 'on' : ''}" data-id="${o.id}" aria-label="Favoritar ${esc(o.titulo)}" aria-pressed="${isWished(o.id)}"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button>`;
+
   /* ---------- toast ---------- */
   let tt;
   function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => t.classList.remove('show'), 2400); }
@@ -79,7 +81,7 @@
   /* ---------- HERO ---------- */
   function hero() {
     const o = OBRAS[0];
-    $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">`;
+    $('#heroCanvas').innerHTML = `<img src="${img(o.id)}" alt="${esc(o.titulo)}, de Vicente Prior" fetchpriority="high" width="${o.w}" height="${o.h}">${heartBtn(o)}`;
     $('#heroCap').innerHTML = `<span><b>${esc(o.titulo)}</b><br>Pintura feita à mão · peça única</span><button class="score" type="button" data-open="${o.id}">Ver obra e fazer oferta →</button>`;
     $('#heroCanvas img').addEventListener('click', () => openViewer(o.id));
     const art = $('#heroArt'), cv = $('#heroCanvas');
@@ -97,7 +99,7 @@
   function podium() {
     $('#podium').innerHTML = OBRAS.slice(0, 3).map(o => `
       <article class="p-item" data-open="${o.id}" tabindex="0" role="button" aria-label="Abrir ${esc(o.titulo)}">
-        <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}"></div>
+        <div class="p-frame"><img src="${img(o.id)}" alt="${esc(o.titulo)}" loading="lazy" width="${o.w}" height="${o.h}">${heartBtn(o)}</div>
         <div class="p-cap"><h3>${esc(o.titulo)}</h3><span class="p-neg">Ver obra e fazer oferta →</span></div>
       </article>`).join('');
     const room = $('#destaques'), spot = $('.spot', room);
@@ -141,9 +143,7 @@
         <div class="c-frame">
           <span class="c-view"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5M11 8.5v5M8.5 11h5"/></svg>Ver detalhes</span>
           <img src="${thumb(o.id)}" alt="${esc(o.titulo)}, pintura de Vicente Prior" loading="lazy" width="${o.w}" height="${o.h}">
-          <button class="c-heart ${isWished(o.id) ? 'on' : ''}" data-id="${o.id}" aria-label="Salvar ${esc(o.titulo)}" aria-pressed="${isWished(o.id)}">
-            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
-          </button>
+          ${heartBtn(o)}
         </div>
         <div class="c-cap"><h3>${esc(o.titulo)}</h3></div>
         <div class="c-sub"><span>Feita à mão · ${o.preco ? fmtBRL(o.preco) : 'preço negociável'}</span>
