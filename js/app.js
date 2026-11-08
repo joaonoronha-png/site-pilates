@@ -332,7 +332,7 @@
     $('#vPecasRow').hidden = !o.pecas; $('#vPecas').textContent = o.pecas ? `${o.pecas} telas que formam uma só obra` : '';
     $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
-    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>ou parcelado no cartão</small>` : `Preço negociável<small>Todas as obras têm preço negociado direto com o artista</small>`;
+    $('#vPrice').innerHTML = o.preco ? `${fmtBRL(o.preco)}<small>Valor negociável direto com o artista</small>` : `Preço negociável<small>Todas as obras têm preço negociado direto com o artista</small>`;
     $('#vBuy').href = negLink(o);
     $('#vAsk').href = askLink(o);
     setViewerHeart();
