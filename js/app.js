@@ -249,10 +249,31 @@
       <span class="wf-prev wf-${f.id}" style="${f.css ? `background:${f.css}` : ''}"><i></i></span><small>${f.nome}</small></button>`).join('');
     $('#frameOpts').addEventListener('click', e => { const b = e.target.closest('[data-frame]'); if (b) setFrame(b.dataset.frame); });
   }
-  const photo = { url: null, cx: .5, cy: .4, w: .35, ratio: 1.5, sw: 60, sh: 40 };
+  const photo = { url: null, cx: .5, cy: .4, w: .35, ratio: 1.5, sw: 60, sh: 40, dist: 200, real: true, visCm: 0 };
+  /* Escala real: a câmera principal do celular (1x, ~26 mm equivalente, sensor 4:3)
+     enxerga ~67° no lado maior e ~53° no lado menor da foto. A largura de parede
+     que cabe na foto = 2 · distância · tan(ângulo/2). */
+  const FOV_LONG = 67.3, FOV_SHORT = 53.1;
+  function visibleWidthCm() {
+    const u = $('#userPhoto'); if (!u.naturalWidth) return 0;
+    const landscape = u.naturalWidth >= u.naturalHeight;
+    const fov = (landscape ? FOV_LONG : FOV_SHORT) * Math.PI / 180;
+    return 2 * photo.dist * Math.tan(fov / 2);
+  }
+  function setDist(cm) {
+    photo.dist = cm;
+    $$('.dchip').forEach(b => b.classList.toggle('on', +b.dataset.dist === cm));
+    $('#distTxt').textContent = cm === 150 ? '1,5 metro' : cm / 100 + ' metros';
+    $('#stepsTxt').textContent = cm === 150 ? '2 passos largos' : cm === 200 ? '3 passos largos' : '4 passos largos';
+    photo.visCm = visibleWidthCm(); photo.real = true; placePhotoArt();
+  }
+  function setReal(on) { photo.real = on; $('#realBadge').hidden = !on; $('#realReset').hidden = on; }
   function placePhotoArt() {
     const a = $('#photoArt'); if (!a) return;
-    photo.w = Math.min(.95, Math.max(.06, photo.w));
+    const tt = frame.fw + (frame.gap || 0);
+    if (photo.real && photo.visCm) photo.w = (photo.sw + 2 * tt) / photo.visCm;
+    photo.w = Math.min(1.4, Math.max(.03, photo.w));
+    if (photo.url) setReal(photo.real);
     a.style.width = photo.w * 100 + '%';
     const t = frame.fw + (frame.gap || 0), tw = photo.sw + 2 * t, th = photo.sh + 2 * t;
     a.style.aspectRatio = `${tw} / ${th}`;
@@ -281,13 +302,15 @@
       const u = $('#userPhoto');
       u.onload = () => {
         $('#photoEmpty').hidden = true; $('#photoStage').hidden = false; $('#photoCap').hidden = false; $('#sizeFld').hidden = false;
-        Object.assign(photo, { cx: .5, cy: .4, w: .35 }); placePhotoArt();
+        Object.assign(photo, { cx: .5, cy: .42, real: true }); photo.visCm = visibleWidthCm(); placePhotoArt();
       };
       u.onerror = () => toast('Não foi possível abrir essa foto. Tente outra.');
       u.src = photo.url;
       e.target.value = '';
     });
-    $('#photoSize').addEventListener('input', e => { photo.w = e.target.value / 100; placePhotoArt(); });
+    $('#photoSize').addEventListener('input', e => { photo.real = false; photo.w = e.target.value / 100; placePhotoArt(); });
+    $$('.dchip').forEach(b => b.addEventListener('click', () => setDist(+b.dataset.dist)));
+    $('#realReset').addEventListener('click', () => { photo.real = true; placePhotoArt(); });
     // arrastar, redimensionar pelo canto e pinça com dois dedos
     const wrap = $('#photoWrap'), art = $('#photoArt'), pts = new Map();
     let drag = null;
@@ -303,6 +326,7 @@
       if (!drag || !pts.has(e.pointerId)) return;
       pts.set(e.pointerId, e);
       const p = rel(e);
+      if (drag.mode !== 'move') photo.real = false;
       if (drag.mode === 'pinch' && pts.size === 2) { const [a, b] = [...pts.values()]; photo.w = drag.w0 * Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) / drag.d0; }
       else if (drag.mode === 'size') photo.w = drag.w0 + (p.x - drag.x0) * 2;
       else if (drag.mode === 'move') { photo.cx = Math.min(1, Math.max(0, p.x - drag.dx)); photo.cy = Math.min(1, Math.max(0, p.y - drag.dy)); }

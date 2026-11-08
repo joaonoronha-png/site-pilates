@@ -226,8 +226,18 @@
     <figure class="room-frame photo-mode" id="fotoMode" hidden>
       <div class="photo-empty" id="photoEmpty">
         <span class="pe-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
-        <b>Coloque a obra na sua parede</b>
-        <p>Tire uma foto de frente para a parede onde você imagina o quadro, ou escolha uma foto da galeria.</p>
+        <b>Coloque a obra na sua parede, no tamanho real</b>
+        <p>Siga estes passos para o quadro aparecer na foto com o tamanho de verdade:</p>
+        <ol class="pe-steps">
+          <li><span>1</span><div><b>Fique a <em id="distTxt">2 metros</em> da parede</b>Mais ou menos <em id="stepsTxt">3 passos largos</em>. Escolha outra distância se o espaço for pequeno.</div></li>
+          <li><span>2</span><div><b>Use a câmera normal, sem zoom</b>Deixe no 1x. Não use o modo 0,5 (grande angular).</div></li>
+          <li><span>3</span><div><b>Celular reto, de frente para a parede</b>Na altura onde o quadro ficaria. Tire a foto sem cortar depois.</div></li>
+        </ol>
+        <div class="pe-dist" role="group" aria-label="Distância da parede">
+          <button type="button" class="dchip" data-dist="150">1,5 m</button>
+          <button type="button" class="dchip on" data-dist="200">2 m</button>
+          <button type="button" class="dchip" data-dist="300">3 m</button>
+        </div>
         <label class="btn btn-ink" for="photoInput"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Tirar ou escolher foto</label>
         <small>A foto fica só no seu aparelho. Ela não é enviada para ninguém.</small>
       </div>
@@ -242,7 +252,7 @@
       </div>
       <input type="file" id="photoInput" accept="image/*" capture="environment" hidden>
       <figcaption class="room-cap photo-cap" id="photoCap" hidden>
-        <span>Arraste o quadro para posicionar · puxe o canto ou use dois dedos para mudar o tamanho</span>
+        <span>Arraste o quadro para posicionar · o tamanho já está real para a distância escolhida</span>
         <label class="pc-change" for="photoInput">Trocar foto</label>
       </figcaption>
     </figure>
@@ -264,8 +274,16 @@
         <div class="wp-frames" id="frameOpts"></div>
       </div>
       <div class="fld" id="sizeFld" hidden>
-        <span>Tamanho do quadro na foto</span>
-        <input type="range" id="photoSize" min="8" max="95" value="35" aria-label="Tamanho do quadro na foto">
+        <span>Distância em que a foto foi tirada</span>
+        <div class="pe-dist small" role="group" aria-label="Distância da foto">
+          <button type="button" class="dchip" data-dist="150">1,5 m</button>
+          <button type="button" class="dchip on" data-dist="200">2 m</button>
+          <button type="button" class="dchip" data-dist="300">3 m</button>
+        </div>
+        <span class="real-badge" id="realBadge">Tamanho real</span>
+        <button type="button" class="real-reset" id="realReset" hidden>Voltar ao tamanho real</button>
+        <span>Ajuste fino do tamanho</span>
+        <input type="range" id="photoSize" min="3" max="140" value="35" aria-label="Tamanho do quadro na foto">
       </div>
       <div class="fld" id="wallFld">
         <span>Cor da parede · <b id="wallName">Off-white</b></span>
