@@ -142,10 +142,15 @@
   <header class="sec-head">
     <p class="eyebrow">Experimente antes de comprar</p>
     <h2 class="sec-title">Veja na sua <em>parede</em></h2>
-    <p class="sec-sub">Escolha a obra e a cor da parede para ver como ela fica no ambiente.</p>
+    <p class="sec-sub">Veja a obra numa sala de exemplo ou tire uma foto da sua parede e posicione o quadro onde quiser.</p>
   </header>
   <div class="wall-wrap">
-    <figure class="room-frame">
+    <div class="wall-main">
+    <div class="wall-tabs" role="tablist" aria-label="Modo de visualização">
+      <button class="wt on" role="tab" aria-selected="true" data-mode="sala">Sala de exemplo</button>
+      <button class="wt" role="tab" aria-selected="false" data-mode="foto"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Na minha parede</button>
+    </div>
+    <figure class="room-frame" id="salaMode">
       <div class="room" id="room">
         <svg id="scene" viewBox="0 0 520 300" role="img" aria-label="Simulação da obra em uma sala">
           <defs>
@@ -211,6 +216,30 @@
       </div>
       <figcaption class="room-cap"><span>Simulação ilustrativa</span></figcaption>
     </figure>
+    <figure class="room-frame photo-mode" id="fotoMode" hidden>
+      <div class="photo-empty" id="photoEmpty">
+        <span class="pe-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+        <b>Coloque a obra na sua parede</b>
+        <p>Tire uma foto de frente para a parede onde você imagina o quadro, ou escolha uma foto da galeria.</p>
+        <label class="btn btn-ink" for="photoInput"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Tirar ou escolher foto</label>
+        <small>A foto fica só no seu aparelho. Ela não é enviada para ninguém.</small>
+      </div>
+      <div class="photo-stage" id="photoStage" hidden>
+        <div class="photo-wrap" id="photoWrap">
+          <img id="userPhoto" alt="Foto da sua parede">
+          <div class="pa" id="photoArt" role="img" aria-label="Obra posicionada na sua parede">
+            <img id="photoArtImg" alt="" draggable="false">
+            <span class="pa-handle" id="paHandle" aria-hidden="true"></span>
+          </div>
+        </div>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" hidden>
+      <figcaption class="room-cap photo-cap" id="photoCap" hidden>
+        <span>Arraste o quadro para posicionar · puxe o canto ou use dois dedos para mudar o tamanho</span>
+        <label class="pc-change" for="photoInput">Trocar foto</label>
+      </figcaption>
+    </figure>
+    </div>
     <aside class="wall-panel">
       <div class="wp-sel">
         <img id="wpThumb" alt="">
@@ -223,7 +252,11 @@
         <span>Escolha a obra</span>
         <div class="wp-thumbs" id="roomThumbs"></div>
       </div>
-      <div class="fld">
+      <div class="fld" id="sizeFld" hidden>
+        <span>Tamanho do quadro na foto</span>
+        <input type="range" id="photoSize" min="8" max="95" value="35" aria-label="Tamanho do quadro na foto">
+      </div>
+      <div class="fld" id="wallFld">
         <span>Cor da parede · <b id="wallName">Off-white</b></span>
         <div class="wall-colors" id="wallColors"></div>
       </div>

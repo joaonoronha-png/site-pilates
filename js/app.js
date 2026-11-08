@@ -178,6 +178,7 @@
     });
     $('#roomDetail').addEventListener('click', () => openViewer(roomId));
     addEventListener('resize', fitScene);
+    photoMode();
     setRoom(roomId);
   }
   function fitScene() {
@@ -192,6 +193,7 @@
     $$('.wp-t').forEach(b => b.classList.toggle('on', b.dataset.room === id));
     $('#roomInterest').href = negLink(o);
     $('#wpThumb').src = thumb(id); $('#wpTitle').textContent = o.titulo;
+    $('#photoArtImg').src = img(id); photo.ratio = s.w / s.h; placePhotoArt();
     // altura: centro a 1,50 m do chão, sem encostar no sofá e sem passar do teto
     let c = Math.max(150, SOFA_TOP + 18 + s.h / 2);
     if (c + s.h / 2 > 250) c = Math.max(s.h / 2 + 2, 250 - s.h / 2);
@@ -205,6 +207,70 @@
       fitScene();
       art.style.opacity = 1;
     }, 180);
+  }
+
+  /* ---------- NA MINHA PAREDE (foto do visitante, fica só no aparelho) ---------- */
+  const photo = { url: null, cx: .5, cy: .4, w: .35, ratio: 1.5 };
+  function placePhotoArt() {
+    const a = $('#photoArt'); if (!a) return;
+    photo.w = Math.min(.95, Math.max(.06, photo.w));
+    a.style.width = photo.w * 100 + '%';
+    a.style.aspectRatio = photo.ratio;
+    a.style.left = photo.cx * 100 + '%';
+    a.style.top = photo.cy * 100 + '%';
+    $('#photoSize').value = Math.round(photo.w * 100);
+  }
+  function setMode(m) {
+    const foto = m === 'foto';
+    $$('.wt').forEach(b => { const on = b.dataset.mode === m; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
+    $('#salaMode').hidden = foto; $('#fotoMode').hidden = !foto;
+    $('#wallFld').hidden = foto; $('#sizeFld').hidden = !foto || !photo.url;
+    $('.wp-eyebrow').textContent = foto ? 'Na sua parede' : 'Na parede agora';
+  }
+  function photoMode() {
+    $$('.wt').forEach(b => b.addEventListener('click', () => setMode(b.dataset.mode)));
+    $('#photoInput').addEventListener('change', e => {
+      const f = e.target.files && e.target.files[0]; if (!f) return;
+      if (!/^image\//.test(f.type)) { toast('Escolha um arquivo de imagem (foto).'); return; }
+      if (photo.url) URL.revokeObjectURL(photo.url);
+      photo.url = URL.createObjectURL(f);
+      const u = $('#userPhoto');
+      u.onload = () => {
+        $('#photoEmpty').hidden = true; $('#photoStage').hidden = false; $('#photoCap').hidden = false; $('#sizeFld').hidden = false;
+        Object.assign(photo, { cx: .5, cy: .4, w: .35 }); placePhotoArt();
+      };
+      u.onerror = () => toast('Não foi possível abrir essa foto. Tente outra.');
+      u.src = photo.url;
+      e.target.value = '';
+    });
+    $('#photoSize').addEventListener('input', e => { photo.w = e.target.value / 100; placePhotoArt(); });
+    // arrastar, redimensionar pelo canto e pinça com dois dedos
+    const wrap = $('#photoWrap'), art = $('#photoArt'), pts = new Map();
+    let drag = null;
+    const rel = e => { const r = wrap.getBoundingClientRect(); return { x: (e.clientX - r.left) / r.width, y: (e.clientY - r.top) / r.height, r }; };
+    art.addEventListener('pointerdown', e => {
+      e.preventDefault(); art.setPointerCapture(e.pointerId); pts.set(e.pointerId, e);
+      const p = rel(e);
+      if (pts.size === 2) { const [a, b] = [...pts.values()]; drag = { mode: 'pinch', d0: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), w0: photo.w }; }
+      else drag = e.target.id === 'paHandle' ? { mode: 'size', x0: p.x, w0: photo.w } : { mode: 'move', dx: p.x - photo.cx, dy: p.y - photo.cy };
+      art.classList.add('active');
+    });
+    art.addEventListener('pointermove', e => {
+      if (!drag || !pts.has(e.pointerId)) return;
+      pts.set(e.pointerId, e);
+      const p = rel(e);
+      if (drag.mode === 'pinch' && pts.size === 2) { const [a, b] = [...pts.values()]; photo.w = drag.w0 * Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) / drag.d0; }
+      else if (drag.mode === 'size') photo.w = drag.w0 + (p.x - drag.x0) * 2;
+      else if (drag.mode === 'move') { photo.cx = Math.min(1, Math.max(0, p.x - drag.dx)); photo.cy = Math.min(1, Math.max(0, p.y - drag.dy)); }
+      placePhotoArt();
+    });
+    const up = e => { pts.delete(e.pointerId); if (!pts.size) { drag = null; art.classList.remove('active'); } };
+    art.addEventListener('pointerup', up); art.addEventListener('pointercancel', up);
+    art.addEventListener('keydown', e => {
+      const k = { ArrowLeft: [-.01, 0], ArrowRight: [.01, 0], ArrowUp: [0, -.01], ArrowDown: [0, .01] }[e.key];
+      if (k) { e.preventDefault(); photo.cx += k[0]; photo.cy += k[1]; placePhotoArt(); }
+    });
+    art.tabIndex = 0;
   }
 
   /* ---------- VISUALIZADOR ---------- */
