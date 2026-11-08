@@ -157,16 +157,17 @@
   /* ---------- VER NA PAREDE (sala em escala real, unidades em cm) ---------- */
   const WALLS = [['Off-white', '#ece6dc'], ['Branco', '#f7f5f0'], ['Areia', '#d9cbb6'], ['Sálvia', '#a9b3a1'], ['Azul névoa', '#7d8d99'], ['Grafite', '#3f4a52'], ['Terracota', '#b8836a'], ['Noite', '#2a2623']];
   const FLOOR = 262, SOFA_TOP = 80;          // chão no y=262; encosto do sofá a 80 cm
-  let roomId = OBRAS[0].id;
+  const MEDIDAS = () => FEATURED_FIRST.filter(o => o.medida);
+  let roomId = (OBRAS.find(o => o.medida) || OBRAS[0]).id;
   const sizeOf = o => {
-    const d0 = o.medida || o.dimensoes, m = d0 && String(d0).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i);
+    const d0 = o.medida, m = d0 && String(d0).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i);
     if (m) return { w: parseFloat(m[1].replace(',', '.')), h: parseFloat(m[2].replace(',', '.')), real: true };
     return { w: 60, h: Math.round(60 / (o.w / o.h)), real: false };
   };
   const fmtCm = n => (n >= 100 ? (n / 100).toFixed(2).replace('.', ',') + ' m' : Math.round(n) + ' cm');
   function wall() {
     $('#formObra').innerHTML += OBRAS.map(o => `<option value="${o.id}">${esc(o.titulo)}</option>`).join('');
-    $('#roomThumbs').innerHTML = FEATURED_FIRST.map(o => `<button class="wp-t" data-room="${o.id}" title="${esc(o.titulo)}" aria-label="${esc(o.titulo)}"><img src="${thumb(o.id)}" alt="" loading="lazy"></button>`).join('');
+    $('#roomThumbs').innerHTML = MEDIDAS().map(o => `<button class="wp-t" data-room="${o.id}" title="${esc(o.titulo)}" aria-label="${esc(o.titulo)}"><img src="${thumb(o.id)}" alt="" loading="lazy"></button>`).join('');
     $('#roomThumbs').addEventListener('click', e => { const b = e.target.closest('[data-room]'); if (b) setRoom(b.dataset.room); });
     $('#wallColors').innerHTML = WALLS.map(([n, c], i) => `<button class="wc ${i ? '' : 'on'}" style="background:${c}" data-wall="${c}" data-name="${n}" aria-label="Parede ${n}" title="${n}"></button>`).join('');
     $('#wallColors').addEventListener('click', e => {
@@ -267,11 +268,12 @@
     $('#stepsTxt').textContent = cm === 150 ? '2 passos largos' : cm === 200 ? '3 passos largos' : '4 passos largos';
     photo.visCm = visibleWidthCm(); photo.real = true; placePhotoArt();
   }
-  function setReal(on) { photo.real = on; $('#realBadge').hidden = !on; $('#realReset').hidden = on; }
+  function setReal() { photo.real = true; }
   function placePhotoArt() {
     const a = $('#photoArt'); if (!a) return;
     const tt = frame.fw + (frame.gap || 0);
-    if (photo.real && photo.visCm) photo.w = (photo.sw + 2 * tt) / photo.visCm;
+    photo.real = true;
+    if (photo.visCm) photo.w = (photo.sw + 2 * tt) / photo.visCm;
     photo.w = Math.min(1.4, Math.max(.03, photo.w));
     if (photo.url) setReal(photo.real);
     a.style.width = photo.w * 100 + '%';
@@ -283,7 +285,6 @@
     a.style.setProperty('--gap', frame.gap ? `${(frame.gap / t) * 100}%` : '0');
     a.style.left = photo.cx * 100 + '%';
     a.style.top = photo.cy * 100 + '%';
-    $('#photoSize').value = Math.round(photo.w * 100);
   }
   function setMode(m) {
     const foto = m === 'foto';
@@ -308,9 +309,7 @@
       u.src = photo.url;
       e.target.value = '';
     });
-    $('#photoSize').addEventListener('input', e => { photo.real = false; photo.w = e.target.value / 100; placePhotoArt(); });
     $$('.dchip').forEach(b => b.addEventListener('click', () => setDist(+b.dataset.dist)));
-    $('#realReset').addEventListener('click', () => { photo.real = true; placePhotoArt(); });
     // arrastar, redimensionar pelo canto e pinça com dois dedos
     const wrap = $('#photoWrap'), art = $('#photoArt'), pts = new Map();
     let drag = null;
@@ -318,18 +317,14 @@
     art.addEventListener('pointerdown', e => {
       e.preventDefault(); art.setPointerCapture(e.pointerId); pts.set(e.pointerId, e);
       const p = rel(e);
-      if (pts.size === 2) { const [a, b] = [...pts.values()]; drag = { mode: 'pinch', d0: Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY), w0: photo.w }; }
-      else drag = e.target.id === 'paHandle' ? { mode: 'size', x0: p.x, w0: photo.w } : { mode: 'move', dx: p.x - photo.cx, dy: p.y - photo.cy };
+      drag = { mode: 'move', dx: p.x - photo.cx, dy: p.y - photo.cy };
       art.classList.add('active');
     });
     art.addEventListener('pointermove', e => {
       if (!drag || !pts.has(e.pointerId)) return;
       pts.set(e.pointerId, e);
       const p = rel(e);
-      if (drag.mode !== 'move') photo.real = false;
-      if (drag.mode === 'pinch' && pts.size === 2) { const [a, b] = [...pts.values()]; photo.w = drag.w0 * Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY) / drag.d0; }
-      else if (drag.mode === 'size') photo.w = drag.w0 + (p.x - drag.x0) * 2;
-      else if (drag.mode === 'move') { photo.cx = Math.min(1, Math.max(0, p.x - drag.dx)); photo.cy = Math.min(1, Math.max(0, p.y - drag.dy)); }
+      if (drag.mode === 'move') { photo.cx = Math.min(1, Math.max(0, p.x - drag.dx)); photo.cy = Math.min(1, Math.max(0, p.y - drag.dy)); }
       placePhotoArt();
     });
     const up = e => { pts.delete(e.pointerId); if (!pts.size) { drag = null; art.classList.remove('active'); } };
@@ -353,6 +348,7 @@
     $('#vTitle').textContent = o.titulo;
     $('#vMeta').textContent = `Vicente Prior · ${o.formato[0].toUpperCase() + o.formato.slice(1)} · ${o.cores.map(c => COLORS[c].label).join(', ')}`;
     $('#vDesc').textContent = (o.descricao ? o.descricao + ' ' : '') + DESC;
+    $('#vWall').hidden = !o.medida;
     $('#vDim').textContent = (() => { const m = o.medida && String(o.medida).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i); return m ? `${m[1]} × ${m[2]} cm (largura × altura)` : 'Sob consulta'; })();
     $('#vPecasRow').hidden = !o.pecas; $('#vPecas').textContent = o.pecas ? `${o.pecas} telas que formam uma só obra` : '';
     $('#vOffer').value = '';
