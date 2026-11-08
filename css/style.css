@@ -3,7 +3,7 @@
   --paper:#f3eee6; --paper-2:#ebe4d8; --card:#fbf8f3;
   --ink:#141210; --ink-2:#3b352f; --mute:#7a7066; --line:#d9d0c3;
   --rust:#9a2a22; --gold:#c9962a; --night:#0e0c0b;
-  --b-green:#1d5a3c; --b-yellow:#e3ad2a; --b-wine:#7b1626; --b-black:#151311; --b-ochre:#8a5a1a;
+  --b-green:#4f5d33; --b-yellow:#c99a3c; --b-wine:#7b1626; --b-black:#2a2724; --b-ochre:#a84a1c;
   --serif:"Fraunces", Georgia, "Times New Roman", serif;
   --sans:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --gut:clamp(16px, 4vw, 56px);
@@ -611,25 +611,15 @@ main{overflow-x:clip}
 @media (max-width:640px){.photo-empty{padding:24px 14px}.pe-steps li{padding:10px 12px}}
 .wp-note{font-size:12px;letter-spacing:0;text-transform:none;color:var(--mute)}
 
-/* ---------- marca Vprior artes ---------- */
-.vp-logo{display:block;height:auto;overflow:visible}
-.brand{gap:4px;align-items:flex-end}
-.brand .vp-logo{width:96px}
-.brand-artes{font:400 11px/1 var(--serif);letter-spacing:.42em;text-transform:lowercase;margin:0 0 8px 2px;opacity:.85}
-.f-brand .vp-logo{width:120px}
-.f-brand span{font:400 13px var(--serif);letter-spacing:.42em}
+/* ---------- marca Vprior artes (logo só no topo) ---------- */
+.brand{gap:0;align-items:center}
+.brand-logo{display:block;width:140px;height:auto;filter:drop-shadow(0 2px 6px rgba(0,0,0,.12));transition:width .4s var(--ease)}
+.topbar.scrolled .brand-logo{width:104px}
+.f-brand{font:italic 400 22px var(--serif);color:var(--paper)}
+.f-brand span{font:400 12px var(--sans);font-style:normal;letter-spacing:.4em;text-transform:uppercase;margin-left:6px;color:#a89c8e}
 .f-social{color:var(--paper);text-decoration:underline;text-underline-offset:3px}
-.intro-logo{opacity:0;animation:logoIn 1.1s cubic-bezier(.2,.8,.2,1) .7s forwards}
-.intro-logo .vp-logo{width:min(560px,80vw);margin:0 auto}
-@keyframes logoIn{from{opacity:0;transform:scale(.94) rotate(-2deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
-.intro-artes{display:flex;align-items:center;justify-content:center;gap:18px;margin:6px 0 0;font:400 clamp(18px,2vw,26px)/1 var(--serif);letter-spacing:.5em;color:var(--ink-2);opacity:0;animation:fadeUp .8s var(--ease) 1.3s forwards}
-.intro-artes i{display:block;width:36px;height:1px;background:currentColor}
-.brand-stripe{height:6px;background:linear-gradient(90deg,var(--b-green) 0 20%,var(--b-yellow) 20% 40%,var(--b-wine) 40% 60%,var(--b-black) 60% 80%,var(--b-ochre) 80%)}
-@media (max-width:640px){.brand .vp-logo{width:78px}.brand-artes{font-size:10px;margin-bottom:6px}}
-.hero-brand{margin:0 0 26px;font-weight:400}
-.hero-brand .vp-logo{width:min(520px,100%);margin-left:-14px}
-.hero-artes{display:flex;align-items:center;gap:16px;margin-top:4px;font:400 clamp(18px,1.8vw,24px)/1 var(--serif);letter-spacing:.5em;color:var(--ink-2)}
-.hero-artes i{display:block;width:40px;height:1px;background:currentColor}
-.hero-by{display:block;margin-top:18px;font:500 12px/1.4 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
-.sec-title em{color:var(--b-wine)}
+.hero-by{margin:-12px 0 26px;font:500 12px/1.4 var(--sans);letter-spacing:.18em;text-transform:uppercase;color:var(--mute)}
+.brand-stripe{height:4px;background:linear-gradient(90deg,var(--b-green) 0 25%,var(--b-yellow) 25% 50%,var(--b-ochre) 50% 75%,var(--b-black) 75%)}
+.sec-title em,.hero-title .it,.intro-name .w2{color:var(--b-ochre)}
 .dark-room .sec-title em,.contact .sec-title em{color:var(--b-yellow)}
+@media (max-width:640px){.brand-logo{width:92px}.topbar.scrolled .brand-logo{width:80px}}
