@@ -237,7 +237,7 @@ em{font-style:italic}
 .lead{font:300 clamp(20px,1.8vw,26px)/1.4 var(--serif);margin:28px 0 18px}
 .artist-copy>p:not(.eyebrow):not(.lead){color:var(--ink-2)}
 blockquote{margin:30px 0;padding-left:22px;border-left:2px solid var(--rust);font:italic 300 22px/1.4 var(--serif)}
-.pillars{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;border-top:1px solid var(--line);padding-top:24px}
+.pillars{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;border-top:1px solid var(--line);padding-top:24px}
 .pillars b{display:block;font:400 20px var(--serif);margin-bottom:6px}
 .pillars span{font-size:13px;color:var(--mute)}
 
