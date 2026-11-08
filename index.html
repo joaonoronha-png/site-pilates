@@ -161,6 +161,12 @@
             <linearGradient id="gSofa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2d9cb"/><stop offset="1" stop-color="#cfc3b2"/></linearGradient>
             <filter id="fArt" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="1.2" dy="3" stdDeviation="2.4" flood-color="#2a1a0e" flood-opacity=".38"/></filter>
             <filter id="fSoft" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#2a1a0e" flood-opacity=".22"/></filter>
+            <linearGradient id="frPreta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset=".5" stop-color="#151515"/><stop offset="1" stop-color="#2a2a2a"/></linearGradient>
+            <linearGradient id="frBranca" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfaf7"/><stop offset=".5" stop-color="#ebe7df"/><stop offset="1" stop-color="#f6f3ed"/></linearGradient>
+            <linearGradient id="frCarvalho" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#b48a58"/><stop offset=".3" stop-color="#d9b788"/><stop offset=".55" stop-color="#b98f5c"/><stop offset=".8" stop-color="#d2ad7c"/><stop offset="1" stop-color="#a97f4e"/></linearGradient>
+            <linearGradient id="frNogueira" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#3b2618"/><stop offset=".35" stop-color="#6b4a32"/><stop offset=".6" stop-color="#45301f"/><stop offset=".85" stop-color="#62432c"/><stop offset="1" stop-color="#3a2516"/></linearGradient>
+            <linearGradient id="frDourada" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a5a22"/><stop offset=".22" stop-color="#e9cf7e"/><stop offset=".45" stop-color="#9c7530"/><stop offset=".7" stop-color="#f0d98c"/><stop offset="1" stop-color="#7a5a22"/></linearGradient>
+            <linearGradient id="frCaixa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#0e0e0e"/></linearGradient>
           </defs>
           <rect class="s-wall" x="0" y="0" width="520" height="262"/>
           <rect x="0" y="0" width="520" height="262" fill="url(#gShade)"/>
@@ -209,6 +215,7 @@
             <ellipse cx="503" cy="184" rx="5" ry="10" fill="#5d6c47" transform="rotate(38 503 184)"/>
           </g>
           <g id="art" filter="url(#fArt)">
+            <g id="frameG"></g>
             <image id="artImg" x="0" y="0" width="60" height="40" preserveAspectRatio="xMidYMid slice"/>
             <rect id="artEdge" x="0" y="0" width="60" height="40" fill="none" stroke="#000" stroke-opacity=".12" stroke-width=".5"/>
           </g>
@@ -251,6 +258,10 @@
       <div class="fld">
         <span>Escolha a obra</span>
         <div class="wp-thumbs" id="roomThumbs"></div>
+      </div>
+      <div class="fld">
+        <span>Moldura · <b id="frameName">Sem moldura</b></span>
+        <div class="wp-frames" id="frameOpts"></div>
       </div>
       <div class="fld" id="sizeFld" hidden>
         <span>Tamanho do quadro na foto</span>

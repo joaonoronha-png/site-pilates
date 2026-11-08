@@ -178,7 +178,7 @@
     });
     $('#roomDetail').addEventListener('click', () => openViewer(roomId));
     addEventListener('resize', fitScene);
-    photoMode();
+    photoMode(); frameOpts();
     setRoom(roomId);
   }
   function fitScene() {
@@ -193,7 +193,7 @@
     $$('.wp-t').forEach(b => b.classList.toggle('on', b.dataset.room === id));
     $('#roomInterest').href = negLink(o);
     $('#wpThumb').src = thumb(id); $('#wpTitle').textContent = o.titulo;
-    $('#photoArtImg').src = img(id); photo.ratio = s.w / s.h; placePhotoArt();
+    $('#photoArtImg').src = img(id); photo.ratio = s.w / s.h; photo.sw = s.w; photo.sh = s.h; placePhotoArt();
     // altura: centro a 1,50 m do chão, sem encostar no sofá e sem passar do teto
     let c = Math.max(150, SOFA_TOP + 18 + s.h / 2);
     if (c + s.h / 2 > 250) c = Math.max(s.h / 2 + 2, 250 - s.h / 2);
@@ -203,6 +203,7 @@
     setTimeout(() => {
       im.setAttribute('href', img(id));
       [im, $('#artEdge')].forEach(el => { el.setAttribute('x', x); el.setAttribute('y', y); el.setAttribute('width', s.w); el.setAttribute('height', s.h); });
+      roomGeom = { x, y, w: s.w, h: s.h }; drawFrame();
       const sp = $('#artSpot'); sp.setAttribute('cy', y + s.h / 2); sp.setAttribute('rx', s.w * .75 + 50); sp.setAttribute('ry', s.h * .8 + 40);
       fitScene();
       art.style.opacity = 1;
@@ -210,12 +211,55 @@
   }
 
   /* ---------- NA MINHA PAREDE (foto do visitante, fica só no aparelho) ---------- */
-  const photo = { url: null, cx: .5, cy: .4, w: .35, ratio: 1.5 };
+  /* molduras: fw = largura da moldura em cm; gap = respiro da caixa flutuante */
+  const FRAMES = [
+    { id: 'none', nome: 'Sem moldura', fw: 0 },
+    { id: 'preta', nome: 'Preta fina', fw: 2.5, svg: 'frPreta', css: 'linear-gradient(135deg,#3a3a3a,#151515 50%,#2a2a2a)' },
+    { id: 'branca', nome: 'Branca', fw: 3, svg: 'frBranca', css: 'linear-gradient(135deg,#fbfaf7,#ebe7df 50%,#f6f3ed)' },
+    { id: 'carvalho', nome: 'Madeira clara', fw: 4, svg: 'frCarvalho', css: 'repeating-linear-gradient(100deg,rgba(90,60,30,.10) 0 2px,transparent 2px 7px),linear-gradient(110deg,#b48a58,#d9b788 30%,#b98f5c 55%,#d2ad7c 80%,#a97f4e)' },
+    { id: 'nogueira', nome: 'Madeira escura', fw: 4.5, svg: 'frNogueira', css: 'repeating-linear-gradient(100deg,rgba(0,0,0,.14) 0 2px,transparent 2px 7px),linear-gradient(110deg,#3b2618,#6b4a32 35%,#45301f 60%,#62432c 85%,#3a2516)' },
+    { id: 'dourada', nome: 'Dourada clássica', fw: 7, svg: 'frDourada', css: 'linear-gradient(135deg,#7a5a22,#e9cf7e 22%,#9c7530 45%,#f0d98c 70%,#7a5a22)', ornate: true },
+    { id: 'caixa', nome: 'Caixa flutuante', fw: 3, gap: 1.2, svg: 'frCaixa', css: 'linear-gradient(135deg,#2b2b2b,#0e0e0e)' },
+  ];
+  let frame = FRAMES[0], roomGeom = null;
+  const NS = 'http://www.w3.org/2000/svg';
+  const svgEl = (tag, at) => { const e = document.createElementNS(NS, tag); for (const k in at) e.setAttribute(k, at[k]); return e; };
+  function drawFrame() {
+    const g = $('#frameG'); if (!g || !roomGeom) return;
+    g.replaceChildren();
+    if (!frame.fw) return;
+    const { x, y, w, h } = roomGeom, t = frame.fw + (frame.gap || 0);
+    g.append(svgEl('rect', { x: x - t, y: y - t, width: w + 2 * t, height: h + 2 * t, fill: `url(#${frame.svg})`, stroke: '#000', 'stroke-opacity': .3, 'stroke-width': .35 }));
+    g.append(svgEl('rect', { x: x - t + .6, y: y - t + .6, width: w + 2 * t - 1.2, height: h + 2 * t - 1.2, fill: 'none', stroke: '#fff', 'stroke-opacity': frame.id === 'branca' ? .9 : .22, 'stroke-width': .5 }));
+    if (frame.ornate) {
+      g.append(svgEl('rect', { x: x - t + 2.2, y: y - t + 2.2, width: w + 2 * t - 4.4, height: h + 2 * t - 4.4, fill: 'none', stroke: '#6b4e1c', 'stroke-opacity': .55, 'stroke-width': .9, 'stroke-dasharray': '1.2 .8' }));
+      g.append(svgEl('rect', { x: x - 1.6, y: y - 1.6, width: w + 3.2, height: h + 3.2, fill: 'none', stroke: '#f3dc92', 'stroke-width': 1.2 }));
+    }
+    if (frame.gap) g.append(svgEl('rect', { x: x - frame.gap, y: y - frame.gap, width: w + 2 * frame.gap, height: h + 2 * frame.gap, fill: '#0b0b0b' }));
+    g.append(svgEl('rect', { x: x - .3, y: y - .3, width: w + .6, height: h + .6, fill: 'none', stroke: '#000', 'stroke-opacity': .45, 'stroke-width': .5 }));
+  }
+  function setFrame(id) {
+    frame = FRAMES.find(f => f.id === id) || FRAMES[0];
+    $$('.wf').forEach(b => { const on = b.dataset.frame === frame.id; b.classList.toggle('on', on); b.setAttribute('aria-pressed', on); });
+    $('#frameName').textContent = frame.nome;
+    drawFrame(); placePhotoArt();
+  }
+  function frameOpts() {
+    $('#frameOpts').innerHTML = FRAMES.map(f => `<button class="wf ${f.id === 'none' ? 'on' : ''}" data-frame="${f.id}" aria-pressed="${f.id === 'none'}" title="${f.nome}">
+      <span class="wf-prev wf-${f.id}" style="${f.css ? `background:${f.css}` : ''}"><i></i></span><small>${f.nome}</small></button>`).join('');
+    $('#frameOpts').addEventListener('click', e => { const b = e.target.closest('[data-frame]'); if (b) setFrame(b.dataset.frame); });
+  }
+  const photo = { url: null, cx: .5, cy: .4, w: .35, ratio: 1.5, sw: 60, sh: 40 };
   function placePhotoArt() {
     const a = $('#photoArt'); if (!a) return;
     photo.w = Math.min(.95, Math.max(.06, photo.w));
     a.style.width = photo.w * 100 + '%';
-    a.style.aspectRatio = photo.ratio;
+    const t = frame.fw + (frame.gap || 0), tw = photo.sw + 2 * t, th = photo.sh + 2 * t;
+    a.style.aspectRatio = `${tw} / ${th}`;
+    a.style.padding = `${(t / tw) * photo.w * 100}%`;          // % do padding é relativo à largura da foto
+    a.style.background = frame.css || 'none';
+    a.dataset.frame = frame.id;
+    a.style.setProperty('--gap', frame.gap ? `${(frame.gap / t) * 100}%` : '0');
     a.style.left = photo.cx * 100 + '%';
     a.style.top = photo.cy * 100 + '%';
     $('#photoSize').value = Math.round(photo.w * 100);

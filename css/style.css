@@ -570,3 +570,24 @@ main{overflow-x:clip}
 #sizeFld input{width:100%;accent-color:var(--ink)}
 #sizeFld[hidden],#wallFld[hidden]{display:none}
 @media (max-width:640px){.wall-tabs{align-self:stretch}.wt{flex:1;justify-content:center;padding:11px 10px;font-size:11px}.photo-wrap #userPhoto{max-height:62vh}}
+
+/* ---------- molduras ---------- */
+.wp-frames{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.wf{display:flex;flex-direction:column;align-items:center;gap:6px;padding:8px 4px;border-radius:8px;border:1px solid transparent;transition:.2s;text-transform:none;letter-spacing:0}
+.wf:hover{background:var(--paper)}
+.wf.on{border-color:var(--ink);background:var(--paper)}
+.wf small{font:500 11px/1.2 var(--sans);color:var(--ink-2);text-align:center}
+.wf-prev{position:relative;display:block;width:44px;height:36px;padding:5px;border-radius:2px;box-shadow:0 2px 5px rgba(0,0,0,.25)}
+.wf-prev i{display:block;width:100%;height:100%;background:url("../assets/obras/thumb/06.jpg") center/cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.25)}
+.wf-none{padding:0;background:none}
+.wf-preta,.wf-branca{padding:3px}
+.wf-dourada{padding:7px}
+.wf-dourada i{outline:1px solid #f3dc92}
+.wf-caixa{padding:4px}
+.wf-caixa i{outline:2px solid #0b0b0b;outline-offset:0}
+.pa{box-sizing:border-box}
+.pa[data-frame]:not([data-frame="none"]){box-shadow:2px 5px 6px rgba(0,0,0,.28),10px 24px 34px -10px rgba(0,0,0,.45),inset 0 0 0 1px rgba(0,0,0,.3),inset 1px 1px 0 2px rgba(255,255,255,.18)}
+.pa[data-frame]:not([data-frame="none"]) img{box-shadow:0 0 0 1px rgba(0,0,0,.45),inset 0 0 0 0 transparent}
+.pa[data-frame="dourada"] img{box-shadow:0 0 0 2px #f3dc92,0 0 0 3px rgba(80,55,15,.6)}
+.pa[data-frame="caixa"] img{box-shadow:0 0 0 calc(var(--gap) * 0 + 4px) #0b0b0b}
+@media (max-width:640px){.wp-frames{grid-template-columns:repeat(4,minmax(0,1fr))}.wf small{font-size:10px}}
