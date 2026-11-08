@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Vicente Prior — Pinturas Originais</title>
+<title>Vprior Artes — Vicente Prior</title>
 <meta name="description" content="Galeria oficial de Vicente Prior, arquiteto, construtor e pintor. Pinturas abstratas originais, únicas e feitas à mão. Veja na sua parede e negocie o preço direto com o artista.">
 <meta property="og:title" content="Vicente Prior — Pinturas Originais">
 <meta property="og:description" content="Matéria, gesto e cor. Obras originais feitas artesanalmente.">
@@ -11,11 +11,36 @@
 <meta name="theme-color" content="#f3eee6">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Inter:wght@300..700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Inter:wght@300..700&family=Pinyon+Script&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23141210'/%3E%3Ctext x='50%25' y='58%25' text-anchor='middle' font-family='Georgia' font-size='34' fill='%23f3eee6'%3EVP%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f6f2ea'/%3E%3Cg transform='rotate(-10 32 32)'%3E%3Crect x='6' y='14' width='30' height='11' rx='5' fill='%231d5a3c'/%3E%3Crect x='32' y='11' width='26' height='11' rx='5' fill='%23e3ad2a'/%3E%3Crect x='8' y='29' width='28' height='11' rx='5' fill='%237b1626'/%3E%3Crect x='32' y='26' width='26' height='11' rx='5' fill='%23151311'/%3E%3Crect x='18' y='43' width='32' height='11' rx='5' fill='%238a5a1a'/%3E%3C/g%3E%3C/svg%3E">
 </head>
 <body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <filter id="brush" x="-10%" y="-30%" width="120%" height="160%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.012 0.32" numOctaves="2" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="16" xChannelSelector="R" yChannelSelector="G" result="d"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.004 0.9" numOctaves="1" seed="3" result="s"/>
+      <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.1 1.55" result="m"/>
+      <feComposite in="d" in2="m" operator="in"/>
+    </filter>
+    <filter id="txtShadow" x="-10%" y="-20%" width="120%" height="150%"><feDropShadow dx="1.5" dy="2.5" stdDeviation="1.6" flood-color="#000" flood-opacity=".55"/></filter>
+  </defs>
+  <symbol id="vp-strokes" viewBox="0 0 400 190">
+    <g filter="url(#brush)" transform="rotate(-9 200 95)">
+      <path d="M18 62 Q16 40 40 38 L196 34 Q212 36 210 56 Q210 76 192 78 L38 84 Q20 84 18 62Z" fill="#1d5a3c"/>
+      <path d="M196 30 Q194 12 214 12 L352 8 Q372 10 370 30 Q370 50 350 52 L214 56 Q198 54 196 30Z" fill="#e3ad2a"/>
+      <path d="M34 120 Q30 98 54 96 L208 92 Q226 94 224 116 Q224 136 206 138 L52 144 Q34 142 34 120Z" fill="#7b1626"/>
+      <path d="M204 86 Q202 66 224 64 L366 60 Q386 62 384 82 Q384 102 364 104 L224 108 Q206 106 204 86Z" fill="#151311"/>
+      <path d="M118 150 Q116 128 140 126 L318 120 Q338 122 336 142 Q336 162 316 164 L138 170 Q120 168 118 150Z" fill="#8a5a1a"/>
+    </g>
+  </symbol>
+  <symbol id="vp-logo" viewBox="0 0 400 190">
+    <use href="#vp-strokes"/>
+    <text x="200" y="118" text-anchor="middle" font-family="'Pinyon Script', 'Great Vibes', cursive" font-size="104" fill="#fbf8f3" filter="url(#txtShadow)">Vprior</text>
+  </symbol>
+</svg>
 <div class="grain" aria-hidden="true"></div>
 <div class="intro" id="intro" aria-hidden="true">
   <div class="intro-wall">
@@ -26,16 +51,17 @@
     <figure style="--i:4;--r:3deg;--w:16%"><img src="assets/obras/thumb/42.jpg" alt=""></figure>
   </div>
   <div class="intro-copy">
-    <p class="intro-name"><span class="w1">Vicente</span> <span class="w2">Prior</span></p>
-    <p class="intro-sub">Pinturas originais, feitas à mão</p>
+    <div class="intro-logo"><svg class="vp-logo" viewBox="0 0 400 190" role="img" aria-label="Vprior artes"><use href="#vp-logo"/></svg></div>
+    <p class="intro-artes"><i></i>artes<i></i></p>
+    <p class="intro-sub">Pinturas originais de Vicente Prior, feitas à mão</p>
   </div>
   <button class="intro-skip" id="introSkip" type="button">Entrar no site</button>
 </div>
 
 <header class="topbar" id="topbar">
-  <a href="#inicio" class="brand" aria-label="Vicente Prior — início">
-    <span class="brand-mark">VP</span>
-    <span class="brand-name">Vicente Prior</span>
+  <a href="#inicio" class="brand" aria-label="Vprior artes — início">
+    <svg class="vp-logo" viewBox="0 0 400 190" role="img" aria-label="Vprior artes"><use href="#vp-logo"/></svg>
+    <span class="brand-artes">artes</span>
   </a>
   <nav class="nav" id="nav" aria-label="Principal">
     <a href="#destaques">Destaques</a>
@@ -77,9 +103,9 @@
 <section class="hero" id="inicio">
   <div class="hero-copy">
     <p class="eyebrow reveal">Pinturas originais · peças únicas</p>
-    <h1 class="hero-title reveal">
-      <span>Vicente</span>
-      <span class="it">Prior</span>
+    <h1 class="hero-brand reveal"><svg class="vp-logo" viewBox="0 0 400 190" role="img" aria-label="Vprior artes"><use href="#vp-logo"/></svg>
+      <span class="hero-artes"><i></i>artes<i></i></span>
+      <span class="hero-by">por Vicente Prior · arquiteto, construtor e pintor</span>
     </h1>
     <p class="hero-lede reveal">Matéria, gesto e cor. Telas abstratas feitas artesanalmente, uma a uma, pelas mãos do artista. Cada obra é única e assinada pelo artista.</p>
     <div class="hero-cta reveal">
@@ -387,8 +413,10 @@
 </section>
 </main>
 
+<div class="brand-stripe" aria-hidden="true"></div>
 <footer class="footer">
-  <div class="f-brand"><span class="brand-mark">VP</span> Vicente Prior</div>
+  <div class="f-brand"><svg class="vp-logo" viewBox="0 0 400 190" role="img" aria-label="Vprior artes"><use href="#vp-logo"/></svg><span>artes</span></div>
+  <p><a class="f-social" href="https://www.tiktok.com/@vprior.artes" target="_blank" rel="noopener">@vprior.artes no TikTok</a></p>
   <p>Pinturas originais · Todas as obras são únicas e protegidas por direitos autorais.</p>
   <p>+55 21 99351-8769 · vicenteprior@gmail.com</p>
   <p class="f-small">© <span id="year"></span> Vicente Prior. Imagens meramente ilustrativas; cores podem variar conforme a tela.</p>
