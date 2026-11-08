@@ -159,7 +159,7 @@
   const FLOOR = 262, SOFA_TOP = 80;          // chão no y=262; encosto do sofá a 80 cm
   let roomId = OBRAS[0].id;
   const sizeOf = o => {
-    const m = o.dimensoes && String(o.dimensoes).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i);
+    const d0 = o.medida || o.dimensoes, m = d0 && String(d0).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i);
     if (m) return { w: parseFloat(m[1].replace(',', '.')), h: parseFloat(m[2].replace(',', '.')), real: true };
     return { w: 60, h: Math.round(60 / (o.w / o.h)), real: false };
   };
@@ -353,6 +353,7 @@
     $('#vTitle').textContent = o.titulo;
     $('#vMeta').textContent = `Vicente Prior · ${o.formato[0].toUpperCase() + o.formato.slice(1)} · ${o.cores.map(c => COLORS[c].label).join(', ')}`;
     $('#vDesc').textContent = (o.descricao ? o.descricao + ' ' : '') + DESC;
+    $('#vDim').textContent = (() => { const m = o.medida && String(o.medida).match(/(\d+(?:[.,]\d+)?)\s*[x×]\s*(\d+(?:[.,]\d+)?)/i); return m ? `${m[1]} × ${m[2]} cm (largura × altura)` : 'Sob consulta'; })();
     $('#vPecasRow').hidden = !o.pecas; $('#vPecas').textContent = o.pecas ? `${o.pecas} telas que formam uma só obra` : '';
     $('#vOffer').value = '';
     $('#vPalette').innerHTML = o.paleta.map(c => `<i style="background:${c}" title="${c}"></i>`).join('');
