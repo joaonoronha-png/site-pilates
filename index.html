@@ -34,9 +34,14 @@
 
   <!-- Preloader -->
   <div class="preloader" id="preloader" aria-hidden="true">
-    <div class="preloader__logo"><span>J</span><span>D</span></div>
-    <div class="preloader__bar"><i></i></div>
-    <p class="preloader__txt">Prepping the paint…</p>
+    <div class="preloader__panel preloader__panel--l"></div>
+    <div class="preloader__panel preloader__panel--r"></div>
+    <div class="preloader__inner">
+      <div class="preloader__logo"><span>J</span><span>D</span></div>
+      <p class="preloader__brand">Car Detailing · Clearwater</p>
+      <div class="preloader__bar"><i id="preBar"></i></div>
+      <p class="preloader__txt"><span id="prePct">0</span>% <em id="preStep">Foaming</em></p>
+    </div>
   </div>
 
   <div class="scroll-progress" id="scrollProgress"></div>
@@ -58,9 +63,12 @@
         <a href="#area">Service Area</a>
         <a href="#faq">FAQ</a>
         <a href="tel:+17277464419" class="nav__phone-mobile">Call (727) 746-4419</a>
+        <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="nav__phone-mobile nav__wa">WhatsApp (727) 746-4419</a>
       </nav>
       <div class="header__cta">
         <span class="open-badge" id="openBadge"><i></i><b>Checking hours…</b></span>
+        <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="icon-btn icon-btn--wa magnetic" aria-label="Chat on WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
+        <a href="tel:+17277464419" class="icon-btn magnetic" aria-label="Call (727) 746-4419"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
         <a href="#quote" class="btn btn--primary btn--sm magnetic">Get a Quote</a>
         <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
@@ -74,33 +82,48 @@
       <div class="hero__media">
         <img src="assets/img/hero-pressure-wash.jpg" alt="Detailer pressure-washing a sports car in a dark garage" class="hero__img" id="heroImg">
         <div class="hero__shade"></div>
+        <div class="hero__glow" id="heroGlow"></div>
+        <div class="hero__beam"></div>
         <canvas class="hero__bubbles" id="bubbles"></canvas>
       </div>
       <div class="container hero__content">
-        <div class="hero__eyebrow reveal">
-          <span class="pill"><i class="pulse"></i> Mobile detailing · We come to you</span>
+        <div class="hero__eyebrow intro" style="--i:0">
+          <span class="pill"><i class="pulse"></i> Mobile detailing<span class="hide-sm"> in Clearwater, FL</span> · We come to you</span>
         </div>
         <h1 class="hero__title">
-          <span class="line"><span class="word">Showroom</span></span>
-          <span class="line"><span class="word">shine,</span> <span class="word gradient-text">delivered</span></span>
-          <span class="line"><span class="word">to your</span> <span class="word outline-text">driveway.</span></span>
+          <span class="line"><span class="word">Showroom</span> <span class="word">shine,</span></span>
+          <span class="line"><span class="word gradient-text">delivered</span> <span class="word">to your</span></span>
+          <span class="line"><span class="word rotator" id="rotator" aria-live="polite"><span class="rotator__item is-active">driveway.</span><span class="rotator__item">office.</span><span class="rotator__item">doorstep.</span><span class="rotator__item">condo.</span></span></span>
         </h1>
-        <p class="hero__sub reveal">Premium interior &amp; exterior detailing in Clearwater and Pinellas County. Deep cleans, paint polishing and protection that make your car look, feel and smell brand new — without you leaving home.</p>
-        <div class="hero__actions reveal">
+        <p class="hero__sub intro" style="--i:3">Interior deep cleans, paint polishing and protection — done right where your car is parked. Look, feel and smell brand new without losing your day.</p>
+        <ul class="hero__perks intro" style="--i:4">
+          <li><span>✓</span> 100% mobile</li>
+          <li><span>✓</span> Pro-grade products</li>
+          <li><span>✓</span> Pay after the walk-through</li>
+        </ul>
+        <div class="hero__actions intro" style="--i:5">
           <a href="#quote" class="btn btn--primary btn--lg magnetic">Build My Quote <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="btn btn--wa btn--lg magnetic"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp</a>
           <a href="tel:+17277464419" class="btn btn--ghost btn--lg magnetic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> (727) 746-4419</a>
         </div>
-        <div class="hero__trust reveal">
-          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
-          <p><b>5.0 rated</b> by Clearwater drivers<span class="sep">·</span>Mon–Sat 7AM–6PM</p>
+        <div class="hero__trust intro" style="--i:6">
+          <div class="avatars"><span>A</span><span>M</span><span>R</span><span>K</span></div>
+          <div>
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <p><b>5.0 rated</b> by Clearwater drivers<span class="sep">·</span>Mon–Sat 7AM–6PM</p>
+          </div>
         </div>
       </div>
-      <div class="hero__card glass reveal" data-tilt>
-        <p class="hero__card-label">Next available</p>
+      <div class="hero__card glass intro" style="--i:5" data-tilt>
+        <p class="hero__card-label"><i class="pulse"></i> Next available</p>
         <p class="hero__card-big" id="nextSlot">Tomorrow · 7:00 AM</p>
         <div class="hero__card-row"><span>Avg. response</span><b>&lt; 1 hour</b></div>
         <div class="hero__card-row"><span>Service at</span><b>Home · Office</b></div>
-        <a href="#quote" class="hero__card-link">Reserve a spot →</a>
+        <div class="hero__card-row"><span>Call or WhatsApp</span><b>(727) 746-4419</b></div>
+        <div class="hero__card-btns">
+          <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="btn btn--wa btn--sm"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp</a>
+          <a href="tel:+17277464419" class="btn btn--ghost btn--sm"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> Call</a>
+        </div>
       </div>
       <a href="#marquee" class="scroll-hint" aria-label="Scroll down"><span></span></a>
     </section>
@@ -451,7 +474,8 @@
               <p>$<b id="qTotal">240</b><span>+</span></p>
             </div>
             <div class="quote__actions">
-              <button type="submit" class="btn btn--primary magnetic">Text my quote</button>
+              <button type="button" class="btn btn--wa magnetic" id="sendWa"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg> Send on WhatsApp</button>
+              <button type="submit" class="btn btn--primary magnetic">Text</button>
               <a href="tel:+17277464419" class="btn btn--ghost">Call</a>
             </div>
           </div>
@@ -506,7 +530,8 @@
         <div>
           <p class="eyebrow reveal">FAQ</p>
           <h2 class="h2 reveal">Good <span class="gradient-text">questions.</span></h2>
-          <p class="lead reveal">Still curious? Text us at <a href="sms:+17277464419">(727) 746-4419</a> — we reply fast.</p>
+          <p class="lead reveal">Still curious? Call or WhatsApp us at <a href="tel:+17277464419">(727) 746-4419</a> — we reply fast.</p>
+          <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="btn btn--wa magnetic reveal"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg> Ask on WhatsApp</a>
         </div>
         <div class="accordion">
           <details class="acc reveal" open><summary>Do I need to provide water or electricity?</summary><p>Just let us know when booking whether there's water and power access near your parking spot. If your building has restrictions, tell us in advance and we'll plan around it.</p></details>
@@ -528,7 +553,8 @@
         <p class="lead reveal">Book your mobile detail today — we'll handle the rest.</p>
         <div class="hero__actions reveal">
           <a href="#quote" class="btn btn--primary btn--lg magnetic">Get My Quote</a>
-          <a href="sms:+17277464419" class="btn btn--ghost btn--lg magnetic">Text Us</a>
+          <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="btn btn--wa btn--lg magnetic"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg> WhatsApp</a>
+          <a href="tel:+17277464419" class="btn btn--ghost btn--lg magnetic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> Call Now</a>
         </div>
       </div>
     </section>
@@ -543,6 +569,7 @@
         <p class="footer__about">Premium mobile auto detailing for Clearwater and Pinellas County. We come to you.</p>
         <div class="socials">
           <a href="https://www.instagram.com/cardetailing.jd/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" aria-label="WhatsApp"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg></a>
           <a href="sms:+17277464419" aria-label="Text message"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
           <a href="tel:+17277464419" aria-label="Call"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
         </div>
@@ -558,7 +585,8 @@
       </div>
       <div>
         <h5>Contact</h5>
-        <a href="tel:+17277464419">(727) 746-4419</a>
+        <a href="tel:+17277464419">Call: (727) 746-4419</a>
+        <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener">WhatsApp: (727) 746-4419</a>
         <a href="sms:+17277464419">Text us anytime</a>
         <p>Clearwater, Florida</p>
       </div>
@@ -572,9 +600,11 @@
   <!-- Floating mobile action bar -->
   <div class="fab-bar" id="fabBar">
     <a href="tel:+17277464419"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
-    <a href="sms:+17277464419"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
-    <a href="#quote" class="fab-bar__main">Get Quote</a>
+    <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="fab-bar__wa"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg>WhatsApp</a>
+    <a href="#quote" class="fab-bar__main">Quote</a>
   </div>
+
+  <a href="https://wa.me/17277464419?text=Hi%20JD%20Car%20Detailing!%20I%27d%20like%20a%20quote%20for%20my%20car." target="_blank" rel="noopener" class="wa-float" id="waFloat" aria-label="Chat on WhatsApp (727) 746-4419"><svg class="wa-ico" viewBox="0 0 24 24"><path d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.17-.17.2-.35.22-.65.07-.3-.15-1.26-.46-2.4-1.48-.89-.79-1.49-1.77-1.66-2.07-.17-.3-.02-.46.13-.61.13-.13.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.61-.92-2.21-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.08c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.69.63.71.23 1.36.19 1.87.12.57-.09 1.76-.72 2.01-1.41.25-.7.25-1.29.17-1.41-.07-.13-.27-.2-.57-.35zM12.05 21.5h-.01a9.45 9.45 0 0 1-4.82-1.32l-.35-.21-3.58.94.96-3.49-.23-.36A9.43 9.43 0 0 1 2.6 12c0-5.21 4.24-9.45 9.46-9.45 2.52 0 4.9.99 6.68 2.77a9.4 9.4 0 0 1 2.77 6.69c0 5.21-4.24 9.45-9.46 9.45zm8.05-17.5A11.32 11.32 0 0 0 12.05.67C5.78.67.67 5.77.67 12.05c0 2 .52 3.96 1.52 5.69L.57 23.33l5.72-1.5a11.36 11.36 0 0 0 5.75 1.47h.01c6.27 0 11.38-5.1 11.38-11.38 0-3.04-1.18-5.9-3.33-8.05z"/></svg><span class="wa-float__tip">Chat with us on WhatsApp<b>(727) 746-4419</b></span></a>
 
   <!-- Lightbox -->
   <div class="lightbox" id="lightbox" aria-hidden="true">

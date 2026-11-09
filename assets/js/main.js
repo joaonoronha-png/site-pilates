@@ -9,16 +9,60 @@
 
   document.body.classList.add("is-loading");
 
-  /* ---------- Preloader ---------- */
+  /* ---------- Preloader (percent counter + split-curtain reveal) ---------- */
+  const pre = $("#preloader");
+  let loaded = false, finished = false;
+  window.addEventListener("load", () => (loaded = true));
   const finishLoad = () => {
-    const pre = $("#preloader");
-    if (!pre || pre.classList.contains("is-done")) return;
-    pre.classList.add("is-done");
-    document.body.classList.remove("is-loading");
-    document.body.classList.add("is-ready");
+    if (finished) return; finished = true;
+    pre.classList.add("is-opening");
+    setTimeout(() => {
+      pre.classList.add("is-done");
+      document.body.classList.remove("is-loading");
+      document.body.classList.add("is-ready");
+    }, reduceMotion ? 0 : 350);
+    setTimeout(() => pre.classList.add("is-gone"), reduceMotion ? 50 : 1600);
   };
-  window.addEventListener("load", () => setTimeout(finishLoad, reduceMotion ? 0 : 900));
-  setTimeout(finishLoad, 3500); // safety net
+  (() => {
+    if (reduceMotion) { finishLoad(); return; }
+    const bar = $("#preBar"), pct = $("#prePct"), step = $("#preStep");
+    const steps = ["Foaming", "Washing", "Polishing", "Protecting", "Ready"];
+    const t0 = performance.now(), minDur = 1500;
+    let last = 0;
+    const tick = (t) => {
+      const elapsed = t - t0;
+      // climb to 90% on a timer, then finish once the page has loaded (or after 4s max)
+      let p = Math.min(elapsed / minDur, 1) * 0.9;
+      if ((loaded || elapsed > 4000) && elapsed > minDur) p = Math.min(0.9 + (elapsed - minDur) / 400, 1);
+      p = Math.max(p, last); last = p;
+      const v = Math.round(p * 100);
+      pct.textContent = v; bar.style.width = v + "%";
+      step.textContent = steps[Math.min(Math.floor(p * (steps.length - 1) + 0.001), steps.length - 1)];
+      if (v < 100) requestAnimationFrame(tick); else setTimeout(finishLoad, 250);
+    };
+    requestAnimationFrame(tick);
+  })();
+
+  /* ---------- Hero word rotator ---------- */
+  (() => {
+    const items = $$("#rotator .rotator__item"); if (items.length < 2 || reduceMotion) return;
+    let i = 0;
+    setInterval(() => {
+      const cur = items[i]; i = (i + 1) % items.length; const nxt = items[i];
+      cur.classList.remove("is-active"); cur.classList.add("is-out");
+      nxt.classList.remove("is-out"); nxt.classList.add("is-active");
+      setTimeout(() => cur.classList.remove("is-out"), 900);
+    }, 2800);
+  })();
+
+  /* ---------- Hero glow follows pointer ---------- */
+  (() => {
+    const glow = $("#heroGlow"), hero = $("#hero"); if (!glow || !finePointer || reduceMotion) return;
+    hero.addEventListener("mousemove", (e) => {
+      const r = hero.getBoundingClientRect();
+      glow.style.transform = `translate(${e.clientX - r.left}px, ${e.clientY - r.top}px)`;
+    });
+  })();
 
   /* ---------- Year ---------- */
   $("#year").textContent = new Date().getFullYear();
@@ -27,6 +71,7 @@
   const header = $("#header");
   const progress = $("#scrollProgress");
   const fab = $("#fabBar");
+  const waFloat = $("#waFloat");
   let lastY = 0;
   const onScroll = () => {
     const y = window.scrollY;
@@ -36,6 +81,7 @@
     const max = document.documentElement.scrollHeight - innerHeight;
     progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
     fab && fab.classList.toggle("is-show", y > innerHeight * 0.6);
+    waFloat && waFloat.classList.toggle("is-show", y > innerHeight * 0.5);
   };
   addEventListener("scroll", onScroll, { passive: true });
   onScroll();
@@ -300,11 +346,10 @@
     if (p === "membership") setTimeout(() => toast("Mention “Maintenance Club” in your message and we'll send member rates."), 600);
   }));
 
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+  const quoteMessage = () => {
     const q = readQuote();
     const name = $("#qName").value.trim(), car = $("#qCar").value.trim(), date = dateIn.value, zip = $("#qZip").value.trim();
-    const lines = [
+    return [
       `Hi JD Car Detailing! I'd like a quote${name ? ` — this is ${name}` : ""}.`,
       `Vehicle: ${SIZES[q.size]}${car ? ` (${car})` : ""}`,
       `Package: ${PRICES[q.pkg].label}`,
@@ -313,15 +358,24 @@
       zip ? `ZIP: ${zip}` : null,
       `Website estimate: $${q.total}+`,
     ].filter(Boolean).join("\n");
+  };
+
+  // WhatsApp (same number as calls)
+  $("#sendWa").addEventListener("click", () => {
+    window.open(`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(quoteMessage())}`, "_blank", "noopener");
+  });
+
+  // SMS
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const lines = quoteMessage();
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
     const href = `sms:${PHONE}${isIOS ? "&" : "?"}body=${encodeURIComponent(lines)}`;
-    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-      location.href = href;
-    } else {
+    if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
       navigator.clipboard?.writeText(lines).catch(() => {});
-      toast("Quote copied! Text it to (727) 746-4419 or call us.");
-      location.href = href;
+      toast("Quote copied! Text it to (727) 746-4419 or send it on WhatsApp.");
     }
+    location.href = href;
   });
 
   /* ---------- ZIP checker ---------- */
