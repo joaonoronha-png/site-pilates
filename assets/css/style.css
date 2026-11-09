@@ -850,3 +850,8 @@ body::after {
   .hero__trust { margin-top: 20px; }
   .scroll-hint { display: none; }
 }
+
+.demo-ribbon { position: fixed; left: 50%; bottom: 14px; translate: -50% 0; z-index: 940; padding: 7px 14px; border-radius: 999px; background: rgba(10, 10, 11, .85); border: 1px solid var(--line-2); backdrop-filter: blur(8px); color: var(--muted); font-size: .72rem; font-weight: 600; white-space: nowrap; pointer-events: none; }
+.demo-ribbon b { color: var(--accent); }
+@media (max-width: 960px) { .demo-ribbon { top: calc(var(--header-h) + 6px); bottom: auto; font-size: .66rem; } }
+@media (max-width: 960px) { .hero__eyebrow { visibility: hidden; } }
