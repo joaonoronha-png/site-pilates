@@ -623,3 +623,7 @@ body::after {
 .radar__center { background: rgba(10, 10, 11, .9) !important; width: 76px !important; height: 76px !important; border: 1px solid rgba(255, 165, 31, .5); }
 .radar__center img { width: 82%; height: auto; }
 @media (max-width: 640px) { .logo__img { width: 46px; } }
+
+.book-online { display: block; margin-top: 16px; padding: 14px 18px; border-radius: 14px; border: 1px dashed rgba(255, 165, 31, .45); color: var(--muted); font-weight: 600; text-align: center; transition: background .3s, color .3s; }
+.book-online b { color: var(--accent); }
+.book-online:hover { background: rgba(255, 165, 31, .08); color: #fff; }
