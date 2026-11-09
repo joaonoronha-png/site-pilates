@@ -41,3 +41,9 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
   are public-domain aerial imagery (USGS / USDA NAIP), plus `assets/map/buildings.geojson` — 2,071 real building footprints
   with heights from OpenStreetMap (© OpenStreetMap contributors, ODbL), rendered as 3D with MapLibre.
 - Before/after sliders were removed (no real before/after photos yet).
+
+## Google Business Profile content (from owner-provided screen recordings, Nov 2026)
+- Rating: 5.0 · 108 Google reviews (used in hero, stats, reviews section and schema.org aggregateRating).
+- Five real reviews (Winston Ramsay, zuexyfn, Parker Reinheimer, Daniela Rodriguez, Larry Alvarez). The recordings showed
+  Google's Portuguese translation; English text is a faithful re-translation — swap in exact original wording if available.
+- `assets/img/g/` — photos from the Google listing: Nissan 370Z with the JD trailer, F-150, F-150 interior, BMW X6, Corolla, Traverse.
