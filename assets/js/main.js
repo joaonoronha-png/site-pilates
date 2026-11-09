@@ -64,6 +64,9 @@
     });
   })();
 
+  /* faqCollapse: start FAQ closed on phones */
+  if (matchMedia("(max-width: 640px)").matches) $$(".acc[open]").forEach((d) => { d.open = false; });
+
   /* ---------- Year ---------- */
   $("#year").textContent = new Date().getFullYear();
 
