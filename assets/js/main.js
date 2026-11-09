@@ -152,7 +152,7 @@
     const di = days.indexOf(day);
     const open = di >= 1 && di <= 6 && hour >= 7 && hour < 18;
     badge.classList.add(open ? "is-open" : "is-closed");
-    $("b", badge).textContent = open ? "Open now · until 6PM" : "Closed · opens 7AM";
+    $("b", badge).innerHTML = open ? 'Open now<span class="ob-extra"> · until 6PM</span>' : 'Closed<span class="ob-extra"> · opens 7AM</span>';
     // next slot: if open and before 3PM -> today later; else next working day 7AM
     let label;
     if (open && hour < 15) {

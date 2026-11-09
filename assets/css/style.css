@@ -911,3 +911,13 @@ body::after {
   .footer__bottom { margin-top: 28px; }
 }
 @media (max-width: 960px) { .demo-ribbon { position: absolute; } }
+
+/* open-now badge visible on tablets/phones (compact) */
+@media (max-width: 960px) {
+  .open-badge { display: inline-flex; font-size: .74rem; padding: 6px 10px; border-radius: 999px; background: rgba(61, 255, 154, .08); border: 1px solid rgba(61, 255, 154, .25); }
+  .open-badge.is-closed { background: rgba(255, 93, 108, .08); border-color: rgba(255, 93, 108, .25); }
+  .open-badge.is-closed b { color: #ff8a95; }
+  .header__cta { gap: 10px; }
+}
+@media (max-width: 640px) { .ob-extra { display: none; } }
+@media (max-width: 360px) { .open-badge { display: none; } }
