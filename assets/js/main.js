@@ -1,0 +1,448 @@
+/* JD Car Detailing — interactions */
+(() => {
+  "use strict";
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const PHONE = "+17277464419";
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+  document.body.classList.add("is-loading");
+
+  /* ---------- Preloader ---------- */
+  const finishLoad = () => {
+    const pre = $("#preloader");
+    if (!pre || pre.classList.contains("is-done")) return;
+    pre.classList.add("is-done");
+    document.body.classList.remove("is-loading");
+    document.body.classList.add("is-ready");
+  };
+  window.addEventListener("load", () => setTimeout(finishLoad, reduceMotion ? 0 : 900));
+  setTimeout(finishLoad, 3500); // safety net
+
+  /* ---------- Year ---------- */
+  $("#year").textContent = new Date().getFullYear();
+
+  /* ---------- Header: scrolled / hide on scroll down ---------- */
+  const header = $("#header");
+  const progress = $("#scrollProgress");
+  const fab = $("#fabBar");
+  let lastY = 0;
+  const onScroll = () => {
+    const y = window.scrollY;
+    header.classList.toggle("is-scrolled", y > 30);
+    header.classList.toggle("is-hidden", y > lastY && y > 500 && !$("#nav").classList.contains("is-open"));
+    lastY = y;
+    const max = document.documentElement.scrollHeight - innerHeight;
+    progress.style.transform = `scaleX(${max > 0 ? y / max : 0})`;
+    fab && fab.classList.toggle("is-show", y > innerHeight * 0.6);
+  };
+  addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  /* ---------- Mobile nav ---------- */
+  const burger = $("#burger"), nav = $("#nav");
+  const toggleNav = (open) => {
+    nav.classList.toggle("is-open", open);
+    burger.classList.toggle("is-open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  };
+  burger.addEventListener("click", () => toggleNav(!nav.classList.contains("is-open")));
+  $$("a", nav).forEach((a) => a.addEventListener("click", () => toggleNav(false)));
+
+  /* ---------- Active nav link ---------- */
+  const navLinks = $$('.nav a[href^="#"]');
+  const sectionObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      navLinks.forEach((l) => l.classList.toggle("is-active", l.getAttribute("href") === "#" + e.target.id));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  navLinks.forEach((l) => { const s = $(l.getAttribute("href")); s && sectionObs.observe(s); });
+
+  /* ---------- Reveal on scroll (with stagger) ---------- */
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add("is-in");
+      revealObs.unobserve(e.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -40px 0px" });
+  $$(".reveal").forEach((el) => {
+    const siblings = [...el.parentElement.children].filter((c) => c.classList.contains("reveal"));
+    const i = siblings.indexOf(el);
+    if (i > 0) el.style.setProperty("--d", `${Math.min(i * 0.08, 0.5)}s`);
+    revealObs.observe(el);
+  });
+
+  /* ---------- Counters ---------- */
+  const countObs = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target, end = parseFloat(el.dataset.count), dec = +el.dataset.decimals || 0, suf = el.dataset.suffix || "";
+      const t0 = performance.now(), dur = 1800;
+      const tick = (t) => {
+        const p = Math.min((t - t0) / dur, 1), ease = 1 - Math.pow(1 - p, 4);
+        el.textContent = (end * ease).toFixed(dec) + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+      countObs.unobserve(el);
+    });
+  }, { threshold: 0.6 });
+  $$("[data-count]").forEach((el) => countObs.observe(el));
+
+  /* ---------- Open now badge + next slot (Clearwater time) ---------- */
+  (() => {
+    const badge = $("#openBadge"), slot = $("#nextSlot");
+    const parts = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "numeric", minute: "numeric", hour12: false }).formatToParts(new Date());
+    const get = (t) => parts.find((p) => p.type === t)?.value;
+    const day = get("weekday"); const hour = +get("hour") % 24; const min = +get("minute");
+    const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const di = days.indexOf(day);
+    const open = di >= 1 && di <= 6 && hour >= 7 && hour < 18;
+    badge.classList.add(open ? "is-open" : "is-closed");
+    $("b", badge).textContent = open ? "Open now · until 6PM" : "Closed · opens 7AM";
+    // next slot: if open and before 3PM -> today later; else next working day 7AM
+    let label;
+    if (open && hour < 15) {
+      const h = hour + (min > 0 ? 2 : 1);
+      label = `Today · ${h > 12 ? h - 12 : h}:00 ${h >= 12 ? "PM" : "AM"}`;
+    } else if (di >= 1 && di <= 6 && hour < 7) {
+      label = "Today · 7:00 AM";
+    } else {
+      let n = (di + 1) % 7; if (n === 0) n = 1;
+      label = `${n === (di + 1) % 7 ? "Tomorrow" : ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"][n]} · 7:00 AM`;
+    }
+    slot.textContent = label;
+  })();
+
+  /* ---------- Hero bubbles (foam) ---------- */
+  (() => {
+    const c = $("#bubbles"); if (!c || reduceMotion) return;
+    const ctx = c.getContext("2d");
+    let w, h, dpr, bubbles = [], running = true;
+    const resize = () => {
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      w = c.width = c.offsetWidth * dpr; h = c.height = c.offsetHeight * dpr;
+    };
+    const make = (initial) => ({
+      x: Math.random() * w, y: initial ? Math.random() * h : h + 20 * dpr,
+      r: (Math.random() * 6 + 1.5) * dpr, s: (Math.random() * 0.5 + 0.2) * dpr,
+      drift: Math.random() * Math.PI * 2, a: Math.random() * 0.35 + 0.1,
+    });
+    resize(); addEventListener("resize", resize);
+    const count = innerWidth < 700 ? 26 : 55;
+    for (let i = 0; i < count; i++) bubbles.push(make(true));
+    const heroObs = new IntersectionObserver(([e]) => { running = e.isIntersecting; if (running) loop(); });
+    heroObs.observe(c);
+    function loop() {
+      if (!running) return;
+      ctx.clearRect(0, 0, w, h);
+      bubbles.forEach((b, i) => {
+        b.y -= b.s; b.drift += 0.01; b.x += Math.sin(b.drift) * 0.3 * dpr;
+        if (b.y < -20) bubbles[i] = make(false);
+        const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.1, b.x, b.y, b.r);
+        g.addColorStop(0, `rgba(255,255,255,${b.a + 0.25})`);
+        g.addColorStop(0.6, `rgba(168,240,255,${b.a * 0.4})`);
+        g.addColorStop(1, `rgba(56,225,255,${b.a * 0.15})`);
+        ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
+        ctx.lineWidth = 0.6 * dpr; ctx.strokeStyle = `rgba(255,255,255,${b.a})`; ctx.stroke();
+      });
+      requestAnimationFrame(loop);
+    }
+    loop();
+  })();
+
+  /* ---------- Parallax ---------- */
+  if (!reduceMotion) {
+    const heroImg = $("#heroImg");
+    const pEls = $$(".parallax");
+    let ticking = false;
+    const run = () => {
+      const y = scrollY;
+      if (heroImg && y < innerHeight * 1.2) heroImg.style.translate = `0 ${y * 0.25}px`;
+      pEls.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        if (r.bottom < -200 || r.top > innerHeight + 200) return;
+        const off = (r.top + r.height / 2 - innerHeight / 2) * parseFloat(el.dataset.speed || 0.05);
+        el.style.translate = `0 ${off}px`;
+      });
+      // process line fill
+      const pl = $("#processFill");
+      if (pl) {
+        const r = pl.parentElement.getBoundingClientRect();
+        const p = Math.min(Math.max((innerHeight * 0.85 - r.top) / (innerHeight * 0.6), 0), 1);
+        pl.style.transform = `scaleX(${p})`;
+      }
+      ticking = false;
+    };
+    addEventListener("scroll", () => { if (!ticking) { requestAnimationFrame(run); ticking = true; } }, { passive: true });
+    run();
+  }
+
+  /* ---------- Custom cursor + magnetic buttons + tilt ---------- */
+  if (finePointer && !reduceMotion) {
+    document.body.classList.add("has-cursor");
+    const cur = $("#cursor"), dot = $("#cursorDot");
+    let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my;
+    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; });
+    const follow = () => { cx += (mx - cx) * 0.18; cy += (my - cy) * 0.18; cur.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(follow); };
+    follow();
+    $$("a, button, .m-item, .chip, input, summary").forEach((el) => {
+      el.addEventListener("mouseenter", () => cur.classList.add("is-hover"));
+      el.addEventListener("mouseleave", () => cur.classList.remove("is-hover"));
+    });
+
+    $$(".magnetic").forEach((b) => {
+      b.addEventListener("mousemove", (e) => {
+        const r = b.getBoundingClientRect();
+        b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.25}px, ${(e.clientY - r.top - r.height / 2) * 0.35}px)`;
+      });
+      b.addEventListener("mouseleave", () => (b.style.transform = ""));
+    });
+
+    $$("[data-tilt]").forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const r = card.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
+        card.style.transform = `perspective(900px) rotateX(${(0.5 - py) * 6}deg) rotateY(${(px - 0.5) * 8}deg) translateY(-4px)`;
+        card.style.setProperty("--mx", `${px * 100}%`); card.style.setProperty("--my", `${py * 100}%`);
+      });
+      card.addEventListener("mouseleave", () => (card.style.transform = ""));
+    });
+  }
+
+  /* ---------- Pricing data ---------- */
+  const PRICES = {
+    express: { sedan: 90, suv: 110, truck: 130, label: "Express Refresh" },
+    interior: { sedan: 150, suv: 170, truck: 190, label: "Interior Deep Clean" },
+    full: { sedan: 240, suv: 250, truck: 280, label: "Full Detail" },
+    signature: { sedan: 420, suv: 480, truck: 540, label: "Showroom Signature" },
+  };
+  const ADDONS = {
+    pet: { price: 40, label: "Pet hair removal" },
+    headlights: { price: 60, label: "Headlight restoration" },
+    engine: { price: 50, label: "Engine bay" },
+    odor: { price: 45, label: "Odor treatment" },
+    sealant: { price: 80, label: "Paint sealant" },
+    stain: { price: 35, label: "Stain treatment" },
+  };
+  const SIZES = { sedan: "Sedan / Coupe", suv: "SUV / Minivan", truck: "Truck / 3-Row" };
+
+  /* ---------- Package size toggle ---------- */
+  const toggleBtns = $$(".toggle__btn"), glider = $(".toggle__glider");
+  const moveGlider = (btn) => {
+    glider.style.width = btn.offsetWidth + "px";
+    glider.style.transform = `translateX(${btn.offsetLeft - 6}px)`;
+  };
+  const setSize = (size) => {
+    toggleBtns.forEach((b) => {
+      const on = b.dataset.size === size;
+      b.classList.toggle("is-active", on); b.setAttribute("aria-selected", on);
+      if (on) moveGlider(b);
+    });
+    $$(".pkg__price b").forEach((b) => {
+      const v = JSON.parse(b.dataset.prices)[size];
+      b.classList.add("is-swap");
+      setTimeout(() => { b.textContent = v; b.classList.remove("is-swap"); }, 200);
+    });
+  };
+  toggleBtns.forEach((b) => b.addEventListener("click", () => {
+    setSize(b.dataset.size);
+    const r = $(`#quoteForm input[name="size"][value="${b.dataset.size}"]`); if (r) { r.checked = true; calc(); }
+  }));
+  addEventListener("resize", () => moveGlider($(".toggle__btn.is-active")));
+  requestAnimationFrame(() => moveGlider($(".toggle__btn.is-active")));
+  document.fonts && document.fonts.ready.then(() => moveGlider($(".toggle__btn.is-active")));
+
+  /* ---------- Quote builder ---------- */
+  const form = $("#quoteForm"), totalEl = $("#qTotal");
+  let shown = 240;
+  const readQuote = () => {
+    const size = $('input[name="size"]:checked', form).value;
+    const pkg = $('input[name="package"]:checked', form).value;
+    const addons = $$('input[name="addon"]:checked', form).map((i) => i.value);
+    const total = PRICES[pkg][size] + addons.reduce((s, a) => s + ADDONS[a].price, 0);
+    return { size, pkg, addons, total };
+  };
+  function calc() {
+    const { total } = readQuote();
+    const from = shown, t0 = performance.now();
+    const tick = (t) => {
+      const p = Math.min((t - t0) / 500, 1);
+      totalEl.textContent = Math.round(from + (total - from) * (1 - Math.pow(1 - p, 3)));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+    shown = total;
+  }
+  form.addEventListener("change", calc);
+
+  // Min date = today
+  const dateIn = $("#qDate");
+  dateIn.min = new Date().toISOString().split("T")[0];
+
+  // Preselect from service/package buttons
+  const SERVICE_MAP = {
+    interior: { pkg: "interior" }, exterior: { pkg: "express" }, polish: { pkg: "signature" },
+    protection: { pkg: "full", addons: ["sealant"] }, stain: { pkg: "interior", addons: ["stain"] }, resale: { pkg: "full" },
+  };
+  const preset = (pkg, addons = []) => {
+    const r = $(`input[name="package"][value="${pkg}"]`, form); if (r) r.checked = true;
+    $$('input[name="addon"]', form).forEach((i) => (i.checked = addons.includes(i.value)));
+    calc();
+  };
+  $$("[data-service]").forEach((a) => a.addEventListener("click", () => { const m = SERVICE_MAP[a.dataset.service]; preset(m.pkg, m.addons); }));
+  $$("[data-package]").forEach((a) => a.addEventListener("click", () => {
+    const p = a.dataset.package;
+    if (PRICES[p]) preset(p);
+    if (p === "membership") setTimeout(() => toast("Mention “Maintenance Club” in your message and we'll send member rates."), 600);
+  }));
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const q = readQuote();
+    const name = $("#qName").value.trim(), car = $("#qCar").value.trim(), date = dateIn.value, zip = $("#qZip").value.trim();
+    const lines = [
+      `Hi JD Car Detailing! I'd like a quote${name ? ` — this is ${name}` : ""}.`,
+      `Vehicle: ${SIZES[q.size]}${car ? ` (${car})` : ""}`,
+      `Package: ${PRICES[q.pkg].label}`,
+      q.addons.length ? `Add-ons: ${q.addons.map((a) => ADDONS[a].label).join(", ")}` : null,
+      date ? `Preferred date: ${new Date(date + "T12:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}` : null,
+      zip ? `ZIP: ${zip}` : null,
+      `Website estimate: $${q.total}+`,
+    ].filter(Boolean).join("\n");
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const href = `sms:${PHONE}${isIOS ? "&" : "?"}body=${encodeURIComponent(lines)}`;
+    if (/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
+      location.href = href;
+    } else {
+      navigator.clipboard?.writeText(lines).catch(() => {});
+      toast("Quote copied! Text it to (727) 746-4419 or call us.");
+      location.href = href;
+    }
+  });
+
+  /* ---------- ZIP checker ---------- */
+  const ZIPS = {
+    "33755": "Clearwater", "33756": "Clearwater / Belleair", "33757": "Clearwater", "33758": "Clearwater", "33759": "Clearwater", "33760": "Clearwater",
+    "33761": "Clearwater", "33762": "Clearwater", "33763": "Clearwater", "33764": "Clearwater", "33765": "Clearwater", "33767": "Clearwater Beach",
+    "33770": "Largo", "33771": "Largo", "33773": "Largo", "33774": "Largo", "33778": "Largo", "33772": "Seminole", "33776": "Seminole", "33777": "Seminole",
+    "34698": "Dunedin", "34695": "Safety Harbor", "34683": "Palm Harbor", "34684": "Palm Harbor", "34685": "Palm Harbor", "34677": "Oldsmar",
+    "33785": "Indian Rocks Beach", "33786": "Belleair Beach", "33781": "Pinellas Park", "33782": "Pinellas Park",
+  };
+  const zipIn = $("#zipCheck"), zipOut = $("#zipResult");
+  const checkZip = () => {
+    const z = zipIn.value.trim();
+    zipOut.className = "zip__result";
+    if (!/^\d{5}$/.test(z)) { zipOut.textContent = "Please enter a 5-digit ZIP code."; zipOut.classList.add("maybe"); return; }
+    if (ZIPS[z]) { zipOut.textContent = `✓ Great news — we serve ${ZIPS[z]}!`; zipOut.classList.add("ok"); }
+    else { zipOut.innerHTML = `Outside our usual area — <a href="sms:${PHONE}" style="text-decoration:underline">text us</a>, we may still come to you.`; zipOut.classList.add("maybe"); }
+  };
+  $("#zipBtn").addEventListener("click", checkZip);
+  zipIn.addEventListener("keydown", (e) => { if (e.key === "Enter") checkZip(); });
+  zipIn.addEventListener("input", () => (zipIn.value = zipIn.value.replace(/\D/g, "")));
+  $("#qZip").addEventListener("input", (e) => (e.target.value = e.target.value.replace(/\D/g, "")));
+
+  /* ---------- Before / After ---------- */
+  $$("[data-ba]").forEach((ba) => {
+    const input = $("input", ba);
+    const set = (v) => ba.style.setProperty("--pos", v + "%");
+    input.addEventListener("input", () => set(input.value));
+    // intro sweep when visible
+    const o = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting || reduceMotion) return;
+      o.disconnect();
+      const t0 = performance.now();
+      const anim = (t) => {
+        const p = Math.min((t - t0) / 1800, 1);
+        const v = 50 + Math.sin(p * Math.PI * 2) * 30 * (1 - p);
+        set(v); input.value = v;
+        if (p < 1) requestAnimationFrame(anim);
+      };
+      requestAnimationFrame(anim);
+    }, { threshold: 0.6 });
+    o.observe(ba);
+  });
+
+  /* ---------- Gallery filter + lightbox ---------- */
+  const items = $$(".m-item");
+  $$(".filter").forEach((f) => f.addEventListener("click", () => {
+    $$(".filter").forEach((x) => x.classList.toggle("is-active", x === f));
+    const cat = f.dataset.filter;
+    items.forEach((it) => it.classList.add("is-fading"));
+    setTimeout(() => {
+      items.forEach((it) => it.classList.toggle("is-hidden", cat !== "all" && it.dataset.cat !== cat));
+      requestAnimationFrame(() => items.forEach((it) => it.classList.remove("is-fading")));
+    }, 300);
+  }));
+
+  const lb = $("#lightbox"), lbImg = $("img", lb), lbCap = $(".lightbox__cap", lb);
+  let lbIndex = 0;
+  const visible = () => items.filter((i) => !i.classList.contains("is-hidden"));
+  const showLb = (i) => {
+    const list = visible(); lbIndex = (i + list.length) % list.length;
+    const it = list[lbIndex]; const img = $("img", it);
+    lbImg.src = img.src; lbImg.alt = img.alt; lbCap.textContent = $("figcaption", it).textContent;
+  };
+  items.forEach((it) => it.addEventListener("click", () => {
+    showLb(visible().indexOf(it)); lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false");
+  }));
+  const closeLb = () => { lb.classList.remove("is-open"); lb.setAttribute("aria-hidden", "true"); };
+  $(".lightbox__close", lb).addEventListener("click", closeLb);
+  $(".lightbox__prev", lb).addEventListener("click", () => showLb(lbIndex - 1));
+  $(".lightbox__next", lb).addEventListener("click", () => showLb(lbIndex + 1));
+  lb.addEventListener("click", (e) => { if (e.target === lb) closeLb(); });
+  addEventListener("keydown", (e) => {
+    if (!lb.classList.contains("is-open")) return;
+    if (e.key === "Escape") closeLb();
+    if (e.key === "ArrowLeft") showLb(lbIndex - 1);
+    if (e.key === "ArrowRight") showLb(lbIndex + 1);
+  });
+
+  /* ---------- Reviews slider ---------- */
+  (() => {
+    const slider = $("#reviewSlider"), track = $(".slider__track", slider), cards = $$(".review", track), dotsWrap = $("#sliderDots");
+    let idx = 0, timer;
+    const perView = () => (innerWidth <= 640 ? 1 : innerWidth <= 1100 ? 2 : 3);
+    const maxIdx = () => Math.max(cards.length - perView(), 0);
+    const buildDots = () => {
+      dotsWrap.innerHTML = "";
+      for (let i = 0; i <= maxIdx(); i++) {
+        const d = document.createElement("button");
+        d.setAttribute("aria-label", `Go to review ${i + 1}`);
+        d.addEventListener("click", () => { go(i); restart(); });
+        dotsWrap.appendChild(d);
+      }
+    };
+    const go = (i) => {
+      idx = i > maxIdx() ? 0 : i < 0 ? maxIdx() : i;
+      const step = cards[0].offsetWidth + 22;
+      track.style.transform = `translateX(${-idx * step}px)`;
+      $$("button", dotsWrap).forEach((d, j) => d.classList.toggle("is-active", j === idx));
+    };
+    const restart = () => { clearInterval(timer); if (!reduceMotion) timer = setInterval(() => go(idx + 1), 5500); };
+    $$(".slider__btn", slider).forEach((b) => b.addEventListener("click", () => { go(idx + +b.dataset.dir); restart(); }));
+    // swipe
+    let sx = null;
+    track.addEventListener("touchstart", (e) => (sx = e.touches[0].clientX), { passive: true });
+    track.addEventListener("touchend", (e) => {
+      if (sx === null) return;
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) { go(idx + (dx < 0 ? 1 : -1)); restart(); }
+      sx = null;
+    });
+    slider.addEventListener("mouseenter", () => clearInterval(timer));
+    slider.addEventListener("mouseleave", restart);
+    addEventListener("resize", () => { buildDots(); go(Math.min(idx, maxIdx())); });
+    buildDots(); go(0); restart();
+  })();
+
+  /* ---------- Toast ---------- */
+  let toastT;
+  function toast(msg) {
+    const t = $("#toast"); t.textContent = msg; t.classList.add("is-show");
+    clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("is-show"), 4200);
+  }
+})();

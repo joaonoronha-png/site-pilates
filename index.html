@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JD Car Detailing | Mobile Auto Detailing in Clearwater, FL</title>
+  <meta name="description" content="JD Car Detailing brings premium mobile auto detailing to your driveway in Clearwater, FL. Interior deep cleaning, full details, paint polishing, protection and resale prep. Mon–Sat 7AM–6PM. Call (727) 746-4419.">
+  <meta name="theme-color" content="#07080b">
+  <meta property="og:title" content="JD Car Detailing — Mobile Detailing in Clearwater, FL">
+  <meta property="og:description" content="Showroom results, delivered to your driveway. Book your detail today.">
+  <meta property="og:image" content="assets/img/hero-pressure-wash.jpg">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2307080b'/%3E%3Ctext x='50%25' y='56%25' text-anchor='middle' dominant-baseline='middle' font-family='Arial Black,Arial' font-weight='900' font-size='28' fill='%2338e1ff'%3EJD%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AutoWash",
+    "name": "JD Car Detailing",
+    "description": "Mobile auto detailing in Clearwater, Florida.",
+    "telephone": "+1-727-746-4419",
+    "image": "assets/img/hero-pressure-wash.jpg",
+    "areaServed": ["Clearwater", "Largo", "Dunedin", "Safety Harbor", "Palm Harbor", "Belleair", "Seminole", "Oldsmar"],
+    "address": {"@type": "PostalAddress", "addressLocality": "Clearwater", "addressRegion": "FL", "addressCountry": "US"},
+    "openingHoursSpecification": [{"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "07:00", "closes": "18:00"}],
+    "sameAs": ["https://www.instagram.com/cardetailing.jd/"]
+  }
+  </script>
+</head>
+<body>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader" aria-hidden="true">
+    <div class="preloader__logo"><span>J</span><span>D</span></div>
+    <div class="preloader__bar"><i></i></div>
+    <p class="preloader__txt">Prepping the paint…</p>
+  </div>
+
+  <div class="scroll-progress" id="scrollProgress"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container header__inner">
+      <a href="#top" class="logo" aria-label="JD Car Detailing home">
+        <span class="logo__mark">JD</span>
+        <span class="logo__text">Car Detailing<small>Clearwater · FL</small></span>
+      </a>
+      <nav class="nav" id="nav" aria-label="Main">
+        <a href="#services">Services</a>
+        <a href="#packages">Packages</a>
+        <a href="#results">Results</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#area">Service Area</a>
+        <a href="#faq">FAQ</a>
+        <a href="tel:+17277464419" class="nav__phone-mobile">Call (727) 746-4419</a>
+      </nav>
+      <div class="header__cta">
+        <span class="open-badge" id="openBadge"><i></i><b>Checking hours…</b></span>
+        <a href="#quote" class="btn btn--primary btn--sm magnetic">Get a Quote</a>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+      <div class="hero__media">
+        <img src="assets/img/hero-pressure-wash.jpg" alt="Detailer pressure-washing a sports car in a dark garage" class="hero__img" id="heroImg">
+        <div class="hero__shade"></div>
+        <canvas class="hero__bubbles" id="bubbles"></canvas>
+      </div>
+      <div class="container hero__content">
+        <div class="hero__eyebrow reveal">
+          <span class="pill"><i class="pulse"></i> Mobile detailing · We come to you</span>
+        </div>
+        <h1 class="hero__title">
+          <span class="line"><span class="word">Showroom</span></span>
+          <span class="line"><span class="word">shine,</span> <span class="word gradient-text">delivered</span></span>
+          <span class="line"><span class="word">to your</span> <span class="word outline-text">driveway.</span></span>
+        </h1>
+        <p class="hero__sub reveal">Premium interior &amp; exterior detailing in Clearwater and Pinellas County. Deep cleans, paint polishing and protection that make your car look, feel and smell brand new — without you leaving home.</p>
+        <div class="hero__actions reveal">
+          <a href="#quote" class="btn btn--primary btn--lg magnetic">Build My Quote <svg viewBox="0 0 24 24"><path d="M5 12h14M13 5l7 7-7 7"/></svg></a>
+          <a href="tel:+17277464419" class="btn btn--ghost btn--lg magnetic"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg> (727) 746-4419</a>
+        </div>
+        <div class="hero__trust reveal">
+          <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+          <p><b>5.0 rated</b> by Clearwater drivers<span class="sep">·</span>Mon–Sat 7AM–6PM</p>
+        </div>
+      </div>
+      <div class="hero__card glass reveal" data-tilt>
+        <p class="hero__card-label">Next available</p>
+        <p class="hero__card-big" id="nextSlot">Tomorrow · 7:00 AM</p>
+        <div class="hero__card-row"><span>Avg. response</span><b>&lt; 1 hour</b></div>
+        <div class="hero__card-row"><span>Service at</span><b>Home · Office</b></div>
+        <a href="#quote" class="hero__card-link">Reserve a spot →</a>
+      </div>
+      <a href="#marquee" class="scroll-hint" aria-label="Scroll down"><span></span></a>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" id="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>Interior Deep Clean</span><i>✦</i><span>Full Detail</span><i>✦</i><span>Paint Polishing</span><i>✦</i><span>Paint Protection</span><i>✦</i><span>Stain Removal</span><i>✦</i><span>Resale Prep</span><i>✦</i><span>Wash &amp; Wax</span><i>✦</i>
+        <span>Interior Deep Clean</span><i>✦</i><span>Full Detail</span><i>✦</i><span>Paint Polishing</span><i>✦</i><span>Paint Protection</span><i>✦</i><span>Stain Removal</span><i>✦</i><span>Resale Prep</span><i>✦</i><span>Wash &amp; Wax</span><i>✦</i>
+      </div>
+    </div>
+
+    <!-- STATS -->
+    <section class="stats container">
+      <div class="stat reveal"><b data-count="5" data-decimals="1">0</b><span>Star average rating</span></div>
+      <div class="stat reveal"><b data-count="6" data-suffix=" days">0</b><span>A week, Mon – Sat</span></div>
+      <div class="stat reveal"><b data-count="100" data-suffix="%">0</b><span>Mobile — we come to you</span></div>
+      <div class="stat reveal"><b data-count="11" data-suffix="h">0</b><span>Service window daily</span></div>
+    </section>
+
+    <!-- WHY / ABOUT -->
+    <section class="about section" id="about">
+      <div class="container about__grid">
+        <div class="about__media reveal">
+          <div class="about__img about__img--1 parallax" data-speed="0.06"><img src="assets/img/paint-correction.jpg" alt="Detailer machine-polishing a dark car" loading="lazy"></div>
+          <div class="about__img about__img--2 parallax" data-speed="-0.05"><img src="assets/img/interior-detail.jpg" alt="Detailer cleaning a car interior" loading="lazy"></div>
+          <div class="about__badge glass">
+            <svg viewBox="0 0 120 120" class="spin"><defs><path id="circ" d="M60,60 m-46,0 a46,46 0 1,1 92,0 a46,46 0 1,1 -92,0"/></defs><text><textPath href="#circ">• DETAILED WITH CARE • CLEARWATER FL </textPath></text></svg>
+            <b>JD</b>
+          </div>
+        </div>
+        <div class="about__text">
+          <p class="eyebrow reveal">Why JD Car Detailing</p>
+          <h2 class="h2 reveal">A local detailer who treats your car like <span class="gradient-text">their own.</span></h2>
+          <p class="lead reveal">JD Car Detailing is a mobile detailing business based right here in Clearwater. We show up at your home or office with professional products and equipment, and we don't leave until every panel, seat and crevice is done right.</p>
+          <ul class="checks reveal">
+            <li><b>We come to you.</b> Home, office or condo — your day keeps moving.</li>
+            <li><b>Fast, friendly answers.</b> Text a photo, get a clear price.</li>
+            <li><b>Fair, upfront pricing.</b> No surprise add-ons at the end.</li>
+            <li><b>Obsessive about details.</b> Door jambs, vents, seat rails — everything.</li>
+          </ul>
+          <a href="#packages" class="btn btn--outline magnetic reveal">See packages</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section class="services section" id="services">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal">What we do</p>
+          <h2 class="h2 reveal">Detailing services,<br><span class="gradient-text">done the right way.</span></h2>
+          <p class="lead reveal">From a quick refresh to a complete transformation — pick a service or let us recommend one after a quick look at your car.</p>
+        </div>
+        <div class="services__grid">
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/seat-extraction.jpg" alt="Hot-water extraction on a fabric car seat" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">01</span>
+              <h3>Interior Deep Clean</h3>
+              <p>Full vacuum, shampoo &amp; hot-water extraction, leather cleaning and conditioning, vents, cup holders, glass and odor treatment.</p>
+              <a href="#quote" data-service="interior" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/foam-cannon.jpg" alt="Luxury car covered in thick foam" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">02</span>
+              <h3>Exterior Wash &amp; Wax</h3>
+              <p>Foam pre-wash, two-bucket hand wash, wheels &amp; tires, bug and tar removal, streak-free glass and a glossy wax finish.</p>
+              <a href="#quote" data-service="exterior" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/machine-polish-red.jpg" alt="Machine polishing a red car" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">03</span>
+              <h3>Paint Polishing</h3>
+              <p>Machine polishing to reduce swirl marks, light scratches and oxidation — bringing back depth, clarity and a mirror-like reflection.</p>
+              <a href="#quote" data-service="polish" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/ceramic-beads.jpg" alt="Water beading on a protected black car" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">04</span>
+              <h3>Paint Protection</h3>
+              <p>Sealants and coatings that shield your paint from Florida sun, salt air and lovebugs — with insane water beading and easier washes.</p>
+              <a href="#quote" data-service="protection" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/carpet-shampoo.jpg" alt="Shampoo extraction on car carpet" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">05</span>
+              <h3>Stain Removal</h3>
+              <p>Coffee, juice, makeup, mud and pet accidents — targeted treatment for seats, carpets and mats that brings fabric back to life.</p>
+              <a href="#quote" data-service="stain" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+          <article class="service-card reveal" data-tilt>
+            <div class="service-card__img"><img src="assets/img/black-sport.jpg" alt="Glossy black sports car" loading="lazy"></div>
+            <div class="service-card__body">
+              <span class="service-card__num">06</span>
+              <h3>Resale Prep</h3>
+              <p>Selling or trading in? A complete inside-and-out detail that photographs beautifully and helps your car get the best offer.</p>
+              <a href="#quote" data-service="resale" class="service-card__link">Quote this →</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- PACKAGES -->
+    <section class="packages section" id="packages">
+      <div class="container">
+        <div class="section__head center">
+          <p class="eyebrow reveal">Packages</p>
+          <h2 class="h2 reveal">Simple packages. <span class="gradient-text">Serious results.</span></h2>
+          <p class="lead reveal">Pick your vehicle size to see starting prices. Final price depends on condition — we always confirm before we start.</p>
+          <div class="toggle reveal" role="tablist" aria-label="Vehicle size">
+            <button class="toggle__btn is-active" data-size="sedan" role="tab" aria-selected="true">Sedan / Coupe</button>
+            <button class="toggle__btn" data-size="suv" role="tab" aria-selected="false">SUV / Minivan</button>
+            <button class="toggle__btn" data-size="truck" role="tab" aria-selected="false">Truck / 3-Row</button>
+            <span class="toggle__glider"></span>
+          </div>
+        </div>
+
+        <div class="packages__grid">
+          <article class="pkg reveal" data-tilt>
+            <p class="pkg__name">Express Refresh</p>
+            <p class="pkg__price">$<b data-prices='{"sedan":90,"suv":110,"truck":130}'>90</b><small>+</small></p>
+            <p class="pkg__time">≈ 1.5 – 2 hours</p>
+            <ul>
+              <li>Foam pre-wash &amp; hand wash</li>
+              <li>Wheels, tires &amp; tire shine</li>
+              <li>Interior vacuum &amp; wipe-down</li>
+              <li>Streak-free windows in &amp; out</li>
+              <li>Spray wax for quick gloss</li>
+            </ul>
+            <a href="#quote" class="btn btn--outline btn--block" data-package="express">Choose Express</a>
+          </article>
+
+          <article class="pkg pkg--featured reveal" data-tilt>
+            <span class="pkg__tag">Most popular</span>
+            <p class="pkg__name">Full Detail</p>
+            <p class="pkg__price">$<b data-prices='{"sedan":240,"suv":250,"truck":280}'>240</b><small>+</small></p>
+            <p class="pkg__time">≈ 3 – 4 hours</p>
+            <ul>
+              <li>Everything in Express</li>
+              <li>Deep interior shampoo &amp; extraction</li>
+              <li>Leather clean &amp; condition</li>
+              <li>Door jambs, vents &amp; crevices</li>
+              <li>Clay bar decontamination</li>
+              <li>Hand wax / sealant (3 months)</li>
+            </ul>
+            <a href="#quote" class="btn btn--primary btn--block" data-package="full">Choose Full Detail</a>
+          </article>
+
+          <article class="pkg reveal" data-tilt>
+            <p class="pkg__name">Showroom Signature</p>
+            <p class="pkg__price">$<b data-prices='{"sedan":420,"suv":480,"truck":540}'>420</b><small>+</small></p>
+            <p class="pkg__time">≈ 6 – 8 hours</p>
+            <ul>
+              <li>Everything in Full Detail</li>
+              <li>1-step machine paint polish</li>
+              <li>Paint sealant (6–12 months)</li>
+              <li>Headlight &amp; trim restoration</li>
+              <li>Engine bay clean &amp; dress</li>
+              <li>Odor elimination treatment</li>
+            </ul>
+            <a href="#quote" class="btn btn--outline btn--block" data-package="signature">Choose Signature</a>
+          </article>
+        </div>
+        <p class="packages__note reveal">* Prices shown are sample starting prices for this preview. Heavily soiled interiors, pet hair and sand may add time.</p>
+
+        <!-- Membership strip -->
+        <div class="membership glass reveal">
+          <div>
+            <p class="eyebrow">Maintenance Club</p>
+            <h3>Keep it clean all year — save on every visit.</h3>
+            <p>Bi-weekly or monthly maintenance washes at a member rate, with priority scheduling.</p>
+          </div>
+          <a href="#quote" class="btn btn--primary magnetic" data-package="membership">Ask about membership</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process section" id="process">
+      <div class="container">
+        <div class="section__head">
+          <p class="eyebrow reveal">How it works</p>
+          <h2 class="h2 reveal">Booked in minutes. <span class="gradient-text">Spotless in hours.</span></h2>
+        </div>
+        <div class="process__line"><span id="processFill"></span></div>
+        <div class="process__grid">
+          <div class="step reveal"><span class="step__n">1</span><h4>Get a quote</h4><p>Use the quote builder or text us a photo of your car.</p></div>
+          <div class="step reveal"><span class="step__n">2</span><h4>Pick a time</h4><p>Choose a day and spot — home, office or condo.</p></div>
+          <div class="step reveal"><span class="step__n">3</span><h4>We detail</h4><p>We arrive equipped and get to work while you go about your day.</p></div>
+          <div class="step reveal"><span class="step__n">4</span><h4>Walk-through</h4><p>We inspect it together. You only pay when you're happy.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BEFORE / AFTER -->
+    <section class="results section" id="results">
+      <div class="container">
+        <div class="section__head center">
+          <p class="eyebrow reveal">Results</p>
+          <h2 class="h2 reveal">Drag to see the <span class="gradient-text">difference.</span></h2>
+          <p class="lead reveal">Slide the handle to compare before and after.</p>
+        </div>
+        <div class="ba-grid">
+          <div class="ba reveal" data-ba>
+            <img src="assets/img/interior-leather.jpg" alt="Interior after detailing" class="ba__after" loading="lazy">
+            <div class="ba__before"><img src="assets/img/interior-leather.jpg" alt="Interior before detailing" loading="lazy"></div>
+            <span class="ba__label ba__label--l">Before</span><span class="ba__label ba__label--r">After</span>
+            <div class="ba__handle"><span>⟷</span></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Before and after slider — interior">
+            <p class="ba__cap">Interior Deep Clean</p>
+          </div>
+          <div class="ba reveal" data-ba>
+            <img src="assets/img/supercar-wheel.jpg" alt="Exterior after detailing" class="ba__after" loading="lazy">
+            <div class="ba__before"><img src="assets/img/supercar-wheel.jpg" alt="Exterior before detailing" loading="lazy"></div>
+            <span class="ba__label ba__label--l">Before</span><span class="ba__label ba__label--r">After</span>
+            <div class="ba__handle"><span>⟷</span></div>
+            <input type="range" min="0" max="100" value="50" aria-label="Before and after slider — exterior">
+            <p class="ba__cap">Wash, Polish &amp; Protect</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section class="gallery section" id="gallery">
+      <div class="container">
+        <div class="section__head gallery__head">
+          <div>
+            <p class="eyebrow reveal">Gallery</p>
+            <h2 class="h2 reveal">Fresh off the <span class="gradient-text">detail bay.</span></h2>
+          </div>
+          <div class="filters reveal" role="tablist" aria-label="Filter gallery">
+            <button class="filter is-active" data-filter="all">All</button>
+            <button class="filter" data-filter="exterior">Exterior</button>
+            <button class="filter" data-filter="interior">Interior</button>
+            <button class="filter" data-filter="polish">Polish</button>
+          </div>
+        </div>
+        <div class="masonry" id="masonry">
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/foam-cannon.jpg" alt="Foam cannon pre-wash" loading="lazy"><figcaption>Foam pre-wash</figcaption></figure>
+          <figure class="m-item" data-cat="interior"><img src="assets/img/steering-wheel.jpg" alt="Cleaning the steering wheel" loading="lazy"><figcaption>Cockpit detail</figcaption></figure>
+          <figure class="m-item" data-cat="polish"><img src="assets/img/polish-black.jpg" alt="Polishing black paint" loading="lazy"><figcaption>Swirl removal</figcaption></figure>
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/headlight-wash.jpg" alt="Washing a headlight" loading="lazy"><figcaption>Hand wash</figcaption></figure>
+          <figure class="m-item" data-cat="interior"><img src="assets/img/interior-vacuum.jpg" alt="Vacuuming a white sports car" loading="lazy"><figcaption>Interior vacuum</figcaption></figure>
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/mercedes-beads.jpg" alt="Water beads on a silver Mercedes" loading="lazy"><figcaption>Protection beading</figcaption></figure>
+          <figure class="m-item" data-cat="polish"><img src="assets/img/red-polish-wide.jpg" alt="Polishing a red sports car" loading="lazy"><figcaption>Paint correction</figcaption></figure>
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/wheel-wash.jpg" alt="Wheel wash" loading="lazy"><figcaption>Wheels &amp; tires</figcaption></figure>
+          <figure class="m-item" data-cat="interior"><img src="assets/img/seat-extraction.jpg" alt="Seat extraction" loading="lazy"><figcaption>Seat extraction</figcaption></figure>
+          <figure class="m-item" data-cat="polish"><img src="assets/img/polish-closeup.jpg" alt="Polisher close up" loading="lazy"><figcaption>Gloss enhancement</figcaption></figure>
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/headlight.jpg" alt="Clean headlight" loading="lazy"><figcaption>Crystal-clear headlights</figcaption></figure>
+          <figure class="m-item" data-cat="exterior"><img src="assets/img/towel-dry.jpg" alt="Towel drying" loading="lazy"><figcaption>Scratch-free dry</figcaption></figure>
+        </div>
+        <div class="center gallery__cta reveal">
+          <a href="https://www.instagram.com/cardetailing.jd/" target="_blank" rel="noopener" class="btn btn--outline magnetic">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg>
+            More on Instagram @cardetailing.jd
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="reviews section" id="reviews">
+      <div class="container">
+        <div class="section__head center">
+          <p class="eyebrow reveal">Reviews</p>
+          <h2 class="h2 reveal">Clearwater drivers <span class="gradient-text">love the results.</span></h2>
+          <div class="rating-big reveal"><b>5.0</b><div><span class="stars">★★★★★</span><small>Average customer rating</small></div></div>
+        </div>
+        <div class="slider" id="reviewSlider">
+          <div class="slider__track">
+            <article class="review glass"><div class="stars">★★★★★</div><p>"Super friendly, answered every question I had and the price was fair. My car looks amazing — I'll definitely book again."</p><footer><span class="avatar">A</span><div><b>Happy client</b><small>Interior &amp; exterior detail</small></div></footer></article>
+            <article class="review glass"><div class="stars">★★★★★</div><p>"Fast to respond and very professional from start to finish. Showed up on time and did an incredible job."</p><footer><span class="avatar">M</span><div><b>Happy client</b><small>Full detail</small></div></footer></article>
+            <article class="review glass"><div class="stars">★★★★★</div><p>"You can tell they really care about the car. Every little spot was cleaned. Already planning my next appointment."</p><footer><span class="avatar">R</span><div><b>Happy client</b><small>Interior deep clean</small></div></footer></article>
+            <article class="review glass"><div class="stars">★★★★★</div><p>"Got my SUV ready to sell and it looked better than when I bought it. Got a great offer the same week."</p><footer><span class="avatar">K</span><div><b>Happy client</b><small>Resale prep</small></div></footer></article>
+            <article class="review glass"><div class="stars">★★★★★</div><p>"Coming to my house made it so easy. Kids' stains in the back seat completely gone. Highly recommend!"</p><footer><span class="avatar">J</span><div><b>Happy client</b><small>Stain removal</small></div></footer></article>
+          </div>
+          <div class="slider__nav">
+            <button class="slider__btn" data-dir="-1" aria-label="Previous review">←</button>
+            <div class="slider__dots" id="sliderDots"></div>
+            <button class="slider__btn" data-dir="1" aria-label="Next review">→</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- QUOTE BUILDER -->
+    <section class="quote section" id="quote">
+      <div class="container quote__grid">
+        <div class="quote__intro">
+          <p class="eyebrow reveal">Instant estimate</p>
+          <h2 class="h2 reveal">Build your detail. <span class="gradient-text">See your price.</span></h2>
+          <p class="lead reveal">Choose your vehicle, package and extras. Your estimate updates live — then send it to us by text in one tap.</p>
+          <div class="quote__img reveal"><img src="assets/img/team-detailing.jpg" alt="Two detailers inspecting a car" loading="lazy"></div>
+        </div>
+
+        <form class="quote__card glass reveal" id="quoteForm" novalidate>
+          <fieldset>
+            <legend><span>1</span> Vehicle size</legend>
+            <div class="chips" data-group="size">
+              <label class="chip"><input type="radio" name="size" value="sedan" checked><span>🚗 Sedan</span></label>
+              <label class="chip"><input type="radio" name="size" value="suv"><span>🚙 SUV / Van</span></label>
+              <label class="chip"><input type="radio" name="size" value="truck"><span>🛻 Truck / 3-Row</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>2</span> Package</legend>
+            <div class="chips chips--col" data-group="package">
+              <label class="chip"><input type="radio" name="package" value="express"><span>Express Refresh</span></label>
+              <label class="chip"><input type="radio" name="package" value="interior"><span>Interior Deep Clean</span></label>
+              <label class="chip"><input type="radio" name="package" value="full" checked><span>Full Detail</span></label>
+              <label class="chip"><input type="radio" name="package" value="signature"><span>Showroom Signature</span></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend><span>3</span> Add-ons</legend>
+            <div class="chips" data-group="addons">
+              <label class="chip"><input type="checkbox" name="addon" value="pet"><span>Pet hair removal</span></label>
+              <label class="chip"><input type="checkbox" name="addon" value="headlights"><span>Headlight restore</span></label>
+              <label class="chip"><input type="checkbox" name="addon" value="engine"><span>Engine bay</span></label>
+              <label class="chip"><input type="checkbox" name="addon" value="odor"><span>Odor treatment</span></label>
+              <label class="chip"><input type="checkbox" name="addon" value="sealant"><span>Paint sealant</span></label>
+              <label class="chip"><input type="checkbox" name="addon" value="stain"><span>Stain treatment</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="quote__fields">
+            <legend><span>4</span> Your details</legend>
+            <div class="field"><input type="text" id="qName" placeholder=" " autocomplete="name"><label for="qName">Your name</label></div>
+            <div class="field"><input type="text" id="qCar" placeholder=" "><label for="qCar">Car (year, make, model)</label></div>
+            <div class="field"><input type="date" id="qDate" placeholder=" "><label for="qDate">Preferred date</label></div>
+            <div class="field"><input type="text" id="qZip" placeholder=" " inputmode="numeric" maxlength="5"><label for="qZip">ZIP code</label></div>
+          </fieldset>
+
+          <div class="quote__total">
+            <div>
+              <small>Estimated total</small>
+              <p>$<b id="qTotal">240</b><span>+</span></p>
+            </div>
+            <div class="quote__actions">
+              <button type="submit" class="btn btn--primary magnetic">Text my quote</button>
+              <a href="tel:+17277464419" class="btn btn--ghost">Call</a>
+            </div>
+          </div>
+          <p class="quote__fine">Estimates are a starting point. Final price is confirmed after seeing your vehicle's condition.</p>
+        </form>
+      </div>
+    </section>
+
+    <!-- SERVICE AREA -->
+    <section class="area section" id="area">
+      <div class="container area__grid">
+        <div>
+          <p class="eyebrow reveal">Service area</p>
+          <h2 class="h2 reveal">Clearwater &amp; <span class="gradient-text">nearby.</span></h2>
+          <p class="lead reveal">We bring the detail shop to you across Pinellas County. Not sure if we cover your spot? Check your ZIP or just send us a text.</p>
+          <div class="zip reveal">
+            <input type="text" id="zipCheck" placeholder="Enter your ZIP" inputmode="numeric" maxlength="5" aria-label="ZIP code">
+            <button class="btn btn--primary" id="zipBtn">Check</button>
+          </div>
+          <p class="zip__result" id="zipResult" aria-live="polite"></p>
+          <ul class="cities reveal">
+            <li>Clearwater</li><li>Clearwater Beach</li><li>Largo</li><li>Dunedin</li><li>Safety Harbor</li><li>Belleair</li><li>Palm Harbor</li><li>Seminole</li><li>Oldsmar</li><li>Indian Rocks Beach</li>
+          </ul>
+        </div>
+        <div class="map reveal">
+          <div class="map__frame">
+            <iframe title="Map of Clearwater, FL" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://maps.google.com/maps?q=Clearwater,%20FL&t=&z=11&ie=UTF8&iwloc=&output=embed"></iframe>
+          </div>
+          <div class="map__ping"><span></span><b>JD Car Detailing</b><small>Mobile · Clearwater, FL</small></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq section" id="faq">
+      <div class="container faq__grid">
+        <div>
+          <p class="eyebrow reveal">FAQ</p>
+          <h2 class="h2 reveal">Good <span class="gradient-text">questions.</span></h2>
+          <p class="lead reveal">Still curious? Text us at <a href="sms:+17277464419">(727) 746-4419</a> — we reply fast.</p>
+        </div>
+        <div class="accordion">
+          <details class="acc reveal" open><summary>Do I need to provide water or electricity?</summary><p>Just let us know when booking whether there's water and power access near your parking spot. If your building has restrictions, tell us in advance and we'll plan around it.</p></details>
+          <details class="acc reveal"><summary>How long does a detail take?</summary><p>An Express Refresh takes about 1.5–2 hours, a Full Detail about 3–4 hours, and the Showroom Signature can take most of the day depending on paint condition.</p></details>
+          <details class="acc reveal"><summary>Do I have to be home during the service?</summary><p>No. As long as we can access the vehicle at the start and you're reachable by phone, you can go about your day. We'll send you photos when it's done.</p></details>
+          <details class="acc reveal"><summary>What if it rains?</summary><p>Florida weather happens. If it rains we'll reschedule at no cost or move to a covered spot like a garage or carport.</p></details>
+          <details class="acc reveal"><summary>How do I pay?</summary><p>Payment is collected after the walk-through when you're 100% happy. Ask us about accepted payment methods when booking.</p></details>
+          <details class="acc reveal"><summary>Can you get rid of pet hair and odors?</summary><p>Yes — add pet hair removal and odor treatment to any package. Heavy cases may need extra time, and we'll always tell you upfront.</p></details>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <img src="assets/img/silver-droplets.jpg" alt="" class="cta-banner__bg parallax" data-speed="0.08" loading="lazy">
+      <div class="cta-banner__shade"></div>
+      <div class="container cta-banner__inner">
+        <h2 class="h2 reveal">Your car deserves <span class="gradient-text">better than a car wash.</span></h2>
+        <p class="lead reveal">Book your mobile detail today — we'll handle the rest.</p>
+        <div class="hero__actions reveal">
+          <a href="#quote" class="btn btn--primary btn--lg magnetic">Get My Quote</a>
+          <a href="sms:+17277464419" class="btn btn--ghost btn--lg magnetic">Text Us</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer__grid">
+      <div>
+        <a href="#top" class="logo"><span class="logo__mark">JD</span><span class="logo__text">Car Detailing<small>Clearwater · FL</small></span></a>
+        <p class="footer__about">Premium mobile auto detailing for Clearwater and Pinellas County. We come to you.</p>
+        <div class="socials">
+          <a href="https://www.instagram.com/cardetailing.jd/" target="_blank" rel="noopener" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="sms:+17277464419" aria-label="Text message"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></a>
+          <a href="tel:+17277464419" aria-label="Call"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <h5>Services</h5>
+        <a href="#services">Interior Deep Clean</a><a href="#services">Exterior Wash &amp; Wax</a><a href="#services">Paint Polishing</a><a href="#services">Paint Protection</a><a href="#services">Resale Prep</a>
+      </div>
+      <div>
+        <h5>Hours</h5>
+        <p>Monday – Saturday<br><b>7:00 AM – 6:00 PM</b></p>
+        <p>Sunday<br><b>Closed</b></p>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <a href="tel:+17277464419">(727) 746-4419</a>
+        <a href="sms:+17277464419">Text us anytime</a>
+        <p>Clearwater, Florida</p>
+      </div>
+    </div>
+    <div class="container footer__bottom">
+      <p>© <span id="year"></span> JD Car Detailing. All rights reserved.</p>
+      <a href="#top" class="to-top">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <!-- Floating mobile action bar -->
+  <div class="fab-bar" id="fabBar">
+    <a href="tel:+17277464419"><svg viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>Call</a>
+    <a href="sms:+17277464419"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Text</a>
+    <a href="#quote" class="fab-bar__main">Get Quote</a>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" aria-label="Close">✕</button>
+    <button class="lightbox__nav lightbox__prev" aria-label="Previous">←</button>
+    <img src="" alt="">
+    <p class="lightbox__cap"></p>
+    <button class="lightbox__nav lightbox__next" aria-label="Next">→</button>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="assets/js/main.js" defer></script>
+</body>
+</html>
