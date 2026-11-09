@@ -13,7 +13,7 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - Before/after drag sliders
 - Filterable gallery with lightbox (keyboard + arrows)
 - Review highlights slider (summarized from public reviews; swap in verbatim reviews when available)
-- Live quote builder (size + package + add-ons) that sends the quote by SMS
+- Live quote builder (size + package + add-ons) that sends every selection to the business WhatsApp
 - ZIP-code service-area checker + map
 - FAQ accordion, CTA banner, mobile sticky Call / Text / Quote bar
 - Custom cursor, magnetic buttons, scroll progress bar, reduced-motion support, SEO + schema.org
@@ -27,4 +27,4 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 ## Brand assets
 - `assets/img/jd-logo.png` — the business's real logo (from its public TikTok profile @cardetailing.jd), background removed.
 - Brand colors (orange / silver / black) taken from the logo.
-- Public profiles: Instagram/TikTok/Facebook `cardetailing.jd`, link page `beacons.ai/jdcardetailing` (has Book Now, Services & Pricing and WhatsApp).
+- Public profiles: Instagram/TikTok/Facebook `cardetailing.jd`. Their beacons.ai link page is used only as an information source; all booking goes to WhatsApp.

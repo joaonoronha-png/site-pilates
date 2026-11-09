@@ -329,54 +329,53 @@
   const dateIn = $("#qDate");
   dateIn.min = new Date().toISOString().split("T")[0];
 
-  // Preselect from service/package buttons
-  const SERVICE_MAP = {
-    interior: { pkg: "interior" }, exterior: { pkg: "express" }, polish: { pkg: "signature" },
-    protection: { pkg: "full", addons: ["sealant"] }, stain: { pkg: "interior", addons: ["stain"] }, resale: { pkg: "full" },
+  // ---- Everything a visitor picks goes to the business's WhatsApp ----
+  const WA_NUM = PHONE.replace("+", "");
+  const openWA = (text) => {
+    const url = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(text)}`;
+    const w = window.open(url, "_blank");
+    if (w) w.opener = null; else location.href = url; // popup blocked -> same tab
   };
-  const preset = (pkg, addons = []) => {
-    const r = $(`input[name="package"][value="${pkg}"]`, form); if (r) r.checked = true;
-    $$('input[name="addon"]', form).forEach((i) => (i.checked = addons.includes(i.value)));
-    calc();
-  };
-  $$("[data-service]").forEach((a) => a.addEventListener("click", () => { const m = SERVICE_MAP[a.dataset.service]; preset(m.pkg, m.addons); }));
-  $$("[data-package]").forEach((a) => a.addEventListener("click", () => {
-    const p = a.dataset.package;
-    if (PRICES[p]) preset(p);
-    if (p === "membership") setTimeout(() => toast("Mention “Maintenance Club” in your message and we'll send member rates."), 600);
-  }));
+  const currentSize = () => ($(".toggle__btn.is-active")?.dataset.size) || "sedan";
+
+  // Service cards
+  $$("[data-wa-service]").forEach((a) => {
+    const msg = () => `Hi JD Car Detailing! I'm interested in your ${a.dataset.waService} service. Could you send me a quote and your availability?`;
+    a.href = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(msg())}`;
+    a.addEventListener("click", (e) => { e.preventDefault(); openWA(msg()); });
+  });
+
+  // Package buttons (uses the vehicle size selected in the toggle)
+  $$("[data-wa-package]").forEach((a) => {
+    const msg = () => {
+      const p = a.dataset.waPackage, size = currentSize();
+      if (p === "membership") return `Hi JD Car Detailing! I'm interested in the Maintenance Club (bi-weekly / monthly washes) for my ${SIZES[size]}. What are the member rates?`;
+      return [
+        `Hi JD Car Detailing! I'd like to book the ${PRICES[p].label} package.`,
+        `Vehicle: ${SIZES[size]}`,
+        `Price on website: from $${PRICES[p][size]}`,
+        `When is your next availability?`,
+      ].join("\n");
+    };
+    a.addEventListener("click", (e) => { e.preventDefault(); openWA(msg()); });
+  });
 
   const quoteMessage = () => {
     const q = readQuote();
     const name = $("#qName").value.trim(), car = $("#qCar").value.trim(), date = dateIn.value, zip = $("#qZip").value.trim();
     return [
-      `Hi JD Car Detailing! I'd like a quote${name ? ` — this is ${name}` : ""}.`,
+      `Hi JD Car Detailing! I'd like to book a detail${name ? ` — this is ${name}` : ""}.`,
       `Vehicle: ${SIZES[q.size]}${car ? ` (${car})` : ""}`,
-      `Package: ${PRICES[q.pkg].label}`,
-      q.addons.length ? `Add-ons: ${q.addons.map((a) => ADDONS[a].label).join(", ")}` : null,
+      `Package: ${PRICES[q.pkg].label} (from $${PRICES[q.pkg][q.size]})`,
+      q.addons.length ? `Add-ons: ${q.addons.map((a) => `${ADDONS[a].label} (+$${ADDONS[a].price})`).join(", ")}` : `Add-ons: none`,
       date ? `Preferred date: ${new Date(date + "T12:00").toLocaleDateString("en-US", { weekday: "short", month: "short", day: "numeric" })}` : null,
       zip ? `ZIP: ${zip}` : null,
       `Website estimate: $${q.total}+`,
     ].filter(Boolean).join("\n");
   };
 
-  // WhatsApp (same number as calls)
-  $("#sendWa").addEventListener("click", () => {
-    window.open(`https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent(quoteMessage())}`, "_blank", "noopener");
-  });
-
-  // SMS
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    const lines = quoteMessage();
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const href = `sms:${PHONE}${isIOS ? "&" : "?"}body=${encodeURIComponent(lines)}`;
-    if (!/Mobi|Android|iPhone|iPad/i.test(navigator.userAgent)) {
-      navigator.clipboard?.writeText(lines).catch(() => {});
-      toast("Quote copied! Text it to (727) 746-4419 or send it on WhatsApp.");
-    }
-    location.href = href;
-  });
+  // Quote builder -> WhatsApp with every selection
+  form.addEventListener("submit", (e) => { e.preventDefault(); openWA(quoteMessage()); });
 
   /* ---------- ZIP checker ---------- */
   const ZIPS = {
@@ -392,7 +391,7 @@
     zipOut.className = "zip__result";
     if (!/^\d{5}$/.test(z)) { zipOut.textContent = "Please enter a 5-digit ZIP code."; zipOut.classList.add("maybe"); return; }
     if (ZIPS[z]) { zipOut.textContent = `✓ Great news — we serve ${ZIPS[z]}!`; zipOut.classList.add("ok"); }
-    else { zipOut.innerHTML = `Outside our usual area — <a href="sms:${PHONE}" style="text-decoration:underline">text us</a>, we may still come to you.`; zipOut.classList.add("maybe"); }
+    else { zipOut.innerHTML = `Outside our usual area — <a href="https://wa.me/${PHONE.replace("+", "")}?text=${encodeURIComponent("Hi JD Car Detailing! Do you cover ZIP " + z + "?")}" target="_blank" rel="noopener" style="text-decoration:underline">message us on WhatsApp</a>, we may still come to you.`; zipOut.classList.add("maybe"); }
   };
   $("#zipBtn").addEventListener("click", checkZip);
   zipIn.addEventListener("keydown", (e) => { if (e.key === "Enter") checkZip(); });

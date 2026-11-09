@@ -704,3 +704,7 @@ body::after {
 .map3d { z-index: 5; }
 .map3d.is-ready ~ .radar { visibility: hidden; }
 .map .map__ping, .map__tools, .map__dir { z-index: 6; }
+
+.service-card__link--wa { align-items: center; gap: 8px; color: #25d366; }
+.service-card__link--wa .wa-ico { width: 1.05em; height: 1.05em; }
+.pkg .btn .wa-ico { width: 1.15em; height: 1.15em; }
