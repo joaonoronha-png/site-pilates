@@ -770,3 +770,12 @@ body::after {
 .masonry--ig { grid-template-columns: repeat(4, 1fr); }
 .masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 3 / 4; }
 @media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); } .masonry--ig .m-item:first-child { grid-column: auto; grid-row: auto; } .masonry--ig .m-item:first-child img { aspect-ratio: 3 / 4; height: auto; } }
+
+.masonry--ig { grid-template-columns: repeat(3, 1fr); max-width: 1000px; }
+.masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 3 / 4; }
+@media (max-width: 640px) { .masonry--ig { grid-template-columns: 1fr 1fr; } .masonry--ig .m-item:first-child { grid-column: span 2; } .masonry--ig .m-item:first-child img { aspect-ratio: 4 / 3; object-position: center 70%; } }
+@media (max-width: 640px) {
+  .masonry--ig { grid-template-columns: 1fr; gap: 14px; }
+  .masonry--ig .m-item:first-child { grid-column: auto; }
+  .masonry--ig .m-item img, .masonry--ig .m-item:first-child img { aspect-ratio: 4 / 5; object-position: center 60%; }
+}

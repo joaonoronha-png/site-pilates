@@ -34,7 +34,7 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
   paint gauge, engine bay, interior "before". Shown as photos on the site (no Instagram links/videos).
 - Bio facts used: "Mobile Car Wash & Professional Detailing", "We come to you: home or office",
   "Comfort + Quality + Trust", "We make your car shine anywhere", 🇺🇸🇻🇪, 1.9K followers.
-- Still stock (Pexels): Interior and Stain Removal cards, hero background, CTA banner background.
+- Real photos are used only where their portrait framing fits (gallery, about, exterior card, Shaq section); landscape slots use professional stock photos.
 
 ## 3D satellite map
 - Self-hosted, no external tiles: `assets/map/sat-detail.jpg` (≈2.2 km, ~0.7 m/px) and `assets/map/sat-context.jpg` (≈12 km)
