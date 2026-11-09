@@ -708,3 +708,50 @@ body::after {
 .service-card__link--wa { align-items: center; gap: 8px; color: #25d366; }
 .service-card__link--wa .wa-ico { width: 1.05em; height: 1.05em; }
 .pkg .btn .wa-ico { width: 1.15em; height: 1.15em; }
+
+/* ---------- Real Instagram content ---------- */
+.hero__img--real { object-position: center 35%; filter: saturate(1.1); }
+.hero__card-photo { position: relative; display: block; margin: -22px -22px 18px; height: 190px; border-radius: var(--radius) var(--radius) 0 0; overflow: hidden; }
+.hero__card-photo img { width: 100%; height: 100%; object-fit: cover; object-position: center 62%; transition: transform 1s var(--ease); }
+.hero__card-photo:hover img { transform: scale(1.06); }
+.hero__card-photo::after { content: ""; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(10, 10, 11, .85), transparent 55%); }
+.hero__card-tag { position: absolute; left: 14px; bottom: 12px; z-index: 1; font-size: .75rem; font-weight: 700; }
+.real-tag { position: absolute; top: 14px; left: 14px; z-index: 2; padding: 6px 12px; border-radius: 999px; background: rgba(10, 10, 11, .75); border: 1px solid rgba(255, 165, 31, .5); color: var(--accent); font-size: .72rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.service-card__img img { object-position: center 40%; }
+
+.legend { background: radial-gradient(50% 60% at 20% 50%, rgba(255, 165, 31, .12), transparent 70%); }
+.legend__grid { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(40px, 7vw, 100px); align-items: center; }
+.legend__phone { position: relative; display: block; aspect-ratio: 9 / 16; max-width: 340px; width: 100%; margin-inline: auto; border-radius: 34px; overflow: hidden; border: 6px solid #1c1c20; box-shadow: 0 0 0 1px var(--line-2), 0 50px 100px -30px rgba(255, 165, 31, .45); }
+.legend__phone img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.legend__phone:hover img { transform: scale(1.05); }
+.legend__views { position: absolute; left: 12px; right: 12px; bottom: 12px; padding: 8px 12px; border-radius: 12px; background: rgba(0, 0, 0, .6); backdrop-filter: blur(6px); font-size: .78rem; font-weight: 700; text-align: center; }
+.legend__quote { margin: 0 0 30px; padding: 18px 22px; border-left: 3px solid var(--accent); border-radius: 0 14px 14px 0; background: rgba(255, 165, 31, .06); font-style: italic; color: #dfe1e6; }
+.legend__quote cite { display: block; margin-top: 8px; font-style: normal; font-size: .82rem; color: var(--muted); }
+.play { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 62px; height: 62px; border-radius: 50%; display: grid; place-items: center; background: rgba(255, 165, 31, .92); color: #1a0d00; box-shadow: 0 10px 40px rgba(0, 0, 0, .5); transition: transform .35s var(--ease); z-index: 2; }
+.play svg { width: 26px; height: 26px; margin-left: 3px; }
+.legend__phone:hover .play, .m-item:hover .play { transform: scale(1.12); }
+.masonry--ig .play { width: 46px; height: 46px; opacity: .9; }
+.masonry--ig .play svg { width: 18px; height: 18px; }
+.masonry--ig .m-item img { aspect-ratio: 9 / 16; object-fit: cover; }
+.masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 4 / 5; }
+.masonry--ig { columns: 4 220px; }
+.lightbox__ig { position: absolute; bottom: 60px; left: 50%; translate: -50% 0; padding: 10px 18px; border-radius: 999px; background: var(--grad); color: #1a0d00; font-weight: 800; font-size: .88rem; }
+.lightbox img { max-height: 72vh; }
+@media (max-width: 960px) {
+  .legend__grid { grid-template-columns: 1fr; }
+  .legend__phone { max-width: 280px; }
+}
+@media (max-width: 640px) { .masonry--ig { columns: 2; } }
+
+@media (min-width: 1101px) { .hero__title, .hero__sub { max-width: calc(100% - 330px); } .hero__title { font-size: clamp(2.6rem, 6vw, 5.6rem); } }
+.masonry--ig { columns: auto; display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+.masonry--ig .m-item { margin: 0; }
+.masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 9 / 16; height: 100%; object-fit: cover; }
+@media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 640px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
+.quote__img img { object-position: center 30%; }
+
+@media (max-width: 960px) {
+  .is-ready .loc-float { transform: scale(0); transition-delay: 0s; }
+  .is-ready .loc-float.is-show { transform: scale(1); }
+}

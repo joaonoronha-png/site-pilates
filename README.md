@@ -28,3 +28,11 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - `assets/img/jd-logo.png` — the business's real logo (from its public TikTok profile @cardetailing.jd), background removed.
 - Brand colors (orange / silver / black) taken from the logo.
 - Public profiles: Instagram/TikTok/Facebook `cardetailing.jd`. Their beacons.ai link page is used only as an information source; all booking goes to WhatsApp.
+
+## Real content from @cardetailing.jd (Instagram, public)
+- `assets/img/ig/` — covers of the business's public Instagram reels (360×640, the max Instagram serves for covers):
+  owner photos, company truck + trailer, Shaq Duty detail, Lamborghini, Porsche, Honda, Lexus, paint correction,
+  paint gauge, engine bay, interior "before". Each gallery item links to its reel.
+- Bio facts used: "Mobile Car Wash & Professional Detailing", "We come to you: home or office",
+  "Comfort + Quality + Trust", "We make your car shine anywhere", 🇺🇸🇻🇪, 1.9K followers.
+- Still stock (Pexels): Stain Removal card, before/after sliders, CTA banner background.
