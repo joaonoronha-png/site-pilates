@@ -11,7 +11,7 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - Packages with Sedan / SUV / Truck price toggle and Maintenance Club strip
 - Animated process timeline, stat counters, rotating badge, marquee
 - Filterable gallery with lightbox (keyboard + arrows)
-- Review highlights slider (summarized from public reviews; swap in verbatim reviews when available)
+- Real Google reviews slider with a compact "Trusted by a legend" (Shaq) feature
 - Live quote builder (size + package + add-ons) that sends every selection to the business WhatsApp
 - ZIP-code service-area checker + map
 - FAQ accordion, CTA banner, mobile sticky Call / Text / Quote bar
