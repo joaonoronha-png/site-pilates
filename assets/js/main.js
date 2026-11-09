@@ -190,8 +190,8 @@
         if (b.y < -20) bubbles[i] = make(false);
         const g = ctx.createRadialGradient(b.x - b.r * 0.3, b.y - b.r * 0.3, b.r * 0.1, b.x, b.y, b.r);
         g.addColorStop(0, `rgba(255,255,255,${b.a + 0.25})`);
-        g.addColorStop(0.6, `rgba(168,240,255,${b.a * 0.4})`);
-        g.addColorStop(1, `rgba(56,225,255,${b.a * 0.15})`);
+        g.addColorStop(0.6, `rgba(255,224,170,${b.a * 0.4})`);
+        g.addColorStop(1, `rgba(255,165,31,${b.a * 0.15})`);
         ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fillStyle = g; ctx.fill();
         ctx.lineWidth = 0.6 * dpr; ctx.strokeStyle = `rgba(255,255,255,${b.a})`; ctx.stroke();
       });

@@ -23,3 +23,8 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - Prices: `PRICES` and `ADDONS` in `assets/js/main.js` and `data-prices` in `index.html`
 - Photos: `assets/img/` — current images are free stock photos (Pexels) used as placeholders;
   swap them for the business's own Instagram photos when available.
+
+## Brand assets
+- `assets/img/jd-logo.png` — the business's real logo (from its public TikTok profile @cardetailing.jd), background removed.
+- Brand colors (orange / silver / black) taken from the logo.
+- Public profiles: Instagram/TikTok/Facebook `cardetailing.jd`, link page `beacons.ai/jdcardetailing` (has Book Now, Services & Pricing and WhatsApp).
