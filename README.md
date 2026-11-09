@@ -12,7 +12,7 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - Animated process timeline, stat counters, rotating badge, marquee
 - Before/after drag sliders
 - Filterable gallery with lightbox (keyboard + arrows)
-- Auto-playing, swipeable reviews slider
+- Review highlights slider (summarized from public reviews; swap in verbatim reviews when available)
 - Live quote builder (size + package + add-ons) that sends the quote by SMS
 - ZIP-code service-area checker + map
 - FAQ accordion, CTA banner, mobile sticky Call / Text / Quote bar

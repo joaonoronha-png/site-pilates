@@ -390,7 +390,10 @@ body::after {
 .slider { overflow: hidden; }
 .slider__track { display: flex; gap: 22px; transition: transform .7s var(--ease); }
 .review { flex: 0 0 calc((100% - 44px) / 3); padding: 32px; display: flex; flex-direction: column; gap: 18px; }
-.review p { margin: 0; font-size: 1.05rem; color: #dfe4ec; flex: 1; }
+.review p { margin: 0; font-size: 1rem; color: var(--muted); flex: 1; }
+.review h3 { font-family: var(--font-d); font-size: 1.15rem; margin: 0; }
+.review__ico { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; font-size: 1.6rem; background: rgba(56, 225, 255, .1); border: 1px solid rgba(56, 225, 255, .3); }
+.reviews__note { margin-top: 18px !important; font-size: .95rem; }
 .review footer { display: flex; align-items: center; gap: 12px; }
 .review footer small { display: block; color: var(--muted); font-size: .82rem; }
 .avatar { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; background: var(--grad); color: #00131c; font-weight: 900; font-family: var(--font-d); }
