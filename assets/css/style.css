@@ -808,3 +808,13 @@ body::after {
 .trust-panel__list li { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: .9rem; }
 .trust-panel__list span { width: 34px; height: 34px; flex-shrink: 0; border-radius: 10px; display: grid; place-items: center; background: rgba(255, 165, 31, .1); border: 1px solid rgba(255, 165, 31, .3); font-size: .95rem; }
 @media (max-width: 960px) { .trust-panel { display: none; } }
+
+.facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 0 0 28px; }
+.fact { padding: 16px 12px; border-radius: 16px; background: var(--bg-2); border: 1px solid var(--line); text-align: center; transition: border-color .3s, transform .3s var(--ease); }
+.fact:hover { border-color: rgba(255, 165, 31, .45); transform: translateY(-3px); }
+.fact b { display: block; font-family: var(--font-d); font-size: 1.5rem; line-height: 1.1; background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.fact span { display: block; margin-top: 6px; font-size: .75rem; font-weight: 600; color: var(--muted); line-height: 1.3; }
+@media (max-width: 640px) { .facts { grid-template-columns: repeat(2, 1fr); } }
+
+.fact__ico { -webkit-text-fill-color: initial; color: var(--accent) !important; background: none !important; display: grid !important; place-items: center; height: 1.65rem; }
+.fact__ico svg { width: 28px; height: 28px; stroke: var(--accent); }
