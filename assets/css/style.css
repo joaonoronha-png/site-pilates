@@ -921,3 +921,36 @@ body::after {
 }
 @media (max-width: 640px) { .ob-extra { display: none; } }
 @media (max-width: 360px) { .open-badge { display: none; } }
+
+/* ================= Alignment / rendering fixes ================= */
+/* 1. Seamless shimmer gradient (no hard seam on the first letter) */
+.gradient-text {
+  background-image: linear-gradient(110deg, #ffd27a 0%, #ffa51f 25%, #ff7a00 50%, #ffa51f 75%, #ffd27a 100%);
+  background-size: 200% 100%; background-repeat: repeat-x;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding-bottom: .04em;
+}
+@keyframes shimmer { from { background-position: 0 0; } to { background-position: -200% 0; } }
+/* 2. No text-stroke: outlined Unbounded shows internal contour lines across letters */
+.outline-text, .rotator__item {
+  -webkit-text-stroke: 0 !important;
+  color: transparent;
+  background-image: linear-gradient(180deg, #ffffff 0%, #c9ccd2 60%, #8e949e 100%);
+  -webkit-background-clip: text; background-clip: text;
+}
+.marquee span:nth-of-type(even) { -webkit-text-stroke: 0; color: rgba(255, 255, 255, .38); }
+/* underline under the rotating word sits below descenders */
+.rotator::after { bottom: -.02em; height: .06em; }
+/* 3. Eyebrow labels never wrap with their leading line */
+.eyebrow { white-space: nowrap; }
+@media (max-width: 380px) { .eyebrow { letter-spacing: .14em; } }
+/* 4. Quote total buttons fit on phones */
+@media (max-width: 640px) {
+  .quote__actions { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+  .quote__actions .btn--wa { grid-column: auto; flex-basis: auto; white-space: nowrap; --pad: 14px 16px; font-size: .9rem; }
+  .quote__actions .btn--ghost { --pad: 14px 18px; }
+}
+
+/* demo ribbon: never floats over content */
+.demo-ribbon { position: absolute; }
+@media (min-width: 961px) { .demo-ribbon { top: calc(var(--header-h) + 10px); bottom: auto; left: auto; right: max(20px, calc((100vw - 1240px) / 2)); translate: none; } }

@@ -233,10 +233,9 @@
 
   /* ---------- Custom cursor + magnetic buttons + tilt ---------- */
   if (finePointer && !reduceMotion) {
-    document.body.classList.add("has-cursor");
     const cur = $("#cursor"), dot = $("#cursorDot");
     let mx = innerWidth / 2, my = innerHeight / 2, cx = mx, cy = my;
-    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; });
+    addEventListener("mousemove", (e) => { mx = e.clientX; my = e.clientY; dot.style.transform = `translate(${mx}px,${my}px)`; if (!document.body.classList.contains("has-cursor")) { cx = mx; cy = my; document.body.classList.add("has-cursor"); } });
     const follow = () => { cx += (mx - cx) * 0.18; cy += (my - cy) * 0.18; cur.style.transform = `translate(${cx}px,${cy}px)`; requestAnimationFrame(follow); };
     follow();
     $$("a, button, .m-item, .chip, input, summary").forEach((el) => {
