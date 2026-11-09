@@ -10,7 +10,6 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 - Services cards with 3D tilt + spotlight hover
 - Packages with Sedan / SUV / Truck price toggle and Maintenance Club strip
 - Animated process timeline, stat counters, rotating badge, marquee
-- Before/after drag sliders
 - Filterable gallery with lightbox (keyboard + arrows)
 - Review highlights slider (summarized from public reviews; swap in verbatim reviews when available)
 - Live quote builder (size + package + add-ons) that sends every selection to the business WhatsApp
@@ -35,4 +34,10 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
   paint gauge, engine bay, interior "before". Shown as photos on the site (no Instagram links/videos).
 - Bio facts used: "Mobile Car Wash & Professional Detailing", "We come to you: home or office",
   "Comfort + Quality + Trust", "We make your car shine anywhere", 🇺🇸🇻🇪, 1.9K followers.
-- Still stock (Pexels): Stain Removal card, before/after sliders, CTA banner background.
+- Still stock (Pexels): Interior and Stain Removal cards, hero background, CTA banner background.
+
+## 3D satellite map
+- Self-hosted, no external tiles: `assets/map/sat-detail.jpg` (≈2.2 km, ~0.7 m/px) and `assets/map/sat-context.jpg` (≈12 km)
+  are public-domain aerial imagery (USGS / USDA NAIP), plus `assets/map/buildings.geojson` — 2,071 real building footprints
+  with heights from OpenStreetMap (© OpenStreetMap contributors, ODbL), rendered as 3D with MapLibre.
+- Before/after sliders were removed (no real before/after photos yet).

@@ -525,64 +525,61 @@
     panel.addEventListener("touchend", (e) => { if (sy !== null && e.changedTouches[0].clientY - sy > 70) close(); sy = null; });
   })();
 
-  /* ---------- 3D map (MapLibre + OpenFreeMap, dark brand styling) ---------- */
+  /* ---------- 3D satellite map (self-hosted aerial imagery + real 3D buildings) ---------- */
   (() => {
     const el = $("#map3d"), tools = $("#mapTools");
     if (!el || !window.maplibregl) { el && el.remove(); return; }
     const CENTER = [-82.7245288, 27.9162765];
-    const VIEW = { center: CENTER, zoom: 16.2, pitch: 64, bearing: -28 };
+    const VIEW = { center: CENTER, zoom: 16.4, pitch: 66, bearing: -32 };
+    // Image footprints in [top-left, top-right, bottom-right, bottom-left] order (Web Mercator exports)
+    const DETAIL = [[-82.73441026812533, 27.925007735482044], [-82.7146473318747, 27.925007735482044], [-82.7146473318747, 27.907544559490994], [-82.73441026812533, 27.907544559490994]];
+    const CONTEXT = [[-82.77842771704718, 27.963892851797947], [-82.67062988295284, 27.963892851797947], [-82.67062988295284, 27.86863917219888], [-82.77842771704718, 27.86863917219888]];
     let started = false;
     const io = new IntersectionObserver(([e]) => {
       if (e.isIntersecting && !started) { started = true; io.disconnect(); build(); }
     }, { rootMargin: "400px" });
     io.observe(el);
 
-    function darken(map) {
-      const layers = map.getStyle().layers || [];
-      const set = (id, prop, val) => { try { map.setPaintProperty(id, prop, val); } catch {} };
-      layers.forEach((l) => {
-        const id = l.id;
-        if (l.type === "background") set(id, "background-color", "#121214");
-        else if (l.type === "fill") {
-          if (/water/.test(id)) set(id, "fill-color", "#0d1720");
-          else if (/park|grass|wood|forest|landcover|landuse/.test(id)) set(id, "fill-color", "#15191a");
-          else set(id, "fill-color", "#18181b");
-          set(id, "fill-outline-color", "rgba(0,0,0,0)");
-        } else if (l.type === "line") {
-          if (/water|river|stream/.test(id)) set(id, "line-color", "#10202b");
-          else if (/motorway|trunk|primary/.test(id)) set(id, "line-color", "#5a3d12");
-          else if (/road|street|highway|bridge|tunnel|path|rail/.test(id)) set(id, "line-color", "#2c2c31");
-          else if (/boundary/.test(id)) set(id, "line-color", "#3a3a40");
-        } else if (l.type === "fill-extrusion") {
-          set(id, "fill-extrusion-color", ["interpolate", ["linear"], ["coalesce", ["get", "render_height"], 0], 0, "#26262b", 30, "#34343a", 120, "#4a3a22"]);
-          set(id, "fill-extrusion-opacity", 0.92);
-        } else if (l.type === "symbol") {
-          set(id, "text-color", "#c9ccd2"); set(id, "text-halo-color", "#0a0a0b"); set(id, "text-halo-width", 1.4);
-          if (/poi/.test(id)) { try { map.setLayoutProperty(id, "visibility", "none"); } catch {} }
-        }
-      });
-    }
-
     function build() {
       let map;
       const fail = () => { el.remove(); };
-      const timer = setTimeout(() => { if (!el.classList.contains("is-ready")) { try { map && map.remove(); } catch {} fail(); } }, 12000);
+      const timer = setTimeout(() => { if (!el.classList.contains("is-ready")) { try { map && map.remove(); } catch {} fail(); } }, 15000);
       try {
         map = new maplibregl.Map({
           container: el,
-          style: "https://tiles.openfreemap.org/styles/liberty",
-          center: CENTER, zoom: 11.5, pitch: 0, bearing: 0,
-          attributionControl: { compact: true },
+          style: {
+            version: 8,
+            sources: {
+              ctx: { type: "image", url: "assets/map/sat-context.jpg", coordinates: CONTEXT },
+              det: { type: "image", url: "assets/map/sat-detail.jpg", coordinates: DETAIL },
+              bld: { type: "geojson", data: "assets/map/buildings.geojson" },
+            },
+            layers: [
+              { id: "bg", type: "background", paint: { "background-color": "#0a0a0b" } },
+              { id: "ctx", type: "raster", source: "ctx", paint: { "raster-fade-duration": 0, "raster-saturation": 0.1, "raster-contrast": 0.08 } },
+              { id: "det", type: "raster", source: "det", paint: { "raster-fade-duration": 0, "raster-saturation": 0.12, "raster-contrast": 0.1 } },
+              { id: "bld", type: "fill-extrusion", source: "bld", minzoom: 14.5, paint: {
+                "fill-extrusion-color": ["interpolate", ["linear"], ["get", "h"], 3, "#f3f1ec", 20, "#ebe6dc", 40, "#f2d9b0"],
+                "fill-extrusion-height": ["interpolate", ["linear"], ["zoom"], 14.5, 0, 15.5, ["get", "h"]],
+                "fill-extrusion-base": ["get", "b"],
+                "fill-extrusion-opacity": 0.42,
+                "fill-extrusion-vertical-gradient": true,
+              } },
+            ],
+          },
+          center: CENTER, zoom: 12.6, pitch: 0, bearing: 0,
+          minZoom: 12, maxZoom: 18.5, maxPitch: 72,
+          maxBounds: [[-82.79, 27.86], [-82.66, 27.972]],
+          attributionControl: false,
           cooperativeGestures: true,
-          maxPitch: 75,
         });
       } catch (e) { clearTimeout(timer); fail(); return; }
+      map.addControl(new maplibregl.AttributionControl({ compact: true, customAttribution: "Imagery: USGS / USDA NAIP · Buildings © OpenStreetMap contributors" }));
       map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-left");
-      map.on("error", (e) => { if (!el.classList.contains("is-ready")) { clearTimeout(timer); fail(); } });
+      map.on("error", () => { if (!el.classList.contains("is-ready")) { clearTimeout(timer); fail(); } });
 
       map.on("load", () => {
         clearTimeout(timer);
-        darken(map);
         // Marker with real logo
         const m = document.createElement("div");
         m.className = "jd-marker-root";

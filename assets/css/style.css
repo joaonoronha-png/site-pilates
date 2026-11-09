@@ -760,3 +760,13 @@ body::after {
 .masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 4 / 5; }
 @media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); } }
 .hero__card-photo img { object-position: center 55%; }
+
+.masonry--ig { grid-template-columns: repeat(5, 1fr); }
+.masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 3 / 5; }
+@media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(3, 1fr); } .masonry--ig .m-item:first-child { grid-column: span 2; grid-row: span 2; } .masonry--ig .m-item:first-child img { aspect-ratio: auto; height: 100%; } }
+@media (max-width: 640px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); } .masonry--ig .m-item:first-child { grid-column: span 2; grid-row: auto; } .masonry--ig .m-item:first-child img { aspect-ratio: 4 / 3; } }
+.gallery__head { margin-bottom: 40px; }
+
+.masonry--ig { grid-template-columns: repeat(4, 1fr); }
+.masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 3 / 4; }
+@media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); } .masonry--ig .m-item:first-child { grid-column: auto; grid-row: auto; } .masonry--ig .m-item:first-child img { aspect-ratio: 3 / 4; height: auto; } }
