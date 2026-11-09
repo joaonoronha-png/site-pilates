@@ -499,4 +499,127 @@
     const t = $("#toast"); t.textContent = msg; t.classList.add("is-show");
     clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove("is-show"), 4200);
   }
+
+  /* ---------- Directions sheet (Google Maps / Waze / Apple Maps) ---------- */
+  (() => {
+    const sheet = $("#dirSheet"); if (!sheet) return;
+    let lastFocus = null;
+    const open = () => {
+      lastFocus = document.activeElement;
+      sheet.classList.add("is-open"); sheet.setAttribute("aria-hidden", "false");
+      setTimeout(() => $(".dir-opt", sheet)?.focus(), 200);
+    };
+    const close = () => {
+      sheet.classList.remove("is-open"); sheet.setAttribute("aria-hidden", "true");
+      lastFocus && lastFocus.focus && lastFocus.focus();
+    };
+    document.addEventListener("click", (e) => {
+      if (e.target.closest("[data-directions]")) { e.preventDefault(); open(); }
+    });
+    $$("[data-close]", sheet).forEach((el) => el.addEventListener("click", close));
+    $$(".dir-opt", sheet).forEach((a) => a.addEventListener("click", () => setTimeout(close, 300)));
+    addEventListener("keydown", (e) => { if (e.key === "Escape" && sheet.classList.contains("is-open")) close(); });
+    // swipe down to close on mobile
+    const panel = $(".dir-sheet__panel", sheet); let sy = null;
+    panel.addEventListener("touchstart", (e) => (sy = e.touches[0].clientY), { passive: true });
+    panel.addEventListener("touchend", (e) => { if (sy !== null && e.changedTouches[0].clientY - sy > 70) close(); sy = null; });
+  })();
+
+  /* ---------- 3D map (MapLibre + OpenFreeMap, dark brand styling) ---------- */
+  (() => {
+    const el = $("#map3d"), tools = $("#mapTools");
+    if (!el || !window.maplibregl) { el && el.remove(); return; }
+    const CENTER = [-82.7245288, 27.9162765];
+    const VIEW = { center: CENTER, zoom: 16.2, pitch: 64, bearing: -28 };
+    let started = false;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting && !started) { started = true; io.disconnect(); build(); }
+    }, { rootMargin: "400px" });
+    io.observe(el);
+
+    function darken(map) {
+      const layers = map.getStyle().layers || [];
+      const set = (id, prop, val) => { try { map.setPaintProperty(id, prop, val); } catch {} };
+      layers.forEach((l) => {
+        const id = l.id;
+        if (l.type === "background") set(id, "background-color", "#121214");
+        else if (l.type === "fill") {
+          if (/water/.test(id)) set(id, "fill-color", "#0d1720");
+          else if (/park|grass|wood|forest|landcover|landuse/.test(id)) set(id, "fill-color", "#15191a");
+          else set(id, "fill-color", "#18181b");
+          set(id, "fill-outline-color", "rgba(0,0,0,0)");
+        } else if (l.type === "line") {
+          if (/water|river|stream/.test(id)) set(id, "line-color", "#10202b");
+          else if (/motorway|trunk|primary/.test(id)) set(id, "line-color", "#5a3d12");
+          else if (/road|street|highway|bridge|tunnel|path|rail/.test(id)) set(id, "line-color", "#2c2c31");
+          else if (/boundary/.test(id)) set(id, "line-color", "#3a3a40");
+        } else if (l.type === "fill-extrusion") {
+          set(id, "fill-extrusion-color", ["interpolate", ["linear"], ["coalesce", ["get", "render_height"], 0], 0, "#26262b", 30, "#34343a", 120, "#4a3a22"]);
+          set(id, "fill-extrusion-opacity", 0.92);
+        } else if (l.type === "symbol") {
+          set(id, "text-color", "#c9ccd2"); set(id, "text-halo-color", "#0a0a0b"); set(id, "text-halo-width", 1.4);
+          if (/poi/.test(id)) { try { map.setLayoutProperty(id, "visibility", "none"); } catch {} }
+        }
+      });
+    }
+
+    function build() {
+      let map;
+      const fail = () => { el.remove(); };
+      const timer = setTimeout(() => { if (!el.classList.contains("is-ready")) { try { map && map.remove(); } catch {} fail(); } }, 12000);
+      try {
+        map = new maplibregl.Map({
+          container: el,
+          style: "https://tiles.openfreemap.org/styles/liberty",
+          center: CENTER, zoom: 11.5, pitch: 0, bearing: 0,
+          attributionControl: { compact: true },
+          cooperativeGestures: true,
+          maxPitch: 75,
+        });
+      } catch (e) { clearTimeout(timer); fail(); return; }
+      map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "bottom-left");
+      map.on("error", (e) => { if (!el.classList.contains("is-ready")) { clearTimeout(timer); fail(); } });
+
+      map.on("load", () => {
+        clearTimeout(timer);
+        darken(map);
+        // Marker with real logo
+        const m = document.createElement("div");
+        m.className = "jd-marker-root";
+        m.innerHTML = '<div class="jd-marker"><span class="jd-marker__badge"><img src="assets/img/jd-logo.png" alt="JD Car Detailing"></span><span class="jd-marker__stem"></span></div>';
+        const popup = new maplibregl.Popup({ offset: 46, closeButton: false, className: "jd-popup" })
+          .setHTML('<b>JD Car Detailing</b><br><small>Mobile detailing · Clearwater, FL</small><br><button type="button" data-directions class="jd-popup__btn">Get directions →</button>');
+        new maplibregl.Marker({ element: m, anchor: "bottom", offset: [0, -20] }).setLngLat(CENTER).setPopup(popup).addTo(map);
+
+        el.classList.add("is-ready");
+        if (tools) tools.hidden = false;
+        // cinematic fly-in
+        map.flyTo({ ...VIEW, duration: reduceMotion ? 0 : 4500, essential: true, curve: 1.6 });
+
+        // slow orbit until the user interacts
+        let spinning = !reduceMotion, last = 0;
+        const spinBtn = tools && $('[data-map="spin"]', tools);
+        const setSpin = (v) => { spinning = v; spinBtn && spinBtn.classList.toggle("is-on", v); if (v) requestAnimationFrame(orbit); };
+        function orbit(t) {
+          if (!spinning) return;
+          if (!map.isMoving() && t - last > 30) { map.setBearing(map.getBearing() + 0.06); last = t; }
+          requestAnimationFrame(orbit);
+        }
+        map.once("moveend", () => setSpin(spinning));
+        ["mousedown", "touchstart", "wheel", "dragstart"].forEach((ev) => map.on(ev, () => setSpin(false)));
+
+        if (tools) {
+          const tiltBtn = $('[data-map="tilt"]', tools);
+          tiltBtn.classList.add("is-on");
+          tiltBtn.addEventListener("click", () => {
+            const flat = map.getPitch() > 10;
+            map.easeTo({ pitch: flat ? 0 : VIEW.pitch, bearing: flat ? 0 : VIEW.bearing, duration: 1200 });
+            tiltBtn.classList.toggle("is-on", !flat);
+          });
+          spinBtn.addEventListener("click", () => setSpin(!spinning));
+          $('[data-map="home"]', tools).addEventListener("click", () => { map.flyTo({ ...VIEW, duration: 2000 }); tiltBtn.classList.add("is-on"); });
+        }
+      });
+    }
+  })();
 })();
