@@ -439,7 +439,6 @@
     const list = visible(); lbIndex = (i + list.length) % list.length;
     const it = list[lbIndex]; const img = $("img", it);
     lbImg.src = img.src; lbImg.alt = img.alt; lbCap.textContent = $("figcaption", it).textContent;
-    const ig = $(".lightbox__ig", lb); if (ig) { ig.hidden = !it.dataset.reel; ig.href = it.dataset.reel || "#"; }
   };
   items.forEach((it) => it.addEventListener("click", () => {
     showLb(visible().indexOf(it)); lb.classList.add("is-open"); lb.setAttribute("aria-hidden", "false");

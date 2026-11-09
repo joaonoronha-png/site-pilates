@@ -755,3 +755,8 @@ body::after {
   .is-ready .loc-float { transform: scale(0); transition-delay: 0s; }
   .is-ready .loc-float.is-show { transform: scale(1); }
 }
+
+.masonry--ig { grid-template-columns: repeat(4, 1fr); }
+.masonry--ig .m-item img, .masonry--ig .m-item:nth-child(3n+2) img { aspect-ratio: 4 / 5; }
+@media (max-width: 1100px) { .masonry--ig { grid-template-columns: repeat(2, 1fr); } }
+.hero__card-photo img { object-position: center 55%; }

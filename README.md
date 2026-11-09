@@ -31,8 +31,8 @@ Open `index.html` in a browser, or serve the folder (`python3 -m http.server`). 
 
 ## Real content from @cardetailing.jd (Instagram, public)
 - `assets/img/ig/` — covers of the business's public Instagram reels (360×640, the max Instagram serves for covers):
-  owner photos, company truck + trailer, Shaq Duty detail, Lamborghini, Porsche, Honda, Lexus, paint correction,
-  paint gauge, engine bay, interior "before". Each gallery item links to its reel.
+  company photos (owner shots kept but not used on the page), Shaq Duty detail, Lamborghini, Porsche, Honda, Lexus, paint correction,
+  paint gauge, engine bay, interior "before". Shown as photos on the site (no Instagram links/videos).
 - Bio facts used: "Mobile Car Wash & Professional Detailing", "We come to you: home or office",
   "Comfort + Quality + Trust", "We make your car shine anywhere", 🇺🇸🇻🇪, 1.9K followers.
 - Still stock (Pexels): Stain Removal card, before/after sliders, CTA banner background.
