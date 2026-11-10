@@ -959,3 +959,14 @@ body::after {
 .pkg--featured::after { z-index: 1; }
 .pkg__tag { z-index: 3; box-shadow: 0 0 0 4px var(--bg-2), 0 6px 18px -6px rgba(255, 165, 31, .6); }
 @media (max-width: 640px) { .packages__grid { padding-top: 22px; } .pkg__tag { left: 22px; } }
+
+/* ================= Mobile action bar polish ================= */
+@media (max-width: 960px) {
+  .loc-float, .is-ready .loc-float, .is-ready .loc-float.is-show { display: none !important; }
+  .nav__dir { color: var(--accent) !important; }
+  .fab-bar { left: 10px; right: 10px; bottom: max(10px, env(safe-area-inset-bottom)); padding: 6px; gap: 6px; border-radius: 18px; }
+  .fab-bar a { padding: 11px 8px; font-size: .86rem; border-radius: 13px; gap: 6px; }
+  .fab-bar a svg { width: 1em; height: 1em; }
+  .fab-bar__wa { flex: 1.7 !important; font-size: .92rem !important; }
+  .fab-bar__main { flex: 1 !important; }
+}

@@ -27,13 +27,13 @@
     if (reduceMotion) { finishLoad(); return; }
     const bar = $("#preBar"), pct = $("#prePct"), step = $("#preStep");
     const steps = ["Foaming", "Washing", "Polishing", "Protecting", "Ready"];
-    const t0 = performance.now(), minDur = 1500;
+    const t0 = performance.now(), minDur = 900;
     let last = 0;
     const tick = (t) => {
       const elapsed = t - t0;
       // climb to 90% on a timer, then finish once the page has loaded (or after 4s max)
       let p = Math.min(elapsed / minDur, 1) * 0.9;
-      if ((loaded || elapsed > 4000) && elapsed > minDur) p = Math.min(0.9 + (elapsed - minDur) / 400, 1);
+      if ((loaded || elapsed > 2500) && elapsed > minDur) p = Math.min(0.9 + (elapsed - minDur) / 300, 1);
       p = Math.max(p, last); last = p;
       const v = Math.round(p * 100);
       pct.textContent = v; bar.style.width = v + "%";
