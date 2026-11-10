@@ -8,7 +8,7 @@
 
 ## ANTES DE ENVIAR (checklist)
 
-1. **Liberar o link:** abra https://claude.ai/artifact/7VkgzXGhQbkje1fVtPSWwR → **Share** → "qualquer pessoa com o link pode ver". Teste numa aba anônima.
+1. **Colocar o site no ar (Netlify, grátis):** descompacte `jd-car-detailing-preview.zip`, arraste a pasta em **app.netlify.com/drop**, e em *Site configuration → Change site name* troque para **`jd-car-detailing`**. O link fica **`https://jd-car-detailing.netlify.app`** — é ele que entra no lugar de **[link]** nas mensagens. Abra numa aba anônima no celular para testar. (Não aparece IA, Claude nem Lovable; o Google não indexa.)
 2. **Verificar o domínio:** pesquise `jdcardetailingfl.com` (ex.: Namecheap). Se estiver ocupado, escolha outro (ex.: `jdcardetailingclearwater.com`) e troque no roteiro.
 3. **Separar os arquivos:**
    - `JD-video-celular.mp4` — site no celular, ~1min45, 60 fps, rolagem lenta, carrosséis de serviços e pacotes deslizando (**vídeo principal para o WhatsApp**)
@@ -43,7 +43,7 @@
 ▶️ Sem esperar:
 
 **Mensagem 4**
-> Here's the live preview, it works best on your phone: [link]
+> I've put it online so you can see exactly how it looks and works. Open it on your phone: [link]
 
 ▶️ Sem esperar:
 
@@ -153,11 +153,11 @@ Se continuar:
 
 **Dia 3 (WhatsApp)**
 Envie o vídeo `JD-video-computador.mp4` (é um conteúdo novo para ele) e:
-> Just following up in case my message got buried. Here's how the site looks on a computer as well. Preview: [link]
+> Just following up in case my message got buried. Here's how the site looks on a computer as well. It's online here: [link]
 
 **Dia 3 (Instagram @cardetailing.jd, mesmo dia)**
 Envie o **print 1** + o `JD-video-celular.mp4` e:
-> Hi, I sent you a WhatsApp message as well. I built a website concept for JD Car Detailing using your reviews and work. Here's the preview: [link]
+> Hi, I sent you a WhatsApp message as well. I built a website for JD Car Detailing using your reviews and work, and put it online so you can see it: [link]
 
 **Dia 7 (último contato)**
 > Last note from me. The launch price is still available if you're interested. Happy to answer any questions. Have a great week.
