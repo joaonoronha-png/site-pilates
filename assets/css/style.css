@@ -1002,3 +1002,6 @@ body::after {
 .preloader__logo img { position: relative; z-index: 1; animation: drop .7s var(--ease) both; }
 .preloader__brand { animation-duration: .7s; animation-delay: .15s; }
 @media (prefers-reduced-motion: reduce) { .preloader__logo::after { display: none !important; } }
+
+/* Mobile hero: frame the foamed car, not a half-cut person */
+@media (max-width: 640px) { .hero__img { object-position: 38% 70%; } }
