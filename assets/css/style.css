@@ -1004,4 +1004,9 @@ body::after {
 @media (prefers-reduced-motion: reduce) { .preloader__logo::after { display: none !important; } }
 
 /* Mobile hero: frame the foamed car, not a half-cut person */
-@media (max-width: 640px) { .hero__img { object-position: 38% 70%; } }
+@media (max-width: 640px) {
+  .hero__img { height: 100%; object-position: 82% 18%; transform: none; animation: none; translate: none !important; }
+  .hero__shade { background: linear-gradient(180deg, rgba(10,10,11,.45) 0%, rgba(10,10,11,.5) 30%, rgba(10,10,11,.78) 58%, rgba(10,10,11,.96) 100%); }
+  .hero__title, .hero__sub { text-shadow: 0 2px 18px rgba(0,0,0,.55); }
+  .hero__title .gradient-text, .hero__title .rotator__item { text-shadow: none; }
+}
