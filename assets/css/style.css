@@ -973,3 +973,15 @@ body::after {
 
 /* demo ribbon removed: show the hero eyebrow again on phones/tablets */
 @media (max-width: 960px) { .hero__eyebrow { visibility: visible; } }
+
+/* iOS Safari: native date input collapses when empty and overlaps the next field */
+.field input {
+  -webkit-appearance: none; appearance: none;
+  display: block; box-sizing: border-box;
+  height: 60px; min-height: 60px; line-height: 1.25;
+}
+.field input[type="date"] { min-width: 100%; padding-top: 24px; padding-bottom: 8px; }
+.field input[type="date"]::-webkit-date-and-time-value { text-align: left; margin: 0; min-height: 1.25em; }
+.field input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(.8); opacity: .8; }
+.quote__fields { row-gap: 14px; align-items: start; }
+.field { min-height: 60px; }
