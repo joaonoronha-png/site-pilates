@@ -970,3 +970,6 @@ body::after {
   .fab-bar__wa { flex: 1.7 !important; font-size: .92rem !important; }
   .fab-bar__main { flex: 1 !important; }
 }
+
+/* demo ribbon removed: show the hero eyebrow again on phones/tablets */
+@media (max-width: 960px) { .hero__eyebrow { visibility: visible; } }
