@@ -82,12 +82,12 @@
 ▶️ Sem esperar:
 
 **Mensagem 10**
-> And there's no risk on your side. You only pay once the site is live on your domain and you've approved it.
+> And there's no risk on your side. The site is already online, and you only pay once it's on your own domain and you've approved it.
 
 ▶️ Sem esperar:
 
 **Mensagem 11**
-> Would you like me to put it live on jdcardetailingfl.com this week?
+> Would you like me to move it to your own domain, jdcardetailingfl.com, this week?
 
 ⏸ Espere aceitar.
 
@@ -96,7 +96,7 @@
 ## FECHAMENTO (quando ele aceitar)
 
 **Mensagem 12**
-> Great. Before we go live, could you send me your current prices for each package and a few photos of your work you'd like to feature? Original photos from your phone work best.
+> Great. Before we move it to your domain, could you send me your current prices for each package and a few photos of your work you'd like to feature? Original photos from your phone work best.
 
 ⏸ Espere. **Mande para o Claude os preços e as fotos** → site atualizado.
 
@@ -112,10 +112,10 @@ Se pedir ajuste pequeno:
 > Perfect. What email and business name should I use for the agreement and the PayPal invoice?
 
 ⏸ Envie o acordo e a fatura do PayPal.
-➡️ Publique o site no domínio → mande o link final → receba o pagamento.
+➡️ Conecte o domínio dele ao site (Lovable) → mande o link final → receba o pagamento. O link da Netlify pode ser apagado depois.
 
 **Mensagem 15 (depois de publicar)**
-> Your website is live: [domain]. I've also updated your Google profile and Instagram link. Thank you for trusting VVatlys, and let me know anytime you need an update.
+> Your website is now on your own domain: [domain]. I've also updated your Google profile and Instagram link. Thank you for trusting VVatlys, and let me know anytime you need an update.
 
 ---
 
@@ -139,7 +139,7 @@ Se continuar:
 > That's great, and the site is built on top of that. It turns your 108 reviews and your work into a page that converts people searching "car detailing Clearwater" into WhatsApp messages.
 
 **"Is this a scam?" / "How do I know you're legit?"**
-> Fair question. You don't pay anything until the site is live on your own domain and you've approved it, and payment is through PayPal, which protects the buyer.
+> Fair question. You don't pay anything until the site is on your own domain and you've approved it, and payment is through PayPal, which protects the buyer.
 
 **Responde em espanhol**
 > Of course. My Spanish is limited, but I'm happy to keep things simple in English if that works for you.
