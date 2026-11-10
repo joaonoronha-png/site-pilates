@@ -9,36 +9,41 @@
 
   document.body.classList.add("is-loading");
 
-  /* ---------- Preloader (percent counter + split-curtain reveal) ---------- */
+  /* ---------- Preloader: first visit only, ~1.2s, logo shine, skippable ---------- */
   const pre = $("#preloader");
   let loaded = false, finished = false;
   window.addEventListener("load", () => (loaded = true));
-  const finishLoad = () => {
+  const remember = () => { try { localStorage.setItem("jd_intro_seen", "1"); } catch (e) {} };
+  const finishLoad = (fast) => {
     if (finished) return; finished = true;
+    remember();
     pre.classList.add("is-opening");
     setTimeout(() => {
       pre.classList.add("is-done");
       document.body.classList.remove("is-loading");
       document.body.classList.add("is-ready");
-    }, reduceMotion ? 0 : 350);
-    setTimeout(() => pre.classList.add("is-gone"), reduceMotion ? 50 : 1600);
+    }, reduceMotion || fast ? 0 : 300);
+    setTimeout(() => pre.classList.add("is-gone"), reduceMotion || fast ? 50 : 1400);
   };
   (() => {
-    if (reduceMotion) { finishLoad(); return; }
+    if (reduceMotion || document.documentElement.classList.contains("no-intro")) { finishLoad(true); return; }
+    // any tap, scroll or key skips the intro
+    const skip = () => finishLoad(false);
+    ["pointerdown", "touchstart", "wheel", "keydown"].forEach((ev) => addEventListener(ev, skip, { once: true, passive: true }));
     const bar = $("#preBar"), pct = $("#prePct"), step = $("#preStep");
     const steps = ["Foaming", "Washing", "Polishing", "Protecting", "Ready"];
-    const t0 = performance.now(), minDur = 900;
+    const t0 = performance.now(), minDur = 750;
     let last = 0;
     const tick = (t) => {
+      if (finished) return;
       const elapsed = t - t0;
-      // climb to 90% on a timer, then finish once the page has loaded (or after 4s max)
       let p = Math.min(elapsed / minDur, 1) * 0.9;
-      if ((loaded || elapsed > 2500) && elapsed > minDur) p = Math.min(0.9 + (elapsed - minDur) / 300, 1);
+      if ((loaded || elapsed > 2000) && elapsed > minDur) p = Math.min(0.9 + (elapsed - minDur) / 220, 1);
       p = Math.max(p, last); last = p;
       const v = Math.round(p * 100);
       pct.textContent = v; bar.style.width = v + "%";
       step.textContent = steps[Math.min(Math.floor(p * (steps.length - 1) + 0.001), steps.length - 1)];
-      if (v < 100) requestAnimationFrame(tick); else setTimeout(finishLoad, 250);
+      if (v < 100) requestAnimationFrame(tick); else setTimeout(() => finishLoad(false), 180);
     };
     requestAnimationFrame(tick);
   })();
