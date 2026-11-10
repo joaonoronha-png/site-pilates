@@ -336,6 +336,8 @@
   const WA_NUM = PHONE.replace("+", "");
   const openWA = (text) => {
     const url = `https://wa.me/${WA_NUM}?text=${encodeURIComponent(text)}`;
+    // Phones/tablets: navigate in the same tab so iOS/Android hand the link straight to the WhatsApp app
+    if (matchMedia("(hover: none) and (pointer: coarse)").matches) { location.href = url; return; }
     const w = window.open(url, "_blank");
     if (w) w.opener = null; else location.href = url; // popup blocked -> same tab
   };
