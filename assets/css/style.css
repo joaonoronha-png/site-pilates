@@ -954,3 +954,8 @@ body::after {
 /* demo ribbon: never floats over content */
 .demo-ribbon { position: absolute; }
 @media (min-width: 961px) { .demo-ribbon { top: calc(var(--header-h) + 10px); bottom: auto; left: auto; right: max(20px, calc((100vw - 1240px) / 2)); translate: none; } }
+
+/* Most popular tag above the gradient border, not clipped in the mobile carousel */
+.pkg--featured::after { z-index: 1; }
+.pkg__tag { z-index: 3; box-shadow: 0 0 0 4px var(--bg-2), 0 6px 18px -6px rgba(255, 165, 31, .6); }
+@media (max-width: 640px) { .packages__grid { padding-top: 22px; } .pkg__tag { left: 22px; } }
