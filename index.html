@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vprior Artes — Vicente Prior</title>
+<meta name="description" content="Galeria oficial de Vicente Prior, arquiteto, construtor e pintor. Pinturas abstratas originais, únicas e feitas à mão. Veja na sua parede e negocie o preço direto com o artista.">
+<meta property="og:title" content="Vicente Prior — Pinturas Originais">
+<meta property="og:description" content="Matéria, gesto e cor. Obras originais feitas artesanalmente.">
+<meta property="og:image" content="assets/obras/01.jpg">
+<meta name="theme-color" content="#f3eee6">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..800;1,9..144,300..700&family=Inter:wght@300..700&family=Pinyon+Script&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23f6f2ea'/%3E%3Cg transform='rotate(-10 32 32)'%3E%3Crect x='6' y='14' width='30' height='11' rx='5' fill='%231d5a3c'/%3E%3Crect x='32' y='11' width='26' height='11' rx='5' fill='%23e3ad2a'/%3E%3Crect x='8' y='29' width='28' height='11' rx='5' fill='%237b1626'/%3E%3Crect x='32' y='26' width='26' height='11' rx='5' fill='%23151311'/%3E%3Crect x='18' y='43' width='32' height='11' rx='5' fill='%238a5a1a'/%3E%3C/g%3E%3C/svg%3E">
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<div class="intro" id="intro" aria-hidden="true">
+  <div class="intro-wall">
+    <figure style="--i:0;--r:-3deg;--w:17%"><img src="assets/obras/thumb/06.jpg" alt=""></figure>
+    <figure style="--i:1;--r:2deg;--w:13%"><img src="assets/obras/thumb/49.jpg" alt=""></figure>
+    <figure class="big" style="--i:2;--r:0deg;--w:28%"><img src="assets/obras/thumb/01.jpg" alt=""></figure>
+    <figure style="--i:3;--r:-2deg;--w:15%"><img src="assets/obras/thumb/61.jpg" alt=""></figure>
+    <figure style="--i:4;--r:3deg;--w:16%"><img src="assets/obras/thumb/42.jpg" alt=""></figure>
+  </div>
+  <div class="intro-copy">
+    <p class="intro-name"><span class="w1">Vicente</span> <span class="w2">Prior</span></p>
+    <p class="intro-sub">Pinturas originais, feitas à mão</p>
+  </div>
+  <button class="intro-skip" id="introSkip" type="button">Entrar no site</button>
+</div>
+
+<header class="topbar" id="topbar">
+  <a href="#inicio" class="brand" aria-label="Vprior artes — início">
+    <img class="brand-logo" src="assets/marca/vprior-300.png" alt="Vprior artes" width="300" height="194">
+  </a>
+  <nav class="nav" id="nav" aria-label="Principal">
+    <a href="#destaques">Destaques</a>
+    <a href="#colecao">Coleção</a>
+    <a href="#parede">Ver na parede</a>
+    <a href="#artista">O artista</a>
+    <a href="#contato">Contato</a>
+  </nav>
+  <div class="top-actions">
+    <button class="fav-btn" id="openWish" aria-label="Minhas favoritas">
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>
+      <span class="fav-label">Favoritas</span>
+      <span class="fav-count" id="wishCount">0</span>
+    </button>
+    <button class="menu-btn" id="menuBtn" aria-label="Abrir menu" aria-expanded="false" aria-controls="menuPanel">
+      <span class="mb-ico" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="mb-label">Menu</span>
+    </button>
+  </div>
+</header>
+
+<div class="menu-panel" id="menuPanel" hidden>
+  <nav class="mp-links" aria-label="Menu">
+    <a href="#destaques"><span class="mp-n">01</span><span class="mp-t">Destaques<small>As obras que abrem a coleção</small></span><i aria-hidden="true">→</i></a>
+    <a href="#colecao"><span class="mp-n">02</span><span class="mp-t">Coleção<small>Todas as obras, por cor e formato</small></span><i aria-hidden="true">→</i></a>
+    <a href="#parede"><span class="mp-n">03</span><span class="mp-t">Ver na parede<small>Simule a obra no seu ambiente</small></span><i aria-hidden="true">→</i></a>
+    <a href="#artista"><span class="mp-n">04</span><span class="mp-t">O artista<small>Conheça Vicente Prior</small></span><i aria-hidden="true">→</i></a>
+    <a href="#contato"><span class="mp-n">05</span><span class="mp-t">Contato<small>Faça sua oferta ou tire dúvidas</small></span><i aria-hidden="true">→</i></a>
+  </nav>
+  <div class="mp-foot">
+    <button class="mp-fav" id="menuFav" type="button"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Minhas favoritas <b id="menuFavCount">0</b></button>
+    <a class="btn btn-deal" id="menuWa" href="#" target="_blank" rel="noopener">Falar com o Vicente no WhatsApp</a>
+    <p>+55 21 99351-8769 · vicenteprior@gmail.com</p>
+  </div>
+</div>
+
+<main>
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-copy">
+    <p class="eyebrow reveal">Pinturas originais · peças únicas</p>
+    <h1 class="hero-title reveal">
+      <span>Vicente</span>
+      <span class="it">Prior</span>
+    </h1>
+    <p class="hero-by reveal">Arquiteto, construtor e pintor</p>
+    <p class="hero-lede reveal">Matéria, gesto e cor. Telas abstratas feitas artesanalmente, uma a uma, pelas mãos do artista. Cada obra é única e assinada pelo artista.</p>
+    <div class="hero-cta reveal">
+      <a class="btn btn-ink" href="#colecao">Ver as obras</a>
+      <a class="btn btn-ghost" href="#contato">Negociar preço</a>
+    </div>
+    <dl class="hero-stats reveal">
+      <div><dt>100%</dt><dd>feito à mão</dd></div>
+      <div><dt>1/1</dt><dd>sem reproduções</dd></div>
+    </dl>
+  </div>
+  <figure class="hero-art" id="heroArt">
+    <div class="hero-canvas" id="heroCanvas"></div>
+    <figcaption class="hero-cap" id="heroCap"></figcaption>
+  </figure>
+</section>
+
+
+<!-- SALA ESCURA: TOP 3 -->
+<section class="dark-room" id="destaques">
+  <div class="spot" aria-hidden="true"></div>
+  <header class="sec-head light">
+    <p class="eyebrow">Sala escura · destaques da coleção</p>
+    <h2 class="sec-title">Obras em <em>destaque</em></h2>
+    <p class="sec-sub">Mova o cursor para iluminar. Três telas escolhidas para abrir a coleção.</p>
+  </header>
+  <div class="podium" id="podium"></div>
+</section>
+
+<!-- COLEÇÃO -->
+<section class="collection" id="colecao">
+  <header class="sec-head">
+    <p class="eyebrow">Coleção completa · obras feitas à mão</p>
+    <h2 class="sec-title">Encontre a sua <em>obra</em></h2>
+  </header>
+
+  <div class="filters" id="filters">
+    <button class="chip fav-chip" id="favFilter" aria-pressed="false"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg>Minhas favoritas <small id="favChipCount">0</small></button>
+    <div class="f-group swatches" role="group" aria-label="Cor" id="colorFilter"></div>
+    <div class="f-group" role="group" aria-label="Formato">
+      <button class="chip shape" data-shape="horizontal" title="Horizontal"><i class="sh h"></i>Horizontal</button>
+      <button class="chip shape" data-shape="vertical" title="Vertical"><i class="sh v"></i>Vertical</button>
+      <button class="chip shape" data-shape="quadrado" title="Quadrado"><i class="sh q"></i>Quadrado</button>
+    </div>
+    <label class="sort">
+      <span>Ordenar</span>
+      <select id="sort">
+        <option value="rank">Destaques primeiro</option>
+        <option value="az">Nome A–Z</option>
+        <option value="za">Nome Z–A</option>
+      </select>
+    </label>
+  </div>
+  <p class="result-count" id="resultCount" aria-live="polite"></p>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- VER NA PAREDE -->
+<section class="wall" id="parede">
+  <header class="sec-head">
+    <p class="eyebrow">Experimente antes de comprar</p>
+    <h2 class="sec-title">Veja na sua <em>parede</em></h2>
+    <p class="sec-sub">Veja a obra numa sala de exemplo ou tire uma foto da sua parede e posicione o quadro onde quiser.</p>
+  </header>
+  <div class="wall-wrap">
+    <div class="wall-main">
+    <div class="wall-tabs" role="tablist" aria-label="Modo de visualização">
+      <button class="wt on" role="tab" aria-selected="true" data-mode="sala">Sala de exemplo</button>
+      <button class="wt" role="tab" aria-selected="false" data-mode="foto"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Na minha parede</button>
+    </div>
+    <figure class="room-frame" id="salaMode">
+      <div class="room" id="room">
+        <svg id="scene" viewBox="0 0 520 300" role="img" aria-label="Simulação da obra em uma sala">
+          <defs>
+            <linearGradient id="gShade" x1="0" x2="1"><stop offset="0" stop-color="#000" stop-opacity=".16"/><stop offset=".28" stop-color="#000" stop-opacity="0"/><stop offset=".72" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></linearGradient>
+            <linearGradient id="gTop" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".10"/><stop offset=".25" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".06"/></linearGradient>
+            <radialGradient id="gSpot"><stop offset="0" stop-color="#fff6e6" stop-opacity=".55"/><stop offset="1" stop-color="#fff6e6" stop-opacity="0"/></radialGradient>
+            <linearGradient id="gFloor" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8d6e52"/><stop offset="1" stop-color="#b08c6a"/></linearGradient>
+            <linearGradient id="gSofa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e2d9cb"/><stop offset="1" stop-color="#cfc3b2"/></linearGradient>
+            <filter id="fArt" x="-20%" y="-20%" width="140%" height="150%"><feDropShadow dx="1.2" dy="3" stdDeviation="2.4" flood-color="#2a1a0e" flood-opacity=".38"/></filter>
+            <filter id="fSoft" x="-20%" y="-20%" width="140%" height="160%"><feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#2a1a0e" flood-opacity=".22"/></filter>
+            <linearGradient id="frPreta" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3a3a"/><stop offset=".5" stop-color="#151515"/><stop offset="1" stop-color="#2a2a2a"/></linearGradient>
+            <linearGradient id="frBranca" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fbfaf7"/><stop offset=".5" stop-color="#ebe7df"/><stop offset="1" stop-color="#f6f3ed"/></linearGradient>
+            <linearGradient id="frCarvalho" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#b48a58"/><stop offset=".3" stop-color="#d9b788"/><stop offset=".55" stop-color="#b98f5c"/><stop offset=".8" stop-color="#d2ad7c"/><stop offset="1" stop-color="#a97f4e"/></linearGradient>
+            <linearGradient id="frNogueira" x1="0" y1="0" x2="1" y2=".3"><stop offset="0" stop-color="#3b2618"/><stop offset=".35" stop-color="#6b4a32"/><stop offset=".6" stop-color="#45301f"/><stop offset=".85" stop-color="#62432c"/><stop offset="1" stop-color="#3a2516"/></linearGradient>
+            <linearGradient id="frDourada" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7a5a22"/><stop offset=".22" stop-color="#e9cf7e"/><stop offset=".45" stop-color="#9c7530"/><stop offset=".7" stop-color="#f0d98c"/><stop offset="1" stop-color="#7a5a22"/></linearGradient>
+            <linearGradient id="frCaixa" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2b2b2b"/><stop offset="1" stop-color="#0e0e0e"/></linearGradient>
+          </defs>
+          <rect class="s-wall" x="0" y="0" width="520" height="262"/>
+          <rect x="0" y="0" width="520" height="262" fill="url(#gShade)"/>
+          <rect x="0" y="0" width="520" height="262" fill="url(#gTop)"/>
+          <ellipse id="artSpot" cx="260" cy="110" rx="160" ry="110" fill="url(#gSpot)"/>
+          <g class="s-track"><rect x="205" y="0" width="110" height="2.2" rx="1"/><path d="M228 2 l-5 7 h8z M292 2 l5 7 h-8z"/></g>
+          <rect x="0" y="254" width="520" height="8" fill="#fff" opacity=".5"/>
+          <rect x="0" y="261.4" width="520" height=".8" fill="#000" opacity=".12"/>
+          <rect x="0" y="262" width="520" height="38" fill="url(#gFloor)"/>
+          <g stroke="#5a4330" stroke-opacity=".18" stroke-width=".6"><line x1="-52" y1="262" x2="-220" y2="300"/><line x1="-26" y1="262" x2="-180" y2="300"/><line x1="0" y1="262" x2="-140" y2="300"/><line x1="26" y1="262" x2="-100" y2="300"/><line x1="52" y1="262" x2="-60" y2="300"/><line x1="78" y1="262" x2="-20" y2="300"/><line x1="104" y1="262" x2="20" y2="300"/><line x1="130" y1="262" x2="60" y2="300"/><line x1="156" y1="262" x2="100" y2="300"/><line x1="182" y1="262" x2="140" y2="300"/><line x1="208" y1="262" x2="180" y2="300"/><line x1="234" y1="262" x2="220" y2="300"/><line x1="260" y1="262" x2="260" y2="300"/><line x1="286" y1="262" x2="300" y2="300"/><line x1="312" y1="262" x2="340" y2="300"/><line x1="338" y1="262" x2="380" y2="300"/><line x1="364" y1="262" x2="420" y2="300"/><line x1="390" y1="262" x2="460" y2="300"/><line x1="416" y1="262" x2="500" y2="300"/><line x1="442" y1="262" x2="540" y2="300"/><line x1="468" y1="262" x2="580" y2="300"/><line x1="494" y1="262" x2="620" y2="300"/><line x1="520" y1="262" x2="660" y2="300"/><line x1="546" y1="262" x2="700" y2="300"/><line x1="572" y1="262" x2="740" y2="300"/></g>
+          <path d="M118 268 H402 L432 292 H88 Z" fill="#e7dfd2" opacity=".85"/>
+          <path d="M118 268 H402 L432 292 H88 Z" fill="none" stroke="#cfc3b2" stroke-width=".8"/>
+          <g class="s-lamp" fill="#2a2420" stroke="#2a2420">
+            <ellipse cx="62" cy="262" rx="12" ry="2.4" stroke="none"/>
+            <path d="M62 262 V96 Q62 78 92 78" fill="none" stroke-width="1.6"/>
+            <path d="M80 78 h26 l6 14 h-38z" stroke="none"/>
+            <ellipse cx="93" cy="92" rx="19" ry="1.6" fill="#f6e7c8" stroke="none"/>
+          </g>
+          <ellipse cx="260" cy="262" rx="120" ry="4" fill="#000" opacity=".18"/>
+          <g class="s-sofa" filter="url(#fSoft)">
+            <rect x="170" y="246" width="3" height="16" fill="#3a2f27"/><rect x="347" y="246" width="3" height="16" fill="#3a2f27"/>
+            <rect x="160" y="182" width="200" height="46" rx="10" fill="url(#gSofa)"/>
+            <rect x="150" y="198" width="24" height="52" rx="10" fill="#d6cbbb"/>
+            <rect x="346" y="198" width="24" height="52" rx="10" fill="#d6cbbb"/>
+            <rect x="166" y="224" width="188" height="26" rx="6" fill="#d3c7b6"/>
+            <rect x="168" y="186" width="91" height="30" rx="9" fill="#e6ddd0"/>
+            <rect x="261" y="186" width="91" height="30" rx="9" fill="#e6ddd0"/>
+            <rect x="168" y="213" width="91" height="15" rx="6" fill="#ece4d8"/>
+            <rect x="261" y="213" width="91" height="15" rx="6" fill="#ece4d8"/>
+            <rect x="182" y="190" width="30" height="24" rx="6" fill="#b4441e" transform="rotate(-7 197 202)"/>
+            <rect x="314" y="192" width="26" height="22" rx="6" fill="#c9a46a" transform="rotate(6 327 203)"/>
+          </g>
+          <g class="s-table">
+            <rect x="392" y="206" width="44" height="3" rx="1.5" fill="#3a2f27"/>
+            <path d="M398 209 L395 262 M430 209 L433 262" stroke="#3a2f27" stroke-width="1.6"/>
+            <path d="M408 206 q-3 -14 6 -20 q9 6 6 20z" fill="#efe8dc" stroke="#cfc3b2" stroke-width=".6"/>
+            <path d="M414 186 q-6 -16 -2 -26 M414 186 q6 -12 10 -18" stroke="#6b7a52" stroke-width="1" fill="none"/>
+          </g>
+          <g class="s-plant">
+            <path d="M476 262 l-4 -36 h28 l-4 36z" fill="#2c2420"/>
+            <path d="M486 226 C470 196 462 170 470 140 M486 226 C496 190 508 170 504 146 M486 226 C484 196 488 176 486 156" stroke="#4d5a3c" stroke-width="1.4" fill="none"/>
+            <ellipse cx="470" cy="146" rx="6" ry="13" fill="#5d6c47" transform="rotate(-18 470 146)"/>
+            <ellipse cx="504" cy="152" rx="6" ry="12" fill="#6b7a52" transform="rotate(22 504 152)"/>
+            <ellipse cx="486" cy="160" rx="5" ry="12" fill="#56653f"/>
+            <ellipse cx="466" cy="180" rx="5" ry="11" fill="#6b7a52" transform="rotate(-40 466 180)"/>
+            <ellipse cx="503" cy="184" rx="5" ry="10" fill="#5d6c47" transform="rotate(38 503 184)"/>
+          </g>
+          <g id="art" filter="url(#fArt)">
+            <g id="frameG"></g>
+            <image id="artImg" x="0" y="0" width="60" height="40" preserveAspectRatio="none"/>
+            <rect id="artEdge" x="0" y="0" width="60" height="40" fill="none" stroke="#000" stroke-opacity=".12" stroke-width=".5"/>
+          </g>
+        </svg>
+      </div>
+      <figcaption class="room-cap"><span>Simulação ilustrativa</span></figcaption>
+    </figure>
+    <figure class="room-frame photo-mode" id="fotoMode" hidden>
+      <div class="photo-empty" id="photoEmpty">
+        <span class="pe-ico"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+        <b>Coloque a obra na sua parede, no tamanho real</b>
+        <p>Siga estes passos para o quadro aparecer na foto com o tamanho de verdade:</p>
+        <ol class="pe-steps">
+          <li><span>1</span><div><b>Fique a <em id="distTxt">2 metros</em> da parede</b>Mais ou menos <em id="stepsTxt">3 passos largos</em>. Escolha outra distância se o espaço for pequeno.</div></li>
+          <li><span>2</span><div><b>Use a câmera normal, sem zoom</b>Deixe no 1x. Não use o modo 0,5 (grande angular).</div></li>
+          <li><span>3</span><div><b>Celular reto, de frente para a parede</b>Na altura onde o quadro ficaria. Tire a foto sem cortar depois.</div></li>
+        </ol>
+        <div class="pe-dist" role="group" aria-label="Distância da parede">
+          <button type="button" class="dchip" data-dist="150">1,5 m</button>
+          <button type="button" class="dchip on" data-dist="200">2 m</button>
+          <button type="button" class="dchip" data-dist="300">3 m</button>
+        </div>
+        <label class="btn btn-ink" for="photoInput"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>Tirar ou escolher foto</label>
+        <small>A foto fica só no seu aparelho. Ela não é enviada para ninguém.</small>
+      </div>
+      <div class="photo-stage" id="photoStage" hidden>
+        <div class="photo-wrap" id="photoWrap">
+          <img id="userPhoto" alt="Foto da sua parede">
+          <div class="pa" id="photoArt" role="img" aria-label="Obra posicionada na sua parede">
+            <img id="photoArtImg" alt="" draggable="false">
+          </div>
+        </div>
+      </div>
+      <input type="file" id="photoInput" accept="image/*" capture="environment" hidden>
+      <figcaption class="room-cap photo-cap" id="photoCap" hidden>
+        <span>Arraste o quadro para posicionar. O tamanho é o real da obra e não muda.</span>
+        <label class="pc-change" for="photoInput">Trocar foto</label>
+      </figcaption>
+    </figure>
+    </div>
+    <aside class="wall-panel">
+      <div class="wp-sel">
+        <img id="wpThumb" alt="">
+        <div>
+          <span class="wp-eyebrow">Na parede agora</span>
+          <b id="wpTitle"></b>
+        </div>
+      </div>
+      <div class="fld">
+        <span>Escolha a obra</span>
+        <div class="wp-thumbs" id="roomThumbs"></div>
+        <small class="wp-note">Aparecem aqui só as obras já medidas, no tamanho real.</small>
+      </div>
+      <div class="fld">
+        <span>Moldura · <b id="frameName">Sem moldura</b></span>
+        <div class="wp-frames" id="frameOpts"></div>
+      </div>
+      <div class="fld" id="sizeFld" hidden>
+        <span>Distância em que a foto foi tirada</span>
+        <div class="pe-dist small" role="group" aria-label="Distância da foto">
+          <button type="button" class="dchip" data-dist="150">1,5 m</button>
+          <button type="button" class="dchip on" data-dist="200">2 m</button>
+          <button type="button" class="dchip" data-dist="300">3 m</button>
+        </div>
+        <span class="real-badge" id="realBadge">Tamanho real da obra</span>
+      </div>
+      <div class="fld" id="wallFld">
+        <span>Cor da parede · <b id="wallName">Off-white</b></span>
+        <div class="wall-colors" id="wallColors"></div>
+      </div>
+      <div class="wall-actions">
+        <a class="btn btn-ink" id="roomInterest" href="#" target="_blank" rel="noopener">Negociar preço desta obra</a>
+        <button class="btn btn-ghost" id="roomDetail">Ver detalhes</button>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ARTISTA -->
+<section class="artist" id="artista">
+  <div class="artist-art">
+    <img src="assets/obras/thumb/47.jpg" alt="Detalhe da obra Explosão dourada" loading="lazy">
+    <img src="assets/obras/thumb/06.jpg" alt="Detalhe da obra Marés em azul" loading="lazy">
+    <img src="assets/obras/thumb/49.jpg" alt="Detalhe da obra Lava em fluxo" loading="lazy">
+  </div>
+  <div class="artist-copy">
+    <p class="eyebrow">O artista</p>
+    <h2 class="sec-title">Vicente <em>Prior</em></h2>
+    <p class="lead">Arquiteto e construtor renomado, Vicente Prior leva para a tela o mesmo olhar que guia suas obras: estrutura, matéria e proporção. Pintor experiente, constrói cada quadro camada sobre camada — pigmento, textura, raspagem e escorrido — até que a superfície vire paisagem, ferrugem, mineral.</p>
+    <p>Quem conhece seus projetos reconhece nas pinturas o mesmo cuidado com o espaço e com os materiais. Sua pintura nasce do gesto e da matéria. Terra, cobre, carvão e ouro dialogam com vermelhos intensos e azuis profundos, em composições abstratas que mudam conforme a luz do ambiente. Todo o trabalho é feito artesanalmente: cada obra é pintada à mão, assinada e única. Não existem reproduções.</p>
+    <blockquote>“A tela é um território: eu apenas deixo a matéria encontrar o seu caminho.”</blockquote>
+    <ul class="pillars">
+      <li><b>Arquitetura</b><span>Arquiteto e construtor, com o olhar de quem projeta espaços.</span></li>
+      <li><b>Matéria</b><span>Texturas em relevo que pedem para ser vistas de perto.</span></li>
+      <li><b>Gesto</b><span>Rasgos, escorridos e camadas construídas à mão.</span></li>
+      <li><b>Cor</b><span>Paletas terrosas, minerais e vermelhos vibrantes.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- CONFIANÇA -->
+<section class="trust" aria-label="Garantias">
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20c4-1 6-4 8-8s5-7 8-8 M4 20l3-1 M14 9l1 1"/></svg><b>Peça única e assinada</b><span>Sem reproduções, feita à mão</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v9H3z M14 10h4l3 3v3h-7z M7 19a2 2 0 1 0 0-.1 M17 19a2 2 0 1 0 0-.1"/></svg><b>Envio segurado</b><span>Embalagem reforçada para todo o Brasil</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 9-9 9-9-9z M12 8l4 4-4 4-4-4z"/></svg><b>Pagamento via Pix</b><span>Simples e direto com o artista</span></div>
+  <div class="trust-item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z M8 9h8 M8 12h5"/></svg><b>Preço negociável</b><span>Converse direto com o ateliê</span></div>
+</section>
+
+<!-- COMO COMPRAR -->
+<section class="how">
+  <header class="sec-head">
+    <p class="eyebrow">Simples e pessoal</p>
+    <h2 class="sec-title">Como <em>adquirir</em> uma obra</h2>
+  </header>
+  <ol class="steps">
+    <li><span class="n">01</span><h3>Escolha</h3><p>Navegue pela coleção, filtre por cor e formato e salve suas favoritas no <em>♡</em>.</p></li>
+    <li><span class="n">02</span><h3>Negocie</h3><p>Clique em “Negociar preço”: você fala direto com o ateliê, faz sua proposta e recebe medidas e mais fotos.</p></li>
+    <li><span class="n">03</span><h3>Receba</h3><p>Combinado o valor, o pagamento é feito via Pix e sua obra feita à mão e assinada pelo artista é embalada com cuidado e enviada até você.</p></li>
+  </ol>
+</section>
+
+<!-- CONTATO -->
+<section class="contact" id="contato">
+  <div class="contact-copy">
+    <p class="eyebrow light">Contato</p>
+    <h2 class="sec-title light">Escolha a obra e faça a sua <em>oferta</em></h2>
+    <p class="contact-lede">Todos os preços são negociados direto com o artista. Preencha o formulário e sua oferta chega ao Vicente pelo WhatsApp.</p>
+    <div class="contact-cards">
+      <a class="c-card" id="waMain" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path d="M9 9.5c.3 2 2.4 4.2 4.6 4.6l1-1.1 1.9.8-.4 1.6c-3.6.4-7.6-3.6-7.3-7.2l1.6-.4.8 1.9z"/></svg>
+        <span class="c-card-label">Dúvidas? WhatsApp</span>
+        <span class="c-card-value">+55 21 99351-8769</span>
+        <span class="c-card-cta">Conversar com o Vicente →</span>
+      </a>
+      <a class="c-card" href="mailto:vicenteprior@gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <span class="c-card-label">E-mail</span>
+        <span class="c-card-value">vicenteprior@gmail.com</span>
+        <span class="c-card-cta">Escrever um e-mail →</span>
+      </a>
+    </div>
+  </div>
+  <form class="contact-form" id="contactForm">
+    <header class="cf-head">
+      <h3>Faça sua oferta</h3>
+      <p>Leva menos de 1 minuto.</p>
+    </header>
+    <fieldset class="cf-step">
+      <legend><span>1</span>Seus dados</legend>
+      <div class="cf-row">
+        <label class="cf-field"><span>Nome</span><input name="nome" required autocomplete="name" placeholder="Seu nome"></label>
+        <label class="cf-field"><span>E-mail ou telefone</span><input name="contato" required autocomplete="email" placeholder="Como falamos com você"></label>
+      </div>
+    </fieldset>
+    <fieldset class="cf-step">
+      <legend><span>2</span>A obra e sua oferta</legend>
+      <div class="cf-row">
+        <label class="cf-field"><span>Obra</span><select name="obra" id="formObra"><option value="">Escolha a obra</option></select></label>
+        <label class="cf-field"><span>Sua oferta</span><span class="cf-money"><i>R$</i><input name="oferta" id="formOffer" inputmode="numeric" placeholder="3.500" autocomplete="off"></span></label>
+      </div>
+    </fieldset>
+    <fieldset class="cf-step">
+      <legend><span>3</span>Mensagem <small>opcional</small></legend>
+      <label class="cf-field"><span class="sr">Mensagem ou dúvida</span><textarea name="msg" rows="3" placeholder="Conte sobre o seu espaço ou tire uma dúvida"></textarea></label>
+    </fieldset>
+    <button class="btn btn-deal" type="submit">Negociar preço</button>
+    <a class="btn btn-paper" id="formSend" href="#" target="_blank" rel="noopener" hidden>Abrir no WhatsApp</a>
+  </form>
+</section>
+</main>
+
+<div class="brand-stripe" aria-hidden="true"></div>
+<footer class="footer">
+  <div class="f-brand">Vprior <span>artes</span></div>
+  <p><a class="f-social" href="https://www.tiktok.com/@vprior.artes" target="_blank" rel="noopener">@vprior.artes no TikTok</a></p>
+  <p>Pinturas originais · Todas as obras são únicas e protegidas por direitos autorais.</p>
+  <p>+55 21 99351-8769 · vicenteprior@gmail.com</p>
+  <p class="f-small">© <span id="year"></span> Vicente Prior. Imagens meramente ilustrativas; cores podem variar conforme a tela.</p>
+</footer>
+
+<!-- DETALHE DA OBRA -->
+<div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-labelledby="vTitle" hidden>
+  <button class="v-close" id="vClose" aria-label="Fechar">✕</button>
+  <button class="v-nav prev" id="vPrev" aria-label="Obra anterior">←</button>
+  <button class="v-nav next" id="vNext" aria-label="Próxima obra">→</button>
+  <div class="v-stage" id="vStage">
+    <img id="vImg" alt="">
+    <div class="v-lens" id="vLens" aria-hidden="true"></div>
+    <span class="v-hint">Passe o mouse para ver a textura</span>
+  </div>
+  <aside class="v-info">
+    <p class="v-rank">Pintura original · feita à mão</p>
+    <h3 class="v-title" id="vTitle"></h3>
+    <p class="v-meta" id="vMeta"></p>
+    <form class="v-deal" id="vDeal">
+      <p class="v-price" id="vPrice"></p>
+      <label class="v-offer" for="vOffer">Escreva sua oferta
+        <span class="v-offer-row"><span>R$</span><input id="vOffer" name="oferta" inputmode="numeric" placeholder="ex.: 3.500" autocomplete="off"></span>
+      </label>
+      <a class="btn btn-deal" id="vBuy" href="#" target="_blank" rel="noopener">Negociar preço</a>
+      <p class="v-deal-note">Você fala direto com o Vicente pelo WhatsApp. A oferta vai junto na mensagem.</p>
+    </form>
+    <a class="v-ask" id="vAsk" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/><path d="M9.5 9a2.5 2.5 0 1 1 3.3 2.4c-.5.2-.8.6-.8 1.1v.3"/><circle cx="12" cy="14.6" r=".6"/></svg>
+      <span><b>Dúvidas sobre esta obra?</b>Pergunte ao Vicente no WhatsApp</span>
+      <i aria-hidden="true">→</i>
+    </a>
+    <p class="v-desc" id="vDesc"></p>
+    <div class="v-palette" id="vPalette" aria-label="Paleta da obra"></div>
+    <dl class="v-specs">
+      <div><dt>Técnica</dt><dd>Pintura artesanal sobre tela</dd></div>
+      <div><dt>Produção</dt><dd>100% feita à mão pelo artista</dd></div>
+      <div><dt>Medidas</dt><dd id="vDim">Sob consulta</dd></div>
+      <div id="vPecasRow" hidden><dt>Composição</dt><dd id="vPecas"></dd></div>
+      <div><dt>Edição</dt><dd>Peça única, assinada</dd></div>
+    </dl>
+    <div class="v-actions">
+      <button class="btn btn-ghost" id="vWall">Ver na parede</button>
+      <button class="btn heart" id="vHeart" aria-pressed="false">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span id="vHeartLabel">Favoritar</span>
+      </button>
+    </div>
+    <button class="v-share" id="vShare">Copiar link da obra</button>
+  </aside>
+</div>
+
+<!-- FAVORITAS -->
+<aside class="drawer" id="wish" aria-label="Minhas favoritas" hidden>
+  <div class="drawer-head">
+    <div><h3>Minhas favoritas</h3><p class="drawer-sub">Ficam guardadas neste aparelho para você ver depois.</p></div>
+    <button class="v-close static" id="wishClose" aria-label="Fechar">✕</button>
+  </div>
+  <div class="drawer-body" id="wishList"></div>
+  <div class="drawer-foot">
+    <a class="btn btn-ink full" id="wishSend" href="#" target="_blank" rel="noopener">Negociar preço das favoritas</a>
+    <button class="btn btn-ghost full" id="wishShow" type="button">Ver favoritas na coleção</button>
+  </div>
+</aside>
+<div class="scrim" id="scrim" hidden></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script src="js/obras.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
