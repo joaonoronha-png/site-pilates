@@ -46,3 +46,18 @@ export function longDate(d: Date): string {
   const full = ['domingo', 'sábado'].includes(wd) ? wd : `${wd}-feira`
   return `${full[0].toUpperCase()}${full.slice(1)}, ${d.getDate()} de ${MONTHS[d.getMonth()]}`
 }
+
+/** How the assistant says a time out loud: "10 horas", "1 hora", "13 e 30". */
+export function sayTime(d: Date): string {
+  const h = d.getHours()
+  const m = d.getMinutes()
+  if (m === 0) return h === 1 ? '1 hora' : `${h} horas`
+  return `${h} e ${String(m).padStart(2, '0')}`
+}
+
+/** "10 minutos antes", "1 hora antes", "na hora" */
+export function sayAlert(min: number): string {
+  if (min === 0) return 'na hora'
+  if (min % 60 === 0) return min === 60 ? '1 hora antes' : `${min / 60} horas antes`
+  return `${min} minutos antes`
+}

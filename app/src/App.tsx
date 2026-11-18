@@ -35,6 +35,7 @@ export default function App() {
   const [briefPlaying, setBriefPlaying] = useState(false)
   const pending = useRef<Pending | undefined>(undefined)
   const lastAlerted = useRef<string | undefined>(undefined)
+  const lastEvent = useRef<string | undefined>(undefined)
   const alerted = useRef(new Set<string>())
 
   useEffect(() => { fetchWeather(settings.city).then(setWeather) }, [settings.city])
@@ -68,11 +69,12 @@ export default function App() {
     if (ev) upsert({ ...ev, confirmedAt: new Date().toISOString() })
   }
 
-  const ctx = () => ({ events, settings, now: new Date(), pending: pending.current, lastAlertedId: lastAlerted.current })
+  const ctx = () => ({ events, settings, now: new Date(), pending: pending.current, lastAlertedId: lastAlerted.current, lastEventId: lastEvent.current })
 
   function ask(text: string) {
     const r = interpret(text, ctx(), weatherSentence(weather, settings.city))
     pending.current = r.pending
+    if (r.touchedId) lastEvent.current = r.touchedId
     const ef = r.effect
     if (ef.type === 'create') upsert(ef.event)
     else if (ef.type === 'update') setEvents((l) => l.map((e) => (e.id === ef.id ? { ...e, ...ef.patch } : e)))

@@ -63,6 +63,40 @@ describe('interpret', () => {
   })
   it('lists tomorrow', () => {
     const r = interpret('o que eu tenho amanhã?', ctx([ev('Dentista', new Date(2026, 10, 19, 10, 0))]))
-    expect(r.reply).toBe('Amanhã você tem um compromisso: Dentista às 10h.')
+    expect(r.reply).toBe('Amanhã você tem um compromisso: Dentista às 10 horas.')
+  })
+  it('clear reply with name', () => {
+    const r = interpret('marca dentista sexta às 10h', { ...ctx(), settings: { ...DEFAULT_SETTINGS, name: 'João' } })
+    expect(r.reply).toBe('Pronto, João. Marquei Dentista para sexta, dia 20, às 10 horas. Vou te avisar 30 minutos antes.')
+  })
+  it('alert inside the command', () => {
+    const r = interpret('marca dentista sexta às 10h e me avisa 10 minutos antes', ctx())
+    expect(r.effect.type === 'create' && r.effect.event.alertBefore).toBe(10)
+    expect(r.effect.type === 'create' && r.effect.event.title).toBe('Dentista')
+    expect(r.effect.type === 'create' && new Date(r.effect.event.start).getHours()).toBe(10)
+    expect(r.reply).toContain('Vou te avisar 10 minutos antes.')
+  })
+  it('alert of 1 hora does not become the time', () => {
+    const r = interpret('marca reunião amanhã às 9h e me avisa 1 hora antes', ctx())
+    expect(r.effect.type === 'create' && r.effect.event.alertBefore).toBe(60)
+    expect(r.effect.type === 'create' && new Date(r.effect.event.start).getHours()).toBe(9)
+  })
+  it('alert as a follow-up', () => {
+    const e = ev('Dentista', new Date(2026, 10, 20, 10, 0))
+    const r = interpret('me avisa 10 minutos antes', { ...ctx([e]), lastEventId: 'Dentista' })
+    expect(r.effect).toEqual({ type: 'update', id: 'Dentista', patch: { alertBefore: 10, confirmedAt: undefined } })
+    expect(r.reply).toBe('Pronto. Vou te avisar 10 minutos antes de Dentista.')
+  })
+  it('change reply', () => {
+    const e = ev('Reunião', new Date(2026, 10, 20, 13, 0))
+    const r = interpret('muda a reunião do dia 20 para as 15h', ctx([e]))
+    expect(r.reply).toBe('Pronto. Ajustei Reunião para sexta, dia 20, às 15 horas. Vou te avisar 30 minutos antes.')
+  })
+})
+
+describe('reminder without "antes" is not an alert', () => {
+  it('me lembra 18 horas de ligar', () => {
+    const r = interpret('me lembra 18 horas de ligar pro Carlos', { events: [], settings: DEFAULT_SETTINGS, now: new Date(2026, 10, 18, 8, 0) })
+    expect(r.effect.type === 'create' && new Date(r.effect.event.start).getHours()).toBe(18)
   })
 })

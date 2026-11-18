@@ -3,7 +3,7 @@
  * In the real product this is replaced by the Claude API with tools
  * (criar / mudar / cancelar / listar). Same inputs and outputs.
  */
-import { addDays, relativeDay, sameDay, spokenTime, startOfDay, WEEKDAYS, MONTHS } from './dates'
+import { addDays, relativeDay, sameDay, sayAlert, sayTime, startOfDay, WEEKDAYS, MONTHS } from './dates'
 import { occurrences, uid } from './store'
 import type { AgendaEvent, Settings } from './types'
 
@@ -26,6 +26,8 @@ export interface BrainResult {
   pending?: Pending
   /** show these events in the reply card */
   list?: (AgendaEvent & { occ: Date })[]
+  /** the event this answer was about, so a follow-up like "me avisa 10 minutos antes" knows what to change */
+  touchedId?: string
 }
 
 interface Ctx {
@@ -34,6 +36,7 @@ interface Ctx {
   now: Date
   pending?: Pending
   lastAlertedId?: string
+  lastEventId?: string
 }
 
 const BOUNDARY = String.raw`(?:(?<![\p{L}\d])(?=[\p{L}\d])|(?<=[\p{L}\d])(?![\p{L}\d]))`
@@ -139,7 +142,7 @@ function cleanTitle(raw: string, remove: string[]): string {
 }
 
 function describe(ev: { title: string }, when: Date, now: Date): string {
-  return `${ev.title}, ${relativeDay(when, now)}, às ${spokenTime(when)}`
+  return `${ev.title}, ${relativeDay(when, now)}, às ${sayTime(when)}`
 }
 
 function findTarget(t: string, ctx: Ctx): (AgendaEvent & { occ: Date }) | null {
@@ -170,7 +173,7 @@ function dayList(ctx: Ctx, day: Date) {
 
 function summarizeDay(list: (AgendaEvent & { occ: Date })[]): string {
   if (!list.length) return 'nenhum compromisso'
-  const parts = list.map((e) => `${e.title} às ${spokenTime(e.occ)}`)
+  const parts = list.map((e) => `${e.title} às ${sayTime(e.occ)}`)
   if (parts.length === 1) return `um compromisso: ${parts[0]}`
   return `${list.length} compromissos: ${parts.slice(0, -1).join(', ')} e ${parts.at(-1)}`
 }
@@ -189,10 +192,35 @@ export function morningBrief(ctx: Ctx, weather?: string): BrainResult {
   return { reply, effect: { type: 'none' }, list: today }
 }
 
+interface AlertHit { min: number; match: string }
+
+/** "me avisa 10 minutos antes", "avisar meia hora antes", "me lembra 1 hora antes", "avisa na hora" */
+export function parseAlert(t: string): AlertHit | null {
+  const m = t.match(rx(/(?:\b(?:e|com)\s+)?(?:\bme\s+)?\b(?:avis[ae]r?|avisa-me|lembr[ae]r?|notifi\w*)(?:\s+me)?\s+(?:com\s+)?(?:(\d{1,3}|uma?|meia)\s+(minutos?|min|horas?|hora)\s+antes|(na hora))/))
+  if (!m) return null
+  if (m[3]) return { min: 0, match: m[0] }
+  const n = m[1] === 'meia' ? 0.5 : /^uma?$/.test(m[1]) ? 1 : Number(m[1])
+  const min = /^h/.test(m[2]) ? Math.round(n * 60) : n
+  return { min, match: m[0] }
+}
+
+function ok(ctx: Ctx): string {
+  return ctx.settings.name ? `Pronto, ${ctx.settings.name}.` : 'Pronto.'
+}
+
+function alertLine(ev: AgendaEvent, ctx: Ctx): string {
+  return `Vou te avisar ${sayAlert(ev.alertBefore ?? ctx.settings.alertBefore)}.`
+}
+
 export function interpret(input: string, ctx: Ctx, weather?: string): BrainResult {
-  const original = wordsToDigits(normCase(input))
+  const full = wordsToDigits(normCase(input))
+  // "me avisa 10 minutos antes" is about the alert, not the time of the event: take it out first
+  const alert = parseAlert(full.toLowerCase())
+  const original = alert ? full.replace(new RegExp(alert.match.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), ' ').replace(/\s+/g, ' ').trim() : full
   const t = original.toLowerCase()
   const none: Effect = { type: 'none' }
+  const withAlert = (ev: AgendaEvent): AgendaEvent => (alert ? { ...ev, alertBefore: alert.min } : ev)
+  const when2 = (d: Date) => `${relativeDay(d, ctx.now)}, às ${sayTime(d)}`
 
   // ---- follow-ups to a pending question
   if (ctx.pending?.kind === 'need-time' && ctx.pending.draft) {
@@ -201,19 +229,37 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       const date = parseDate(t, ctx.now)
       const base = date?.date ?? new Date(ctx.pending.draft.start)
       const when = combine(startOfDay(base), time, ctx.now)!
-      const event = { ...ctx.pending.draft, start: when.toISOString() }
-      return { reply: `Pronto. Marquei ${describe(event, when, ctx.now)}.`, effect: { type: 'create', event } }
+      const event = withAlert({ ...ctx.pending.draft, start: when.toISOString() })
+      return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}. ${alertLine(event, ctx)}`, effect: { type: 'create', event }, touchedId: event.id }
     }
     if (rx(/\b(deixa|esquece|cancela|não)\b/).test(t)) return { reply: 'Tudo bem, não marquei nada.', effect: none }
   }
   if (ctx.pending?.kind === 'confirm-delete' && ctx.pending.targetId) {
-    if (rx(/\b(sim|pode|isso|confirma|claro)\b/).test(t)) return { reply: 'Cancelado.', effect: { type: 'delete', id: ctx.pending.targetId } }
-    if (rx(/\b(não|nao|deixa)\b/).test(t)) return { reply: 'Ok, mantive o compromisso.', effect: none }
+    const target = ctx.events.find((e) => e.id === ctx.pending!.targetId)
+    if (rx(/\b(sim|pode|isso|confirma|claro)\b/).test(t)) return { reply: `${ok(ctx)} Cancelei ${target?.title ?? 'o compromisso'}.`, effect: { type: 'delete', id: ctx.pending.targetId } }
+    if (rx(/\b(não|nao|deixa)\b/).test(t)) return { reply: 'Certo, deixei como estava.', effect: none }
   }
 
   // ---- confirm alert
   if (/^(ok |tá |ta )?(vi|já vi|ja vi|visto|confirmado|ok vi|entendi)$/.test(t) && ctx.lastAlertedId) {
-    return { reply: 'Anotado, você confirmou o aviso.', effect: { type: 'confirm', id: ctx.lastAlertedId } }
+    return { reply: `${ok(ctx)} Marquei que você viu o aviso.`, effect: { type: 'confirm', id: ctx.lastAlertedId } }
+  }
+
+  const isChange = rx(/\b(muda|mudar|remarca|remarcar|altera|alterar|troca|trocar|passa|passar|adia|adiar|antecipa)\b/).test(t)
+  const isRemind = rx(/\b(me lembra|me lembre|lembrete|lembrar)\b/).test(t)
+  const isCreate = isRemind || rx(/\b(marca|marcar|marque|agenda|agendar|coloca|colocar|anota|anotar|cria|criar|tenho)\b/).test(t)
+
+  // ---- only the alert changed: "me avisa 10 minutos antes (da reunião)"
+  if (alert && !isChange && !isCreate) {
+    const rest = t.replace(rx(/\b(do|da|de|o|a|pra|para|por favor)\b/g), ' ').trim()
+    const target = (rest && findTarget(t, ctx)) || ctx.events.find((e) => e.id === ctx.lastEventId)
+      || occurrences(ctx.events, ctx.now, addDays(ctx.now, 60))[0]
+    if (!target) return { reply: 'De qual compromisso você quer o aviso?', effect: none }
+    return {
+      reply: `${ok(ctx)} Vou te avisar ${sayAlert(alert.min)} de ${target.title}.`,
+      effect: { type: 'update', id: target.id, patch: { alertBefore: alert.min, confirmedAt: undefined } },
+      touchedId: target.id,
+    }
   }
 
   // ---- greeting / brief
@@ -226,7 +272,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
     if (/próximo/.test(t)) {
       const next = occurrences(ctx.events, ctx.now, addDays(ctx.now, 60))[0]
       if (!next) return { reply: 'Você não tem nenhum compromisso pela frente.', effect: none }
-      return { reply: `O próximo é ${describe(next, next.occ, ctx.now)}.`, effect: none, list: [next] }
+      return { reply: `O próximo é ${describe(next, next.occ, ctx.now)}.`, effect: none, list: [next], touchedId: next.id }
     }
     const date = parseDate(t, ctx.now)?.date ?? ctx.now
     const list = dayList(ctx, date)
@@ -238,9 +284,9 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
   // ---- cancel
   if (rx(/\b(cancela|cancelar|desmarca|desmarcar|apaga|apagar|remove|tira)\b/).test(t)) {
     const target = findTarget(t, ctx)
-    if (!target) return { reply: 'Não encontrei esse compromisso. Pode me dizer o dia e a hora?', effect: none }
+    if (!target) return { reply: 'Não encontrei esse compromisso. Qual o dia e a hora dele?', effect: none }
     return {
-      reply: `Quer mesmo cancelar ${describe(target, target.occ, ctx.now)}?`,
+      reply: `Posso cancelar ${describe(target, target.occ, ctx.now)}?`,
       effect: none,
       pending: { kind: 'confirm-delete', targetId: target.id },
       list: [target],
@@ -248,7 +294,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
   }
 
   // ---- change
-  if (rx(/\b(muda|mudar|remarca|remarcar|altera|alterar|troca|trocar|passa|passar|adia|adiar|antecipa)\b/).test(t)) {
+  if (isChange) {
     const split = t.lastIndexOf(' para ') !== -1 ? t.lastIndexOf(' para ') : t.lastIndexOf(' pra ')
     const left = split > -1 ? t.slice(0, split) : t
     const right = split > -1 ? t.slice(split).replace(/^ (para|pra) /, '') : ''
@@ -264,17 +310,22 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       patch.start = d.toISOString()
       patch.confirmedAt = undefined
     }
+    if (alert) patch.alertBefore = alert.min
     const newTitle = restoreCase(cleanTitle(right, [nd?.match ?? '', nt?.match ?? '']), original)
-    if (newTitle && !/^(as|às|o dia|dia)$/.test(newTitle.toLowerCase())) patch.title = newTitle
-    if (!Object.keys(patch).length) return { reply: `Para quando você quer mudar ${target.title}?`, effect: none, list: [target] }
+    if (newTitle && !/^(as|às|o dia|dia|e)$/.test(newTitle.toLowerCase())) patch.title = newTitle
+    if (!Object.keys(patch).length) return { reply: `Para quando você quer mudar ${target.title}?`, effect: none, list: [target], touchedId: target.id }
     const merged = { ...target, ...patch }
     const when = new Date(merged.start)
-    return { reply: `Feito. Agora ficou ${describe(merged, when, ctx.now)}.`, effect: { type: 'update', id: target.id, patch } }
+    const what = patch.title ? `Troquei ${target.title} por ${merged.title}` : `Ajustei ${merged.title}`
+    return {
+      reply: `${ok(ctx)} ${what} para ${when2(when)}. ${alertLine(merged, ctx)}`,
+      effect: { type: 'update', id: target.id, patch },
+      touchedId: target.id,
+    }
   }
 
   // ---- create / remind
-  const isRemind = rx(/\b(me lembra|me lembre|lembrete|lembrar)\b/).test(t)
-  if (isRemind || rx(/\b(marca|marcar|marque|agenda|agendar|coloca|colocar|anota|anotar|cria|criar|tenho)\b/).test(t)) {
+  if (isCreate) {
     const date = parseDate(t, ctx.now)
     const time = parseTime(t)
     const repeat: AgendaEvent['repeat'] = rx(/\btodo dia\b|\btodos os dias\b/).test(t) ? 'daily'
@@ -288,23 +339,25 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       ['todos os dias', 'todo dia', 'toda semana', 'todo mês', 'é importante', 'importante', 'toda', 'todo'],
     )), original)
     if (!title) return { reply: 'O que você quer que eu marque?', effect: none }
-    const draft: AgendaEvent = {
+    const draft = withAlert({
       id: uid(), title, start: (date?.date ?? startOfDay(ctx.now)).toISOString(), durationMin: isRemind ? 15 : 60,
       important, repeat, alertBefore: isRemind ? 0 : null, kind: isRemind ? 'reminder' : 'event',
-    }
+    })
     const when = combine(date?.date ?? null, time, ctx.now)
     if (!when) {
-      return { reply: `${title}, ${date ? relativeDay(date.date, ctx.now) : 'hoje'}. Que horas?`, effect: none, pending: { kind: 'need-time', draft } }
+      return { reply: `Que horas é ${title}?`, effect: none, pending: { kind: 'need-time', draft } }
     }
     const event = { ...draft, start: when.toISOString() }
     const rep = repeat === 'daily' ? ', todos os dias' : repeat === 'weekly' ? ', toda semana' : repeat === 'monthly' ? ', todo mês' : ''
-    const verb = isRemind ? 'Vou te lembrar de' : 'Pronto. Marquei'
-    const t2 = isRemind ? event.title.charAt(0).toLowerCase() + event.title.slice(1) : event.title
-    return { reply: `${verb} ${t2}, ${relativeDay(when, ctx.now)}, às ${spokenTime(when)}${rep}.`, effect: { type: 'create', event } }
+    if (isRemind && !alert) {
+      const t2 = event.title.charAt(0).toLowerCase() + event.title.slice(1)
+      return { reply: `${ok(ctx)} Vou te lembrar de ${t2} ${when2(when)}${rep}.`, effect: { type: 'create', event }, touchedId: event.id }
+    }
+    return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}${rep}. ${alertLine(event, ctx)}`, effect: { type: 'create', event }, touchedId: event.id }
   }
 
   return {
-    reply: 'Não entendi bem. Você pode dizer, por exemplo: "marca dentista sexta às 10h", ou "o que eu tenho amanhã?".',
+    reply: 'Não entendi. Tente assim: marca dentista sexta às 10 horas.',
     effect: none,
   }
 }

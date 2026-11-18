@@ -4,12 +4,12 @@ import { canListen, listen, needsGesture, speak, stopSpeaking } from '../lib/voi
 import type { BrainResult } from '../lib/brain'
 import { EventItem, type Occ } from './EventItem'
 
-type Turn = { who: 'me' | 'ai'; text: string; list?: Occ[] }
+type Turn = { text: string; list?: Occ[] }
 
 const EXAMPLES = [
   'Bom dia',
   'O que eu tenho amanhã?',
-  'Marca dentista sexta às 10h',
+  'Marca dentista sexta às 10h e me avisa 10 minutos antes',
   'Me lembra às 18h de ligar pro Carlos',
   'Muda o almoço para 13h',
   'Cancela a visita à obra',
@@ -41,11 +41,10 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
   function handle(text: string) {
     setError('')
     setPartial('')
-    setTurns((t) => [...t, { who: 'me', text }])
     setState('thinking')
     setTimeout(() => {
       const r = ask(text)
-      setTurns((t) => [...t, { who: 'ai', text: r.reply, list: r.list as Occ[] | undefined }])
+      setTurns((t) => [...t, { text: r.reply, list: r.list as Occ[] | undefined }])
       setState('speaking')
       speak(r.reply, () => {
         setState('idle')
@@ -80,7 +79,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
         </div>
 
         <div className="mt-4 flex-1 space-y-4 overflow-y-auto pb-6">
-          {turns.length === 0 && !partial && (
+          {turns.length === 0 && (
             <div className="pt-6">
               <p className="font-display text-[28px] leading-tight">Como posso ajudar?</p>
               <p className="mt-2 text-white/60">Fale naturalmente. Por exemplo:</p>
@@ -93,10 +92,8 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
               </div>
             </div>
           )}
-          {turns.map((t, i) => t.who === 'me' ? (
-            <p key={i} className="ml-10 rounded-3xl rounded-br-md bg-white/12 px-4 py-3 text-right text-[17px]">{t.text}</p>
-          ) : (
-            <div key={i} className="mr-6">
+          {turns.map((t, i) => (
+            <div key={i} className={`mr-6 ${i < turns.length - 1 ? 'opacity-45' : ''}`}>
               <p className="font-display text-[22px] leading-snug">{t.text}</p>
               {t.list && t.list.length > 0 && (
                 <div className="mt-3 rounded-2xl bg-paper text-ink">
@@ -105,7 +102,6 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
               )}
             </div>
           ))}
-          {partial && <p className="ml-10 rounded-3xl rounded-br-md bg-white/8 px-4 py-3 text-right text-[17px] text-white/70">{partial}…</p>}
           {state === 'thinking' && <p className="text-white/50">pensando…</p>}
           <div ref={endRef} />
         </div>
@@ -151,7 +147,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
             </div>
           )}
           <p className="mt-3 text-center text-sm text-white/45">
-            {listening ? 'Ouvindo… fale e eu entendo quando você parar' : state === 'speaking' ? 'Respondendo…' : typing ? '' : 'Toque para falar'}
+            {listening ? (partial ? 'Ouvindo…' : 'Pode falar') : state === 'speaking' ? 'Respondendo…' : typing ? '' : 'Toque para falar'}
           </p>
         </div>
       </div>
