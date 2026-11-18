@@ -2,17 +2,19 @@
 
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
-  --font-display: "Fraunces", Georgia, serif;
-  --color-paper: #f6f4ef;
+  --font-display: "Sora", "Inter", system-ui, sans-serif;
+  --color-paper: #eef2f1;
   --color-card: #ffffff;
-  --color-ink: #1c1b19;
-  --color-muted: #6f6b63;
-  --color-line: #e7e3da;
-  --color-accent: #2f4a3a;
-  --color-accent-soft: #e4ece6;
-  --color-warm: #c8792b;
-  --color-warm-soft: #f7ead9;
-  --color-danger: #b4432f;
+  --color-ink: #0c1916;
+  --color-muted: #66746f;
+  --color-line: #dfe6e3;
+  --color-accent: #0f4a3f;
+  --color-accent-soft: #dcefe9;
+  --color-glow: #35c9a6;
+  --color-warm: #e99a2c;
+  --color-warm-soft: #fcefd9;
+  --color-danger: #c2412d;
+  --color-night: #071311;
 }
 
 html, body, #root { height: 100%; }
@@ -44,4 +46,34 @@ body {
 .anim-fade { animation: fade-in .2s ease-out; }
 @media (prefers-reduced-motion: reduce) {
   .anim-ring, .anim-banner, .anim-sheet, .anim-fade { animation: none; }
+}
+
+/* Assistant orb */
+@keyframes orb-breathe { 0%,100% { transform: scale(1) } 50% { transform: scale(1.06) } }
+@keyframes orb-spin { to { transform: rotate(360deg) } }
+@keyframes orb-talk { 0%,100% { transform: scale(1) } 25% { transform: scale(1.12) } 60% { transform: scale(.96) } }
+.orb { position: relative; width: 168px; height: 168px; border-radius: 9999px; animation: orb-breathe 4s ease-in-out infinite; }
+.orb::before, .orb::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.orb::before {
+  background: conic-gradient(from 0deg, #35c9a6, #0f4a3f, #e99a2c, #35c9a6);
+  filter: blur(18px); opacity: .85; animation: orb-spin 9s linear infinite;
+}
+.orb::after {
+  inset: 14px;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #bff3e4 18%, #35c9a6 45%, #0f4a3f 80%);
+  box-shadow: inset 0 -10px 30px rgba(7,19,17,.45), 0 0 60px rgba(53,201,166,.45);
+}
+.orb[data-state="listening"] { animation: orb-talk 1.1s ease-in-out infinite; }
+.orb[data-state="listening"]::before { animation-duration: 3s; opacity: 1; }
+.orb[data-state="speaking"] { animation: orb-talk .7s ease-in-out infinite; }
+.orb[data-state="speaking"]::before { animation-duration: 2s; }
+.orb[data-state="thinking"]::before { animation-duration: 1.2s; }
+.hero-glow {
+  background:
+    radial-gradient(120% 90% at 100% 0%, rgba(53,201,166,.38) 0%, transparent 55%),
+    radial-gradient(90% 80% at 0% 100%, rgba(233,154,44,.22) 0%, transparent 60%),
+    linear-gradient(160deg, #0f4a3f 0%, #0a2e27 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .orb, .orb::before, .orb[data-state] { animation: none !important; }
 }

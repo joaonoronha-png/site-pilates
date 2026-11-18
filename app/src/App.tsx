@@ -10,7 +10,6 @@ import { EventSheet } from './components/EventSheet'
 import { VoiceSheet } from './components/VoiceSheet'
 import { AlertBanner, AlertScreen, alertText } from './components/Alert'
 import { SettingsView } from './components/SettingsView'
-import { Card } from './components/ui'
 
 type Tab = 'today' | 'agenda' | 'settings'
 
@@ -123,26 +122,26 @@ export default function App() {
 
       <button
         onClick={() => setTab(tab === 'settings' ? 'today' : 'settings')}
-        className={`absolute right-4 top-[calc(env(safe-area-inset-top)+16px)] z-20 grid size-11 place-items-center rounded-full shadow-sm active:scale-95 ${tab === 'settings' ? 'bg-accent text-white' : 'bg-card text-muted'}`}
+        className={`absolute right-4 top-[calc(env(safe-area-inset-top)+18px)] z-20 grid size-11 place-items-center rounded-full active:scale-95 ${tab === 'settings' ? 'bg-accent text-white' : tab === 'today' ? 'bg-white/12 text-white backdrop-blur' : 'bg-card text-muted shadow-sm'}`}
         aria-label="Ajustes"
       >
         <Cog size={21} />
       </button>
 
-      {/* bottom bar */}
-      <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-line/70 bg-paper/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-lg">
-        <div className="mx-auto grid max-w-md grid-cols-3 items-end px-4">
-          <NavBtn active={tab === 'today'} onClick={() => setTab('today')} icon={<Home size={24} />} label="Hoje" />
-          <div className="flex justify-center">
-            <button
-              onClick={() => { stopSpeaking(); setVoiceOpen(true) }}
-              className="-mt-8 mb-2 grid size-[76px] place-items-center rounded-full bg-warm text-white shadow-[0_12px_30px_-8px_rgba(200,121,43,.75)] ring-[6px] ring-paper active:scale-95"
-              aria-label="Falar com o assistente"
-            >
-              <Mic size={34} />
-            </button>
-          </div>
-          <NavBtn active={tab === 'agenda'} onClick={() => setTab('agenda')} icon={<CalendarDays size={24} />} label="Agenda" />
+      {/* floating bar */}
+      <nav className="fixed inset-x-0 bottom-0 z-30 px-5 pb-[calc(env(safe-area-inset-bottom)+14px)]">
+        <div className="mx-auto flex max-w-[340px] items-center justify-between rounded-[30px] border border-white/60 bg-white/75 px-3 py-2 shadow-[0_18px_40px_-18px_rgba(12,25,22,.45)] backdrop-blur-xl">
+          <NavBtn active={tab === 'today'} onClick={() => setTab('today')} icon={<Home size={22} />} label="Hoje" />
+          <button
+            onClick={() => { stopSpeaking(); setVoiceOpen(true) }}
+            className="relative -my-6 grid size-[72px] place-items-center rounded-full text-white shadow-[0_14px_30px_-10px_rgba(15,74,63,.9)] active:scale-95"
+            style={{ background: 'radial-gradient(circle at 30% 25%, #4fe0bd 0%, #1d8a73 45%, #0f4a3f 100%)' }}
+            aria-label="Falar com o assistente"
+          >
+            <span className="absolute inset-[-5px] rounded-full border-2 border-glow/35" />
+            <Mic size={30} strokeWidth={2.2} />
+          </button>
+          <NavBtn active={tab === 'agenda'} onClick={() => setTab('agenda')} icon={<CalendarDays size={22} />} label="Agenda" />
         </div>
       </nav>
 
@@ -181,9 +180,10 @@ const cap = (s: string) => s[0].toUpperCase() + s.slice(1)
 
 function NavBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
-    <button onClick={onClick} className={`flex flex-col items-center gap-0.5 py-2.5 text-xs font-medium ${active ? 'text-accent' : 'text-muted'}`}>
+    <button onClick={onClick} className={`flex w-24 flex-col items-center gap-0.5 rounded-2xl py-1.5 text-[12px] font-semibold transition-colors ${active ? 'text-accent' : 'text-muted'}`}>
       {icon}
       {label}
+      <span className={`mt-0.5 h-1 w-1 rounded-full ${active ? 'bg-accent' : 'bg-transparent'}`} />
     </button>
   )
 }
@@ -195,57 +195,87 @@ function TodayView({ now, name, weather, city, today, next, briefPlaying, onBrie
   const mins = next ? Math.round((next.occ.getTime() - now.getTime()) / 60000) : 0
   const until = mins < 60 ? `em ${mins} min` : mins < 24 * 60 ? `em ${Math.floor(mins / 60)}h${mins % 60 ? String(mins % 60).padStart(2, '0') : ''}` : relativeDay(next!.occ, now)
   const remaining = today.filter((e) => e.occ.getTime() + e.durationMin * 60000 > now.getTime()).length
+  const nowLineIdx = today.findIndex((e) => e.occ > now)
   return (
     <div>
-      <p className="text-[15px] text-muted">{longDate(now)}</p>
-      <h1 className="mt-1 font-display text-[36px] leading-tight">{greeting(now)}{name ? `, ${name}` : ''}</h1>
-
-      <div className="mt-5 grid grid-cols-[1fr_auto] gap-3">
-        <button onClick={onBrief} className="flex items-center gap-3 rounded-3xl bg-accent p-4 text-left text-white active:scale-[.99]">
-          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-white/15">
-            {briefPlaying ? <Square size={18} className="fill-white" /> : <Play size={20} className="ml-0.5 fill-white" />}
-          </span>
-          <span>
-            <span className="block text-[17px] font-semibold">Ouvir meu dia</span>
-            <span className="block text-sm text-white/70">{remaining === 0 ? 'Nada mais hoje' : `${remaining} compromisso${remaining > 1 ? 's' : ''} pela frente`}</span>
-          </span>
-        </button>
-        <div className="flex min-w-[104px] flex-col justify-center rounded-3xl bg-card p-4 text-center">
+      <section className="hero-glow relative -mx-1 overflow-hidden rounded-[32px] px-6 pb-6 pt-6 text-white shadow-[0_24px_50px_-24px_rgba(15,74,63,.8)]">
+        <p className="text-[14px] font-medium text-white/65">{longDate(now)}</p>
+        <h1 className="mt-1 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] [text-wrap:balance]">
+          {greeting(now)}{name ? `, ${name}` : ''}
+        </h1>
+        <div className="mt-3 flex items-center gap-2 text-[15px] text-white/80">
           {weather ? (
             <>
-              <span className="mx-auto text-warm">{weather.rain >= 50 ? <CloudRain size={22} /> : <CloudSun size={22} />}</span>
-              <span className="mt-1 text-2xl font-semibold tabular-nums">{weather.now}°</span>
-              <span className="text-xs text-muted">{weather.min}° – {weather.max}°</span>
+              {weather.rain >= 50 ? <CloudRain size={18} /> : <CloudSun size={18} />}
+              <span><b className="font-semibold text-white">{weather.now}°</b> em {city} · {weather.min}° a {weather.max}°</span>
             </>
           ) : (
-            <span className="text-xs text-muted">{city}</span>
+            <span>{remaining === 0 ? 'Nada mais na agenda hoje' : `${remaining} compromisso${remaining > 1 ? 's' : ''} pela frente hoje`}</span>
           )}
         </div>
-      </div>
+        <button onClick={onBrief} className="mt-5 flex w-full items-center gap-3 rounded-2xl bg-white/12 p-2 pr-4 text-left ring-1 ring-white/15 backdrop-blur active:scale-[.99]">
+          <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-accent">
+            {briefPlaying ? <Square size={16} className="fill-accent" /> : <Play size={18} className="ml-0.5 fill-accent" />}
+          </span>
+          <span className="flex-1">
+            <span className="block text-[16px] font-semibold">{briefPlaying ? 'Falando…' : 'Ouvir meu dia'}</span>
+            <span className="block text-[13px] text-white/65">Agenda e clima, em voz alta</span>
+          </span>
+          {briefPlaying && (
+            <span className="flex h-5 items-end gap-[3px]">
+              {[0, 1, 2, 3].map((i) => <span key={i} className="anim-ring w-[3px] rounded-full bg-glow" style={{ height: `${8 + (i % 2) * 8}px`, animationDelay: `${i * .15}s` }} />)}
+            </span>
+          )}
+        </button>
+      </section>
 
       {next && (
-        <Card className="mt-4 overflow-hidden">
-          <button onClick={() => onOpen(next)} className="w-full p-5 text-left">
-            <div className="flex items-center justify-between">
-              <span className="rounded-full bg-warm-soft px-3 py-1 text-sm font-semibold text-warm">Próximo · {until}</span>
-              <span className="text-[15px] font-semibold tabular-nums text-muted">{hhmm(next.occ)}</span>
-            </div>
-            <div className="mt-3 font-display text-[26px] leading-tight">{next.title}</div>
-            {next.location && <div className="mt-1 text-muted">{next.location}</div>}
-          </button>
-        </Card>
+        <button onClick={() => onOpen(next)} className="mt-4 w-full rounded-[28px] border border-line bg-card p-5 text-left shadow-[0_10px_30px_-22px_rgba(12,25,22,.5)] active:scale-[.99]">
+          <div className="flex items-center justify-between">
+            <span className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[.08em] text-muted">
+              <span className="relative flex size-2.5"><span className="anim-ring absolute inset-0 rounded-full bg-warm" /><span className="relative size-2.5 rounded-full bg-warm" /></span>
+              Próximo
+            </span>
+            <span className="rounded-full bg-warm-soft px-3 py-1 text-[13px] font-semibold text-[#a4620f]">{until}</span>
+          </div>
+          <div className="mt-3 font-display text-[24px] font-semibold leading-tight tracking-[-0.01em]">{next.title}</div>
+          <div className="mt-1.5 flex items-center gap-3 text-[15px] text-muted">
+            <span className="font-semibold tabular-nums text-ink">{hhmm(next.occ)}</span>
+            {next.location && <span>· {next.location}</span>}
+          </div>
+        </button>
       )}
 
       <div className="mt-7 flex items-center justify-between px-1">
-        <h2 className="text-lg font-semibold">Hoje</h2>
-        <button onClick={onAdd} className="flex items-center gap-1 rounded-full bg-card px-3.5 py-2 text-[15px] font-medium text-accent active:scale-95"><Plus size={17} />Novo</button>
+        <h2 className="font-display text-[20px] font-semibold tracking-[-0.01em]">Hoje</h2>
+        <button onClick={onAdd} className="flex items-center gap-1 rounded-full bg-accent px-4 py-2 text-[14px] font-semibold text-white active:scale-95"><Plus size={16} strokeWidth={2.5} />Novo</button>
       </div>
-      <Card className="mt-3 py-1">
+      <div className="mt-3">
         {today.length === 0
-          ? <p className="px-5 py-8 text-center text-muted">Nada marcado para hoje.<br />Toque no microfone e diga o que marcar.</p>
-          : today.map((e) => <EventItem key={e.id + e.occ.toISOString()} e={e} now={now} onOpen={onOpen} />)}
-      </Card>
+          ? <p className="rounded-[28px] border border-dashed border-line px-5 py-10 text-center text-muted">Nada marcado para hoje.<br />Toque no microfone e diga o que marcar.</p>
+          : <Timeline items={today} now={now} onOpen={onOpen} nowLineIdx={nowLineIdx} />}
+      </div>
     </div>
+  )
+}
+
+function Timeline({ items, now, onOpen, nowLineIdx = -1 }: { items: Occ[]; now: Date; onOpen: (e: Occ) => void; nowLineIdx?: number }) {
+  return (
+    <ol className="relative">
+      <span className="absolute bottom-6 left-[15px] top-6 w-px bg-line" aria-hidden />
+      {items.map((e, i) => (
+        <li key={e.id + e.occ.toISOString()}>
+          {i === nowLineIdx && (
+            <div className="relative my-1 flex items-center gap-2 pl-[9px]" aria-label="Agora">
+              <span className="size-[13px] rounded-full border-[3px] border-paper bg-warm shadow" />
+              <span className="h-px flex-1 bg-warm/60" />
+              <span className="text-[12px] font-semibold text-warm tabular-nums">{hhmm(now)}</span>
+            </div>
+          )}
+          <EventItem e={e} now={now} onOpen={onOpen} />
+        </li>
+      ))}
+    </ol>
   )
 }
 
@@ -257,15 +287,15 @@ function AgendaView({ events, now, onOpen, onAdd }: { events: Parameters<typeof 
   const upcoming = days.slice(0, 8).filter((d) => !sameDay(d, sel)).slice(0, 7).map((d) => ({ d, items: span.filter((e) => sameDay(e.occ, d)) })).filter((x) => x.items.length)
   return (
     <div>
-      <h1 className="font-display text-[34px]">Agenda</h1>
+      <h1 className="font-display text-[32px] font-semibold tracking-[-0.02em]">Agenda</h1>
       <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
         {days.map((d) => {
           const active = sameDay(d, sel)
           const has = span.some((e) => sameDay(e.occ, d))
           return (
-            <button key={d.toISOString()} onClick={() => setSel(d)} className={`flex w-[54px] shrink-0 flex-col items-center rounded-2xl py-2.5 ${active ? 'bg-accent text-white' : 'bg-card'}`}>
+            <button key={d.toISOString()} onClick={() => setSel(d)} className={`flex w-[56px] shrink-0 flex-col items-center rounded-[20px] py-3 transition ${active ? 'bg-accent text-white shadow-[0_10px_20px_-10px_rgba(15,74,63,.9)]' : 'border border-line bg-card'}`}>
               <span className={`text-xs uppercase ${active ? 'text-white/75' : 'text-muted'}`}>{WEEKDAYS[d.getDay()].slice(0, 3)}</span>
-              <span className="text-xl font-semibold tabular-nums">{d.getDate()}</span>
+              <span className="font-display text-xl font-semibold tabular-nums">{d.getDate()}</span>
               <span className={`mt-1 size-1.5 rounded-full ${has ? (active ? 'bg-white' : 'bg-warm') : 'bg-transparent'}`} />
             </button>
           )
@@ -275,18 +305,18 @@ function AgendaView({ events, now, onOpen, onAdd }: { events: Parameters<typeof 
         <p className="text-[15px] font-medium text-muted">{longDate(sel)}</p>
         <button onClick={() => onAdd(sel)} className="flex items-center gap-1 rounded-full bg-card px-3.5 py-2 text-[15px] font-medium text-accent active:scale-95"><Plus size={17} />Novo</button>
       </div>
-      <Card className="mt-2 py-1">
+      <div className="mt-2">
         {list.length === 0
-          ? <p className="px-5 py-8 text-center text-muted">Dia livre.</p>
-          : list.map((e) => <EventItem key={e.id + e.occ.toISOString()} e={e} now={now} onOpen={onOpen} />)}
-      </Card>
+          ? <p className="rounded-[28px] border border-dashed border-line px-5 py-10 text-center text-muted">Dia livre.</p>
+          : <Timeline items={list} now={now} onOpen={onOpen} nowLineIdx={sameDay(sel, now) ? list.findIndex((e) => e.occ > now) : -1} />}
+      </div>
 
-      <h2 className="mt-8 px-1 text-lg font-semibold">Próximos dias</h2>
+      <h2 className="mt-8 px-1 font-display text-[20px] font-semibold tracking-[-0.01em]">Próximos dias</h2>
       <div className="mt-2 space-y-4">
         {upcoming.map(({ d, items }) => (
           <div key={d.toISOString()}>
             <p className="px-1 pb-1.5 text-sm font-medium text-muted">{cap(relativeDay(d, now))}</p>
-            <Card className="py-1">{items.map((e) => <EventItem key={e.id + e.occ.toISOString()} e={e} now={now} onOpen={onOpen} />)}</Card>
+            <Timeline items={items} now={now} onOpen={onOpen} />
           </div>
         ))}
       </div>

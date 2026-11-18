@@ -12,7 +12,7 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
   const label = 'px-4 pb-2 pt-6 text-sm font-medium uppercase tracking-wider text-muted'
   return (
     <div className="pb-8">
-      <h1 className="font-display text-[34px]">Ajustes</h1>
+      <h1 className="font-display text-[32px] font-semibold tracking-[-0.02em]">Ajustes</h1>
 
       <div className={label}>Você</div>
       <Card className="divide-y divide-line">

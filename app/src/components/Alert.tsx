@@ -33,10 +33,10 @@ export function AlertBanner({ e, now, onOpen }: { e: Occ; now: Date; onOpen: () 
 export function AlertScreen({ e, now, onConfirm, onLater }: { e: Occ; now: Date; onConfirm: () => void; onLater: () => void }) {
   const m = minutesUntil(e, now)
   return (
-    <div className="anim-fade fixed inset-0 z-[55] flex flex-col bg-accent text-white">
+    <div className="anim-fade hero-glow fixed inset-0 z-[55] flex flex-col text-white">
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-6 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[calc(env(safe-area-inset-top)+48px)]">
         <p className="text-lg text-white/70">{m === 0 ? 'Está na hora' : `Em ${m} minutos`}</p>
-        <h1 className="mt-2 font-display text-[44px] leading-[1.05]">{e.title}</h1>
+        <h1 className="mt-2 font-display text-[40px] font-semibold leading-[1.08] tracking-[-0.02em]">{e.title}</h1>
         <p className="mt-4 text-xl text-white/85">{relativeDay(e.occ, now)}, às {hhmm(e.occ)}</p>
         {e.location && <p className="mt-2 flex items-center gap-2 text-xl text-white/85"><MapPin size={20} />{e.location}</p>}
         <div className="flex-1" />

@@ -9,10 +9,8 @@ type Turn = { text: string; list?: Occ[] }
 const EXAMPLES = [
   'Bom dia',
   'O que eu tenho amanhã?',
-  'Marca dentista sexta às 10h e me avisa 10 minutos antes',
-  'Me lembra às 18h de ligar pro Carlos',
+  'Marca dentista sexta às 10h e me avisa 10 min antes',
   'Muda o almoço para 13h',
-  'Cancela a visita à obra',
 ]
 
 export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
@@ -31,7 +29,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
   const stopRef = useRef<() => void>(() => {})
   const endRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [turns, partial])
+  useEffect(() => { if (turns.length) endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [turns])
   useEffect(() => () => { stopRef.current(); stopSpeaking() }, [])
   useEffect(() => {
     if (autoStart && canListen() && !needsGesture()) start()
@@ -69,23 +67,28 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
   const listening = state === 'listening'
 
   return (
-    <div className="anim-fade fixed inset-0 z-50 flex flex-col bg-[#14201a] text-white">
+    <div className="anim-fade fixed inset-0 z-50 flex flex-col text-white" style={{ background: "radial-gradient(120% 60% at 50% 0%, #12352d 0%, #071311 60%)" }}>
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col overflow-hidden px-5 pt-[calc(env(safe-area-inset-top)+16px)]">
         <div className="flex items-center justify-between">
-          <span className="text-sm uppercase tracking-[.2em] text-white/50">Assistente</span>
+          <span className="text-[13px] font-semibold uppercase tracking-[.22em] text-white/45">Assistente</span>
           <button onClick={onClose} className="grid size-11 place-items-center rounded-full bg-white/10 active:scale-95" aria-label="Fechar">
             <X size={22} />
           </button>
         </div>
 
-        <div className="mt-4 flex-1 space-y-4 overflow-y-auto pb-6">
+        <div className="mt-2 flex-1 space-y-5 overflow-y-auto pb-6">
+          <div className={`flex justify-center transition-all duration-500 ${turns.length ? 'h-[130px] pt-6' : 'h-[250px] pt-10'}`}>
+            <div className="transition-transform duration-500" style={{ transform: `scale(${turns.length ? 0.55 : 1})`, transformOrigin: 'top center' }}>
+              <div className="orb" data-state={state} />
+            </div>
+          </div>
           {turns.length === 0 && (
-            <div className="pt-6">
-              <p className="font-display text-[28px] leading-tight">Como posso ajudar?</p>
-              <p className="mt-2 text-white/60">Fale naturalmente. Por exemplo:</p>
-              <div className="mt-5 flex flex-wrap gap-2">
+            <div className="text-center">
+              <p className="font-display text-[26px] font-semibold tracking-[-0.02em]">{listening ? 'Estou ouvindo…' : 'Como posso ajudar?'}</p>
+              <p className="mt-2 text-[15px] text-white/55">Fale do seu jeito. Por exemplo:</p>
+              <div className="mt-5 flex flex-wrap justify-center gap-2">
                 {EXAMPLES.map((x) => (
-                  <button key={x} onClick={() => handle(x)} className="rounded-full border border-white/15 px-4 py-2 text-[15px] text-white/85 active:bg-white/10">
+                  <button key={x} onClick={() => handle(x)} className="rounded-full border border-white/10 bg-white/[.05] px-3.5 py-2 text-[14px] text-white/80 active:bg-white/10">
                     “{x}”
                   </button>
                 ))}
@@ -94,15 +97,15 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
           )}
           {turns.map((t, i) => (
             <div key={i} className={`mr-6 ${i < turns.length - 1 ? 'opacity-45' : ''}`}>
-              <p className="font-display text-[22px] leading-snug">{t.text}</p>
+              <p className="font-display text-[22px] font-medium leading-snug tracking-[-0.01em]">{t.text}</p>
               {t.list && t.list.length > 0 && (
-                <div className="mt-3 rounded-2xl bg-paper text-ink">
+                <div className="mt-3 rounded-[24px] bg-paper p-2 text-ink">
                   {t.list.map((e) => <EventItem key={e.id + e.occ.toISOString()} e={e} now={now} onOpen={onOpen} />)}
                 </div>
               )}
             </div>
           ))}
-          {state === 'thinking' && <p className="text-white/50">pensando…</p>}
+          
           <div ref={endRef} />
         </div>
 
@@ -126,7 +129,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
                   <Mic size={20} />
                 </button>
               )}
-              <button type="submit" className="grid size-11 place-items-center rounded-full bg-warm" aria-label="Enviar">
+              <button type="submit" className="grid size-11 place-items-center rounded-full bg-glow text-night" aria-label="Enviar">
                 <Send size={19} />
               </button>
             </form>
@@ -137,10 +140,10 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
               </button>
               <button
                 onClick={() => (listening ? stopRef.current() : start())}
-                className="relative grid size-[88px] place-items-center rounded-full bg-warm text-white shadow-[0_10px_40px_-8px_rgba(200,121,43,.7)] active:scale-95"
+                className="relative grid size-[84px] place-items-center rounded-full text-white shadow-[0_10px_40px_-8px_rgba(53,201,166,.6)] active:scale-95" style={{ background: "radial-gradient(circle at 30% 25%, #4fe0bd 0%, #1d8a73 45%, #0f4a3f 100%)" }}
                 aria-label={listening ? 'Parar' : 'Falar'}
               >
-                {listening && <span className="anim-ring absolute inset-0 rounded-full bg-warm" />}
+                {listening && <span className="anim-ring absolute inset-0 rounded-full bg-glow" />}
                 {listening ? <Square size={30} className="relative fill-white" /> : <Mic size={36} className="relative" />}
               </button>
               <div className="size-12" />

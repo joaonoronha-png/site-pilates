@@ -8,7 +8,7 @@ export function Sheet({ onClose, children, title }: { onClose: () => void; child
       <div className="anim-sheet relative max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-[28px] bg-paper px-5 pb-[calc(env(safe-area-inset-bottom)+24px)] pt-3 shadow-2xl">
         <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-line" />
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="font-display text-2xl">{title}</h2>
+          <h2 className="font-display text-[22px] font-semibold tracking-[-0.01em]">{title}</h2>
           <button onClick={onClose} className="grid size-10 place-items-center rounded-full bg-card text-muted active:scale-95" aria-label="Fechar">
             <X size={20} />
           </button>
