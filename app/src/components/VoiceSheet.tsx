@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Keyboard, Mic, Send, Square, X } from 'lucide-react'
-import { canListen, listen, speak, stopSpeaking } from '../lib/voice'
+import { canListen, listen, needsGesture, speak, stopSpeaking } from '../lib/voice'
 import type { BrainResult } from '../lib/brain'
 import { EventItem, type Occ } from './EventItem'
 
@@ -34,7 +34,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
   useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [turns, partial])
   useEffect(() => () => { stopRef.current(); stopSpeaking() }, [])
   useEffect(() => {
-    if (autoStart && canListen()) start()
+    if (autoStart && canListen() && !needsGesture()) start()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -50,7 +50,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
       speak(r.reply, () => {
         setState('idle')
         // keep the conversation going if the assistant asked something
-        if (r.pending && canListen() && !typing) start()
+        if (r.pending && canListen() && !typing && !needsGesture()) start()
       })
     }, 350)
   }
