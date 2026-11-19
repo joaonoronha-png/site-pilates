@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarDays, CloudRain, CloudSun, Home, Mic, Play, Plus, Settings as Cog, Square } from 'lucide-react'
 import { useAgenda, occurrences, uid } from './lib/store'
-import { addDays, hhmm, longDate, sameDay, startOfDay, WEEKDAYS, relativeDay } from './lib/dates'
+import { addDays, hhmm, longDate, sameDay, startOfDay, relativeDay } from './lib/dates'
 import { interpret, morningBrief, greeting, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
 import { chime, speak, stopSpeaking } from './lib/voice'
@@ -11,6 +11,7 @@ import { EventSheet } from './components/EventSheet'
 import { VoiceSheet } from './components/VoiceSheet'
 import { AlertBanner, AlertScreen, alertText } from './components/Alert'
 import { SettingsView } from './components/SettingsView'
+import { AgendaView } from './components/AgendaView'
 
 type Tab = 'today' | 'agenda' | 'settings'
 
@@ -187,7 +188,6 @@ export default function App() {
   )
 }
 
-const cap = (s: string) => s[0].toUpperCase() + s.slice(1)
 
 function NavBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
   return (
@@ -287,50 +287,5 @@ function Timeline({ items, now, onOpen, nowLineIdx = -1 }: { items: Occ[]; now: 
         </li>
       ))}
     </ol>
-  )
-}
-
-function AgendaView({ events, now, onOpen, onAdd }: { events: Parameters<typeof occurrences>[0]; now: Date; onOpen: (e: Occ) => void; onAdd: (d: Date) => void }) {
-  const [sel, setSel] = useState(() => startOfDay(now))
-  const days = Array.from({ length: 14 }, (_, i) => addDays(startOfDay(now), i))
-  const span = occurrences(events, startOfDay(now), addDays(startOfDay(now), 14))
-  const list = span.filter((e) => sameDay(e.occ, sel))
-  const upcoming = days.slice(0, 8).filter((d) => !sameDay(d, sel)).slice(0, 7).map((d) => ({ d, items: span.filter((e) => sameDay(e.occ, d)) })).filter((x) => x.items.length)
-  return (
-    <div>
-      <h1 className="font-display text-[32px] font-semibold tracking-[-0.02em]">Agenda</h1>
-      <div className="-mx-4 mt-3 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
-        {days.map((d) => {
-          const active = sameDay(d, sel)
-          const has = span.some((e) => sameDay(e.occ, d))
-          return (
-            <button key={d.toISOString()} onClick={() => setSel(d)} className={`flex w-[56px] shrink-0 flex-col items-center rounded-[20px] py-3 transition ${active ? 'bg-accent text-white shadow-[0_10px_20px_-10px_rgba(15,74,63,.9)]' : 'border border-line bg-card'}`}>
-              <span className={`text-xs uppercase ${active ? 'text-white/75' : 'text-muted'}`}>{WEEKDAYS[d.getDay()].slice(0, 3)}</span>
-              <span className="font-display text-xl font-semibold tabular-nums">{d.getDate()}</span>
-              <span className={`mt-1 size-1.5 rounded-full ${has ? (active ? 'bg-white' : 'bg-warm') : 'bg-transparent'}`} />
-            </button>
-          )
-        })}
-      </div>
-      <div className="mt-4 flex items-center justify-between px-1">
-        <p className="text-[15px] font-medium text-muted">{longDate(sel)}</p>
-        <button onClick={() => onAdd(sel)} className="flex items-center gap-1 rounded-full bg-card px-3.5 py-2 text-[15px] font-medium text-accent active:scale-95"><Plus size={17} />Novo</button>
-      </div>
-      <div className="mt-2">
-        {list.length === 0
-          ? <p className="rounded-[28px] border border-dashed border-line px-5 py-10 text-center text-muted">Dia livre.</p>
-          : <Timeline items={list} now={now} onOpen={onOpen} nowLineIdx={sameDay(sel, now) ? list.findIndex((e) => e.occ > now) : -1} />}
-      </div>
-
-      <h2 className="mt-8 px-1 font-display text-[20px] font-semibold tracking-[-0.01em]">Próximos dias</h2>
-      <div className="mt-2 space-y-4">
-        {upcoming.map(({ d, items }) => (
-          <div key={d.toISOString()}>
-            <p className="px-1 pb-1.5 text-sm font-medium text-muted">{cap(relativeDay(d, now))}</p>
-            <Timeline items={items} now={now} onOpen={onOpen} />
-          </div>
-        ))}
-      </div>
-    </div>
   )
 }
