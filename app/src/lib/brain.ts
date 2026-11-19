@@ -166,6 +166,19 @@ function findTarget(t: string, ctx: Ctx): (AgendaEvent & { occ: Date }) | null {
   return byTitle[0]?.o ?? null
 }
 
+/** Other events that overlap [start, start + dur). */
+function clashes(ctx: Ctx, start: Date, durationMin: number, excludeId?: string) {
+  const end = new Date(start.getTime() + Math.max(durationMin, 1) * 60000)
+  return occurrences(ctx.events, addDays(startOfDay(start), -1), addDays(startOfDay(start), 2))
+    .filter((o) => o.id !== excludeId)
+    .filter((o) => o.occ < end && new Date(o.occ.getTime() + o.durationMin * 60000) > start)
+}
+
+function clashLine(ctx: Ctx, ev: AgendaEvent, excludeId?: string): string {
+  const c = clashes(ctx, new Date(ev.start), ev.durationMin, excludeId ?? ev.id)[0]
+  return c ? ` Atenção: nesse horário você também tem ${c.title}, às ${sayTime(c.occ)}.` : ''
+}
+
 function dayList(ctx: Ctx, day: Date) {
   const from = startOfDay(day)
   return occurrences(ctx.events, from, addDays(from, 1))
@@ -230,7 +243,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       const base = date?.date ?? new Date(ctx.pending.draft.start)
       const when = combine(startOfDay(base), time, ctx.now)!
       const event = withAlert({ ...ctx.pending.draft, start: when.toISOString() })
-      return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}. ${alertLine(event, ctx)}`, effect: { type: 'create', event }, touchedId: event.id }
+      return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}. ${alertLine(event, ctx)}${clashLine(ctx, event)}`, effect: { type: 'create', event }, touchedId: event.id }
     }
     if (rx(/\b(deixa|esquece|cancela|não)\b/).test(t)) return { reply: 'Tudo bem, não marquei nada.', effect: none }
   }
@@ -260,6 +273,26 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       effect: { type: 'update', id: target.id, patch: { alertBefore: alert.min, confirmedAt: undefined } },
       touchedId: target.id,
     }
+  }
+
+  // ---- "estou livre amanhã às 15h?"
+  if (rx(/\b(estou|tô|to|fico|tou|vou estar) (livre|ocupado|disponível)\b|\btenho (algo|alguma coisa|compromisso)\b|\bposso marcar\b/).test(t)) {
+    const date = parseDate(t, ctx.now)
+    const time = parseTime(t)
+    if (time) {
+      const at = combine(date?.date ?? null, time, ctx.now)!
+      const c = clashes(ctx, at, 1)[0]
+      const label = `${relativeDay(at, ctx.now)}, às ${sayTime(at)}`
+      return c
+        ? { reply: `Não. ${label[0].toUpperCase() + label.slice(1)} você tem ${c.title}.`, effect: none, list: [c], touchedId: c.id }
+        : { reply: `Sim, ${label} você está livre.`, effect: none }
+    }
+    const day = date?.date ?? ctx.now
+    const list = dayList(ctx, day)
+    const label = relativeDay(day, ctx.now)
+    return list.length
+      ? { reply: `${label[0].toUpperCase() + label.slice(1)} você tem ${summarizeDay(list)}. O resto do dia está livre.`, effect: none, list }
+      : { reply: `Sim, ${label} você está com o dia livre.`, effect: none }
   }
 
   // ---- greeting / brief
@@ -318,7 +351,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
     const when = new Date(merged.start)
     const what = patch.title ? `Troquei ${target.title} por ${merged.title}` : `Ajustei ${merged.title}`
     return {
-      reply: `${ok(ctx)} ${what} para ${when2(when)}. ${alertLine(merged, ctx)}`,
+      reply: `${ok(ctx)} ${what} para ${when2(when)}. ${alertLine(merged, ctx)}${patch.start ? clashLine(ctx, merged, target.id) : ''}`,
       effect: { type: 'update', id: target.id, patch },
       touchedId: target.id,
     }
@@ -353,7 +386,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
       const t2 = event.title.charAt(0).toLowerCase() + event.title.slice(1)
       return { reply: `${ok(ctx)} Vou te lembrar de ${t2} ${when2(when)}${rep}.`, effect: { type: 'create', event }, touchedId: event.id }
     }
-    return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}${rep}. ${alertLine(event, ctx)}`, effect: { type: 'create', event }, touchedId: event.id }
+    return { reply: `${ok(ctx)} Marquei ${event.title} para ${when2(when)}${rep}. ${alertLine(event, ctx)}${clashLine(ctx, event)}`, effect: { type: 'create', event }, touchedId: event.id }
   }
 
   return {

@@ -139,3 +139,25 @@ export function stopSpeaking() {
   if (canSpeak()) speechSynthesis.cancel()
 }
 export const needsGesture = () => dict !== null
+
+/** Short two-note chime before an alert is spoken. */
+export function chime() {
+  try {
+    const AC = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+    const ctx = new AC()
+    const notes = [[880, 0], [1318.5, 0.16]] as const
+    for (const [f, t] of notes) {
+      const o = ctx.createOscillator()
+      const g = ctx.createGain()
+      o.type = 'sine'
+      o.frequency.value = f
+      g.gain.setValueAtTime(0.0001, ctx.currentTime + t)
+      g.gain.exponentialRampToValueAtTime(0.25, ctx.currentTime + t + 0.02)
+      g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + t + 0.5)
+      o.connect(g).connect(ctx.destination)
+      o.start(ctx.currentTime + t)
+      o.stop(ctx.currentTime + t + 0.55)
+    }
+    setTimeout(() => ctx.close(), 1200)
+  } catch { /* no audio */ }
+}

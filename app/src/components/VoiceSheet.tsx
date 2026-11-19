@@ -1,19 +1,22 @@
 import { useEffect, useRef, useState } from 'react'
-import { Keyboard, Mic, Send, Square, X } from 'lucide-react'
+import { Keyboard, Mic, Send, Square, Undo2, X } from 'lucide-react'
 import { canListen, listen, needsGesture, speak, stopSpeaking } from '../lib/voice'
 import type { BrainResult } from '../lib/brain'
 import { EventItem, type Occ } from './EventItem'
 
-type Turn = { text: string; list?: Occ[] }
+type Turn = { text: string; list?: Occ[]; undoable?: boolean }
 
 const EXAMPLES = [
   'Bom dia',
   'O que eu tenho amanhã?',
   'Marca dentista sexta às 10h e me avisa 10 min antes',
   'Muda o almoço para 13h',
+  'Estou livre amanhã às 15h?',
 ]
 
-export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
+export function VoiceSheet({ onClose, ask, now, onOpen, autoStart, name, onUndo }: {
+  name: string
+  onUndo: () => boolean
   onClose: () => void
   ask: (text: string) => BrainResult
   now: Date
@@ -42,7 +45,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
     setState('thinking')
     setTimeout(() => {
       const r = ask(text)
-      setTurns((t) => [...t, { text: r.reply, list: r.list as Occ[] | undefined }])
+      setTurns((t) => [...t, { text: r.reply, list: r.list as Occ[] | undefined, undoable: r.effect.type !== 'none' }])
       setState('speaking')
       speak(r.reply, () => {
         setState('idle')
@@ -70,18 +73,18 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
     <div className="anim-fade fixed inset-0 z-50 flex flex-col text-white" style={{ background: "radial-gradient(120% 60% at 50% 0%, #12352d 0%, #071311 60%)" }}>
       <div className="mx-auto flex w-full max-w-md flex-1 flex-col overflow-hidden px-5 pt-[calc(env(safe-area-inset-top)+16px)]">
         <div className="flex items-center justify-between">
-          <span className="text-[13px] font-semibold uppercase tracking-[.22em] text-white/45">Assistente</span>
+          <span className="text-[13px] font-semibold uppercase tracking-[.22em] text-white/45">{name}</span>
           <button onClick={onClose} className="grid size-11 place-items-center rounded-full bg-white/10 active:scale-95" aria-label="Fechar">
             <X size={22} />
           </button>
         </div>
 
-        <div className="mt-2 flex-1 space-y-5 overflow-y-auto pb-6">
-          <div className={`flex justify-center transition-all duration-500 ${turns.length ? 'h-[130px] pt-6' : 'h-[250px] pt-10'}`}>
+        <div className={`flex justify-center transition-all duration-500 ${turns.length ? 'h-[130px] pt-6' : 'h-[250px] pt-10'}`}>
             <div className="transition-transform duration-500" style={{ transform: `scale(${turns.length ? 0.55 : 1})`, transformOrigin: 'top center' }}>
               <div className="orb" data-state={state} />
             </div>
           </div>
+        <div className="mt-2 flex-1 space-y-5 overflow-y-auto pb-6 [mask-image:linear-gradient(to_bottom,transparent,black_24px)]">
           {turns.length === 0 && (
             <div className="text-center">
               <p className="font-display text-[26px] font-semibold tracking-[-0.02em]">{listening ? 'Estou ouvindo…' : 'Como posso ajudar?'}</p>
@@ -98,6 +101,20 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart }: {
           {turns.map((t, i) => (
             <div key={i} className={`mr-6 ${i < turns.length - 1 ? 'opacity-45' : ''}`}>
               <p className="font-display text-[22px] font-medium leading-snug tracking-[-0.01em]">{t.text}</p>
+              {t.undoable && i === turns.length - 1 && (
+                <button
+                  onClick={() => {
+                    if (!onUndo()) return
+                    const msg = 'Desfeito. Deixei como estava antes.'
+                    setTurns((ts) => [...ts.map((x) => ({ ...x, undoable: false })), { text: msg }])
+                    setState('speaking')
+                    speak(msg, () => setState('idle'))
+                  }}
+                  className="mt-3 flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-[14px] font-medium text-white/80 active:bg-white/10"
+                >
+                  <Undo2 size={16} /> Desfazer
+                </button>
+              )}
               {t.list && t.list.length > 0 && (
                 <div className="mt-3 rounded-[24px] bg-paper p-2 text-ink">
                   {t.list.map((e) => <EventItem key={e.id + e.occ.toISOString()} e={e} now={now} onOpen={onOpen} />)}

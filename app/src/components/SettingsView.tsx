@@ -1,4 +1,4 @@
-import { Bell, Mic, Moon, Phone, RotateCcw, Sun, User, Volume2, MapPin, BellRing } from 'lucide-react'
+import { Type, Bell, Mic, Moon, Phone, RotateCcw, Sun, User, Volume2, MapPin, BellRing } from 'lucide-react'
 import type { Settings } from '../lib/types'
 import { Card, Row, Stepper, Toggle } from './ui'
 
@@ -18,6 +18,12 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
       <Card className="divide-y divide-line">
         <Row icon={<User size={20} />} label="Como te chamo">
           <input value={s.name} onChange={(e) => up('name', e.target.value)} placeholder="ex.: Seu João" className="w-36 rounded-xl bg-paper px-3 py-2 text-right outline-none" />
+        </Row>
+        <Row icon={<Mic size={20} />} label="Nome do assistente">
+          <input id="set-assistant" value={s.assistant} onChange={(e) => up('assistant', e.target.value)} className="w-36 rounded-xl bg-paper px-3 py-2 text-right outline-none" />
+        </Row>
+        <Row icon={<Type size={20} />} label="Letra grande" hint="Aumenta tudo na tela">
+          <Toggle checked={s.bigText} onChange={(v) => up('bigText', v)} label="Letra grande" />
         </Row>
         <Row icon={<MapPin size={20} />} label="Cidade (clima)">
           <input value={s.city} onChange={(e) => up('city', e.target.value)} className="w-36 rounded-xl bg-paper px-3 py-2 text-right outline-none" />
@@ -65,14 +71,14 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
         <div className="flex items-center gap-3">
           <span className="grid size-12 place-items-center rounded-2xl bg-gradient-to-br from-[#5b6cff] via-[#c04cf0] to-[#ff5a6e] text-white"><Mic size={24} /></span>
           <div>
-            <div className="text-lg font-semibold">“E aí Siri, agenda”</div>
-            <div className="text-sm text-muted">Funciona com a tela bloqueada</div>
+            <div className="text-lg font-semibold">“{s.assistant || 'Jarvis'}”</div>
+            <div className="text-sm text-muted">Sem abrir o app, nem tocar no celular</div>
           </div>
         </div>
         <ol className="mt-4 space-y-2.5 text-[15px] leading-snug">
-          <li><b>1.</b> Toque em <b>Instalar atalho</b> (abre o app Atalhos).</li>
-          <li><b>2.</b> Toque em <b>Adicionar atalho</b>.</li>
-          <li><b>3.</b> Pronto: diga <b>“E aí Siri, agenda”</b> e fale o pedido.</li>
+          <li><b>1.</b> Toque em <b>Instalar atalho</b> e depois em <b>Adicionar atalho</b>.</li>
+          <li><b>2.</b> No iPhone: Ajustes › Acessibilidade › <b>Atalhos Vocais</b>. Escolha o atalho e grave <b>“{s.assistant || 'Jarvis'}”</b> três vezes.</li>
+          <li><b>3.</b> Pronto: diga <b>“{s.assistant || 'Jarvis'}”</b> e fale o pedido. A resposta vem em voz alta.</li>
         </ol>
         <p className="mt-3 rounded-2xl bg-paper p-3 text-sm text-muted">Dica: no iPhone dá para ligar o atalho em <b>dois toquinhos atrás do celular</b> (Ajustes › Acessibilidade › Toque › Toque Atrás).</p>
         <button disabled className="mt-4 w-full rounded-2xl bg-ink/90 py-3.5 font-semibold text-white opacity-60">Instalar atalho (na versão final)</button>

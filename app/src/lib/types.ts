@@ -19,6 +19,9 @@ export interface AgendaEvent {
 }
 
 export interface Settings {
+  assistant: string
+  onboarded: boolean
+  bigText: boolean
   name: string
   city: string
   alertBefore: number
@@ -33,6 +36,9 @@ export interface Settings {
 }
 
 export const DEFAULT_SETTINGS: Settings = {
+  assistant: 'Jarvis',
+  onboarded: false,
+  bigText: false,
   name: '',
   city: 'São Paulo',
   alertBefore: 30,

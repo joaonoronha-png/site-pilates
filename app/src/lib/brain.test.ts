@@ -100,3 +100,25 @@ describe('reminder without "antes" is not an alert', () => {
     expect(r.effect.type === 'create' && new Date(r.effect.event.start).getHours()).toBe(18)
   })
 })
+
+describe('agenda smarts', () => {
+  const now = new Date(2026, 10, 18, 8, 0)
+  const mk = (title: string, d: Date): AgendaEvent => ({ id: title, title, start: d.toISOString(), durationMin: 60, important: false, repeat: 'none', alertBefore: null, kind: 'event' })
+  const c = (events: AgendaEvent[]) => ({ events, settings: DEFAULT_SETTINGS, now })
+  it('warns about a clash', () => {
+    const r = interpret('marca reunião amanhã às 12h30', c([mk('Almoço com o Carlos', new Date(2026, 10, 19, 12, 0))]))
+    expect(r.effect.type).toBe('create')
+    expect(r.reply).toContain('Atenção: nesse horário você também tem Almoço com o Carlos, às 12 horas.')
+  })
+  it('no warning when free', () => {
+    const r = interpret('marca reunião amanhã às 15h', c([mk('Almoço', new Date(2026, 10, 19, 12, 0))]))
+    expect(r.reply).not.toContain('Atenção')
+  })
+  it('free at a time', () => {
+    expect(interpret('estou livre amanhã às 15h?', c([])).reply).toBe('Sim, amanhã, às 15 horas você está livre.')
+    expect(interpret('estou livre amanhã às 12h30?', c([mk('Almoço', new Date(2026, 10, 19, 12, 0))])).reply).toBe('Não. Amanhã, às 12 e 30 você tem Almoço.')
+  })
+  it('free day', () => {
+    expect(interpret('tenho algo sexta?', c([])).reply).toBe('Sim, sexta, dia 20 você está com o dia livre.')
+  })
+})

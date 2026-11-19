@@ -4,7 +4,8 @@ import { useAgenda, occurrences, uid } from './lib/store'
 import { addDays, hhmm, longDate, sameDay, startOfDay, WEEKDAYS, relativeDay } from './lib/dates'
 import { interpret, morningBrief, greeting, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
-import { speak, stopSpeaking } from './lib/voice'
+import { chime, speak, stopSpeaking } from './lib/voice'
+import { Welcome } from './components/Welcome'
 import { EventItem, isConfirmed, type Occ } from './components/EventItem'
 import { EventSheet } from './components/EventSheet'
 import { VoiceSheet } from './components/VoiceSheet'
@@ -59,7 +60,8 @@ export default function App() {
     alerted.current.add(e.id + e.occ.toISOString())
     lastAlerted.current = e.id
     setBanner(e)
-    if (settings.speakAlerts) speak(alertText(e, new Date()))
+    chime()
+    if (settings.speakAlerts) setTimeout(() => speak(alertText(e, new Date())), 700)
     setTimeout(() => setBanner((b) => (b?.id === e.id ? null : b)), 9000)
   }
 
@@ -70,8 +72,15 @@ export default function App() {
 
   const ctx = () => ({ events, settings, now: new Date(), pending: pending.current, lastAlertedId: lastAlerted.current, lastEventId: lastEvent.current })
 
+  const undoStack = useRef<typeof events | null>(null)
+  function undo() {
+    if (undoStack.current) setEvents(undoStack.current)
+    undoStack.current = null
+  }
+
   function ask(text: string) {
     const r = interpret(text, ctx(), weatherSentence(weather, settings.city))
+    undoStack.current = r.effect.type === 'none' ? null : events
     pending.current = r.pending
     if (r.touchedId) lastEvent.current = r.touchedId
     const ef = r.effect
@@ -102,7 +111,8 @@ export default function App() {
   const next = useMemo(() => occurrences(events, now, addDays(now, 30))[0], [events, now])
 
   return (
-    <div className="relative mx-auto min-h-full max-w-md px-4 pb-36 pt-[calc(env(safe-area-inset-top)+20px)]">
+    <div className="relative mx-auto min-h-full max-w-md px-4 pb-36 pt-[calc(env(safe-area-inset-top)+20px)]" style={settings.bigText ? { zoom: 1.12 } : undefined}>
+      {!settings.onboarded && <Welcome settings={settings} onDone={(s) => setSettings({ ...s, onboarded: true })} />}
       {tab === 'today' && (
         <TodayView
           now={now} name={settings.name} weather={weather} city={settings.city} today={today} next={next}
@@ -147,7 +157,8 @@ export default function App() {
 
       {voiceOpen && (
         <VoiceSheet
-          autoStart onClose={() => setVoiceOpen(false)} ask={ask} now={now}
+          autoStart onClose={() => setVoiceOpen(false)} ask={ask} now={now} name={settings.assistant}
+          onUndo={() => { const had = !!undoStack.current; undo(); return had }}
           onOpen={(e) => { setVoiceOpen(false); setEditing({ e, isNew: false }) }}
         />
       )}
