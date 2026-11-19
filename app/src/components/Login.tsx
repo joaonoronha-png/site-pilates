@@ -22,6 +22,13 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
         {step === 'start' ? (
           <div className="mt-10 space-y-3">
             <button
+              onClick={() => onDone('apple')}
+              className="flex w-full items-center justify-center gap-3 rounded-[20px] bg-black py-4 text-[17px] font-semibold text-white ring-1 ring-white/15 active:scale-[.99]"
+            >
+              <svg width="18" height="22" viewBox="0 0 814 1000" fill="currentColor" aria-hidden><path d="M788 340c-6 4-108 62-108 190 0 148 130 200 134 202-1 3-21 72-69 142-43 62-88 124-156 124s-86-40-165-40c-77 0-104 41-166 41s-106-57-156-127C44 790 0 671 0 557 0 375 118 279 235 279c62 0 114 41 153 41 37 0 95-43 166-43 27 0 124 2 188 64zM554 170c29-35 50-83 50-131 0-7-1-14-2-19-48 2-104 32-138 71-27 30-52 78-52 127 0 7 1 15 2 17 3 1 8 1 13 1 43 0 97-29 127-66z"/></svg>
+              Continuar com a Apple
+            </button>
+            <button
               onClick={() => onDone('google')}
               className="flex w-full items-center justify-center gap-3 rounded-[20px] bg-white py-4 text-[17px] font-semibold text-[#1f1f1f] active:scale-[.99]"
             >
@@ -63,7 +70,7 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
 
         <div className="flex-1" />
         <p className="mt-10 text-center text-[13px] leading-relaxed text-white/40">
-          Sem senha para lembrar. Você entra uma vez e fica conectado.<br />Prévia: qualquer código de 6 números funciona.
+          Só na primeira vez. Depois fica conectado, e no outro celular<br />é só entrar com a mesma conta.<br />Prévia: qualquer código de 6 números funciona.
         </p>
       </div>
     </div>
