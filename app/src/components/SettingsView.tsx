@@ -87,6 +87,7 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
       <div className={label}>Demonstração</div>
       <Card className="divide-y divide-line">
         <button onClick={onSimulate} className="flex w-full items-center gap-3 px-4 py-4 text-left font-medium text-accent"><BellRing size={20} />Simular um aviso agora</button>
+        <button onClick={() => set({ ...s, onboarded: false })} className="flex w-full items-center gap-3 px-4 py-4 text-left font-medium text-accent"><Sun size={20} />Ver a apresentação de novo</button>
         <button onClick={onReset} className="flex w-full items-center gap-3 px-4 py-4 text-left font-medium text-muted"><RotateCcw size={20} />Restaurar agenda de exemplo</button>
       </Card>
     </div>

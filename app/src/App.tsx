@@ -113,7 +113,11 @@ export default function App() {
 
   return (
     <div className="relative mx-auto min-h-full max-w-md px-4 pb-36 pt-[calc(env(safe-area-inset-top)+20px)]" style={settings.bigText ? { zoom: 1.12 } : undefined}>
-      {!settings.onboarded && <Welcome settings={settings} onDone={(s) => setSettings({ ...s, onboarded: true })} />}
+      {!settings.onboarded && <Welcome settings={settings} onDone={(s) => {
+        setSettings({ ...s, onboarded: true })
+        const who = s.name ? `, senhor ${s.name.replace(/^(seu|sr\.?|senhor)\s+/i, '')}` : ', senhor'
+        speak(`Olá${who}. Eu sou o ${s.assistant}. A partir de agora eu cuido da sua agenda. Quando precisar, é só tocar no microfone e falar comigo.`)
+      }} />}
       {tab === 'today' && (
         <TodayView
           now={now} name={settings.name} weather={weather} city={settings.city} today={today} next={next}
