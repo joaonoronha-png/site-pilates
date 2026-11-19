@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ArrowRight, Eye, EyeOff } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Eye, EyeOff, MailCheck } from 'lucide-react'
 
 /**
  * Sign-in: Apple, Google, or any e-mail (Outlook, Hotmail…) with a password.
@@ -11,6 +11,9 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
   const [notice, setNotice] = useState('')
+  const [verify, setVerify] = useState(false)
+  const [code, setCode] = useState('')
+  const [resent, setResent] = useState(false)
   const valid = /^\S+@\S+\.\S+$/.test(email) && password.length >= 6
   const field = 'w-full rounded-2xl border border-white/12 bg-white/[.06] px-4 py-4 text-[17px] text-white outline-none placeholder:text-white/35 focus:border-glow/60'
 
@@ -21,6 +24,34 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
         <h1 className="mt-8 text-center font-display text-[34px] font-semibold tracking-[-0.02em]">Jarvis</h1>
         <p className="mt-2 text-center text-[16px] text-white/60">Sua agenda, por voz. Em qualquer celular.</p>
 
+        {verify ? (
+          <form onSubmit={(e) => { e.preventDefault(); if (code.length === 6) onDone(email) }} className="mt-10 space-y-4">
+            <div className="mx-auto grid size-14 place-items-center rounded-2xl bg-white/[.08] text-glow"><MailCheck size={28} /></div>
+            <h2 className="text-center font-display text-[22px] font-semibold">Confirme seu e-mail</h2>
+            <p className="text-center text-[16px] leading-relaxed text-white/70">
+              Mandamos um código de 6 números para<br /><b className="break-all text-white">{email}</b>
+            </p>
+            <input
+              id="verify-code"
+              autoFocus
+              inputMode="numeric"
+              autoComplete="one-time-code"
+              maxLength={6}
+              value={code}
+              onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+              placeholder="000000"
+              className={`${field} text-center font-display text-[30px] tracking-[.5em]`}
+            />
+            <button disabled={code.length !== 6} className="flex w-full items-center justify-center gap-2 rounded-[20px] bg-glow py-4 text-[17px] font-semibold text-night transition disabled:opacity-40 active:scale-[.99]">
+              Confirmar <ArrowRight size={19} />
+            </button>
+            <p className="text-center text-[14px] text-white/50">Não chegou? Olhe também a caixa de spam.</p>
+            <div className="flex items-center justify-between px-1 text-[15px]">
+              <button type="button" onClick={() => { setVerify(false); setCode('') }} className="flex items-center gap-1 text-white/55"><ArrowLeft size={16} />Trocar e-mail</button>
+              <button type="button" onClick={() => setResent(true)} className="font-medium text-glow">{resent ? 'Código reenviado' : 'Reenviar código'}</button>
+            </div>
+          </form>
+        ) : (
         <div className="mt-10 space-y-3">
           <button
             onClick={() => onDone('apple')}
@@ -37,7 +68,7 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
             Continuar com Google
           </button>
           <div className="flex items-center gap-3 py-2 text-[13px] text-white/40"><span className="h-px flex-1 bg-white/10" />ou com qualquer e-mail<span className="h-px flex-1 bg-white/10" /></div>
-          <form onSubmit={(e) => { e.preventDefault(); if (valid) onDone(email) }} className="space-y-3">
+          <form onSubmit={(e) => { e.preventDefault(); if (!valid) return; if (mode === 'criar') setVerify(true); else onDone(email) }} className="space-y-3">
             <input id="login-email" type="email" inputMode="email" autoComplete="email" className={field} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail (Outlook, Hotmail, Gmail…)" />
             <div className="relative">
               <input
@@ -72,10 +103,11 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
           </div>
           {notice && <p className="rounded-2xl bg-white/[.06] px-4 py-3 text-[14px] text-white/75">{notice}</p>}
         </div>
+        )}
 
         <div className="flex-1" />
         <p className="mt-10 text-center text-[13px] leading-relaxed text-white/40">
-          Só na primeira vez. Depois fica conectado. No outro celular, é só entrar com a mesma conta.<br />Prévia: qualquer e-mail e senha funcionam.
+          Só na primeira vez. Depois fica conectado. No outro celular, é só entrar com a mesma conta.<br />Prévia: qualquer e-mail, senha e código funcionam.
         </p>
       </div>
     </div>
