@@ -6,6 +6,7 @@ import { interpret, morningBrief, greeting, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
 import { chime, speak, stopSpeaking } from './lib/voice'
 import { Welcome } from './components/Welcome'
+import { Login } from './components/Login'
 import { EventItem, isConfirmed, type Occ } from './components/EventItem'
 import { EventSheet } from './components/EventSheet'
 import { VoiceSheet } from './components/VoiceSheet'
@@ -113,7 +114,8 @@ export default function App() {
 
   return (
     <div className="relative mx-auto min-h-full max-w-md px-4 pb-36 pt-[calc(env(safe-area-inset-top)+20px)]" style={settings.bigText ? { zoom: 1.12 } : undefined}>
-      {!settings.onboarded && <Welcome settings={settings} onDone={(s) => {
+      {!settings.account && <Login onDone={(account) => setSettings({ ...settings, account })} />}
+      {settings.account && !settings.onboarded && <Welcome settings={settings} onDone={(s) => {
         setSettings({ ...s, onboarded: true })
         const who = s.name ? `, senhor ${s.name.replace(/^(seu|sr\.?|senhor)\s+/i, '')}` : ', senhor'
         speak(`Olá${who}. Eu sou o ${s.assistant}. A partir de agora eu cuido da sua agenda. Quando precisar, é só tocar no microfone e falar comigo.`)

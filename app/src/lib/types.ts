@@ -23,6 +23,7 @@ export interface AgendaEvent {
 export interface Settings {
   assistant: string
   onboarded: boolean
+  account: string
   bigText: boolean
   name: string
   city: string
@@ -40,6 +41,7 @@ export interface Settings {
 export const DEFAULT_SETTINGS: Settings = {
   assistant: 'Jarvis',
   onboarded: false,
+  account: '',
   bigText: false,
   name: '',
   city: 'São Paulo',
