@@ -9,6 +9,8 @@ export interface AgendaEvent {
   start: string
   durationMin: number
   location?: string
+  /** client's phone, for call / WhatsApp buttons */
+  phone?: string
   important: boolean
   repeat: Repeat
   /** minutes before start to alert; null = use default */

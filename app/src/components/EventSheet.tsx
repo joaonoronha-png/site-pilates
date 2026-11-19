@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Bell, CheckCircle2, Phone, Smartphone, Trash2 } from 'lucide-react'
+import { Bell, CheckCircle2, MapPinned, MessageCircle, Phone, Smartphone, Trash2 } from 'lucide-react'
 import { hhmm, longDate } from '../lib/dates'
 import type { AgendaEvent, Repeat, Settings } from '../lib/types'
 import { Sheet, Toggle } from './ui'
@@ -24,6 +24,8 @@ export function EventSheet({ initial, isNew, settings, onSave, onDelete, onConfi
   const [date, setDate] = useState(toLocalInput(start).date)
   const [time, setTime] = useState(toLocalInput(start).time)
   const [location, setLocation] = useState(initial.location ?? '')
+  const [phone, setPhone] = useState(initial.phone ?? '')
+  const digits = phone.replace(/\D/g, '')
   const [important, setImportant] = useState(initial.important)
   const [repeat, setRepeat] = useState<Repeat>(initial.repeat)
   const [alertBefore, setAlertBefore] = useState(initial.alertBefore ?? settings.alertBefore)
@@ -39,7 +41,7 @@ export function EventSheet({ initial, isNew, settings, onSave, onDelete, onConfi
     const s = new Date(y, mo - 1, d, h, mi)
     const changedTime = s.getTime() !== start.getTime()
     onSave({
-      ...initial, title: title.trim() || 'Compromisso', start: s.toISOString(), location: location.trim() || undefined,
+      ...initial, title: title.trim() || 'Compromisso', start: s.toISOString(), location: location.trim() || undefined, phone: digits || undefined,
       important, repeat, alertBefore: alertBefore === settings.alertBefore && initial.alertBefore === null ? null : alertBefore,
       confirmedAt: changedTime ? undefined : initial.confirmedAt,
     })
@@ -80,7 +82,27 @@ export function EventSheet({ initial, isNew, settings, onSave, onDelete, onConfi
           <input className={field} type="date" value={date} onChange={(e) => setDate(e.target.value)} aria-label="Data" />
           <input className={`${field} w-32`} type="time" value={time} onChange={(e) => setTime(e.target.value)} aria-label="Hora" />
         </div>
-        <input className={field} value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Onde? (opcional)" aria-label="Local" />
+        <input id="ev-location" className={field} value={location} onChange={(e) => setLocation(e.target.value)} placeholder="Endereço ou local (opcional)" aria-label="Local" />
+        <input id="ev-phone" className={field} value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="Telefone do cliente (opcional)" aria-label="Telefone" inputMode="tel" />
+        {(location.trim() || digits.length >= 10) && (
+          <div className="grid grid-cols-3 gap-2">
+            {location.trim() && (
+              <a href={`https://maps.apple.com/?q=${encodeURIComponent(location)}`} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-[13px] font-semibold text-accent active:scale-95">
+                <MapPinned size={20} />Mapa
+              </a>
+            )}
+            {digits.length >= 10 && (
+              <>
+                <a href={`tel:+55${digits}`} className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-[13px] font-semibold text-accent active:scale-95">
+                  <Phone size={20} />Ligar
+                </a>
+                <a href={`https://wa.me/55${digits}`} target="_blank" rel="noreferrer" className="flex flex-col items-center gap-1 rounded-2xl bg-card py-3 text-[13px] font-semibold text-[#128c4a] active:scale-95">
+                  <MessageCircle size={20} />WhatsApp
+                </a>
+              </>
+            )}
+          </div>
+        )}
 
         <div className="divide-y divide-line rounded-2xl bg-card">
           <div className="flex items-center justify-between px-4 py-3">

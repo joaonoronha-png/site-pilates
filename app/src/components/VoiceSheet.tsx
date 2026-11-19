@@ -9,7 +9,7 @@ type Turn = { text: string; list?: Occ[]; undoable?: boolean }
 const EXAMPLES = [
   'Bom dia',
   'O que eu tenho amanhã?',
-  'Marca dentista sexta às 10h e me avisa 10 min antes',
+  'Marca visita ao apto 101 sexta às 10h',
   'Muda o almoço para 13h',
   'Estou livre amanhã às 15h?',
 ]

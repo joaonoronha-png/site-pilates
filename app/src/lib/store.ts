@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { addDays, startOfDay } from './dates'
 import { DEFAULT_SETTINGS, type AgendaEvent, type Settings } from './types'
 
-const EVENTS_KEY = 'agenda.events.v1'
+const EVENTS_KEY = 'agenda.events.v2'
 const SETTINGS_KEY = 'agenda.settings.v1'
 
 function read<T>(key: string, fallback: T): T {
@@ -40,12 +40,14 @@ export function seedEvents(): AgendaEvent[] {
   soon.setSeconds(0, 0)
   soon.setMinutes(Math.ceil(soon.getMinutes() / 5) * 5)
   return [
-    { ...base, id: uid(), title: 'Reunião com o contador', start: soon.toISOString(), location: 'Escritório', important: true },
+    { ...base, id: uid(), title: 'Visita ao apto 302 · Ed. Solar', start: soon.toISOString(), durationMin: 45, location: 'Rua das Acácias, 120', phone: '11987654321', important: true },
     { ...base, id: uid(), title: 'Almoço com o Carlos', start: at(0, 12, 30), location: 'Restaurante Dona Maria' },
-    { ...base, id: uid(), title: 'Ligar para o fornecedor', start: at(0, 16), durationMin: 15, kind: 'reminder' },
-    { ...base, id: uid(), title: 'Reunião de equipe', start: at(1, 9), repeat: 'weekly' },
-    { ...base, id: uid(), title: 'Dentista', start: at(2, 10), location: 'Clínica Sorriso' },
-    { ...base, id: uid(), title: 'Visita à obra', start: at(4, 14, 30), important: true },
+    { ...base, id: uid(), title: 'Ligar para o síndico', start: at(0, 16), durationMin: 15, kind: 'reminder', phone: '11912345678' },
+    { ...base, id: uid(), title: 'Vistoria de saída · apto 104', start: at(1, 9), location: 'Av. Brasil, 845' },
+    { ...base, id: uid(), title: 'Assinatura de contrato · Sr. Paulo', start: at(1, 15), location: 'Escritório', important: true, phone: '11955554444' },
+    { ...base, id: uid(), title: 'Reunião de equipe', start: at(2, 8, 30), repeat: 'weekly' },
+    { ...base, id: uid(), title: 'Cobrar aluguéis em atraso', start: at(3, 10), durationMin: 30, kind: 'reminder', repeat: 'monthly' },
+    { ...base, id: uid(), title: 'Visita ao terreno · Granja Viana', start: at(4, 14, 30), location: 'Granja Viana, Cotia', durationMin: 90 },
   ]
 }
 
