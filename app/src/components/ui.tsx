@@ -4,7 +4,7 @@ import { X } from 'lucide-react'
 export function Sheet({ onClose, children, title }: { onClose: () => void; children: ReactNode; title?: string }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center">
-      <button aria-label="Fechar" className="anim-fade absolute inset-0 bg-ink/35" onClick={onClose} />
+      <button aria-label="Fechar" className="anim-fade absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={onClose} />
       <div className="anim-sheet relative max-h-[92dvh] w-full max-w-md overflow-y-auto rounded-t-[28px] bg-paper px-5 pb-[calc(env(safe-area-inset-bottom)+24px)] pt-3 shadow-2xl">
         <div className="mx-auto mb-3 h-1.5 w-10 rounded-full bg-line" />
         <div className="mb-4 flex items-center justify-between">

@@ -19,8 +19,8 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
 
   return (
     <div className="anim-fade fixed inset-0 z-[80] overflow-y-auto text-white" style={{ background: 'radial-gradient(120% 60% at 50% 0%, #12352d 0%, #071311 60%)' }}>
-      <div className="mx-auto flex min-h-full max-w-md flex-col px-6 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[calc(env(safe-area-inset-top)+56px)]">
-        <div className="flex justify-center"><div className="orb" data-state="idle" style={{ width: 96, height: 96 }} /></div>
+      <div className="stagger-auto mx-auto flex min-h-full max-w-md flex-col px-6 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[calc(env(safe-area-inset-top)+56px)]">
+        <div className="flex justify-center"><div className="anim-float"><div className="orb" data-state="idle" style={{ width: 96, height: 96 }} /></div></div>
         <h1 className="mt-8 text-center font-display text-[34px] font-semibold tracking-[-0.02em]">Jarvis</h1>
         <p className="mt-2 text-center text-[16px] text-white/60">Sua agenda, por voz. Em qualquer celular.</p>
 

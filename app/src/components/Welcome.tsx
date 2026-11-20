@@ -12,9 +12,9 @@ export function Welcome({ settings, onDone }: { settings: Settings; onDone: (s: 
     <div className="anim-fade fixed inset-0 z-[70] overflow-y-auto text-white" style={{ background: 'radial-gradient(120% 60% at 50% 0%, #12352d 0%, #071311 60%)' }}>
       <form
         onSubmit={(e) => { e.preventDefault(); onDone({ ...settings, name: name.trim(), city: city.trim() || settings.city, assistant: assistant.trim() || 'Jarvis' }) }}
-        className="mx-auto flex min-h-full max-w-md flex-col px-6 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[calc(env(safe-area-inset-top)+40px)]"
+        className="stagger-auto mx-auto flex min-h-full max-w-md flex-col px-6 pb-[calc(env(safe-area-inset-bottom)+28px)] pt-[calc(env(safe-area-inset-top)+40px)]"
       >
-        <div className="flex justify-center"><div className="orb" data-state="idle" style={{ width: 120, height: 120 }} /></div>
+        <div className="flex justify-center"><div className="anim-float"><div className="orb" data-state="idle" style={{ width: 120, height: 120 }} /></div></div>
         <h1 className="mt-8 text-center font-display text-[30px] font-semibold leading-tight tracking-[-0.02em]">
           Olá! Eu sou o {assistant.trim() || 'Jarvis'}.
         </h1>

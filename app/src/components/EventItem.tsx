@@ -23,7 +23,7 @@ export function EventItem({ e, onOpen, now }: { e: Occ; onOpen: (e: Occ) => void
       <span className="relative z-[1] mt-[22px] grid w-[30px] shrink-0 place-items-center">
         <span className={`size-[13px] rounded-full border-[3px] border-paper ${seen ? 'bg-glow' : e.important ? 'bg-warm' : past ? 'bg-line' : 'bg-accent'} ${live ? 'ring-4 ring-warm/25' : ''}`} />
       </span>
-      <span className={`min-w-0 flex-1 rounded-[22px] border bg-card px-4 py-3.5 transition group-active:scale-[.99] ${live ? 'border-warm/50 shadow-[0_10px_24px_-16px_rgba(233,154,44,.9)]' : 'border-line'}`}>
+      <span className={`lift min-w-0 flex-1 rounded-[22px] border bg-card px-4 py-3.5 ${live ? 'border-warm/50 shadow-[0_10px_24px_-16px_rgba(233,154,44,.9)]' : 'border-line'}`}>
         <span className="flex items-baseline justify-between gap-3">
           <span className="flex min-w-0 items-center gap-1.5 text-[17px] font-semibold leading-snug">
             <span className="truncate">{e.title}</span>

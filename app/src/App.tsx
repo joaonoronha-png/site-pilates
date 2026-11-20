@@ -35,6 +35,13 @@ export default function App() {
   const [banner, setBanner] = useState<Occ | null>(null)
   const [alertScreen, setAlertScreen] = useState<Occ | null>(null)
   const [briefPlaying, setBriefPlaying] = useState(false)
+  const [toast, setToast] = useState<{ text: string; show: boolean }>({ text: '', show: false })
+  const toastTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  function notify(text: string) {
+    clearTimeout(toastTimer.current)
+    setToast({ text, show: true })
+    toastTimer.current = setTimeout(() => setToast((t) => ({ ...t, show: false })), 2200)
+  }
   const pending = useRef<Pending | undefined>(undefined)
   const lastAlerted = useRef<string | undefined>(undefined)
   const lastEvent = useRef<string | undefined>(undefined)
@@ -120,6 +127,7 @@ export default function App() {
         const who = s.name ? `, senhor ${s.name.replace(/^(seu|sr\.?|senhor)\s+/i, '')}` : ', senhor'
         speak(`Olá${who}. Eu sou o ${s.assistant}. A partir de agora eu cuido da sua agenda. Quando precisar, é só tocar no microfone e falar comigo.`)
       }} />}
+      <div key={tab} className="anim-view">
       {tab === 'today' && (
         <TodayView
           now={now} name={settings.name} weather={weather} city={settings.city} today={today} next={next}
@@ -136,6 +144,7 @@ export default function App() {
           onSimulate={() => { const e = next ?? today[0]; if (e) { alerted.current.clear(); fire(withDefault(e)) } }}
         />
       )}
+      </div>
 
       <button
         onClick={() => setTab(tab === 'settings' ? 'today' : 'settings')}
@@ -155,6 +164,7 @@ export default function App() {
             style={{ background: 'radial-gradient(circle at 30% 25%, #4fe0bd 0%, #1d8a73 45%, #0f4a3f 100%)' }}
             aria-label="Falar com o assistente"
           >
+            <span className="mic-halo" aria-hidden />
             <span className="absolute inset-[-5px] rounded-full border-2 border-glow/35" />
             <Mic size={30} strokeWidth={2.2} />
           </button>
@@ -173,11 +183,20 @@ export default function App() {
         <EventSheet
           key={editing.e.id} initial={editing.e} isNew={editing.isNew} settings={settings}
           onClose={() => setEditing(null)}
-          onSave={(e) => { upsert(e); setEditing(null) }}
-          onDelete={(id) => { remove(id); setEditing(null) }}
+          onSave={(e) => { upsert(e); setEditing(null); notify(editing.isNew ? 'Compromisso marcado' : 'Alterações salvas') }}
+          onDelete={(id) => { remove(id); setEditing(null); notify('Compromisso cancelado') }}
           onConfirm={(id) => { confirm(id); setEditing(null) }}
         />
       )}
+      <div
+        role="status"
+        data-show={toast.show}
+        className="toast pointer-events-none fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom)+112px)] z-40 flex justify-center px-6"
+      >
+        <span className="flex items-center gap-2 rounded-full bg-ink/90 px-5 py-3 text-[15px] font-medium text-white shadow-lg backdrop-blur">
+          <span className="size-2 rounded-full bg-glow" />{toast.text}
+        </span>
+      </div>
       {banner && <AlertBanner e={banner} now={now} onOpen={() => { setAlertScreen(banner); setBanner(null) }} />}
       {alertScreen && (
         <AlertScreen
@@ -215,7 +234,9 @@ function TodayView({ now, name, weather, city, today, next, briefPlaying, onBrie
   const nowLineIdx = today.findIndex((e) => e.occ > now)
   return (
     <div>
-      <section className="hero-glow relative -mx-1 overflow-hidden rounded-[32px] px-6 pb-6 pt-6 text-white shadow-[0_24px_50px_-24px_rgba(15,74,63,.8)]">
+      <section className="hero-glow relative isolate -mx-1 overflow-hidden rounded-[32px] px-6 pb-6 pt-6 text-white shadow-[0_24px_50px_-24px_rgba(15,74,63,.8)]">
+        <span className="hero-ambient -z-10" aria-hidden />
+        <span className="shine" aria-hidden />
         <p className="text-[14px] font-medium text-white/65">{longDate(now)}</p>
         <h1 className="mt-1 font-display text-[34px] font-semibold leading-[1.1] tracking-[-0.02em] [text-wrap:balance]">
           {greeting(now)}{name ? `, ${name}` : ''}
@@ -240,14 +261,14 @@ function TodayView({ now, name, weather, city, today, next, briefPlaying, onBrie
           </span>
           {briefPlaying && (
             <span className="flex h-5 items-end gap-[3px]">
-              {[0, 1, 2, 3].map((i) => <span key={i} className="anim-ring w-[3px] rounded-full bg-glow" style={{ height: `${8 + (i % 2) * 8}px`, animationDelay: `${i * .15}s` }} />)}
+              {[0, 1, 2, 3].map((i) => <span key={i} className="anim-eq h-5 w-[3px] rounded-full bg-glow" style={{ animationDelay: `${i * 120}ms` }} />)}
             </span>
           )}
         </button>
       </section>
 
       {next && (
-        <button onClick={() => onOpen(next)} className="mt-4 w-full rounded-[28px] border border-line bg-card p-5 text-left shadow-[0_10px_30px_-22px_rgba(12,25,22,.5)] active:scale-[.99]">
+        <button onClick={() => onOpen(next)} className="lift anim-pop mt-4 w-full rounded-[28px] border border-line bg-card p-5 text-left shadow-[0_10px_30px_-22px_rgba(12,25,22,.5)]" style={{ animationDelay: "80ms" }}>
           <div className="flex items-center justify-between">
             <span className="flex items-center gap-2 text-[13px] font-semibold uppercase tracking-[.08em] text-muted">
               <span className="relative flex size-2.5"><span className="anim-ring absolute inset-0 rounded-full bg-warm" /><span className="relative size-2.5 rounded-full bg-warm" /></span>
@@ -278,10 +299,10 @@ function TodayView({ now, name, weather, city, today, next, briefPlaying, onBrie
 
 function Timeline({ items, now, onOpen, nowLineIdx = -1 }: { items: Occ[]; now: Date; onOpen: (e: Occ) => void; nowLineIdx?: number }) {
   return (
-    <ol className="relative">
+    <ol className="stagger relative">
       <span className="absolute bottom-6 left-[15px] top-6 w-px bg-line" aria-hidden />
       {items.map((e, i) => (
-        <li key={e.id + e.occ.toISOString()}>
+        <li key={e.id + e.occ.toISOString()} style={{ '--i': i + 2 } as React.CSSProperties}>
           {i === nowLineIdx && (
             <div className="relative my-1 flex items-center gap-2 pl-[9px]" aria-label="Agora">
               <span className="size-[13px] rounded-full border-[3px] border-paper bg-warm shadow" />

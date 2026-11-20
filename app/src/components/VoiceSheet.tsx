@@ -86,7 +86,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart, name, onUndo 
           </div>
         <div className="mt-2 flex-1 space-y-5 overflow-y-auto pb-6 [mask-image:linear-gradient(to_bottom,transparent,black_24px)]">
           {turns.length === 0 && (
-            <div className="text-center">
+            <div className="stagger-auto text-center">
               <p className="font-display text-[26px] font-semibold tracking-[-0.02em]">{listening ? 'Estou ouvindo…' : 'Como posso ajudar?'}</p>
               <p className="mt-2 text-[15px] text-white/55">Fale do seu jeito. Por exemplo:</p>
               <div className="mt-5 flex flex-wrap justify-center gap-2">
@@ -99,7 +99,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart, name, onUndo 
             </div>
           )}
           {turns.map((t, i) => (
-            <div key={i} className={`mr-6 ${i < turns.length - 1 ? 'opacity-45' : ''}`}>
+            <div key={i} className={`anim-view mr-6 ${i < turns.length - 1 ? 'opacity-45' : ''}`}>
               <p className="font-display text-[22px] font-medium leading-snug tracking-[-0.01em]">{t.text}</p>
               {t.undoable && i === turns.length - 1 && (
                 <button
