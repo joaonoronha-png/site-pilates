@@ -1,5 +1,6 @@
 import { LogOut, Type, Bell, Mic, Moon, Phone, RotateCcw, Sun, User, Volume2, MapPin, BellRing } from 'lucide-react'
 import type { Settings } from '../lib/types'
+import { VoicePicker } from './VoicePicker'
 import { Card, Row, Stepper, Toggle } from './ui'
 
 export function SettingsView({ s, set, onSimulate, onReset }: {
@@ -53,6 +54,9 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
           <Toggle checked={s.speakAlerts} onChange={(v) => up('speakAlerts', v)} label="Falar aviso" />
         </Row>
       </Card>
+
+      <div className={label}>Voz do {s.assistant || 'Jarvis'}</div>
+      <VoicePicker value={s.voice} onChange={(v) => up('voice', v)} name={s.name} />
 
       <div className={label}>Bom dia</div>
       <Card className="divide-y divide-line">

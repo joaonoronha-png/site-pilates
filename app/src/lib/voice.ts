@@ -109,8 +109,30 @@ export function listen(handlers: {
 }
 
 let voice: SpeechSynthesisVoice | null = null
+let pref = ''
+/** '' = automatic; 'tts:<voice>' = Claude voice; 'sys:<name>' = a voice installed on the device */
+export function setVoicePref(id: string) { pref = id; voice = null }
+
+export interface VoiceOption { id: string; label: string; hint: string }
+const TTS_VOICES: [string, string][] = [['rounded', 'Rounded'], ['glassy', 'Glassy'], ['airy', 'Airy'], ['buttery', 'Buttery']]
+export function listVoices(): VoiceOption[] {
+  const out: VoiceOption[] = []
+  if (tts) for (const [id, l] of TTS_VOICES) out.push({ id: `tts:${id}`, label: `Claude · ${l}`, hint: 'voz do app Claude' })
+  if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    for (const v of speechSynthesis.getVoices()) {
+      if (!v.lang.toLowerCase().startsWith('pt')) continue
+      out.push({ id: `sys:${v.name}`, label: v.name.replace(/\s*\(.*\)\s*/, ''), hint: v.lang.replace('_', '-') === 'pt-BR' ? 'português do Brasil' : 'português' })
+    }
+  }
+  return out
+}
+
 function pickVoice(): SpeechSynthesisVoice | null {
   if (voice) return voice
+  if (pref.startsWith('sys:')) {
+    voice = speechSynthesis.getVoices().find((v) => v.name === pref.slice(4)) ?? null
+    if (voice) return voice
+  }
   const vs = speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('pt'))
   // Jarvis style: prefer a male Brazilian voice (Felipe on iPhone/Mac), then any pt-BR one
   const br = vs.filter((v) => v.lang.replace('_', '-') === 'pt-BR')
@@ -122,8 +144,9 @@ function pickVoice(): SpeechSynthesisVoice | null {
 }
 
 export function speak(text: string, onEnd?: () => void) {
-  if (tts) {
-    tts.speak(text, { language: 'pt-BR', rate: 0.95 }).then(() => onEnd?.(), () => onEnd?.())
+  if (tts && !pref.startsWith('sys:')) {
+    const v = pref.startsWith('tts:') ? pref.slice(4) : undefined
+    ;(tts.speak as (t: string, o: object) => Promise<void>)(text, { language: 'pt-BR', rate: 0.95, ...(v ? { voice: v } : {}) }).then(() => onEnd?.(), () => onEnd?.())
     return
   }
   if (!canSpeak()) { onEnd?.(); return }
@@ -140,6 +163,7 @@ export function speak(text: string, onEnd?: () => void) {
 }
 
 export function stopSpeaking() {
+  if (canSpeak()) try { speechSynthesis.cancel() } catch { /* ignore */ }
   if (tts) { try { tts.stop() } catch { /* ignore */ } return }
   if (canSpeak()) speechSynthesis.cancel()
 }

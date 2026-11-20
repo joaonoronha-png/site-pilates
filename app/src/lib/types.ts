@@ -36,6 +36,7 @@ export interface Settings {
   morningBrief: boolean
   morningHour: number
   speakAlerts: boolean
+  voice: string
 }
 
 export const DEFAULT_SETTINGS: Settings = {
@@ -54,4 +55,5 @@ export const DEFAULT_SETTINGS: Settings = {
   morningBrief: true,
   morningHour: 7,
   speakAlerts: true,
+  voice: '',
 }

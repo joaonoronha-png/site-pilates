@@ -4,7 +4,7 @@ import { useAgenda, occurrences, uid } from './lib/store'
 import { addDays, hhmm, longDate, sameDay, startOfDay, relativeDay } from './lib/dates'
 import { interpret, morningBrief, greeting, sir, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
-import { chime, speak, stopSpeaking } from './lib/voice'
+import { chime, setVoicePref, speak, stopSpeaking } from './lib/voice'
 import { Welcome } from './components/Welcome'
 import { Login } from './components/Login'
 import { EventItem, isConfirmed, type Occ } from './components/EventItem'
@@ -48,6 +48,7 @@ export default function App() {
   const alerted = useRef(new Set<string>())
 
   useEffect(() => { fetchWeather(settings.city).then(setWeather) }, [settings.city])
+  useEffect(() => { setVoicePref(settings.voice) }, [settings.voice])
 
   const withDefault = (e: Occ): Occ => ({ ...e, alertBefore: e.alertBefore ?? settings.alertBefore })
 
