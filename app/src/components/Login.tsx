@@ -11,6 +11,7 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
   const [password, setPassword] = useState('')
   const [show, setShow] = useState(false)
   const [notice, setNotice] = useState('')
+  const [provider, setProvider] = useState<'' | 'Apple' | 'Google'>('')
   const [verify, setVerify] = useState(false)
   const [code, setCode] = useState('')
   const [resent, setResent] = useState(false)
@@ -54,19 +55,29 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
         ) : (
         <div className="mt-10 space-y-3">
           <button
-            onClick={() => onDone('apple')}
+            onClick={() => setProvider('Apple')}
             className="flex w-full items-center justify-center gap-3 rounded-[20px] bg-black py-4 text-[17px] font-semibold text-white ring-1 ring-white/15 active:scale-[.99]"
           >
             <svg width="18" height="22" viewBox="0 0 814 1000" fill="currentColor" aria-hidden><path d="M788 340c-6 4-108 62-108 190 0 148 130 200 134 202-1 3-21 72-69 142-43 62-88 124-156 124s-86-40-165-40c-77 0-104 41-166 41s-106-57-156-127C44 790 0 671 0 557 0 375 118 279 235 279c62 0 114 41 153 41 37 0 95-43 166-43 27 0 124 2 188 64zM554 170c29-35 50-83 50-131 0-7-1-14-2-19-48 2-104 32-138 71-27 30-52 78-52 127 0 7 1 15 2 17 3 1 8 1 13 1 43 0 97-29 127-66z"/></svg>
             Continuar com a Apple
           </button>
           <button
-            onClick={() => onDone('google')}
+            onClick={() => setProvider('Google')}
             className="flex w-full items-center justify-center gap-3 rounded-[20px] bg-white py-4 text-[17px] font-semibold text-[#1f1f1f] active:scale-[.99]"
           >
             <svg width="20" height="20" viewBox="0 0 48 48" aria-hidden><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="m6.3 14.7 6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>
             Continuar com Google
           </button>
+          {provider && (
+            <div className="anim-pop rounded-2xl border border-white/12 bg-white/[.06] p-4 text-[14px] leading-relaxed text-white/80">
+              <b className="text-white">Login com {provider === 'Apple' ? 'a Apple' : 'o Google'} só funciona no app final.</b>{' '}
+              Lá vai abrir a janela {provider === 'Apple' ? 'da Apple pedindo o Face ID' : 'do Google para escolher a conta'}. Aqui na prévia não dá, porque precisa do servidor.
+              <div className="mt-3 flex gap-2">
+                <button onClick={() => onDone(provider.toLowerCase())} className="rounded-full bg-glow px-4 py-2 text-[14px] font-semibold text-night">Continuar a demonstração</button>
+                <button onClick={() => setProvider('')} className="rounded-full px-3 py-2 text-[14px] text-white/60">Fechar</button>
+              </div>
+            </div>
+          )}
           <div className="flex items-center gap-3 py-2 text-[13px] text-white/40"><span className="h-px flex-1 bg-white/10" />ou com qualquer e-mail<span className="h-px flex-1 bg-white/10" /></div>
           <form onSubmit={(e) => { e.preventDefault(); if (!valid) return; if (mode === 'criar') setVerify(true); else onDone(email) }} className="space-y-3">
             <input id="login-email" type="email" inputMode="email" autoComplete="email" className={field} value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-mail (Outlook, Hotmail, Gmail…)" />
