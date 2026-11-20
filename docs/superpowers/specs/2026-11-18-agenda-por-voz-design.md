@@ -153,3 +153,11 @@ O João escolheu a **A**.
   "você", em pt-BR).
 - Visual do site (limpo, letras grandes, pensado para uso no celular).
 - Estratégia de testes.
+
+## Voz do Jarvis (decidido em 2026-11-20)
+
+- Estilo inspirado no Jarvis do cinema, **sem copiar a voz de nenhuma pessoa real** (nada de clonar o ator ou o dublador).
+- Perfil: masculina, grave, calma, educada, ritmo um pouco mais lento; trata por "senhor" ("Pronto, senhor João.").
+- Versão final: voz de IA da **ElevenLabs** (biblioteca de vozes em português), escolhida por esse perfil; chave guardada no servidor, nunca no app.
+  Ajustes oferecem 3–4 vozes desse perfil com botão "Ouvir".
+- Prévia: voz masculina do próprio aparelho (Felipe no iPhone), tom mais grave (pitch 0,85) e velocidade 0,96.

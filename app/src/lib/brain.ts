@@ -199,7 +199,7 @@ export function greeting(now: Date): string {
 export function morningBrief(ctx: Ctx, weather?: string): BrainResult {
   const today = dayList(ctx, ctx.now).filter((e) => e.occ >= ctx.now)
   const tomorrow = dayList(ctx, addDays(ctx.now, 1))
-  const name = ctx.settings.name ? `, ${ctx.settings.name}` : ''
+  const name = `, ${sir(ctx.settings.name)}`
   const w = weather ? ` ${weather}` : ''
   const reply = `${greeting(ctx.now)}${name}.${w} Hoje você ainda tem ${summarizeDay(today)}. Amanhã, ${summarizeDay(tomorrow)}.`
   return { reply, effect: { type: 'none' }, list: today }
@@ -217,8 +217,14 @@ export function parseAlert(t: string): AlertHit | null {
   return { min, match: m[0] }
 }
 
+/** "senhor João" — Jarvis-style address. Drops a "Seu"/"Sr." he may have typed himself. */
+export function sir(name: string): string {
+  const n = name.trim().replace(/^(seu|sr\.?|senhor)\s+/i, '')
+  return n ? `senhor ${n}` : 'senhor'
+}
+
 function ok(ctx: Ctx): string {
-  return ctx.settings.name ? `Pronto, ${ctx.settings.name}.` : 'Pronto.'
+  return `Pronto, ${sir(ctx.settings.name)}.`
 }
 
 function alertLine(ev: AgendaEvent, ctx: Ctx): string {
@@ -390,7 +396,7 @@ export function interpret(input: string, ctx: Ctx, weather?: string): BrainResul
   }
 
   return {
-    reply: 'Não entendi. Tente assim: marca dentista sexta às 10 horas.',
+    reply: 'Perdão, senhor, não entendi. Pode dizer, por exemplo: marca visita sexta às 10 horas.',
     effect: none,
   }
 }

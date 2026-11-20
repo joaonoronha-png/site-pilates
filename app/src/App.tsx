@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarDays, CloudRain, CloudSun, Home, Mic, Play, Plus, Settings as Cog, Square } from 'lucide-react'
 import { useAgenda, occurrences, uid } from './lib/store'
 import { addDays, hhmm, longDate, sameDay, startOfDay, relativeDay } from './lib/dates'
-import { interpret, morningBrief, greeting, type Pending } from './lib/brain'
+import { interpret, morningBrief, greeting, sir, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
 import { chime, speak, stopSpeaking } from './lib/voice'
 import { Welcome } from './components/Welcome'
@@ -124,8 +124,8 @@ export default function App() {
       {!settings.account && <Login onDone={(account) => setSettings({ ...settings, account })} />}
       {settings.account && !settings.onboarded && <Welcome settings={settings} onDone={(s) => {
         setSettings({ ...s, onboarded: true })
-        const who = s.name ? `, senhor ${s.name.replace(/^(seu|sr\.?|senhor)\s+/i, '')}` : ', senhor'
-        speak(`Olá${who}. Eu sou o ${s.assistant}. A partir de agora eu cuido da sua agenda. Quando precisar, é só tocar no microfone e falar comigo.`)
+        const who = `, ${sir(s.name)}`
+        speak(`Olá${who}. Eu sou o ${s.assistant}, seu assistente pessoal. A partir de agora eu cuido da sua agenda. Quando precisar de mim, é só chamar.`)
       }} />}
       <div key={tab} className="anim-view">
       {tab === 'today' && (

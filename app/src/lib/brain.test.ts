@@ -67,7 +67,7 @@ describe('interpret', () => {
   })
   it('clear reply with name', () => {
     const r = interpret('marca dentista sexta às 10h', { ...ctx(), settings: { ...DEFAULT_SETTINGS, name: 'João' } })
-    expect(r.reply).toBe('Pronto, João. Marquei Dentista para sexta, dia 20, às 10 horas. Vou te avisar 30 minutos antes.')
+    expect(r.reply).toBe('Pronto, senhor João. Marquei Dentista para sexta, dia 20, às 10 horas. Vou te avisar 30 minutos antes.')
   })
   it('alert inside the command', () => {
     const r = interpret('marca dentista sexta às 10h e me avisa 10 minutos antes', ctx())
@@ -85,12 +85,12 @@ describe('interpret', () => {
     const e = ev('Dentista', new Date(2026, 10, 20, 10, 0))
     const r = interpret('me avisa 10 minutos antes', { ...ctx([e]), lastEventId: 'Dentista' })
     expect(r.effect).toEqual({ type: 'update', id: 'Dentista', patch: { alertBefore: 10, confirmedAt: undefined } })
-    expect(r.reply).toBe('Pronto. Vou te avisar 10 minutos antes de Dentista.')
+    expect(r.reply).toBe('Pronto, senhor. Vou te avisar 10 minutos antes de Dentista.')
   })
   it('change reply', () => {
     const e = ev('Reunião', new Date(2026, 10, 20, 13, 0))
     const r = interpret('muda a reunião do dia 20 para as 15h', ctx([e]))
-    expect(r.reply).toBe('Pronto. Ajustei Reunião para sexta, dia 20, às 15 horas. Vou te avisar 30 minutos antes.')
+    expect(r.reply).toBe('Pronto, senhor. Ajustei Reunião para sexta, dia 20, às 15 horas. Vou te avisar 30 minutos antes.')
   })
 })
 

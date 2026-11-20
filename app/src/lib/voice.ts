@@ -112,21 +112,26 @@ let voice: SpeechSynthesisVoice | null = null
 function pickVoice(): SpeechSynthesisVoice | null {
   if (voice) return voice
   const vs = speechSynthesis.getVoices().filter((v) => v.lang.toLowerCase().startsWith('pt'))
-  voice = vs.find((v) => v.lang === 'pt-BR' && /luciana|felipe|google|premium|enhanced/i.test(v.name))
-    ?? vs.find((v) => v.lang === 'pt-BR') ?? vs[0] ?? null
+  // Jarvis style: prefer a male Brazilian voice (Felipe on iPhone/Mac), then any pt-BR one
+  const br = vs.filter((v) => v.lang.replace('_', '-') === 'pt-BR')
+  voice = br.find((v) => /felipe|daniel|ricardo|ant[oô]nio|male|masculin/i.test(v.name) && /premium|enhanced|aprimorad/i.test(v.name))
+    ?? br.find((v) => /felipe|daniel|ricardo|ant[oô]nio|male|masculin/i.test(v.name))
+    ?? br.find((v) => /premium|enhanced|google/i.test(v.name))
+    ?? br[0] ?? vs[0] ?? null
   return voice
 }
 
 export function speak(text: string, onEnd?: () => void) {
   if (tts) {
-    tts.speak(text, { language: 'pt-BR' }).then(() => onEnd?.(), () => onEnd?.())
+    tts.speak(text, { language: 'pt-BR', rate: 0.95 }).then(() => onEnd?.(), () => onEnd?.())
     return
   }
   if (!canSpeak()) { onEnd?.(); return }
   speechSynthesis.cancel()
   const u = new SpeechSynthesisUtterance(text)
   u.lang = 'pt-BR'
-  u.rate = 1.02
+  u.rate = 0.96
+  u.pitch = 0.85 // a little deeper and calmer
   const v = pickVoice()
   if (v) u.voice = v
   u.onend = () => onEnd?.()
@@ -137,6 +142,11 @@ export function speak(text: string, onEnd?: () => void) {
 export function stopSpeaking() {
   if (tts) { try { tts.stop() } catch { /* ignore */ } return }
   if (canSpeak()) speechSynthesis.cancel()
+}
+
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+  // voices load late on some browsers; re-pick when they arrive
+  speechSynthesis.addEventListener?.('voiceschanged', () => { voice = null })
 }
 export const needsGesture = () => dict !== null
 
