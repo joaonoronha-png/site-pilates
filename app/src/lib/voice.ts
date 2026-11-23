@@ -195,3 +195,15 @@ export function chime() {
     setTimeout(() => ctx.close(), 1200)
   } catch { /* no audio */ }
 }
+
+let clip: HTMLAudioElement | null = null
+/** Play a pre-recorded clip (the official Jarvis voice). Falls back to onEnd if audio is blocked. */
+export function playClip(src: string, onEnd?: () => void) {
+  try {
+    stopSpeaking()
+    clip?.pause()
+    clip = new Audio(src)
+    clip.onended = () => onEnd?.()
+    clip.play().catch(() => onEnd?.())
+  } catch { onEnd?.() }
+}

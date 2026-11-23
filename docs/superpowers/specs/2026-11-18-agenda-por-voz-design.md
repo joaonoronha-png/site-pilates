@@ -161,3 +161,9 @@ O João escolheu a **A**.
 - Versão final: voz de IA da **ElevenLabs** (biblioteca de vozes em português), escolhida por esse perfil; chave guardada no servidor, nunca no app.
   Ajustes oferecem 3–4 vozes desse perfil com botão "Ouvir".
 - Prévia: voz masculina do próprio aparelho (Felipe no iPhone), tom mais grave (pitch 0,85) e velocidade 0,96.
+
+**Atualização 2026-11-23 — voz escolhida: Faber.** O João escolheu a voz **Piper pt_BR "faber" (medium)**, de código aberto e gratuita, com o "efeito Jarvis":
+`asetrate ×0,93 + atempo 1,0753` (mais grave, mesma velocidade), `length_scale 1,08`, equalização leve (+3 dB em 180 Hz, +2 dB em 3,5 kHz),
+eco curto (`aecho=0.85:0.6:28|55:0.10|0.06`), chorus sutil e `loudnorm -16 LUFS`. Amostras em `docs/vozes/`.
+No app final, o servidor gera cada resposta nessa voz e o celular só toca o áudio, então não precisa instalar nada no aparelho.
+O Piper precisa rodar num servidor com Python (um container pequeno), porque não roda nas funções do Supabase.
