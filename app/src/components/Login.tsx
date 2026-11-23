@@ -47,6 +47,9 @@ export function Login({ onDone }: { onDone: (email: string) => void }) {
               Confirmar <ArrowRight size={19} />
             </button>
             <p className="text-center text-[14px] text-white/50">Não chegou? Olhe também a caixa de spam.</p>
+            <p className="rounded-2xl border border-warm/40 bg-warm/10 px-4 py-3 text-center text-[14px] leading-relaxed text-white/85">
+              <b className="text-white">Prévia:</b> nenhum e-mail é enviado ainda. Digite qualquer código de 6 números, por exemplo <b className="text-white">123456</b>.
+            </p>
             <div className="flex items-center justify-between px-1 text-[15px]">
               <button type="button" onClick={() => { setVerify(false); setCode('') }} className="flex items-center gap-1 text-white/55"><ArrowLeft size={16} />Trocar e-mail</button>
               <button type="button" onClick={() => setResent(true)} className="font-medium text-glow">{resent ? 'Código reenviado' : 'Reenviar código'}</button>
