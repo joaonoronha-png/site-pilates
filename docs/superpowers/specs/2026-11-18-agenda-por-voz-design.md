@@ -167,3 +167,11 @@ O João escolheu a **A**.
 eco curto (`aecho=0.85:0.6:28|55:0.10|0.06`), chorus sutil e `loudnorm -16 LUFS`. Amostras em `docs/vozes/`.
 No app final, o servidor gera cada resposta nessa voz e o celular só toca o áudio, então não precisa instalar nada no aparelho.
 O Piper precisa rodar num servidor com Python (um container pequeno), porque não roda nas funções do Supabase.
+
+## Decisões de 2026-11-24 (conversa com o Matheus, que faz o app para o pai, Sanderson)
+
+- **Agenda:** o pai usa provavelmente o **Outlook** (aguardando confirmação). Se confirmado, o app **se conecta à agenda do Outlook** (Microsoft Graph) em vez de ter uma agenda própria: o que ele marcar por voz vai para o Outlook, e o que já está lá o app lê e avisa.
+- **Confirmação para clientes:** **só por mensagem**, sem áudio. WhatsApp semiautomático (o app abre a conversa com o texto pronto e ele toca em enviar) e e-mail automático pelo Outlook.
+  O áudio com a voz dele fica de fora por ora, porque exige a API oficial do WhatsApp Business (custo por mensagem e número dedicado).
+- **Resumo de reuniões:** ele vai querer. Gravar a reunião e entregar resumo, decisões e tarefas. Fica para uma fase seguinte.
+- **Ordem proposta:** (1) Outlook + voz + avisos + confirmação por mensagem → (2) resumo de reuniões.
