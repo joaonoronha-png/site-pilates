@@ -5,7 +5,8 @@ import { SAMPLE_MP3 } from '../lib/jarvisClips'
 import { sir } from '../lib/brain'
 import { Card } from './ui'
 
-export function VoicePicker({ value, onChange, name }: { value: string; onChange: (v: string) => void; name: string }) {
+export function VoicePicker({ value, onChange, name, assistant }: { value: string; onChange: (v: string) => void; name: string; assistant: string }) {
+  const isJarvis = /^jarvis$/i.test(assistant.trim())
   const [voices, setVoices] = useState<VoiceOption[]>(() => listVoices())
   useEffect(() => {
     const refresh = () => setVoices(listVoices())
@@ -16,14 +17,14 @@ export function VoicePicker({ value, onChange, name }: { value: string; onChange
 
   function hear(id: string) {
     setVoicePref(id)
-    speak(`Às suas ordens, ${sir(name)}. Eu sou o Jarvis, seu assistente pessoal.`)
+    speak(`Às suas ordens, ${sir(name)}. Eu sou o ${assistant || 'Jarvis'}, seu assistente pessoal.`)
     setVoicePref(value) // only a preview: keep the chosen voice for everything else
   }
 
   const options: VoiceOption[] = [{ id: '', label: 'Automática', hint: 'escolhe a masculina, se houver' }, ...voices]
   return (
     <Card className="divide-y divide-line">
-      <div className="flex items-center gap-3 rounded-t-3xl bg-accent px-4 py-4 text-white">
+      {isJarvis && <div className="flex items-center gap-3 rounded-t-3xl bg-accent px-4 py-4 text-white">
         <span className="min-w-0 flex-1">
           <span className="block font-semibold">Voz oficial do Jarvis · Faber</span>
           <span className="block text-sm text-white/70">Na prévia, só na apresentação. No app final, em tudo.</span>
@@ -31,7 +32,7 @@ export function VoicePicker({ value, onChange, name }: { value: string; onChange
         <button onClick={() => playClip(SAMPLE_MP3)} className="flex items-center gap-1 rounded-full bg-white px-3 py-2 text-[14px] font-semibold text-accent" aria-label="Ouvir a voz oficial do Jarvis">
           <Play size={14} className="fill-accent" />Ouvir
         </button>
-      </div>
+      </div>}
       <p className="px-4 pt-3 text-[13px] font-semibold uppercase tracking-wider text-muted">Voz das respostas na prévia</p>
       {options.map((v) => (
         <div key={v.id || 'auto'} className="flex items-center gap-3 px-4 py-3">

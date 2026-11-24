@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { CalendarDays, CloudRain, CloudSun, Home, Mic, Play, Plus, Settings as Cog, Square } from 'lucide-react'
 import { useAgenda, occurrences, uid } from './lib/store'
 import { addDays, hhmm, longDate, sameDay, startOfDay, relativeDay } from './lib/dates'
-import { interpret, morningBrief, greeting, type Pending } from './lib/brain'
+import { interpret, morningBrief, greeting, sir, type Pending } from './lib/brain'
 import { fetchWeather, weatherSentence, type Weather } from './lib/weather'
 import { chime, playClip, setVoicePref, speak, stopSpeaking } from './lib/voice'
 import { INTRO_MP3 } from './lib/jarvisClips'
@@ -126,7 +126,8 @@ export default function App() {
       {!settings.account && <Login onDone={(account) => setSettings({ ...settings, account })} />}
       {settings.account && !settings.onboarded && <Welcome settings={settings} onDone={(s) => {
         setSettings({ ...s, onboarded: true })
-        playClip(INTRO_MP3)
+        if (/^jarvis$/i.test(s.assistant.trim())) playClip(INTRO_MP3)
+        else speak(`Olá, ${sir(s.name)}. Eu sou o ${s.assistant}, seu assistente pessoal. A partir de agora eu cuido da sua agenda. Quando precisar de mim, é só chamar.`)
       }} />}
       <div key={tab} className="anim-view">
       {tab === 'today' && (

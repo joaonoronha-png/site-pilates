@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Keyboard, Mic, Send, Square, Undo2, X } from 'lucide-react'
-import { canListen, listen, needsGesture, speak, stopSpeaking } from '../lib/voice'
+import { canListen, listen, MIC_BLOCKED, needsGesture, speak, stopSpeaking } from '../lib/voice'
 import type { BrainResult } from '../lib/brain'
 import { EventItem, type Occ } from './EventItem'
 
@@ -63,7 +63,7 @@ export function VoiceSheet({ onClose, ask, now, onOpen, autoStart, name, onUndo 
     stopRef.current = listen({
       onPartial: setPartial,
       onFinal: handle,
-      onError: (m) => { setError(m); setState('idle'); setPartial('') },
+      onError: (m) => { setError(m); setState('idle'); setPartial(''); if (m === MIC_BLOCKED) setTyping(true) },
     })
   }
 

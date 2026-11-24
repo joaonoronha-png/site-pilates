@@ -56,7 +56,7 @@ export function SettingsView({ s, set, onSimulate, onReset }: {
       </Card>
 
       <div className={label}>Voz do {s.assistant || 'Jarvis'}</div>
-      <VoicePicker value={s.voice} onChange={(v) => up('voice', v)} name={s.name} />
+      <VoicePicker value={s.voice} onChange={(v) => up('voice', v)} name={s.name} assistant={s.assistant} />
 
       <div className={label}>Bom dia</div>
       <Card className="divide-y divide-line">

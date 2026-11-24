@@ -40,6 +40,8 @@ if (host?.use) {
   host.use('tts').then((t) => { tts = t as Tts | null }).catch(() => {})
 }
 
+export const MIC_BLOCKED = 'Aqui o microfone do app está bloqueado. Escreva abaixo, ou toque no microfone do próprio teclado para ditar.'
+
 export const canListen = () => typeof window !== 'undefined' && (dict !== null || getCtor() !== null)
 export const canSpeak = () => typeof window !== 'undefined' && (tts !== null || 'speechSynthesis' in window)
 
@@ -63,7 +65,7 @@ function listenWithDictation(d: Dictation, handlers: Parameters<typeof listen>[0
   d.start({ language: 'pt-BR' }).catch((e: { code?: string }) => {
     finished = true
     cleanup()
-    handlers.onError(e?.code === 'not_granted' ? 'O microfone não foi liberado. Você pode digitar.' : 'Toque no microfone para falar.')
+    handlers.onError(e?.code === 'not_granted' ? MIC_BLOCKED : 'Toque no microfone para falar.')
   })
   return () => { d.stop().catch(() => {}) }
 }
@@ -76,7 +78,7 @@ export function listen(handlers: {
   if (dict) return listenWithDictation(dict, handlers)
   const C = getCtor()
   if (!C) {
-    handlers.onError('Este navegador não reconhece voz. Use o teclado ou o microfone do teclado.')
+    handlers.onError(MIC_BLOCKED)
     return () => {}
   }
   const rec = new C()
@@ -96,7 +98,7 @@ export function listen(handlers: {
   rec.onerror = (e) => {
     if (e.error === 'no-speech' || e.error === 'aborted') return
     done = true
-    handlers.onError(e.error === 'not-allowed' ? 'Preciso de permissão para usar o microfone.' : 'Não consegui ouvir. Tente de novo.')
+    handlers.onError(e.error === 'not-allowed' || e.error === 'service-not-allowed' ? MIC_BLOCKED : 'Não consegui ouvir. Tente de novo.')
   }
   rec.onend = () => {
     if (done) return
