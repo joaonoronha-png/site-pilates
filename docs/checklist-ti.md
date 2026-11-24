@@ -9,8 +9,8 @@ envia os convites de reunião e procura os contatos. Para isso, precisa de um re
 2. **Identidade › Aplicativos › Registros de aplicativo › Novo registro**
    - Nome: **Jarvis**
    - Tipos de conta: **Somente contas deste diretório organizacional** (um locatário)
-   - URI de redirecionamento: plataforma **Web**, endereço: **________________________**
-     (é a "Callback URL" que aparece no Lovable/Supabase, na configuração do login Microsoft/Azure)
+   - URI de redirecionamento: plataforma **Web**, endereço:
+     **`https://jarvis-agenda-7k3q.lovable.app/auth/microsoft/callback`**
 3. No app criado, abra **Permissões de API › Adicionar permissão › Microsoft Graph › Permissões delegadas** e marque:
    - `User.Read`
    - `offline_access`
@@ -28,7 +28,9 @@ envia os convites de reunião e procura os contatos. Para isso, precisa de um re
 | ID do aplicativo (Client ID) | Visão geral do app |
 | Valor do segredo do cliente | Passo 5 |
 
-Esses códigos vão **somente** na configuração do login Microsoft do Lovable/Supabase.
+Esses códigos vão **somente** em Lovable › Project Settings › **Secrets**, com estes nomes:
+`MS_TENANT_ID`, `MS_CLIENT_ID`, `MS_CLIENT_SECRET`.
+Lá também vai o segredo `ALLOWED_EMAILS`, com o e-mail do Sanderson. Só esse e-mail consegue entrar no Jarvis.
 **Não mande por WhatsApp nem por e-mail.** Digite direto no Lovable, ali na hora.
 
 ## Segurança
