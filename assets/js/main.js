@@ -587,23 +587,11 @@
           '<div><dt>Festas</dt><dd>' + yn(r.festas, 'Permitidas', 'Não permitidas') + '</dd></div><div><dt>Entrada</dt><dd>' + esc(r.selfCheckin ? 'Self check-in ' + r.selfCheckin : 'Combinada com o anfitrião') + '</dd></div>' +
           '<div><dt>Estacionamento</dt><dd>' + yn(r.estacionamento, 'Tem', 'Não tem') + '</dd></div><div><dt>Roupa de cama e toalhas</dt><dd>' + yn(r.enxoval, 'Incluídas', 'Não incluídas') + '</dd></div>' +
         '</dl>' +
+        '<h3>Disponibilidade</h3><div class="bk-avail" id="bk-avail"></div>' +
         '<h3>Localização aproximada</h3><p class="pdp__ref">O endereço exato é enviado após a reserva.</p><div class="pdp__mini" id="mini-map"></div>' +
       '</div>' +
-      '<aside class="book" aria-label="Consultar disponibilidade">' +
-        '<p class="book__price">' + (i.diariaAPartir ? 'A partir de R$ ' + i.diariaAPartir + '<small>por noite</small>' : 'Consulte o valor<small>O preço varia com a data e o número de hóspedes.</small>') + '</p>' +
-        '<form id="book-form" novalidate><div class="book__grid">' +
-          '<label>Check-in<input type="date" name="ci" min="' + todayISO(0) + '" value="' + (state.checkin || '') + '"></label>' +
-          '<label>Check-out<input type="date" name="co" min="' + todayISO(1) + '" value="' + (state.checkout || '') + '"></label>' +
-          '<label>Hóspedes<input type="number" name="g" min="1" max="' + i.hospedes + '" value="' + Math.min(state.guests || 2, i.hospedes) + '" inputmode="numeric"></label>' +
-        '</div>' +
-        '<p class="book__sum" id="book-sum" aria-live="polite"></p><p class="book__warn" id="book-warn" hidden></p>' +
-        '<button class="btn btn--sun" type="submit"><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button>' +
-        '<a class="wa-open" id="book-open" target="_blank" rel="noopener" hidden>Mensagem pronta: toque para abrir no WhatsApp →</a></form>' +
-        '<ul class="book__terms"><li>Mínimo de ' + C.minimoNoites + ' noites</li><li>Taxa de limpeza: R$ ' + (casa ? C.limpeza.casa : C.limpeza.apartamento) + '</li><li>' + esc(C.pagamento) + ': ' + esc(C.sinal) + '</li><li>' + esc(C.cancelamento) + '</li></ul>' +
-        '<p class="book__save"><svg aria-hidden="true"><use href="#i-tag"/></svg><span><b>Reserva direta, sem taxa do Airbnb.</b> Você paga menos reservando aqui com a gente.</span></p>' +
-        '<p class="book__alt">Dúvidas sobre a reserva? <a href="#" data-wa-msg="' + esc('Olá! Tenho uma dúvida sobre a reserva do imóvel "' + i.nome + '".') + '" data-wa="book-help" target="_blank" rel="noopener">Fale com a equipe no WhatsApp</a></p>' +
-      '</aside></div>' +
-      '<div class="sheet__cta"><button class="btn btn--sun" type="button" data-go-book><svg aria-hidden="true"><use href="#i-wa"/></svg> Consultar disponibilidade</button></div>';
+      '<aside class="book" id="book-box" aria-label="Reservar"></aside></div>' +
+      '<div class="sheet__cta" id="book-bar"></div>';
 
     if (sheet.hidden) lastFocus = document.activeElement;
     sheet.hidden = false; document.body.classList.add('no-scroll');
@@ -611,26 +599,8 @@
     document.title = i.nome + ' — Aluguel Temporada RJ';
     track('property_view', { slug: slug });
 
-    // reserva
-    var f = $('#book-form'), sum = $('#book-sum'), warn = $('#book-warn');
-    var upd = function () {
-      var n = nights(f.ci.value, f.co.value);
-      sum.textContent = n ? n + (n === 1 ? ' noite' : ' noites') + ' · ' + (f.g.value || 1) + ' hóspede(s)' : 'Escolha as datas para consultar.';
-      if (f.ci.value) f.co.min = f.ci.value;
-    };
-    f.addEventListener('input', upd); upd();
-    f.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var g = parseInt(f.g.value, 10) || 1;
-      if (g > i.hospedes) { warn.hidden = false; warn.textContent = 'Este imóvel recebe até ' + i.hospedes + ' hóspedes.'; f.g.focus(); return; }
-      if (f.ci.value && f.co.value && nights(f.ci.value, f.co.value) < 1) { warn.hidden = false; warn.textContent = 'A saída precisa ser depois da entrada.'; f.co.focus(); return; }
-      warn.hidden = true;
-      state.checkin = f.ci.value; state.checkout = f.co.value;
-      track('booking_whatsapp', { slug: slug });
-      openWa(waLink(bookingMsg(i, f.ci.value, f.co.value, g)), $('#book-open'));
-    });
-
-    $('[data-go-book]').addEventListener('click', function () { $('#book-form').scrollIntoView({ behavior: 'smooth', block: 'center' }); setTimeout(function () { $('#book-form').ci.focus(); }, 500); });
+    // reserva: calendário, caixa de reserva e barra do celular (assets/js/booking.js)
+    if (window.BOOKING) BOOKING.mountBox(i, $('#book-box'), $('#bk-avail'), $('#book-bar'));
     bindWa(sheetBody);
     // galeria
     $$('[data-lb]', sheetBody).forEach(function (b) { b.addEventListener('click', function () { lightbox(i, Number(b.dataset.lb)); }); });
@@ -696,7 +666,9 @@
     destino: function (id) { return 'Imóveis em ' + DEST[id].nome + ' — ' + BASE_TITLE; },
     alem: function () { return 'Além das chaves — ' + BASE_TITLE; },
     anuncie: function () { return 'Anuncie seu imóvel — ' + BASE_TITLE; },
-    lancha: function () { return 'Passeio de lancha em Angra dos Reis — ' + BASE_TITLE; }
+    lancha: function () { return 'Passeio de lancha em Angra dos Reis — ' + BASE_TITLE; },
+    checkout: function () { return 'Confirmar e reservar — ' + BASE_TITLE; },
+    conta: function () { return 'Minhas reservas — ' + BASE_TITLE; }
   };
   var views = $$('.view'), cur = { view: null, arg: null }, lastBase = '#inicio', marqueeOn = false;
   var LEGACY = { imoveis: ['home', null, 'destinos'], mapa: ['home', null, 'destinos'], proprietarios: ['anuncie'], experiencias: ['alem', 'barra'], contato: ['home', null, 'contato'] };
@@ -708,6 +680,8 @@
     if ((m = h.match(/^alem-das-chaves(?:\/([\w-]+))?$/))) return { view: 'alem', arg: m[1] && D.alem[m[1]] && m[1] !== 'todos' ? m[1] : 'barra' };
     if (h === 'anuncie') return { view: 'anuncie' };
     if (h === 'lancha' || h === 'barco') return { view: 'lancha' };
+    if ((m = h.match(/^reservar\/([\w-]+\/\d{4}-\d\d-\d\d\/\d{4}-\d\d-\d\d\/\d+)$/))) return { view: 'checkout', arg: m[1] };
+    if (h === 'minhas-reservas' || h === 'conta') return { view: 'conta' };
     if (LEGACY[h]) return { view: LEGACY[h][0], arg: LEGACY[h][1] || null, anchor: LEGACY[h][2] };
     return { view: 'home', anchor: h && document.getElementById(h) ? h : null };
   }
@@ -718,6 +692,8 @@
     document.body.setAttribute('data-page', v);
     if (v === 'destino') { renderDestino(arg); if (res.view) showMap(wide(), true); }
     if (v === 'alem') renderAlem(arg);
+    if (v === 'checkout' && window.BOOKING) BOOKING.checkout(arg);
+    if (v === 'conta' && window.BOOKING) BOOKING.conta();
     if (v === 'home' && !marqueeOn) { marqueeOn = true; initMarquee($('#reviews'), 45); }
     $$('[data-nav]').forEach(function (a) { a.setAttribute('aria-current', String(a.dataset.nav === v)); });
     document.title = TITLES[v](arg);
@@ -760,7 +736,7 @@
   /* ---------- API pública para o mapa e o assistente ---------- */
   window.APP = {
     state: state, openImovel: function (slug) { location.hash = 'imovel/' + slug; },
-    img: img, waLink: waLink, bookingMsg: bookingMsg, destName: destName, track: track, fmtDate: fmtDate, nights: nights, toast: toast,
+    img: img, waLink: waLink, openWa: openWa, bookingMsg: bookingMsg, destName: destName, track: track, fmtDate: fmtDate, nights: nights, toast: toast,
     // o assistente guarda a busca; "Ver imóveis" leva à página do destino
     applyFilters: function (f) {
       state.dest = f.dest || ''; state.am = f.am || [];

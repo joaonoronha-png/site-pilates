@@ -463,6 +463,16 @@
       ]
     },
 
+    /*
+     * Reserva direta pelo site (assets/js/booking.js).
+     * modo 'previa': login, agenda e pagamento simulados no navegador; a pré-reserva termina no WhatsApp.
+     * modo 'online': Supabase (contas e reservas) + Mercado Pago (Pix), quando as contas forem criadas.
+     * Em cada imóvel, quando o cliente enviar:
+     *   precos: { base: 450, periodos: [{ nome: 'Réveillon', de: '12-27', ate: '01-02', valor: 1200 }] }  // diária sem taxas
+     *   bloqueios: [{ de: '2026-12-20', ate: '2026-12-27' }]  // noites ocupadas lançadas à mão (o resto virá do calendário do Airbnb)
+     */
+    reserva: { modo: 'previa' },
+
     // Avaliações reais (perfil público do anfitrião no Airbnb, set/2026)
     avaliacoes: [
       { nome: 'Matías', origem: 'Buenos Aires, Argentina', data: 'setembro de 2026', nota: 5, traduzido: 'espanhol',

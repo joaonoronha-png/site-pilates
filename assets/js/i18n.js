@@ -67,7 +67,24 @@
     [/^(\d+) quarto\(s\)$/, function (m) { return m[1] + (ES ? ' habitación(es)' : ' bedroom(s)'); }],
     [/^(\d+) banheiro\(s\)$/, function (m) { return m[1] + (ES ? ' baño(s)' : ' bathroom(s)'); }],
     [/^(\d+) vaga\(s\)$/, function (m) { return m[1] + (ES ? ' plaza(s) de garaje' : ' parking space(s)'); }],
-    [/^(\d+) hóspedes$/, function (m) { return pl(m[1], 'guest'); }]
+    [/^(\d+) hóspedes?$/, function (m) { return pl(m[1], 'guest'); }],
+    // reserva direta (assets/js/booking.js)
+    [/^(\d+) noites?$/, function (m) { return pl(m[1], 'night'); }],
+    [/^(\d+) noites? em (.+)$/, function (m) { return pl(m[1], 'night') + (ES ? ' en ' : ' at ') + t(m[2]); }],
+    [/^Diárias \((\d+) noites?\)$/, function (m) { return (ES ? 'Estadía (' : 'Stay (') + pl(m[1], 'night') + ')'; }],
+    [/^(R\$ [\d.,]+) × (\d+) noites?$/, function (m) { return m[1] + ' × ' + pl(m[2], 'night'); }],
+    [/^Mínimo de (\d+) noites$/, function (m) { return (ES ? 'Mínimo de ' : 'Minimum ') + pl(m[1], 'night'); }],
+    [/^Código ([A-Z0-9]+)$/, function (m) { return (ES ? 'Código ' : 'Code ') + m[1]; }],
+    [/^Total (R\$ [\d.,]+)$/, function (m) { return 'Total ' + m[1]; }],
+    [/^Código: ([A-Z0-9]+)\.$/, function (m) { return (ES ? 'Código: ' : 'Code: ') + m[1] + '.'; }],
+    [/^Imóvel: "(.+)" \((.+)\)\.$/, function (m) { return (ES ? 'Propiedad: "' : 'Property: "') + m[1] + '" (' + t(m[2]) + ').'; }],
+    [/^Documento: (.+)$/, function (m) { return (ES ? 'Documento: ' : 'ID: ') + m[1]; }],
+    [/^País: (.+)$/, function (m) { return (ES ? 'País: ' : 'Country: ') + m[1]; }],
+    [/^Chegada prevista: (.+)$/, function (m) { return (ES ? 'Llegada prevista: ' : 'Estimated arrival: ') + t(m[1]); }],
+    [/^Mensagem: (.+)$/, function (m) { return (ES ? 'Mensaje: ' : 'Message: ') + m[1]; }],
+    [/^Total: (R\$ [\d.,]+) \(sinal de (R\$ [\d.,]+)\)\.$/, function (m) { return ES ? 'Total: ' + m[1] + ' (anticipo de ' + m[2] + ').' : 'Total: ' + m[1] + ' (deposit of ' + m[2] + ').'; }],
+    [/^Olá! Quero falar sobre a minha reserva ([A-Z0-9]+) \((.+)\)\.$/, function (m) { return ES ? '¡Hola! Quiero hablar sobre mi reserva ' + m[1] + ' (' + m[2] + ').' : 'Hi! I\'d like to talk about my booking ' + m[1] + ' (' + m[2] + ').'; }],
+    [/^Olá! Tenho uma dúvida sobre a reserva do imóvel "(.+)"\.$/, function (m) { return ES ? '¡Hola! Tengo una duda sobre la reserva de la propiedad "' + m[1] + '".' : 'Hi! I have a question about booking "' + m[1] + '".'; }]
   ];
   // "4 pessoas (2 crianças) · Barra da Tijuca · piscina, vista para o mar · 10/01/2027 a 15/01/2027"
   function resumo(s) {
@@ -122,7 +139,7 @@
       var p = n.parentNode; if (!p || SKIP[p.nodeName] || (p.closest && p.closest('[data-no-i18n]'))) return;
       var v = t(n.nodeValue); if (v !== n.nodeValue) n.nodeValue = v;
     } else if (n.nodeType === 1) {
-      if (SKIP[n.nodeName] || n.hasAttribute('data-no-i18n')) return;
+      if ((SKIP[n.nodeName] && n.nodeName !== 'TEXTAREA') || n.hasAttribute('data-no-i18n')) return;  // textarea: só o placeholder
       for (var i = 0; i < ATTRS.length; i++) { var a = n.getAttribute(ATTRS[i]); if (a) { var x = t(a); if (x !== a) n.setAttribute(ATTRS[i], x); } }
       if ((n.nodeName === 'INPUT' && (n.type === 'submit' || n.type === 'button')) && n.value) n.value = t(n.value);
     }
