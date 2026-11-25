@@ -241,7 +241,7 @@
     p.push('Pode me ajudar com disponibilidade e valores?');
     return p.join('\n');
   }
-  function handoffAction(label) { return { label: label || 'Falar com a equipe', href: APP().waLink(handoffText()) }; }
+  function handoffAction(label) { return { label: label || 'Falar com a equipe', href: APP().waLink(handoffText()), handoff: true }; }
   function waAction(label, msg) { return { label: label, href: APP().waLink(msg) }; }
 
   /* ---------- interface ---------- */
@@ -261,16 +261,18 @@
     }
     if (out.actions && out.actions.length) {
       html += '<div class="msg__actions">' + out.actions.map(function (a) {
-        return '<a href="' + esc(a.href) + '" target="_blank" rel="noopener" data-chat-wa><svg aria-hidden="true"><use href="#i-wa"/></svg>' + esc(a.label) + '</a>';
+        return '<a href="' + esc(a.href) + '" target="_blank" rel="noopener" data-chat-wa' + (a.handoff ? '="resumo"' : '') + '><svg aria-hidden="true"><use href="#i-wa"/></svg>' + esc(a.label) + '</a>';
       }).join('') + '</div>';
     }
     var b = bubble('msg--bot', html);
     Array.prototype.forEach.call(b.querySelectorAll('[data-open]'), function (x) {
       x.addEventListener('click', function () { APP().track('chat_open_property', { slug: x.dataset.open }); if (window.innerWidth < 520) close(); APP().openImovel(x.dataset.open); });
     });
+    // botões de resumo ganham o resumo mais recente; os de mensagem própria (ex.: gestão) mantêm a deles
     Array.prototype.forEach.call(b.querySelectorAll('[data-chat-wa]'), function (x) {
-      x.addEventListener('click', function () { x.href = APP().waLink(handoffText()); APP().track('chat_to_whatsapp'); });
+      x.addEventListener('click', function () { if (x.getAttribute('data-chat-wa') === 'resumo') x.href = APP().waLink(handoffText()); APP().track('chat_to_whatsapp'); });
     });
+    refreshHandoff();
     setChips(out.chips && out.chips.length ? out.chips : null);
     history.push({ role: 'assistant', content: out.text });
   }
@@ -317,6 +319,7 @@
   var greeted = false;
   function open(focusInput) {
     chat.hidden = false; fab.classList.add('chat-open');
+    refreshHandoff();
     Array.prototype.forEach.call(document.querySelectorAll('[data-open-chat]'), function (b) { if (b.hasAttribute('aria-expanded')) b.setAttribute('aria-expanded', 'true'); });
     if (!greeted) {
       greeted = true;
@@ -334,6 +337,11 @@
   Array.prototype.forEach.call(document.querySelectorAll('[data-close-chat]'), function (b) { b.addEventListener('click', close); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !chat.hidden && document.getElementById('sheet').hidden) close(); });
   form.addEventListener('submit', function (e) { e.preventDefault(); var v = input.value; input.value = ''; send(v); });
+  // o link do rodapé já fica pronto com o resumo da conversa (alguns apps abrem o link antes de rodar o clique)
+  function refreshHandoff() {
+    var h = $('[data-handoff]'); if (h) h.href = APP().waLink(handoffText());
+    Array.prototype.forEach.call(document.querySelectorAll('[data-chat-wa="resumo"]'), function (x) { x.href = APP().waLink(handoffText()); });
+  }
   $('[data-handoff]').addEventListener('click', function (e) { e.currentTarget.href = APP().waLink(handoffText()); APP().track('chat_handoff'); });
 
   window.CONCIERGE = { open: open, close: close, ask: function (q) { open(false); send(q); }, _reply: localReply, _parse: parse, _mem: function () { return mem; }, _reset: function () { mem = { dest: '', guests: 0, kids: 0, pet: false, am: [], checkin: '', checkout: '', ocasiao: '', duvidas: [], lang: 'pt', sugeridos: [] }; history = []; save(); } };
