@@ -186,7 +186,7 @@
     var novaBusca = got.dest || got.guests || got.checkin || got.ocasiao;
     if (faq && (faq.id === 'barco' || !(wantsHome && novaBusca)) && !/^(oi|ola|bom dia|boa tarde|boa noite)\b/.test(n)) {
       out.text = lead + faq.resposta;
-      if (faq.status === 'pendente') { mem.duvidas.push(faq.pergunta); save(); out.text += '\n\nEssa informação a equipe confirma no atendimento; já anotei sua dúvida no resumo.'; out.actions.push(handoffAction()); }
+      if (faq.status === 'pendente') { mem.duvidas.push(text.slice(0, 140)); save(); out.text += '\n\nAnotei a sua pergunta: toque no botão abaixo e ela vai pronta para a equipe no WhatsApp.'; out.actions.push(handoffAction()); }
       if (faq.id === 'proprietario') out.actions = [waAction('Falar sobre gestão', 'Olá! Tenho um imóvel no Rio e quero saber sobre a gestão para temporada do Grupo 3D.')];
       if (faq.id === 'criancas') out.cards = D.imoveis.filter(function (i) { return i.comodidades.indexOf('familia') > -1; }).slice(0, 3).map(function (i) { return i.slug; });
       if (faq.id === 'barco') out.chips = ['Ver passeio de lancha', 'Casas em Angra'];
@@ -238,7 +238,7 @@
     if (mem.pet) p.push('Vou levar pet.');
     if (mem.sugeridos.length) p.push('Imóveis que gostei: ' + mem.sugeridos.map(function (s) { return D.imoveis.filter(function (i) { return i.slug === s; })[0].nome; }).join('; ') + '.');
     if (mem.duvidas.length) p.push('Dúvidas: ' + mem.duvidas.slice(-4).join(' / '));
-    p.push('Pode me ajudar com disponibilidade e valores?');
+    p.push(r || mem.sugeridos.length ? 'Pode me ajudar com disponibilidade e valores?' : 'Pode me ajudar, por favor?');
     return p.join('\n');
   }
   function handoffAction(label) { return { label: label || 'Falar com a equipe', href: APP().waLink(handoffText()), handoff: true }; }
