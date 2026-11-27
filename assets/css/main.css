@@ -564,14 +564,17 @@ button.back{ border:0; background:none; padding:0; cursor:pointer; }
 .dhelp{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap: 14px 24px; margin-top: 44px; padding: 20px 24px; border-radius: 20px; background: var(--areia); }
 .dhelp p{ margin:0; max-width: 52ch; color: var(--texto-2); }
 .dhelp b{ color: var(--texto); }
-.explore__map{ display:none; position: sticky; top: calc(var(--header-h) + 16px); height: calc(100vh - var(--header-h) - 36px); min-height: 420px; border-radius: 20px; overflow:hidden; isolation:isolate; background: var(--areia-2); }
+.explore__map{ display:none; position: relative; border-radius: 20px; overflow:hidden; isolation:isolate; background: var(--areia-2); }
 .map-note{ position:absolute; left: 12px; top: 12px; z-index: 5; margin:0; padding: 6px 12px; border-radius: 999px; background: rgba(255,255,255,.92); font-size: .74rem; color: var(--texto-2); box-shadow: 0 4px 12px -6px rgba(11,44,61,.4); }
-body.show-map .explore__in{ grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
-body.show-map .explore__map{ display:block; }
+/* computador: mapa na horizontal, embaixo dos imóveis */
+@media (min-width: 951px){
+  .explore__map{ display:block; height: clamp(320px, 46vh, 460px); }
+  .maptoggle{ display:none !important; }
+}
+/* celular e tablet pequeno: como antes, botão "Mostrar mapa" alterna lista e mapa */
 @media (max-width: 950px){
-  body.show-map .explore__in{ grid-template-columns: 1fr; }
   body.show-map .explore__list{ display:none; }
-  body.show-map .explore__map{ position: relative; top:auto; height: calc(100svh - var(--header-h) - 120px); border-radius: 16px; }
+  body.show-map .explore__map{ display:block; height: calc(100svh - var(--header-h) - 120px); border-radius: 16px; }
 }
 .maptoggle{
   position: fixed; left: 50%; bottom: calc(26px + env(safe-area-inset-bottom, 0px)); z-index: 950; transform: translate(-50%, 160%);
@@ -954,11 +957,13 @@ button.bk__f:hover{ background: var(--espuma); }
 .sheet{ position: fixed; inset:0; z-index: 1200; display:flex; justify-content:flex-end; }
 .sheet[hidden]{ display:none; }
 .sheet__backdrop{ position:absolute; inset:0; background: rgba(11,44,61,.5); backdrop-filter: blur(3px); animation: fade .35s ease both; }
+/* o imóvel ocupa a tela inteira (computador, iPad e celular) */
 .sheet__panel{
-  position:relative; width: min(980px, 100%); height:100%; overflow-y:auto; overscroll-behavior: contain; background: var(--espuma);
-  animation: sheet-in .55s var(--ease) both; outline: none;
+  position:relative; width: 100%; height:100%; overflow-y:auto; overscroll-behavior: contain; background: var(--espuma);
+  animation: sheet-in .5s var(--ease) both; outline: none;
 }
-@keyframes sheet-in{ from{ transform: translateX(40px); opacity:0; } }
+.sheet__body{ max-width: 1240px; margin: 0 auto; }
+@keyframes sheet-in{ from{ transform: translateY(24px); opacity:0; } }
 @keyframes fade{ from{ opacity:0; } }
 .sheet__close{ position: sticky; top: 14px; margin: 14px 14px -58px auto; display:grid; place-items:center; z-index: 5; width:44px; height:44px; border-radius:50%; border:0; background: rgba(248,246,241,.94); box-shadow: 0 8px 20px -10px rgba(11,44,61,.5); }
 .sheet__close svg{ width:20px; height:20px; }
@@ -984,9 +989,16 @@ button.bk__f:hover{ background: var(--espuma); }
 .gals__nav--next{ right: 12px; }
 .gals__nav:disabled{ opacity:0; pointer-events:none; }
 .gals__count{ position:absolute; right: 12px; bottom: 12px; padding: 4px 11px; border-radius: 999px; background: rgba(11,44,61,.72); color:#fff; font-size: .8rem; font-weight:600; font-variant-numeric: tabular-nums; pointer-events:none; }
-@media (max-width: 700px){
-  .gal:not(.gal--single){ display:none; }
-  .gals{ display:block; }
+/* foto em destaque com setas em todas as telas (o mosaico saiu) */
+.gal:not(.gal--single){ display:none; }
+.gals{ display:block; }
+@media (min-width: 701px){
+  .gals{ margin: 24px clamp(18px, 4vw, 44px) 0; border-radius: 22px; overflow:hidden; }
+  .gals__track button{ aspect-ratio: auto; height: min(68vh, 640px); }
+  .gals__nav{ width: 46px; height: 46px; margin-top: -23px; }
+  .gals__nav--prev{ left: 18px; } .gals__nav--next{ right: 18px; }
+  .gals__nav svg{ width: 17px; height: 17px; }
+  .gals__count{ right: 18px; bottom: 18px; padding: 6px 14px; font-size: .88rem; }
 }
 .pdp{ display:grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 36px; padding: 32px clamp(18px, 4vw, 44px) 64px; }
 .pdp__head h2{ font-size: clamp(2rem, 1.4rem + 2vw, 2.8rem); }
