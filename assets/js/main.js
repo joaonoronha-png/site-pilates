@@ -553,7 +553,24 @@
     return '<div class="gal">' + show.map(function (f, n) {
       return '<button type="button" data-lb="' + n + '" aria-label="Ampliar foto ' + (n + 1) + '"><img src="' + f.src + (n === 0 ? '-1080' : '-720') + '.webp" alt="' + esc(f.alt) + '" loading="' + (n ? 'lazy' : 'eager') + '">' +
         (n === show.length - 1 && i.fotos.length > 5 ? '<span class="gal__more">+' + (i.fotos.length - 5) + (i.fotos.length - 5 === 1 ? ' foto' : ' fotos') + '</span>' : '') + '</button>';
-    }).join('') + '</div>';
+    }).join('') + '</div>' +
+      // celular: uma foto grande por vez (a primeira é a que mais chama), com setas e contador
+      '<div class="gals" data-gals><div class="gals__track">' + i.fotos.map(function (f, n) {
+        return '<button type="button" data-lb="' + n + '" aria-label="Ampliar foto ' + (n + 1) + '"><img src="' + f.src + '-720.webp" srcset="' + f.src + '-720.webp 720w, ' + f.src + '-1080.webp 1080w" sizes="100vw" alt="' + esc(f.alt) + '" loading="' + (n ? 'lazy' : 'eager') + '"></button>';
+      }).join('') + '</div>' +
+      '<button type="button" class="gals__nav gals__nav--prev" data-gals-go="-1" aria-label="Foto anterior"><svg aria-hidden="true"><use href="#i-chev"/></svg></button>' +
+      '<button type="button" class="gals__nav gals__nav--next" data-gals-go="1" aria-label="Próxima foto"><svg aria-hidden="true"><use href="#i-chev"/></svg></button>' +
+      '<span class="gals__count" aria-hidden="true"><span data-gals-n>1</span> / ' + i.fotos.length + '</span></div>';
+  }
+  function bindGals(root) {
+    var g = $('[data-gals]', root); if (!g) return;
+    var tr = $('.gals__track', g), prev = $('[data-gals-go="-1"]', g), next = $('[data-gals-go="1"]', g), n = $('[data-gals-n]', g);
+    var upd = function () {
+      var k = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth));
+      n.textContent = k + 1; prev.disabled = k <= 0; next.disabled = k >= tr.children.length - 1;
+    };
+    [prev, next].forEach(function (b) { b.addEventListener('click', function () { tr.scrollBy({ left: Number(b.dataset.galsGo) * tr.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); }); });
+    tr.addEventListener('scroll', upd, { passive: true }); upd();
   }
   function openImovel(slug) {
     var i = bySlug[slug]; if (!i) return;
@@ -604,6 +621,7 @@
     bindWa(sheetBody);
     // galeria
     $$('[data-lb]', sheetBody).forEach(function (b) { b.addEventListener('click', function () { lightbox(i, Number(b.dataset.lb)); }); });
+    bindGals(sheetBody);
 
     // mini mapa
     if (window.MAPA && window.MAPA.mini) {
