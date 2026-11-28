@@ -163,6 +163,41 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && route.classList.contains('is-open')) { setOpen(false); rbtn.focus(); } });
   }
 
+  /* ---------- faixas de fotos no toque: só andam com gesto claramente para o lado ----------
+   * No celular, rolar a página com o dedo em cima das fotos fazia elas passarem sem querer
+   * (como stories). Aqui o navegador só cuida da rolagem vertical (touch-action: pan-y) e a
+   * faixa anda pelo JS quando o movimento horizontal é bem maior que o vertical. */
+  function swipeX(el, area) {
+    area = area || el;
+    if (!el || el.dataset.swipeX || !('ontouchstart' in window)) return;
+    el.dataset.swipeX = '1'; el.style.touchAction = 'pan-y'; area.style.touchAction = 'pan-y';
+    var x0 = 0, y0 = 0, left0 = 0, mode = null;
+    var step = function () { var c = el.children; return c.length > 1 ? c[1].offsetLeft - c[0].offsetLeft : el.clientWidth; };
+    area.addEventListener('touchstart', function (e) {
+      var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; left0 = el.scrollLeft; mode = null;
+    }, { passive: true });
+    area.addEventListener('touchmove', function (e) {
+      var t = e.touches[0], dx = t.clientX - x0, dy = t.clientY - y0;
+      if (!mode) {
+        if (Math.abs(dx) < 10 && Math.abs(dy) < 10) return;
+        mode = Math.abs(dx) > Math.abs(dy) * 1.6 ? 'x' : 'y';
+        if (mode === 'x') el.style.scrollSnapType = 'none';
+      }
+      if (mode === 'x') el.scrollLeft = left0 - dx;
+    }, { passive: true });
+    var end = function (e) {
+      if (mode !== 'x') { mode = null; return; }
+      var t = e.changedTouches[0], dx = t.clientX - x0, s = step();
+      var i = Math.round(left0 / s) + (dx < -40 ? 1 : dx > 40 ? -1 : 0);
+      i = Math.max(0, Math.min(i, Math.round((el.scrollWidth - el.clientWidth) / s)));
+      el.scrollTo({ left: i * s, behavior: reduce ? 'auto' : 'smooth' });
+      setTimeout(function () { el.style.scrollSnapType = ''; }, 450);
+      mode = null;
+    };
+    area.addEventListener('touchend', end, { passive: true });
+    area.addEventListener('touchcancel', end, { passive: true });
+  }
+
   /* ---------- vitrine ---------- */
   var state = { dest: '', am: [], guests: 0, checkin: '', checkout: '' };
   var DEST = {}; D.destinos.forEach(function (d) { DEST[d.id] = d; });
@@ -199,6 +234,7 @@
   function bindCards() {
     $$('.card', grid).forEach(function (c) {
       var sl = $('.card__slides', c), dots = $$('.card__dots i', c);
+      swipeX(sl, $('.card__media', c));
       $$('[data-slide]', c).forEach(function (b) {
         b.addEventListener('click', function (e) { e.preventDefault(); sl.scrollBy({ left: Number(b.dataset.slide) * sl.clientWidth, behavior: reduce ? 'auto' : 'smooth' }); });
       });
@@ -314,6 +350,7 @@
   // com "reduzir movimento" o carrossel fica parado: desliza com o dedo e tem setas
   function staticReviews(container) {
     container.classList.add('is-static'); container.closest('.reviews').classList.add('is-static');
+    swipeX(container);
     var btns = $$('[data-rev]'), cards = function () { return $$('.review-card:not([aria-hidden="true"])', container); };
     var upd = function () {
       btns[0].disabled = container.scrollLeft < 8;
@@ -565,6 +602,7 @@
   function bindGals(root) {
     var g = $('[data-gals]', root); if (!g) return;
     var tr = $('.gals__track', g), prev = $('[data-gals-go="-1"]', g), next = $('[data-gals-go="1"]', g), n = $('[data-gals-n]', g);
+    swipeX(tr);
     var upd = function () {
       var k = Math.round(tr.scrollLeft / Math.max(1, tr.clientWidth));
       n.textContent = k + 1; prev.disabled = k <= 0; next.disabled = k >= tr.children.length - 1;
