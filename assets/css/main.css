@@ -35,6 +35,9 @@
 
 *,*::before,*::after{ box-sizing:border-box; }
 html{ overscroll-behavior-x: none; scroll-behavior:smooth; scroll-padding-top: calc(var(--header-h) + 90px); -webkit-text-size-adjust:100%; }
+/* nada do conteúdo empurra a página para o lado no iPhone; o menu do topo fica fora disso e continua fixo */
+main, .footer{ overflow-x: clip; }
+.header__in{ overflow-x: clip; }
 body{
   margin:0; background: var(--espuma); color: var(--texto);
   font: 400 1.0625rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x:hidden;
@@ -959,7 +962,7 @@ button.bk__f:hover{ background: var(--espuma); }
 .sheet__backdrop{ position:absolute; inset:0; background: rgba(11,44,61,.5); backdrop-filter: blur(3px); animation: fade .35s ease both; }
 /* o imóvel ocupa a tela inteira (computador, iPad e celular) */
 .sheet__panel{
-  position:relative; width: 100%; height:100%; overflow-y:auto; overscroll-behavior: contain; background: var(--espuma);
+  position:relative; width: 100%; height:100%; overflow-y:auto; overflow-x:hidden; overscroll-behavior: contain; background: var(--espuma);
   animation: sheet-in .5s var(--ease) both; outline: none;
 }
 .sheet__body{ max-width: 1240px; margin: 0 auto; }
