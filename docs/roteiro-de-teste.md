@@ -25,16 +25,19 @@ Fale **devagar e com pausas**, do jeito normal dele.
 |---|---|
 | "Amigo, tudo bem?" | Responde de forma educada e curta, sem erro. |
 | "O que eu tenho amanhã?" | Lista os compromissos de amanhã, falando. |
-| "Marca uma reunião de teste amanhã às 7 da manhã" | Confirma e **aparece no Outlook** amanhã às 7h. |
+| "Marca uma reunião de teste amanhã às 7 da manhã" | Pergunta quanto tempo reservar (diga "meia hora"), e **aparece no Outlook** amanhã às 7h. |
 | "Muda a reunião de teste para as 8" | Ajusta, e no Outlook passa para as 8h. |
 | "Me avisa 10 minutos antes da reunião de teste" | Confirma o aviso de 10 minutos. |
 | "Passa tudo de amanhã para o dia 29" | Se o dia 29 cair num domingo, ele **pergunta** se não é segunda, dia 30. Responda **"não, deixa"**. |
-| "Confirma com o Matheus Fernandes a reunião de teste" | Acha o contato e pergunta "WhatsApp ou e-mail?". Escolha **WhatsApp**: abre a conversa com a mensagem pronta. **Não envie.** |
-| "Cancela a reunião de teste" | **Pede confirmação.** Diga "pode". Some do Outlook. |
+| "Confirma com o Matheus Fernandes a reunião de teste por WhatsApp" | Abre direto a conversa com a mensagem pronta. **Não envie.** |
+| "Confirma com o Matheus Fernandes a reunião de teste por e-mail" | **Envia direto** e diz "E-mail de confirmação enviado". Confira na caixa de Enviados do Outlook. |
+| "Passa tudo de amanhã para depois de amanhã" | **Move direto**, sem perguntar, e diz quantos moveu. Use **Desfazer** em seguida. |
+| "Cancela a reunião de teste" | **Cancela direto** e some do Outlook (dá para desfazer). |
 
 - [ ] Durante as pausas na fala, ele **não corta** antes de terminar.
 - [ ] O botão **"Pronto"** envia na hora.
 - [ ] O botão **"Desfazer"** desfaz a última ação.
+- [ ] A voz é masculina e natural. No iPhone, se sair a voz do aparelho, também está ok.
 
 ## 4. Celular (iPhone)
 - [ ] Abrir o link no Safari, tocar em **Compartilhar › Adicionar à Tela de Início** e abrir pelo ícone.
