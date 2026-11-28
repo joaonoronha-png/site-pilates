@@ -37,7 +37,6 @@
 html{ overscroll-behavior-x: none; scroll-behavior:smooth; scroll-padding-top: calc(var(--header-h) + 90px); -webkit-text-size-adjust:100%; }
 /* nada do conteúdo empurra a página para o lado no iPhone; o menu do topo fica fora disso e continua fixo */
 main, .footer{ overflow-x: clip; }
-.header__in{ overflow-x: clip; }
 body{
   margin:0; background: var(--espuma); color: var(--texto);
   font: 400 1.0625rem/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x:hidden;
@@ -210,9 +209,15 @@ html:not(.js) .intro{ display:none; }
 .header__cta svg{ width: 18px; height: 18px; }
 .usermenu{ padding: 0 14px; }
 @media (min-width: 1181px){ .usermenu, .menu{ display:none; } }
-@media (max-width: 1180px){ .tabs{ display:none; } .header__in{ grid-template-columns: 1fr auto; } }
+@media (max-width: 1180px){ .tabs{ display:none; } .header__in{ grid-template-columns: minmax(0, 1fr) auto; } }
+/* celular: o logo encolhe para os botões da direita (idioma, WhatsApp, ☰) sempre caberem */
+.logo{ min-width:0; max-width:100%; }
+.logo__txt{ min-width:0; overflow:hidden; }
+.header__actions{ flex:none; }
 @media (max-width: 420px){ .header__cta{ padding: 0; width: 42px; } .header__cta span{ display:none; } }
 @media (max-width: 520px){ .logo__txt{ font-size: 1.05rem; } .logo__mark{ width:32px; height:32px; } }
+@media (max-width: 440px){ .header__in{ gap: 8px; padding: 0 14px; } .logo{ gap: 8px; } .logo__txt{ font-size: .98rem; } .logo__mark{ width: 30px; height: 30px; } .header__cta{ padding:0; width:42px; } .header__cta span{ display:none; } }
+@media (max-width: 350px){ .logo__txt small{ display:none; } }
 
 
 /* seletor de idioma */
